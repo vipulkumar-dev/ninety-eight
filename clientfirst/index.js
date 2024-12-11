@@ -26,3 +26,5 @@ window.addEventListener("scroll", () => {
     ticking = true;
   }
 });
+
+console.log("From Server");
