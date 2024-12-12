@@ -1,3 +1,6 @@
+import { getCurrentTime, roll } from "../utils.js";
+import { liveReload } from "../liveReload.js";
+
 const header = document.getElementById("header");
 let lastScrollPosition = 0;
 let delta = 50; // Minimum scroll distance before toggling header
@@ -27,4 +30,6 @@ window.addEventListener("scroll", () => {
   }
 });
 
-console.log("From Server");
+console.log("From how it why");
+roll("[roll]", 100);
+// liveReload();
