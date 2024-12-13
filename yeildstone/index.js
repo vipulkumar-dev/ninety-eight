@@ -36,6 +36,64 @@ window.addEventListener("scroll", () => {
   }
 });
 
+const menu_tl = gsap.timeline({
+  paused: true,
+  defaults: {
+    duration: 0.3,
+    ease: "power3.inOut",
+  },
+  onReverseComplete: () => {
+    menu_tl_hover.reverse();
+  },
+});
+
+menu_tl
+  .to(".menu_line.top", {
+    top: "50%",
+  })
+  .to(
+    ".menu_line.bottom",
+    {
+      bottom: "50%",
+    },
+    "<"
+  )
+  .to(".menu_line.top", {
+    rotate: 45,
+    width: "85%",
+  })
+  .to(
+    ".menu_line.bottom",
+    {
+      rotate: -45,
+      width: "85%",
+    },
+    "<"
+  )
+  .fromTo(
+    ".navigation_wrapper",
+    {
+      y: "-100%",
+    },
+    {
+      y: "0%",
+      duration: 0.8,
+    },
+    "-=0.7"
+  );
+
+let isMenuOpen = false;
+const menu_trigger = document.querySelector(".menu_trigger");
+
+menu_trigger.addEventListener("click", () => {
+  if (!isMenuOpen) {
+    menu_tl.play();
+  } else {
+    menu_tl.reverse();
+  }
+  isMenuOpen = !isMenuOpen;
+});
+
 console.log("From how it why");
 roll("[roll]", 100);
 liveReload();

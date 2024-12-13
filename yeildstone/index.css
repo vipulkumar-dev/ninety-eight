@@ -1,3 +1,23 @@
-* {
-  outline: 1px solid red;
+.button.is-top {
+  transition: transform 0.35s cubic-bezier(0.76, 0, 0.24, 1) 0s,
+    -webkit-transform 0.35s cubic-bezier(0.76, 0, 0.24, 1) 0s;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.button.is-bottom {
+  transform-origin: 50% 0 0;
+  -webkit-transform: rotateX(-90deg);
+  transform: rotateX(-90deg);
+  z-index: -1;
+  transition: transform 0.35s cubic-bezier(0.76, 0, 0.24, 1) 0s,
+    -webkit-transform 0.35s cubic-bezier(0.76, 0, 0.24, 1) 0s;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+}
+
+.button_wrapper:hover .button.is-bottom {
+  background: red;
+  -webkit-transform: rotateX(0deg);
+  transform: rotateX(0deg);
 }
