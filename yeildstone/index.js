@@ -94,6 +94,47 @@ menu_trigger.addEventListener("click", () => {
   isMenuOpen = !isMenuOpen;
 });
 
+const buttonDefaults = {
+  duration: 0.4,
+  ease: "power2.inOut",
+};
+
+document.querySelectorAll(".button").forEach((button) => {
+  button.addEventListener("mouseenter", () => {
+    gsap.to(button, {
+      backgroundColor: "#27d690",
+      color: "#060318",
+      ...buttonDefaults,
+    });
+    gsap.to(button.querySelector(".btn_arrow"), {
+      backgroundColor: "#060318",
+      color: "#27d690",
+      ...buttonDefaults,
+    });
+    gsap.to(button.querySelectorAll(".arrow_svg"), {
+      x: 27,
+      ...buttonDefaults,
+      duration: 0.5,
+    });
+  });
+  button.addEventListener("mouseleave", () => {
+    gsap.to(button, {
+      backgroundColor: "#06031861",
+      color: "#fff",
+      ...buttonDefaults,
+    });
+    gsap.to(button.querySelector(".btn_arrow"), {
+      backgroundColor: "#27d690",
+      color: "#060318",
+      ...buttonDefaults,
+    });
+    gsap.to(button.querySelectorAll(".arrow_svg"), {
+      x: 0,
+      ...buttonDefaults,
+      duration: 0.5,
+    });
+  });
+});
 console.log("From how it why");
 roll("[roll]", 100);
 liveReload();

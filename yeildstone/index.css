@@ -1,4 +1,5 @@
 .button.is-top {
+  transform-origin: 50% 100% 0;
   transition: transform 0.35s cubic-bezier(0.76, 0, 0.24, 1) 0s,
     -webkit-transform 0.35s cubic-bezier(0.76, 0, 0.24, 1) 0s;
   -webkit-backface-visibility: hidden;
@@ -9,7 +10,7 @@
   transform-origin: 50% 0 0;
   -webkit-transform: rotateX(-90deg);
   transform: rotateX(-90deg);
-  z-index: -1;
+
   transition: transform 0.35s cubic-bezier(0.76, 0, 0.24, 1) 0s,
     -webkit-transform 0.35s cubic-bezier(0.76, 0, 0.24, 1) 0s;
   -webkit-backface-visibility: hidden;
@@ -17,7 +18,12 @@
 }
 
 .button_wrapper:hover .button.is-bottom {
-  background: red;
-  -webkit-transform: rotateX(0deg);
-  transform: rotateX(0deg);
+  -webkit-transform: rotateX(0deg) translateY(-100%);
+  transform: rotateX(0deg) translateY(-100%);
+  background-color: #060318;
+}
+
+.button_wrapper:hover .button.is-top {
+  -webkit-transform: rotateX(-90deg) translateY(-100%);
+  transform: rotateX(-90deg) translateY(-100%);
 }
