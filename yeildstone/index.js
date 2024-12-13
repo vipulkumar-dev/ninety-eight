@@ -3,7 +3,7 @@ import { liveReload } from "../liveReload.js";
 
 const header = document.getElementById("header");
 let lastScrollPosition = 0;
-let delta = 50; // Minimum scroll distance before toggling header
+let delta = 30; // Minimum scroll distance before toggling header
 let ticking = false;
 
 function handleScroll() {
@@ -27,6 +27,12 @@ window.addEventListener("scroll", () => {
   if (!ticking) {
     window.requestAnimationFrame(handleScroll);
     ticking = true;
+  }
+
+  if (window.scrollY > 0) {
+    header.classList.add("active");
+  } else {
+    header.classList.remove("active");
   }
 });
 
