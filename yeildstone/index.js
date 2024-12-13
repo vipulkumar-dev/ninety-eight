@@ -115,6 +115,7 @@ document.querySelectorAll(".button").forEach((button) => {
       x: 27,
       ...buttonDefaults,
       duration: 0.5,
+      ease: "power3.inOut",
     });
   });
   button.addEventListener("mouseleave", () => {
@@ -132,6 +133,7 @@ document.querySelectorAll(".button").forEach((button) => {
       x: 0,
       ...buttonDefaults,
       duration: 0.5,
+      ease: "power3.inOut",
     });
   });
 });
