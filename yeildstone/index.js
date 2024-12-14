@@ -1,5 +1,6 @@
 import { getCurrentTime, roll } from "../utils.js";
 import { liveReload } from "../liveReload.js";
+gsap.registerPlugin(Flip, ScrollTrigger, ScrollToPlugin);
 
 const header = document.getElementById("header");
 let lastScrollPosition = 0;
@@ -144,6 +145,20 @@ document.querySelectorAll(".feature_block").forEach((feature) => {
       feature.classList.remove("active");
     });
     feature.classList.add("active");
+
+    const feature_stripe = document.querySelector(".feature_stripe");
+    const feature_stripe_wrapper = feature.querySelector(
+      ".feature_stripe_wrapper"
+    );
+    const state = Flip.getState(".feature_stripe");
+    // console.log(state);
+
+    feature_stripe_wrapper.appendChild(feature_stripe);
+    Flip.from(state, {
+      absolute: true,
+      duration: 0.5,
+      ease: "power3.inOut",
+    });
   });
   // feature.addEventListener("mouseleave", () => {
 
