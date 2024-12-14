@@ -137,6 +137,18 @@ document.querySelectorAll(".button").forEach((button) => {
     });
   });
 });
-console.log("From how it why");
+
+document.querySelectorAll(".feature_block").forEach((feature) => {
+  feature.addEventListener("mouseenter", () => {
+    document.querySelectorAll(".feature_block.active").forEach((feature) => {
+      feature.classList.remove("active");
+    });
+    feature.classList.add("active");
+  });
+  // feature.addEventListener("mouseleave", () => {
+
+  // });
+});
+
 roll("[roll]", 100);
 liveReload();

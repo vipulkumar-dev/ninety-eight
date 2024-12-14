@@ -27,3 +27,14 @@
   -webkit-transform: rotateX(-90deg) translateY(-100%);
   transform: rotateX(-90deg) translateY(-100%);
 }
+
+/* Get Started */
+.get_started {
+  /* Group 33 */
+
+  position: absolute;
+  width: 38px;
+  height: 38px;
+  left: 633px;
+  top: 939px;
+}
