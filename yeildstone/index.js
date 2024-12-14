@@ -3,6 +3,7 @@ import { liveReload } from "../liveReload.js";
 gsap.registerPlugin(Flip, ScrollTrigger, ScrollToPlugin);
 
 const header = document.getElementById("header");
+let isMenuOpen = false;
 let lastScrollPosition = 0;
 let delta = 30; // Minimum scroll distance before toggling header
 let ticking = false;
@@ -25,9 +26,11 @@ function handleScroll() {
 }
 
 window.addEventListener("scroll", () => {
-  if (!ticking) {
-    window.requestAnimationFrame(handleScroll);
-    ticking = true;
+  if (!isMenuOpen) {
+    if (!ticking) {
+      window.requestAnimationFrame(handleScroll);
+      ticking = true;
+    }
   }
 
   if (window.scrollY > 0) {
@@ -42,9 +45,6 @@ const menu_tl = gsap.timeline({
   defaults: {
     duration: 0.3,
     ease: "power3.inOut",
-  },
-  onReverseComplete: () => {
-    menu_tl_hover.reverse();
   },
 });
 
@@ -75,16 +75,27 @@ menu_tl
   .fromTo(
     ".navigation_wrapper",
     {
-      y: "-100%",
+      x: "100%",
     },
     {
-      y: "0%",
+      x: "0%",
+      duration: 0.8,
+    },
+    "-=0.7"
+  )
+  .fromTo(
+    ".nav_animate",
+    {
+      x: "500px",
+    },
+    {
+      x: "0%",
+      stagger: 0.04,
       duration: 0.8,
     },
     "-=0.7"
   );
 
-let isMenuOpen = false;
 const menu_trigger = document.querySelector(".menu_trigger");
 
 menu_trigger.addEventListener("click", () => {
