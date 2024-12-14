@@ -61,13 +61,13 @@ menu_tl
   )
   .to(".menu_line.top", {
     rotate: 45,
-    width: "85%",
+    width: "82%",
   })
   .to(
     ".menu_line.bottom",
     {
       rotate: -45,
-      width: "85%",
+      width: "82%",
     },
     "<"
   )
