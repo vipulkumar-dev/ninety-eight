@@ -150,8 +150,7 @@ document.querySelectorAll(".feature_block").forEach((feature) => {
     const feature_stripe_wrapper = feature.querySelector(
       ".feature_stripe_wrapper"
     );
-    const state = Flip.getState(".feature_stripe");
-    // console.log(state);
+    const state = Flip.getState(feature_stripe);
 
     feature_stripe_wrapper.appendChild(feature_stripe);
     Flip.from(state, {
@@ -160,9 +159,6 @@ document.querySelectorAll(".feature_block").forEach((feature) => {
       ease: "power3.inOut",
     });
   });
-  // feature.addEventListener("mouseleave", () => {
-
-  // });
 });
 
 roll("[roll]", 100);
