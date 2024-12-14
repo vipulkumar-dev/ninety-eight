@@ -60,8 +60,9 @@ menu_tl
     "<"
   )
   .to(".menu_line.top", {
-    rotate: 45,
+    rotate: 225,
     width: "82%",
+    duration: 0.5,
   })
   .to(
     ".menu_line.bottom",
@@ -118,6 +119,26 @@ document.querySelectorAll(".button").forEach((button) => {
       duration: 0.5,
       ease: "power3.inOut",
     });
+    gsap.fromTo(
+      button.querySelectorAll(".arrow_svg.is-left"),
+      { scale: 0 },
+      {
+        scale: 1,
+        ...buttonDefaults,
+        duration: 0.5,
+        ease: "power3.inOut",
+      }
+    );
+    gsap.fromTo(
+      button.querySelectorAll(".arrow_svg.is-right"),
+      { scale: 1 },
+      {
+        scale: 0,
+        ...buttonDefaults,
+        duration: 0.5,
+        ease: "power3.inOut",
+      }
+    );
   });
   button.addEventListener("mouseleave", () => {
     gsap.to(button, {
@@ -136,6 +157,26 @@ document.querySelectorAll(".button").forEach((button) => {
       duration: 0.5,
       ease: "power3.inOut",
     });
+    gsap.fromTo(
+      button.querySelectorAll(".arrow_svg.is-left"),
+      { scale: 1 },
+      {
+        scale: 0,
+        ...buttonDefaults,
+        duration: 0.5,
+        ease: "power3.inOut",
+      }
+    );
+    gsap.fromTo(
+      button.querySelectorAll(".arrow_svg.is-right"),
+      { scale: 0 },
+      {
+        scale: 1,
+        ...buttonDefaults,
+        duration: 0.5,
+        ease: "power3.inOut",
+      }
+    );
   });
 });
 
