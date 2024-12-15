@@ -212,6 +212,50 @@ document.querySelectorAll(".feature_block").forEach((feature) => {
     });
   });
 });
+const phase_cards = document.querySelectorAll(".card");
+const phaseTl = gsap.timeline({
+  scrollTrigger: {
+    trigger: ".section_phase",
+    start: "center center",
+    end: "+=1000",
+    // markers: true,
+    pin: true,
+    scrub: true,
+    onUpdate: (self) => {
+      if (self.progress < 0.25) {
+        phase_cards.forEach((card) => {
+          card.classList.remove("active");
+        });
+        phase_cards[0].classList.add("active");
+      } else if (self.progress < 0.65) {
+        phase_cards.forEach((card) => {
+          card.classList.remove("active");
+        });
+        phase_cards[1].classList.add("active");
+      } else {
+        phase_cards.forEach((card) => {
+          card.classList.remove("active");
+        });
+        phase_cards[2].classList.add("active");
+      }
+    },
+  },
+});
 
-roll("[roll]", 100);
+// phase_cards.forEach((card) => {
+//   phaseTl.to(card, {
+//     // backgroundColor: "#27d690",
+//     color: "#fff",
+//     // duration: 0.5,
+//     ease: "power3.inOut",
+//   });
+//   const nextCard = card.nextElementSibling;
+//   if (nextCard) {
+//     phaseTl.to(nextCard, {
+//       color: "#27d690",
+//     });
+//   }
+// });
+
+// roll("[roll]", 100);
 liveReload();
