@@ -1,6 +1,5 @@
 import { getCurrentTime, roll } from "../utils.js";
 import { liveReload } from "../liveReload.js";
-gsap.registerPlugin(Flip, ScrollTrigger, ScrollToPlugin);
 
 const header = document.getElementById("header");
 let isMenuOpen = false;
