@@ -217,7 +217,7 @@ const phaseTl = gsap.timeline({
     trigger: ".phase_wrapper",
     start: "center center",
     end: "+=1000",
-    // markers: true,
+    markers: true,
     pin: ".section_pin",
     scrub: true,
     onUpdate: (self) => {
