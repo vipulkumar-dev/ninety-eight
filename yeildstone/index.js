@@ -214,7 +214,7 @@ document.querySelectorAll(".feature_block").forEach((feature) => {
 const phase_cards = document.querySelectorAll(".card");
 const phaseTl = gsap.timeline({
   scrollTrigger: {
-    trigger: ".section_phase",
+    trigger: ".phase_wrapper",
     start: "center center",
     end: "+=1000",
     // markers: true,
