@@ -218,7 +218,7 @@ const phaseTl = gsap.timeline({
     start: "center center",
     end: "+=1000",
     markers: true,
-    pin: ".section_pin",
+    // pin: ".section_pin",
     scrub: true,
     onUpdate: (self) => {
       if (self.progress < 0.25) {
