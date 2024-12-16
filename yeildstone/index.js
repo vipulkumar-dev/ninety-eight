@@ -258,7 +258,7 @@ const nomics_tl = gsap.timeline({
     trigger: ".section_nomics",
     start: "center center",
     end: "end center",
-    // markers: true,
+    markers: true,
     // pin: true,
     // scrub: true,
     onEnter: () => {
