@@ -241,7 +241,9 @@ const phaseTl = gsap.timeline({
   },
 });
 
-ScrollTrigger.refresh();
+document.addEventListener("DOMContentLoaded", () => {
+  ScrollTrigger.refresh();
+});
 
 // phase_cards.forEach((card) => {
 //   phaseTl.to(card, {
