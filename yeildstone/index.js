@@ -240,7 +240,7 @@ const phaseTl = gsap.timeline({
 
 setTimeout(() => {
   ScrollTrigger.refresh();
-}, 1000);
+}, 5000);
 
 // phase_cards.forEach((card) => {
 //   phaseTl.to(card, {
