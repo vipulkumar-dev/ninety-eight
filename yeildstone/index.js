@@ -187,27 +187,56 @@ document.querySelectorAll(".button").forEach((button) => {
   });
 });
 
+const feature_blocks = document.querySelectorAll(".feature_block");
+let next_feature = 1;
+let feature_interval = setInterval(() => {
+  addActiveFeature(feature_blocks[next_feature]);
+  next_feature++;
+  if (next_feature >= feature_blocks.length) {
+    next_feature = 0;
+  }
+}, 2500);
+
 document.querySelectorAll(".feature_block").forEach((feature) => {
   feature.addEventListener("mouseenter", () => {
-    document.querySelectorAll(".feature_block.active").forEach((feature) => {
-      feature.classList.remove("active");
-    });
-    feature.classList.add("active");
-
-    const feature_stripe = document.querySelector(".feature_stripe");
-    const feature_stripe_wrapper = feature.querySelector(
-      ".feature_stripe_wrapper"
-    );
-    const state = Flip.getState(feature_stripe);
-
-    feature_stripe_wrapper.appendChild(feature_stripe);
-    Flip.from(state, {
-      absolute: true,
-      duration: 0.5,
-      ease: "power3.inOut",
-    });
+    // stop interval temporarily
+    clearInterval(feature_interval);
+    addActiveFeature(feature);
+  });
+  feature.addEventListener("mouseleave", () => {
+    // get the index of the feature
+    const index = Array.from(feature_blocks).indexOf(feature);
+    next_feature = index + 1;
+    feature_interval = setInterval(() => {
+      addActiveFeature(feature_blocks[next_feature]);
+      next_feature++;
+      if (next_feature >= feature_blocks.length) {
+        next_feature = 0;
+      }
+    }, 2500);
   });
 });
+
+function addActiveFeature(feature) {
+  document.querySelectorAll(".feature_block.active").forEach((feature) => {
+    feature.classList.remove("active");
+  });
+  feature.classList.add("active");
+
+  const feature_stripe = document.querySelector(".feature_stripe");
+  const feature_stripe_wrapper = feature.querySelector(
+    ".feature_stripe_wrapper"
+  );
+  const state = Flip.getState(feature_stripe);
+
+  feature_stripe_wrapper.appendChild(feature_stripe);
+  Flip.from(state, {
+    absolute: true,
+    duration: 0.5,
+    ease: "power3.inOut",
+  });
+}
+
 const phase_cards = document.querySelectorAll(".card");
 const phaseTl = gsap.timeline({
   scrollTrigger: {
