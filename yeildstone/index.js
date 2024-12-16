@@ -238,33 +238,34 @@ function addActiveFeature(feature) {
 }
 
 const phase_cards = document.querySelectorAll(".card");
+const total_cards = phase_cards.length;
+
 const phaseTl = gsap.timeline({
   scrollTrigger: {
     trigger: ".phase_wrapper",
     start: "center center",
-    end: "+=1000",
+    end: "+=1500",
     // markers: true,
     pin: ".section_container_phase",
-    scrub: true,
+    scrub: 0.6,
     onUpdate: (self) => {
-      if (self.progress < 0.25) {
-        phase_cards.forEach((card) => {
-          card.classList.remove("active");
-        });
-        phase_cards[0].classList.add("active");
-      } else if (self.progress < 0.65) {
-        phase_cards.forEach((card) => {
-          card.classList.remove("active");
-        });
-        phase_cards[1].classList.add("active");
-      } else {
-        phase_cards.forEach((card) => {
-          card.classList.remove("active");
-        });
-        phase_cards[2].classList.add("active");
-      }
+      const current_card = Math.floor(self.progress * total_cards);
+      phase_cards.forEach((card) => {
+        card.classList.remove("active");
+      });
+      phase_cards[current_card].classList.add("active");
     },
   },
+});
+
+const phase_wrapper = document.querySelector(".phase_wrapper");
+const phase_container = document.querySelector(".phase_container");
+
+let move_x = phase_wrapper.offsetWidth - phase_container.offsetWidth;
+
+phaseTl.to(phase_wrapper, {
+  x: `-${move_x}px`,
+  ease: "power2.inOut",
 });
 
 // phase_cards.forEach((card) => {
