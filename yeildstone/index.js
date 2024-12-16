@@ -257,7 +257,7 @@ const nomics_tl = gsap.timeline({
   scrollTrigger: {
     trigger: ".section_nomics",
     start: "center center",
-    end: "+=200",
+    end: "end end",
     // markers: true,
     // pin: true,
     // scrub: true,
