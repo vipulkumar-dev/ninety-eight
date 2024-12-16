@@ -1,6 +1,3 @@
-import { getCurrentTime, roll } from "../utils.js";
-import { liveReload } from "../liveReload.js";
-
 document.addEventListener("DOMContentLoaded", () => {
   const header = document.getElementById("header");
   let isMenuOpen = false;
