@@ -241,6 +241,8 @@ const phaseTl = gsap.timeline({
   },
 });
 
+ScrollTrigger.refresh();
+
 // phase_cards.forEach((card) => {
 //   phaseTl.to(card, {
 //     // backgroundColor: "#27d690",
