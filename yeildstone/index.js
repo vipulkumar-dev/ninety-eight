@@ -245,7 +245,7 @@ const phaseTl = gsap.timeline({
     trigger: ".phase_wrapper",
     start: "center center",
     end: "+=1500",
-    // markers: true,
+    markers: true,
     pin: ".section_container_phase",
     scrub: 0.6,
     onUpdate: (self) => {
@@ -254,6 +254,9 @@ const phaseTl = gsap.timeline({
         card.classList.remove("active");
       });
       phase_cards[current_card].classList.add("active");
+    },
+    onLeave: () => {
+      ScrollTrigger.refresh();
     },
   },
 });
