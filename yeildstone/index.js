@@ -246,7 +246,7 @@ const phaseTl = gsap.timeline({
     start: "center center",
     end: "+=1500",
     markers: true,
-    pin: ".section_pin",
+    pin: ".section_container_phase",
     scrub: 0.6,
     onUpdate: (self) => {
       const current_card = Math.floor(self.progress * total_cards);
