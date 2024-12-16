@@ -288,7 +288,7 @@ phaseTl.to(phase_wrapper, {
 
 const nomics_tl = gsap.timeline({
   scrollTrigger: {
-    trigger: ".section_nomics",
+    trigger: ".section_tokonomics",
     start: "center center",
     end: "bottom center",
     // markers: true,
