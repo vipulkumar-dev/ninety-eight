@@ -260,7 +260,6 @@ const nomics_tl = gsap.timeline({
     end: "+=1000",
     markers: true,
     // pin: true,
-    scrub: true,
     onEnter: () => {
       phaseTl.scrollTrigger.refresh();
     },
