@@ -251,12 +251,12 @@ const phaseTl = gsap.timeline({
     onUpdate: (self) => {
       const current_card = Math.floor(self.progress * total_cards);
       phase_cards.forEach((card) => {
-        card.classList.remove("active");
+        card.classList?.remove("active");
       });
-      phase_cards[current_card].classList.add("active");
+      phase_cards[current_card]?.classList?.add("active");
     },
     onLeave: () => {
-      phaseTl.scrollTrigger.kill();
+      ScrollTrigger.refresh();
     },
   },
 });
