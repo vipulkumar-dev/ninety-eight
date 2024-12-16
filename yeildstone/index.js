@@ -255,11 +255,12 @@ const phaseTl = gsap.timeline({
 
 const nomics_tl = gsap.timeline({
   scrollTrigger: {
-    trigger: ".section_hero",
+    trigger: ".section_nomics",
     start: "center center",
     end: "+=1000",
     markers: true,
     // pin: true,
+    // scrub: true,
     onEnter: () => {
       phaseTl.scrollTrigger.refresh();
     },
