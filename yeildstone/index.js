@@ -249,7 +249,7 @@ const phaseTl = gsap.timeline({
     pin: ".section_container_phase",
     scrub: 0.6,
     onUpdate: (self) => {
-      const current_card = Math.floor(self.progress * total_cards);
+      const current_card = Math.floor(self.progress * (total_cards - 0.5));
       phase_cards.forEach((card) => {
         card.classList?.remove("active");
       });
