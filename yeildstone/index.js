@@ -207,6 +207,9 @@ document.querySelectorAll(".feature_block").forEach((feature) => {
     // get the index of the feature
     const index = Array.from(feature_blocks).indexOf(feature);
     next_feature = index + 1;
+    if (next_feature >= feature_blocks.length) {
+      next_feature = 0;
+    }
     feature_interval = setInterval(() => {
       addActiveFeature(feature_blocks[next_feature]);
       next_feature++;
