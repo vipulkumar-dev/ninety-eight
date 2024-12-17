@@ -271,21 +271,6 @@ phaseTl.to(phase_wrapper, {
   ease: "power2.inOut",
 });
 
-// phase_cards.forEach((card) => {
-//   phaseTl.to(card, {
-//     // backgroundColor: "#27d690",
-//     color: "#fff",
-//     // duration: 0.5,
-//     ease: "power3.inOut",
-//   });
-//   const nextCard = card.nextElementSibling;
-//   if (nextCard) {
-//     phaseTl.to(nextCard, {
-//       color: "#27d690",
-//     });
-//   }
-// });
-
 const nomics_tl = gsap.timeline({
   scrollTrigger: {
     trigger: ".section_tokonomics",
