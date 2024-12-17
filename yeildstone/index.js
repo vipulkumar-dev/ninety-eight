@@ -6,10 +6,10 @@ const closeArrowSVGString = `<svg width="20" height="20" viewBox="0 0 20 20" fil
 `;
 
 const zoomSVGString = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<circle cx="11.3947" cy="11.3947" r="9.39474" stroke="white" stroke-width="1.65789"/>
-<path d="M18.5791 18.5791L23.0002 23.0002" stroke="white" stroke-width="1.65789"/>
-<path class="plus_svgpath transtion-base" d="M11.3501 7.53027C11.3501 9.92583 11.3501 14.8196 11.3501 15.2303" stroke="white" stroke-width="1.66"/>
-<path  d="M7.50049 11.3799C9.89604 11.3799 14.7898 11.3799 15.2005 11.3799" stroke="white" stroke-width="1.66"/>
+<circle cx="11.3947" cy="11.3947" r="9.39474" stroke="white" stroke-width="1.8"/>
+<path d="M18.5791 18.5791L23.0002 23.0002" stroke="white" stroke-width="1.8"/>
+<path class="plus_svgpath transtion-base" d="M11.3501 7.53027C11.3501 9.92583 11.3501 14.8196 11.3501 15.2303" stroke="white" stroke-width="1.8"/>
+<path  d="M7.50049 11.3799C9.89604 11.3799 14.7898 11.3799 15.2005 11.3799" stroke="white" stroke-width="1.8"/>
 </svg>
 `;
 
