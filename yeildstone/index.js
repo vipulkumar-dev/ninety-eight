@@ -1,7 +1,7 @@
 import PhotoSwipeLightbox from "https://unpkg.com/photoswipe/dist/photoswipe-lightbox.esm.js";
 
 const closeArrowSVGString = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M18.9999 1.00007L1 19M0.999924 1L18.9998 18.9999" stroke="white" stroke-width="2.2"/>
+<path d="M18.9999 1.00007L1 19M0.999924 1L18.9998 18.9999" stroke="white" stroke-width="2.1"/>
 </svg>
 `;
 
@@ -265,56 +265,59 @@ function addActiveFeature(feature) {
   });
 }
 
-const phase_cards = document.querySelectorAll(".card");
-const total_cards = phase_cards.length;
+// only works on desktop
 
-const phaseTl = gsap.timeline({
-  scrollTrigger: {
-    trigger: ".phase_wrapper",
-    start: "center center",
-    end: "+=1500",
-    // markers: true,
-    pin: ".section_container_phase",
-    scrub: 0.6,
-    onUpdate: (self) => {
-      const current_card = Math.floor(self.progress * (total_cards - 0.5));
-      phase_cards.forEach((card) => {
-        card.classList?.remove("active");
-      });
-      phase_cards[current_card]?.classList?.add("active");
+if (window.innerWidth > 991) {
+  const phase_cards = document.querySelectorAll(".card");
+  const total_cards = phase_cards.length;
+
+  const phaseTl = gsap.timeline({
+    scrollTrigger: {
+      trigger: ".phase_wrapper",
+      start: "center center",
+      end: "+=1500",
+      // markers: true,
+      pin: ".section_container_phase",
+      scrub: 0.6,
+      onUpdate: (self) => {
+        const current_card = Math.floor(self.progress * (total_cards - 0.5));
+        phase_cards.forEach((card) => {
+          card.classList?.remove("active");
+        });
+        phase_cards[current_card]?.classList?.add("active");
+      },
+      onLeave: () => {
+        ScrollTrigger.refresh();
+      },
     },
-    onLeave: () => {
-      ScrollTrigger.refresh();
+  });
+
+  const phase_wrapper = document.querySelector(".phase_wrapper");
+  const phase_container = document.querySelector(".phase_container");
+
+  let move_x = phase_wrapper.offsetWidth - phase_container.offsetWidth;
+
+  phaseTl.to(phase_wrapper, {
+    x: `-${move_x}px`,
+    ease: "power2.inOut",
+  });
+
+  const nomics_tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: ".section_tokonomics",
+      start: "center center",
+      end: "bottom center",
+      // markers: true,
+      // pin: true,
+      // scrub: true,
+      onEnter: () => {
+        phaseTl.scrollTrigger.refresh();
+      },
+      onLeave: () => {
+        phaseTl.scrollTrigger.refresh();
+      },
     },
-  },
-});
-
-const phase_wrapper = document.querySelector(".phase_wrapper");
-const phase_container = document.querySelector(".phase_container");
-
-let move_x = phase_wrapper.offsetWidth - phase_container.offsetWidth;
-
-phaseTl.to(phase_wrapper, {
-  x: `-${move_x}px`,
-  ease: "power2.inOut",
-});
-
-const nomics_tl = gsap.timeline({
-  scrollTrigger: {
-    trigger: ".section_tokonomics",
-    start: "center center",
-    end: "bottom center",
-    // markers: true,
-    // pin: true,
-    // scrub: true,
-    onEnter: () => {
-      phaseTl.scrollTrigger.refresh();
-    },
-    onLeave: () => {
-      phaseTl.scrollTrigger.refresh();
-    },
-  },
-});
-
+  });
+}
 // roll("[roll]", 100);
 // liveReload();
