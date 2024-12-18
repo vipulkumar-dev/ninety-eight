@@ -28,7 +28,7 @@ lightbox.init();
 const header = document.getElementById("header");
 let isMenuOpen = false;
 let lastScrollPosition = 0;
-let delta = 30; // Minimum scroll distance before toggling header
+let delta = isDesktop ? 30 : 60; // Minimum scroll distance before toggling header
 let ticking = false;
 
 function handleScroll() {
