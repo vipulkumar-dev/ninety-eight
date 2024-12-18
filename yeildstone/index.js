@@ -130,87 +130,67 @@ menu_trigger.addEventListener("click", () => {
   isMenuOpen = !isMenuOpen;
 });
 
-const buttonDefaults = {
-  duration: 0.4,
-  ease: "power2.inOut",
-};
-
 document.querySelectorAll(".button").forEach((button) => {
-  button.addEventListener("mouseenter", () => {
-    gsap.to(button, {
-      backgroundColor: "#27d690",
-      color: "#060318",
-      ...buttonDefaults,
-    });
-    gsap.to(button.querySelector(".btn_arrow"), {
-      backgroundColor: "#060318",
-      color: "#27d690",
-      ...buttonDefaults,
-    });
-    gsap.to(button.querySelectorAll(".arrow_svg"), {
-      x: 27,
-      ...buttonDefaults,
-      duration: 0.5,
-      ease: "power3.inOut",
-    });
-    gsap.fromTo(
+  const buttonTl = gsap.timeline({
+    paused: true,
+    defaults: {
+      duration: 0.4,
+      ease: "power2.inOut",
+    },
+  });
+
+  buttonTl
+    .to(
+      button,
+      {
+        backgroundColor: "#27d690",
+        color: "#060318",
+      },
+      0
+    )
+    .to(
+      button.querySelector(".btn_arrow"),
+      {
+        backgroundColor: "#060318",
+        color: "#27d690",
+      },
+      0
+    )
+    .to(
+      button.querySelectorAll(".arrow_svg"),
+      {
+        x: 27,
+        duration: 0.5,
+        ease: "power3.inOut",
+      },
+      0
+    )
+    .fromTo(
       button.querySelectorAll(".arrow_svg.is-left"),
       { scale: 0 },
       {
         scale: 1,
-        ...buttonDefaults,
         duration: 0.5,
         ease: "power3.inOut",
-      }
-    );
-    gsap.fromTo(
+      },
+      0
+    )
+    .fromTo(
       button.querySelectorAll(".arrow_svg.is-right"),
       { scale: 1 },
       {
         scale: 0,
-        ...buttonDefaults,
         duration: 0.5,
         ease: "power3.inOut",
-      }
+      },
+      0
     );
+
+  button.addEventListener("mouseenter", () => {
+    buttonTl.play();
   });
   button.addEventListener("mouseleave", () => {
-    gsap.to(button, {
-      backgroundColor: "#06031861",
-      color: "#fff",
-      ...buttonDefaults,
-    });
-    gsap.to(button.querySelector(".btn_arrow"), {
-      backgroundColor: "#27d690",
-      color: "#060318",
-      ...buttonDefaults,
-    });
-    gsap.to(button.querySelectorAll(".arrow_svg"), {
-      x: 0,
-      ...buttonDefaults,
-      duration: 0.5,
-      ease: "power3.inOut",
-    });
-    gsap.fromTo(
-      button.querySelectorAll(".arrow_svg.is-left"),
-      { scale: 1 },
-      {
-        scale: 0,
-        ...buttonDefaults,
-        duration: 0.5,
-        ease: "power3.inOut",
-      }
-    );
-    gsap.fromTo(
-      button.querySelectorAll(".arrow_svg.is-right"),
-      { scale: 0 },
-      {
-        scale: 1,
-        ...buttonDefaults,
-        duration: 0.5,
-        ease: "power3.inOut",
-      }
-    );
+    buttonTl.reverse();
   });
 });
 
