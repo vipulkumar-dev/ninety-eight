@@ -19,7 +19,7 @@ const lightbox = new PhotoSwipeLightbox({
   closeSVG: closeArrowSVGString,
   zoomSVG: zoomSVGString,
   gallery: "#my-gallery",
-  children: "a",
+  children: ".zoom_image",
   pswpModule: () => import("https://unpkg.com/photoswipe"),
 });
 
@@ -194,6 +194,8 @@ document.querySelectorAll(".button").forEach((button) => {
   });
 });
 
+///// FEATURES /////
+
 const feature_blocks = document.querySelectorAll(".feature_block");
 let next_feature = 1;
 let feature_interval = setInterval(() => {
@@ -247,7 +249,7 @@ function addActiveFeature(feature) {
   });
 }
 
-// only works on desktop
+///// PHASE /////
 
 const phase_cards = document.querySelectorAll(".card");
 const total_cards = phase_cards.length;
