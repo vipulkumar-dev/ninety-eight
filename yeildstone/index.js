@@ -25,6 +25,19 @@ const lightbox = new PhotoSwipeLightbox({
 
 lightbox.init();
 
+lightbox.on("closingAnimationEnd", () => {
+  gsap.fromTo(
+    ".modal_overlay",
+    {
+      opacity: 0,
+    },
+    {
+      opacity: 1,
+      duration: 0.5,
+    }
+  );
+});
+
 document.querySelector("#view-modal").onclick = () => {
   lightbox.loadAndOpen(0, {
     gallery: document.querySelector("#modal-gallery"),
