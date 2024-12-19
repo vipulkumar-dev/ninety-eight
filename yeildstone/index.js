@@ -25,15 +25,16 @@ const lightbox = new PhotoSwipeLightbox({
 
 lightbox.init();
 
-lightbox.on("closingAnimationEnd", () => {
+lightbox.on("closingAnimationStart", () => {
   gsap.fromTo(
-    ".modal_overlay",
-    {
-      opacity: 0,
-    },
+    ".pswp__img",
     {
       opacity: 1,
-      duration: 0.5,
+    },
+    {
+      opacity: 0,
+      duration: 0.2,
+      delay: 0.1,
     }
   );
 });
