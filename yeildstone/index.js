@@ -252,6 +252,8 @@ function addActiveFeature(feature) {
 ///// PHASE /////
 
 const phase_cards = document.querySelectorAll(".card");
+const phase_wrapper = document.querySelector(".phase_wrapper");
+const phase_container = document.querySelector(".phase_container");
 const total_cards = phase_cards.length;
 
 const phaseTl = gsap.timeline({
@@ -264,7 +266,7 @@ const phaseTl = gsap.timeline({
     scrub: 0.6,
     onUpdate: (self) => {
       const current_card = Math.floor(self.progress * (total_cards - 0.5));
-      phase_cards.forEach((card) => {
+      phase_wrapper.querySelectorAll(".card.active").forEach((card) => {
         card.classList?.remove("active");
       });
       phase_cards[current_card]?.classList?.add("active");
@@ -274,9 +276,6 @@ const phaseTl = gsap.timeline({
     },
   },
 });
-
-const phase_wrapper = document.querySelector(".phase_wrapper");
-const phase_container = document.querySelector(".phase_container");
 
 let move_x = phase_wrapper.offsetWidth - phase_container.offsetWidth;
 
