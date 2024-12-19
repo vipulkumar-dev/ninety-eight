@@ -25,19 +25,21 @@ const lightbox = new PhotoSwipeLightbox({
 
 lightbox.init();
 
-lightbox.on("closingAnimationStart", () => {
-  gsap.fromTo(
-    ".pswp__img",
-    {
-      opacity: 1,
-    },
-    {
-      opacity: 0,
-      duration: 0.2,
-      delay: 0.1,
-    }
-  );
-});
+if (!isDesktop) {
+  lightbox.on("closingAnimationStart", () => {
+    gsap.fromTo(
+      ".pswp__img",
+      {
+        opacity: 1,
+      },
+      {
+        opacity: 0,
+        duration: 0.2,
+        delay: 0.1,
+      }
+    );
+  });
+}
 
 document.querySelector("#view-modal").onclick = () => {
   lightbox.loadAndOpen(0, {
