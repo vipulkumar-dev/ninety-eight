@@ -271,9 +271,6 @@ const phaseTl = gsap.timeline({
       });
       phase_cards[current_card]?.classList?.add("active");
     },
-    onLeave: () => {
-      phaseTl.scrollTrigger.refresh();
-    },
   },
 });
 
