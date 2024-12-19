@@ -18,12 +18,18 @@ const zoomSVGString = `<svg width="24" height="24" viewBox="0 0 24 24" fill="non
 const lightbox = new PhotoSwipeLightbox({
   closeSVG: closeArrowSVGString,
   zoomSVG: zoomSVGString,
-  gallery: "#my-gallery",
+  gallery: "#modal-gallery",
   children: ".zoom_image",
   pswpModule: () => import("https://unpkg.com/photoswipe"),
 });
 
 lightbox.init();
+
+document.querySelector("#view-modal").onclick = () => {
+  lightbox.loadAndOpen(0, {
+    gallery: document.querySelector("#modal-gallery"),
+  });
+};
 
 const header = document.getElementById("header");
 let isMenuOpen = false;
