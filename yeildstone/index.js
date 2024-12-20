@@ -280,26 +280,39 @@ const phase_cards = document.querySelectorAll(".card");
 const phase_wrapper = document.querySelector(".phase_wrapper");
 const phase_container = document.querySelector(".phase_container");
 const total_cards = phase_cards.length;
+let last_card;
+
+// Cache DOM queries and calculations
+const move_x = phase_wrapper.offsetWidth - phase_container.offsetWidth;
+const activeCards = new Set();
 
 const phaseTl = gsap.timeline({
   scrollTrigger: {
     trigger: ".phase_wrapper",
     start: isDesktop ? "center center" : "top 65%",
     end: isDesktop ? "+=1500" : "bottom 65%",
-    // markers: true,
     pin: isDesktop ? ".section_container_phase" : false,
     scrub: 0.6,
     onUpdate: (self) => {
       const current_card = Math.floor(self.progress * (total_cards - 0.5));
-      phase_wrapper.querySelectorAll(".card.active").forEach((card) => {
-        card.classList?.remove("active");
-      });
-      phase_cards[current_card]?.classList?.add("active");
+      if (current_card !== last_card) {
+        last_card = current_card;
+        // Remove active class from previously active cards
+        activeCards.forEach((card) => {
+          card.classList.remove("active");
+          activeCards.delete(card);
+        });
+
+        // Add active class to current card
+        const currentCardEl = phase_cards[current_card];
+        if (currentCardEl) {
+          currentCardEl.classList.add("active");
+          activeCards.add(currentCardEl);
+        }
+      }
     },
   },
 });
-
-let move_x = phase_wrapper.offsetWidth - phase_container.offsetWidth;
 
 phaseTl.to(phase_wrapper, {
   x: `-${move_x}px`,
