@@ -284,7 +284,6 @@ let last_card;
 
 // Cache DOM queries and calculations
 const move_x = phase_wrapper.offsetWidth - phase_container.offsetWidth;
-const activeCards = new Set();
 
 const phaseTl = gsap.timeline({
   scrollTrigger: {
@@ -297,18 +296,10 @@ const phaseTl = gsap.timeline({
       const current_card = Math.floor(self.progress * (total_cards - 0.5));
       if (current_card !== last_card) {
         last_card = current_card;
-        // Remove active class from previously active cards
-        activeCards.forEach((card) => {
-          card.classList.remove("active");
-          activeCards.delete(card);
+        phase_wrapper.querySelectorAll(".card.active").forEach((card) => {
+          card.classList?.remove("active");
         });
-
-        // Add active class to current card
-        const currentCardEl = phase_cards[current_card];
-        if (currentCardEl) {
-          currentCardEl.classList.add("active");
-          activeCards.add(currentCardEl);
-        }
+        phase_cards[current_card]?.classList?.add("active");
       }
     },
   },
