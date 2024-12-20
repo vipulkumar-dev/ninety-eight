@@ -295,17 +295,14 @@ const phaseTl = gsap.timeline({
     onUpdate: (() => {
       let timeout;
       return (self) => {
-        if (timeout) clearTimeout(timeout);
-        timeout = setTimeout(() => {
-          const current_card = Math.floor(self.progress * (total_cards - 0.5));
-          if (current_card !== last_card) {
-            last_card = current_card;
-            phase_wrapper.querySelectorAll(".card.active").forEach((card) => {
-              card.classList?.remove("active");
-            });
-            phase_cards[current_card]?.classList?.add("active");
-          }
-        }, 100);
+        const current_card = Math.floor(self.progress * (total_cards - 0.5));
+        if (current_card !== last_card) {
+          last_card = current_card;
+          phase_wrapper.querySelectorAll(".card.active").forEach((card) => {
+            card.classList?.remove("active");
+          });
+          phase_cards[current_card]?.classList?.add("active");
+        }
       };
     })(),
   },
