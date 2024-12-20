@@ -1,4 +1,5 @@
 import PhotoSwipeLightbox from "https://unpkg.com/photoswipe/dist/photoswipe-lightbox.esm.js";
+import { lenisInit } from "../utils.js";
 
 const isDesktop = window.innerWidth > 991;
 
@@ -46,6 +47,8 @@ document.querySelector("#view-modal").onclick = () => {
     gallery: document.querySelector("#modal-gallery"),
   });
 };
+
+lenisInit();
 
 const header = document.getElementById("header");
 let isMenuOpen = false;
