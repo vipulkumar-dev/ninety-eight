@@ -292,16 +292,22 @@ const phaseTl = gsap.timeline({
     end: isDesktop ? "+=1500" : "bottom 65%",
     pin: isDesktop ? ".section_container_phase" : false,
     scrub: 0.6,
-    onUpdate: (self) => {
-      const current_card = Math.floor(self.progress * (total_cards - 0.5));
-      if (current_card !== last_card) {
-        last_card = current_card;
-        phase_wrapper.querySelectorAll(".card.active").forEach((card) => {
-          card.classList?.remove("active");
-        });
-        phase_cards[current_card]?.classList?.add("active");
-      }
-    },
+    onUpdate: (() => {
+      let timeout;
+      return (self) => {
+        if (timeout) clearTimeout(timeout);
+        timeout = setTimeout(() => {
+          const current_card = Math.floor(self.progress * (total_cards - 0.5));
+          if (current_card !== last_card) {
+            last_card = current_card;
+            phase_wrapper.querySelectorAll(".card.active").forEach((card) => {
+              card.classList?.remove("active");
+            });
+            phase_cards[current_card]?.classList?.add("active");
+          }
+        }, 100);
+      };
+    })(),
   },
 });
 
