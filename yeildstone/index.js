@@ -306,11 +306,19 @@ const phaseTl = gsap.timeline({
   },
 });
 
+phase_cards.forEach((card, index) => {
+  phaseTl.to(card, {
+    color: "#27d690",
+    duration: 1,
+  });
+});
+
 phaseTl.to(
   phase_wrapper,
   {
     x: `-${move_x}px`,
     ease: "power2.inOut",
+    duration: phase_cards.length,
   },
   0
 );
