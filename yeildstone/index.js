@@ -328,8 +328,6 @@ const nomics_tl = gsap.timeline({
   },
 });
 
-gsap.set("[fade-animation]", { opacity: 0, y: 30 });
-
 ScrollTrigger.batch("[fade-animation]", {
   start: (element, triggers) => {
     if (element.trigger.hasAttribute("after-pinned")) {
@@ -339,16 +337,16 @@ ScrollTrigger.batch("[fade-animation]", {
   },
   end: "top top",
   // markers: true,
-  onEnter: (elements, triggers) => {
-    gsap.to(elements, {
-      opacity: 1,
-      y: 0,
-      stagger: 0.04,
-      duration: 0.8,
-      ease: "power3.inOut",
-    });
-    console.log(elements.length, "elements entered");
-  },
+  // onEnter: (elements, triggers) => {
+  //   gsap.to(elements, {
+  //     opacity: 1,
+  //     y: 0,
+  //     stagger: 0.04,
+  //     duration: 0.8,
+  //     ease: "power3.inOut",
+  //   });
+  //   console.log(elements.length, "elements entered");
+  // },
   // onLeave: (elements, triggers) => {
   //   gsap.fromTo(elements, { opacity: 1 }, { opacity: 0, stagger: 0.15 });
   //   console.log(elements.length, "elements left");
