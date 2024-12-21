@@ -293,16 +293,16 @@ const phaseTl = gsap.timeline({
     end: isDesktop ? `+=${PIN_SPACING}` : "bottom 65%",
     pin: isDesktop ? ".section_container_phase" : false,
     scrub: 0.6,
-    onUpdate: () => {
-      const current_card = Math.floor(self.progress * (total_cards - 0.5));
-      if (current_card !== last_card) {
-        last_card = current_card;
-        phase_wrapper.querySelectorAll(".card.active").forEach((card) => {
-          card.classList?.remove("active");
-        });
-        phase_cards[current_card]?.classList?.add("active");
-      }
-    },
+    // onUpdate: () => {
+    //   const current_card = Math.floor(self.progress * (total_cards - 0.5));
+    //   if (current_card !== last_card) {
+    //     last_card = current_card;
+    //     phase_wrapper.querySelectorAll(".card.active").forEach((card) => {
+    //       card.classList?.remove("active");
+    //     });
+    //     phase_cards[current_card]?.classList?.add("active");
+    //   }
+    // },
   },
 });
 
@@ -337,16 +337,16 @@ ScrollTrigger.batch("[fade-animation]", {
   },
   end: "top top",
   // markers: true,
-  // onEnter: (elements, triggers) => {
-  //   gsap.to(elements, {
-  //     opacity: 1,
-  //     y: 0,
-  //     stagger: 0.04,
-  //     duration: 0.8,
-  //     ease: "power3.inOut",
-  //   });
-  //   console.log(elements.length, "elements entered");
-  // },
+  onEnter: (elements, triggers) => {
+    gsap.to(elements, {
+      opacity: 1,
+      y: 0,
+      stagger: 0.04,
+      duration: 0.8,
+      ease: "power3.inOut",
+    });
+    console.log(elements.length, "elements entered");
+  },
   // onLeave: (elements, triggers) => {
   //   gsap.fromTo(elements, { opacity: 1 }, { opacity: 0, stagger: 0.15 });
   //   console.log(elements.length, "elements left");
