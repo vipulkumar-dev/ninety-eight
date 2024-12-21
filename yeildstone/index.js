@@ -48,7 +48,7 @@ document.querySelector("#view-modal").onclick = () => {
   });
 };
 
-// lenisInit();
+lenisInit();
 
 const header = document.getElementById("header");
 let isMenuOpen = false;
