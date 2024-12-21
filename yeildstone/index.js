@@ -304,21 +304,75 @@ const phaseTl = gsap.timeline({
     //   }
     // },
   },
+  defaults: {
+    duration: 1,
+  },
 });
 
 phase_cards.forEach((card, index) => {
+  if (index !== 0) {
+    addActiveCard(card);
+  }
+});
+
+function addActiveCard(card) {
   phaseTl.to(card, {
     color: "#27d690",
-    duration: 1,
   });
-});
+
+  phaseTl.to(
+    card.querySelector(".card_image"),
+    {
+      filter: "grayscale(0)",
+    },
+    "<"
+  );
+  phaseTl.to(
+    card.querySelectorAll(".card_border"),
+    {
+      opacity: 0.6,
+    },
+    "<"
+  );
+  phaseTl.to(
+    card.querySelector(".card_gradient"),
+    {
+      opacity: 0.12,
+    },
+    "<"
+  );
+
+  phaseTl.to(
+    card.querySelector(".card_gradient.is-white"),
+    {
+      opacity: 0,
+    },
+    "<"
+  );
+}
+
+// .card.active .card_image{
+//   filter:grayscale(0);
+// }
+
+// .card.active .card_border{
+//   opacity:60%;
+// }
+
+// .card.active .card_gradient{
+//   opacity:12%;
+// }
+
+// .card.active .card_gradient.is-white{
+//   opacity:0%;
+// }
 
 phaseTl.to(
   phase_wrapper,
   {
     x: `-${move_x}px`,
     ease: "power2.inOut",
-    duration: phase_cards.length,
+    duration: phase_cards.length - 2,
   },
   0
 );
