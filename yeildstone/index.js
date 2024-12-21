@@ -280,6 +280,7 @@ const phase_cards = document.querySelectorAll(".card");
 const phase_wrapper = document.querySelector(".phase_wrapper");
 const phase_container = document.querySelector(".phase_container");
 const total_cards = phase_cards.length;
+const PIN_SPACING = isDesktop ? 1500 : 0;
 let last_card;
 
 // Cache DOM queries and calculations
@@ -288,23 +289,20 @@ const move_x = phase_wrapper.offsetWidth - phase_container.offsetWidth;
 const phaseTl = gsap.timeline({
   scrollTrigger: {
     trigger: ".phase_wrapper",
-    start: isDesktop ? "center center" : "top 65%",
-    end: isDesktop ? "+=1500" : "bottom 65%",
+    start: isDesktop ? "center 65%" : "top 65%",
+    end: isDesktop ? `+=${PIN_SPACING}` : "bottom 65%",
     pin: isDesktop ? ".section_container_phase" : false,
     scrub: 0.6,
-    onUpdate: (() => {
-      let timeout;
-      return (self) => {
-        const current_card = Math.floor(self.progress * (total_cards - 0.5));
-        if (current_card !== last_card) {
-          last_card = current_card;
-          phase_wrapper.querySelectorAll(".card.active").forEach((card) => {
-            card.classList?.remove("active");
-          });
-          phase_cards[current_card]?.classList?.add("active");
-        }
-      };
-    })(),
+    onUpdate: () => {
+      const current_card = Math.floor(self.progress * (total_cards - 0.5));
+      if (current_card !== last_card) {
+        last_card = current_card;
+        phase_wrapper.querySelectorAll(".card.active").forEach((card) => {
+          card.classList?.remove("active");
+        });
+        phase_cards[current_card]?.classList?.add("active");
+      }
+    },
   },
 });
 
@@ -322,12 +320,39 @@ const nomics_tl = gsap.timeline({
     // pin: true,
     // scrub: true,
     onEnter: () => {
-      phaseTl.scrollTrigger.refresh();
+      ScrollTrigger.refresh();
     },
     onLeave: () => {
-      phaseTl.scrollTrigger.refresh();
+      ScrollTrigger.refresh();
     },
   },
+});
+
+gsap.set("[fade-animation]", { opacity: 0, y: 30 });
+
+ScrollTrigger.batch("[fade-animation]", {
+  start: (element, triggers) => {
+    if (element.trigger.hasAttribute("after-pinned")) {
+      return `top+=${PIN_SPACING} 100%`;
+    }
+    return "top 100%";
+  },
+  end: "top top",
+  // markers: true,
+  onEnter: (elements, triggers) => {
+    gsap.to(elements, {
+      opacity: 1,
+      y: 0,
+      stagger: 0.04,
+      duration: 0.8,
+      ease: "power3.inOut",
+    });
+    console.log(elements.length, "elements entered");
+  },
+  // onLeave: (elements, triggers) => {
+  //   gsap.fromTo(elements, { opacity: 1 }, { opacity: 0, stagger: 0.15 });
+  //   console.log(elements.length, "elements left");
+  // },
 });
 
 // roll("[roll]", 100);
