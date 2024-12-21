@@ -306,8 +306,6 @@ const phaseTl = gsap.timeline({
   },
 });
 
-phase_cards.forEach();
-
 phaseTl.to(
   phase_wrapper,
   {
