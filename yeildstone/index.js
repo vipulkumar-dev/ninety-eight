@@ -48,7 +48,7 @@ document.querySelector("#view-modal").onclick = () => {
   });
 };
 
-lenisInit();
+// lenisInit();
 
 const header = document.getElementById("header");
 let isMenuOpen = false;
@@ -306,10 +306,16 @@ const phaseTl = gsap.timeline({
   },
 });
 
-phaseTl.to(phase_wrapper, {
-  x: `-${move_x}px`,
-  ease: "power2.inOut",
-});
+phase_cards.forEach();
+
+phaseTl.to(
+  phase_wrapper,
+  {
+    x: `-${move_x}px`,
+    ease: "power2.inOut",
+  },
+  0
+);
 
 const nomics_tl = gsap.timeline({
   scrollTrigger: {
