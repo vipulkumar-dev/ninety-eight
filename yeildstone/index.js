@@ -335,7 +335,7 @@ function addActiveCard(card) {
     "<"
   );
   phaseTl.to(
-    card.querySelector(".card_gradient"),
+    card.querySelectorAll(".card_gradient.is-green"),
     {
       opacity: 0.12,
     },
@@ -343,7 +343,7 @@ function addActiveCard(card) {
   );
 
   phaseTl.to(
-    card.querySelector(".card_gradient.is-white"),
+    card.querySelectorAll(".card_gradient.is-white"),
     {
       opacity: 0,
     },
