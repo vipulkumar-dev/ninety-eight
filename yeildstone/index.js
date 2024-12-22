@@ -24,7 +24,9 @@ const lightbox = new PhotoSwipeLightbox({
   pswpModule: () => import("https://unpkg.com/photoswipe"),
 });
 
-lightbox.init();
+if (isDesktop) {
+  lightbox.init();
+}
 
 if (!isDesktop) {
   lightbox.on("closingAnimationStart", () => {
