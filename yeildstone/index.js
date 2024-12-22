@@ -281,9 +281,7 @@ function addActiveFeature(feature) {
 const phase_cards = document.querySelectorAll(".card");
 const phase_wrapper = document.querySelector(".phase_wrapper");
 const phase_container = document.querySelector(".phase_container");
-const total_cards = phase_cards.length;
 const PIN_SPACING = isDesktop ? 1500 : 0;
-let last_card;
 
 // Cache DOM queries and calculations
 const move_x = phase_wrapper.offsetWidth - phase_container.offsetWidth;
@@ -354,31 +352,25 @@ function addActiveCard(card) {
   );
 }
 
-// .card.active .card_image{
-//   filter:grayscale(0);
-// }
-
-// .card.active .card_border{
-//   opacity:60%;
-// }
-
-// .card.active .card_gradient{
-//   opacity:12%;
-// }
-
-// .card.active .card_gradient.is-white{
-//   opacity:0%;
-// }
-
-phaseTl.to(
-  phase_wrapper,
-  {
-    x: `-${move_x}px`,
-    ease: "power2.inOut",
-    duration: phase_cards.length - 2,
-  },
-  0
-);
+if (isDesktop) {
+  phaseTl.to(
+    phase_wrapper,
+    {
+      x: `-${move_x}px`,
+      ease: "power2.inOut",
+      duration: phase_cards.length - 2,
+    },
+    0
+  );
+} else {
+  phaseTl.to(
+    phase_wrapper,
+    {
+      duration: phase_cards.length - 2,
+    },
+    0
+  );
+}
 
 const nomics_tl = gsap.timeline({
   scrollTrigger: {
