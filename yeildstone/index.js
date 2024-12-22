@@ -250,58 +250,62 @@ hero_section.addEventListener("mousemove", (e) => {
 
 ///// FEATURES /////
 
-const feature_blocks = document.querySelectorAll(".feature_block");
-let next_feature = 1;
-let feature_interval = setInterval(() => {
-  addActiveFeature(feature_blocks[next_feature]);
-  next_feature++;
-  if (next_feature >= feature_blocks.length) {
-    next_feature = 0;
-  }
-}, 2500);
-
-document.querySelectorAll(".feature_block").forEach((feature) => {
-  feature.addEventListener("mouseenter", () => {
-    // stop interval temporarily
-    clearInterval(feature_interval);
-    addActiveFeature(feature);
-  });
-  feature.addEventListener("mouseleave", () => {
-    // get the index of the feature
-    const index = Array.from(feature_blocks).indexOf(feature);
-    next_feature = index + 1;
+document.querySelectorAll(".feature_container").forEach((feature_container) => {
+  const feature_blocks = feature_container.querySelectorAll(".feature_block");
+  let next_feature = 1;
+  let feature_interval = setInterval(() => {
+    addActiveFeature(feature_blocks[next_feature]);
+    next_feature++;
     if (next_feature >= feature_blocks.length) {
       next_feature = 0;
     }
-    feature_interval = setInterval(() => {
-      addActiveFeature(feature_blocks[next_feature]);
-      next_feature++;
+  }, 2500);
+
+  feature_blocks.forEach((feature) => {
+    feature.addEventListener("mouseenter", () => {
+      // stop interval temporarily
+      clearInterval(feature_interval);
+      addActiveFeature(feature);
+    });
+    feature.addEventListener("mouseleave", () => {
+      // get the index of the feature
+      const index = Array.from(feature_blocks).indexOf(feature);
+      next_feature = index + 1;
       if (next_feature >= feature_blocks.length) {
         next_feature = 0;
       }
-    }, 2500);
+      feature_interval = setInterval(() => {
+        addActiveFeature(feature_blocks[next_feature]);
+        next_feature++;
+        if (next_feature >= feature_blocks.length) {
+          next_feature = 0;
+        }
+      }, 2500);
+    });
   });
+
+  function addActiveFeature(feature) {
+    feature_container
+      .querySelectorAll(".feature_block.active")
+      .forEach((feature) => {
+        feature.classList.remove("active");
+      });
+    feature.classList.add("active");
+
+    const feature_stripe = feature_container.querySelector(".feature_stripe");
+    const feature_stripe_wrapper = feature.querySelector(
+      ".feature_stripe_wrapper"
+    );
+    const state = Flip.getState(feature_stripe);
+
+    feature_stripe_wrapper.appendChild(feature_stripe);
+    Flip.from(state, {
+      absolute: true,
+      duration: 0.5,
+      ease: "power3.inOut",
+    });
+  }
 });
-
-function addActiveFeature(feature) {
-  document.querySelectorAll(".feature_block.active").forEach((feature) => {
-    feature.classList.remove("active");
-  });
-  feature.classList.add("active");
-
-  const feature_stripe = document.querySelector(".feature_stripe");
-  const feature_stripe_wrapper = feature.querySelector(
-    ".feature_stripe_wrapper"
-  );
-  const state = Flip.getState(feature_stripe);
-
-  feature_stripe_wrapper.appendChild(feature_stripe);
-  Flip.from(state, {
-    absolute: true,
-    duration: 0.5,
-    ease: "power3.inOut",
-  });
-}
 
 ///// PHASE /////
 
@@ -385,7 +389,7 @@ if (isDesktop) {
     {
       x: `-${move_x}px`,
       ease: "power2.inOut",
-      duration: phase_cards.length - 2,
+      duration: phase_cards.length - 1.5,
     },
     0
   );
@@ -393,7 +397,7 @@ if (isDesktop) {
   phaseTl.to(
     phase_wrapper,
     {
-      duration: phase_cards.length - 2,
+      duration: phase_cards.length - 1.5,
     },
     0
   );
@@ -434,10 +438,6 @@ ScrollTrigger.batch("[fade-animation]", {
       ease: "power3.inOut",
     });
   },
-  // onLeave: (elements, triggers) => {
-  //   gsap.fromTo(elements, { opacity: 1 }, { opacity: 0, stagger: 0.15 });
-  //   console.log(elements.length, "elements left");
-  // },
 });
 
 // roll("[roll]", 100);
