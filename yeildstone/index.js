@@ -292,7 +292,7 @@ const phaseTl = gsap.timeline({
     start: isDesktop ? "center 65%" : "top 65%",
     end: isDesktop ? `+=${PIN_SPACING}` : "bottom 65%",
     pin: isDesktop ? ".section_container_phase" : false,
-    scrub: 0.6,
+    scrub: true,
     anticipatePin: 1,
     // onUpdate: () => {
     //   const current_card = Math.floor(self.progress * (total_cards - 0.5));
