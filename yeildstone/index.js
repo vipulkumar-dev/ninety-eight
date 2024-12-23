@@ -229,20 +229,18 @@ if (isDesktop) {
   const hero_strape = hero_section.querySelectorAll(".hero_strape");
 
   const animateHeroX = gsap.quickTo(hero_strape, "x", {
-    duration: 0.5,
-    ease: "power2.inOut",
-    overwrite: true,
+    duration: 0.3,
   });
 
   hero_section.addEventListener("mousemove", (e) => {
     const x = e.clientX;
     const mapped_x = gsap.utils.mapRange(0, hero_width, -50, 30, x);
     const mapped_mask = gsap.utils.mapRange(0, hero_width, -117, -37, x);
-    console.log(mapped_x);
     gsap.to(hero_strape, {
       x: mapped_x,
       duration: 0.3,
     });
+
     gsap.to(".hero_building.is-top", {
       maskPosition: `${mapped_mask}px center`,
       duration: 0.3,
