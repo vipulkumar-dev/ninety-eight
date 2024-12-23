@@ -405,7 +405,7 @@ if (isDesktop) {
 
 const nomics_tl = gsap.timeline({
   scrollTrigger: {
-    trigger: ".section_tokonomics",
+    trigger: ".section_team",
     start: "center center",
     end: "bottom center",
     // markers: true,
