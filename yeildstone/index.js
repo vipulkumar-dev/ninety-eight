@@ -338,7 +338,7 @@ const phaseTl = gsap.timeline({
 
 phase_cards.forEach((card, index) => {
   if (index !== 0) {
-    // addActiveCard(card);
+    addActiveCard(card);
   }
 });
 
