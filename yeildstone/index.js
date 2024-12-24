@@ -228,10 +228,6 @@ if (isDesktop) {
   const hero_width = hero_section.offsetWidth;
   const hero_strape = hero_section.querySelectorAll(".hero_strape");
 
-  const animateHeroX = gsap.quickTo(hero_strape, "x", {
-    duration: 0.3,
-  });
-
   hero_section.addEventListener("mousemove", (e) => {
     const x = e.clientX;
     const mapped_x = gsap.utils.mapRange(0, hero_width, -50, 30, x);
@@ -342,7 +338,7 @@ const phaseTl = gsap.timeline({
 
 phase_cards.forEach((card, index) => {
   if (index !== 0) {
-    addActiveCard(card);
+    // addActiveCard(card);
   }
 });
 
