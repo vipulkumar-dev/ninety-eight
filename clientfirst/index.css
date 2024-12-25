@@ -11,9 +11,9 @@
 @keyframes blink {
   0%,
   100% {
-    background-color: hsla(0, 0%, 100%, 0.05); /* Light gray */
+    background-color: hsla(0, 0%, 100%, 0.05);
   }
   50% {
-    background-color: hsla(0, 0%, 100%, 0.09); /* Slightly darker gray */
+    background-color: hsla(0, 0%, 100%, 0.09);
   }
 }

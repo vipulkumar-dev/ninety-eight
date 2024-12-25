@@ -31,5 +31,5 @@ window.addEventListener("scroll", () => {
 });
 
 console.log("From how it why");
-roll("[roll]", 100);
+roll("[roll]", 80);
 liveReload();
