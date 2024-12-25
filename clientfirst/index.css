@@ -3,7 +3,8 @@
 } */
 
 [img-ph] {
-  /* background-color: pink;s */
+  overflow: hidden;
+  position: relative;
   animation: blink 2s infinite none;
 }
 
