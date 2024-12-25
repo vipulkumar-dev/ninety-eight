@@ -1,10 +1,10 @@
-* {
+/* * {
   outline: 1px solid red;
-}
+} */
 
-[image-placeholder] {
+[img-ph] {
   /* background-color: pink;s */
-  animation: blink 2s infinite;
+  animation: blink 2s infinite none;
 }
 
 @keyframes blink {
@@ -13,6 +13,6 @@
     background-color: hsla(0, 0%, 100%, 0.05); /* Light gray */
   }
   50% {
-    background-color: hsla(0, 0%, 100%, 0.1); /* Slightly darker gray */
+    background-color: hsla(0, 0%, 100%, 0.09); /* Slightly darker gray */
   }
 }
