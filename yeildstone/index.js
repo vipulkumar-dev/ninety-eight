@@ -257,24 +257,12 @@ document.querySelectorAll(".feature_container").forEach((feature_container) => {
 
   feature_blocks.forEach((feature) => {
     feature.addEventListener("mouseenter", () => {
-      // stop interval temporarily
-      clearInterval(feature_interval);
       addActiveFeature(feature);
-    });
-    feature.addEventListener("mouseleave", () => {
-      // get the index of the feature
       const index = Array.from(feature_blocks).indexOf(feature);
       next_feature = index + 1;
       if (next_feature >= feature_blocks.length) {
         next_feature = 0;
       }
-      feature_interval = setInterval(() => {
-        addActiveFeature(feature_blocks[next_feature]);
-        next_feature++;
-        if (next_feature >= feature_blocks.length) {
-          next_feature = 0;
-        }
-      }, 2500);
     });
   });
 
