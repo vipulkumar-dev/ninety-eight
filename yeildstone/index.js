@@ -24,9 +24,7 @@ const lightbox = new PhotoSwipeLightbox({
   pswpModule: () => import("https://unpkg.com/photoswipe"),
 });
 
-if (isDesktop) {
-  lightbox.init();
-}
+lightbox.init();
 
 if (!isDesktop) {
   lightbox.on("closingAnimationStart", () => {
@@ -50,8 +48,9 @@ document.querySelector("#view-modal").onclick = () => {
   });
 };
 
-lenisInit();
-
+if (isDesktop) {
+  lenisInit();
+}
 const header = document.getElementById("header");
 let isMenuOpen = false;
 let lastScrollPosition = 0;
