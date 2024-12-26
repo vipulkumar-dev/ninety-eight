@@ -247,13 +247,20 @@ if (isDesktop) {
 document.querySelectorAll(".feature_container").forEach((feature_container) => {
   const feature_blocks = feature_container.querySelectorAll(".feature_block");
   let next_feature = 1;
-  let feature_interval = setInterval(() => {
-    addActiveFeature(feature_blocks[next_feature]);
-    next_feature++;
-    if (next_feature >= feature_blocks.length) {
-      next_feature = 0;
-    }
-  }, 2500);
+
+  function feature_interval_create() {
+    let feature_interval = setInterval(() => {
+      addActiveFeature(feature_blocks[next_feature]);
+      next_feature++;
+      if (next_feature >= feature_blocks.length) {
+        next_feature = 0;
+      }
+    }, 2500);
+
+    return feature_interval;
+  }
+
+  let feature_interval = feature_interval_create();
 
   feature_blocks.forEach((feature) => {
     feature.addEventListener("mouseenter", () => {
@@ -263,6 +270,8 @@ document.querySelectorAll(".feature_container").forEach((feature_container) => {
       if (next_feature >= feature_blocks.length) {
         next_feature = 0;
       }
+      clearInterval(feature_interval);
+      feature_interval = feature_interval_create();
     });
   });
 

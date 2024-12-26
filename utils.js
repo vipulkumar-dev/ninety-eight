@@ -2,6 +2,14 @@ export const getCurrentTime = () => {
   return new Date().toISOString();
 };
 
+export function debounce(func, delay) {
+  let timeoutId;
+  return function (...args) {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => func.apply(this, args), delay);
+  };
+}
+
 export function lenisInit() {
   // Initialize a new Lenis instance for smooth scrolling
   const lenis = new Lenis();
