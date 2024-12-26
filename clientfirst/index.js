@@ -1,4 +1,4 @@
-import { getCurrentTime, roll } from "../utils.js";
+import { roll } from "../utils.js";
 import { liveReload } from "../liveReload.js";
 
 const header = document.getElementById("header");
