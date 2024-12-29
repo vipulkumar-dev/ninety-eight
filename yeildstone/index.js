@@ -444,12 +444,12 @@ const lottieData = [
   },
   {
     name: "lottie_3",
-    link: "https://cdn.prod.website-files.com/675b2366b8047c66057f0ae8/676f89b28b0bea6cfa40f9d3_YieldStone%20-%20motion%203.json",
+    link: "https://cdn.prod.website-files.com/675b2366b8047c66057f0ae8/6771677fde847249fa8d583b_YieldStone%20-%20motion%203.json",
     endSegment: 50,
   },
   {
     name: "lottie_4",
-    link: "https://cdn.prod.website-files.com/675b2366b8047c66057f0ae8/676f89eb8d25010c1c4855ac_YieldStone%20-%20motion%204.json",
+    link: "https://cdn.prod.website-files.com/675b2366b8047c66057f0ae8/677167aeb76ee24f1124f31e_YieldStone%20-%20motion%204.json",
     endSegment: 50,
   },
   {
@@ -464,7 +464,7 @@ const lottieData = [
   },
   {
     name: "lottie_6",
-    link: "https://cdn.prod.website-files.com/675b2366b8047c66057f0ae8/676f8a5734e6952a710c0ad6_YieldStone%20-%20motion%206.json",
+    link: "https://cdn.prod.website-files.com/675b2366b8047c66057f0ae8/677167c90801d6e0aae00070_YieldStone%20-%20motion%206.json",
     endSegment: 50,
   },
   {
