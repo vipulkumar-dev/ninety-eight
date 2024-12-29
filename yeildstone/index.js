@@ -230,7 +230,7 @@ if (isDesktop) {
   hero_section.addEventListener("mousemove", (e) => {
     const x = e.clientX;
     const mapped_x = gsap.utils.mapRange(0, hero_width, -50, 30, x);
-    const mapped_mask = gsap.utils.mapRange(0, hero_width, -117, -37, x);
+    const mapped_mask = gsap.utils.mapRange(0, hero_width, -116, -36, x);
     gsap.to(hero_strape, {
       x: mapped_x,
       duration: 0.3,
