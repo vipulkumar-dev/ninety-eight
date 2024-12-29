@@ -431,73 +431,71 @@ ScrollTrigger.batch("[fade-animation]", {
   },
 });
 
-document.addEventListener("DOMContentLoaded", () => {
-  const lottieData = [
-    {
-      name: "hero_lottie_1",
-      link: "https://cdn.prod.website-files.com/675b2366b8047c66057f0ae8/676eea196883f1e67f67fcf1_YieldStone%20-%20motion%201.json",
-      endSegment: 10,
-    },
-    {
-      name: "lottie_2",
-      link: "https://cdn.prod.website-files.com/675b2366b8047c66057f0ae8/676f8988fe632e96fee59eba_YieldStone%20-%20motion%202.json",
-      endSegment: 50,
-    },
-    {
-      name: "lottie_3",
-      link: "https://cdn.prod.website-files.com/675b2366b8047c66057f0ae8/676f89b28b0bea6cfa40f9d3_YieldStone%20-%20motion%203.json",
-      endSegment: 50,
-    },
-    {
-      name: "lottie_4",
-      link: "https://cdn.prod.website-files.com/675b2366b8047c66057f0ae8/676f89eb8d25010c1c4855ac_YieldStone%20-%20motion%204.json",
-      endSegment: 50,
-    },
-    {
-      name: "lottie_5",
-      link: "https://cdn.prod.website-files.com/675b2366b8047c66057f0ae8/676f8a3e66ec3b839a9b4acf_YieldStone%20-%20motion%205.json",
-      endSegment: 50,
-    },
-    {
-      name: "lottie_6",
-      link: "https://cdn.prod.website-files.com/675b2366b8047c66057f0ae8/676f8a5734e6952a710c0ad6_YieldStone%20-%20motion%206.json",
-      endSegment: 50,
-    },
-    {
-      name: "lottie_7",
-      link: "https://cdn.prod.website-files.com/675b2366b8047c66057f0ae8/676f8a6af9dc9e24913aa565_YieldStone%20-%20motion%207.json",
-      endSegment: 50,
-    },
-  ];
+const lottieData = [
+  {
+    name: "hero_lottie_1",
+    link: "https://cdn.prod.website-files.com/675b2366b8047c66057f0ae8/676eea196883f1e67f67fcf1_YieldStone%20-%20motion%201.json",
+    endSegment: 10,
+  },
+  {
+    name: "lottie_2",
+    link: "https://cdn.prod.website-files.com/675b2366b8047c66057f0ae8/676f8988fe632e96fee59eba_YieldStone%20-%20motion%202.json",
+    endSegment: 50,
+  },
+  {
+    name: "lottie_3",
+    link: "https://cdn.prod.website-files.com/675b2366b8047c66057f0ae8/676f89b28b0bea6cfa40f9d3_YieldStone%20-%20motion%203.json",
+    endSegment: 50,
+  },
+  {
+    name: "lottie_4",
+    link: "https://cdn.prod.website-files.com/675b2366b8047c66057f0ae8/676f89eb8d25010c1c4855ac_YieldStone%20-%20motion%204.json",
+    endSegment: 50,
+  },
+  {
+    name: "lottie_5",
+    link: "https://cdn.prod.website-files.com/675b2366b8047c66057f0ae8/676f8a3e66ec3b839a9b4acf_YieldStone%20-%20motion%205.json",
+    endSegment: 50,
+  },
+  {
+    name: "lottie_6",
+    link: "https://cdn.prod.website-files.com/675b2366b8047c66057f0ae8/676f8a5734e6952a710c0ad6_YieldStone%20-%20motion%206.json",
+    endSegment: 50,
+  },
+  {
+    name: "lottie_7",
+    link: "https://cdn.prod.website-files.com/675b2366b8047c66057f0ae8/676f8a6af9dc9e24913aa565_YieldStone%20-%20motion%207.json",
+    endSegment: 50,
+  },
+];
 
-  lottieData.forEach((data) => {
-    const lottie_container = document.querySelector(
-      `[lottie-container=${data.name}]`
-    );
-    const lotteAnim = lottie.loadAnimation({
-      container: lottie_container, // the dom element that will contain the animation
-      renderer: "svg",
-      name: data.name,
-      loop: false,
-      autoplay: false,
-      path: data.link, // the path to the animation json
-    });
-
-    ScrollTrigger.create({
-      trigger: lottie_container,
-      start: "top bottom",
-      end: "+=0",
-      markers: true,
-      // once: true,
-      onEnter: () => {
-        // lotteAnim.setDirection(1);
-        // lotteAnim.playSegments(1, data.endSegment, true);
-        lotteAnim.play();
-      },
-    });
-
-    // lotteAnim.play();
+lottieData.forEach((data) => {
+  const lottie_container = document.querySelector(
+    `[lottie-container=${data.name}]`
+  );
+  const lotteAnim = lottie.loadAnimation({
+    container: lottie_container, // the dom element that will contain the animation
+    renderer: "svg",
+    name: data.name,
+    loop: false,
+    autoplay: false,
+    path: data.link, // the path to the animation json
   });
+
+  ScrollTrigger.create({
+    trigger: lottie_container,
+    start: "top bottom",
+    end: "+=0",
+    markers: true,
+    // once: true,
+    onEnter: () => {
+      // lotteAnim.setDirection(1);
+      // lotteAnim.playSegments(1, data.endSegment, true);
+      lotteAnim.play();
+    },
+  });
+
+  // lotteAnim.play();
 });
 
 // lottie.goToAndStop(3, false, lottieData[0].name);
