@@ -433,7 +433,12 @@ ScrollTrigger.batch("[fade-animation]", {
 
 const lottieData = [
   {
-    name: "lottie_1",
+    name: "hero_lottie_1",
+    link: "https://cdn.prod.website-files.com/675b2366b8047c66057f0ae8/676eea196883f1e67f67fcf1_YieldStone%20-%20motion%201.json",
+    endSegment: 10,
+  },
+  {
+    name: "hero_lottie_2",
     link: "https://cdn.prod.website-files.com/675b2366b8047c66057f0ae8/676eea196883f1e67f67fcf1_YieldStone%20-%20motion%201.json",
     endSegment: 10,
   },
