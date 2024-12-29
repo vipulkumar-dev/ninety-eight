@@ -453,7 +453,12 @@ const lottieData = [
     endSegment: 50,
   },
   {
-    name: "lottie_5",
+    name: "modal_lottie_1",
+    link: "https://cdn.prod.website-files.com/675b2366b8047c66057f0ae8/676f8a3e66ec3b839a9b4acf_YieldStone%20-%20motion%205.json",
+    endSegment: 50,
+  },
+  {
+    name: "modal_lottie_2",
     link: "https://cdn.prod.website-files.com/675b2366b8047c66057f0ae8/676f8a3e66ec3b839a9b4acf_YieldStone%20-%20motion%205.json",
     endSegment: 50,
   },
@@ -486,19 +491,18 @@ lottieData.forEach((data) => {
     trigger: lottie_container,
     start: "top bottom",
     end: "+=0",
-    markers: true,
+    // markers: true,
     // once: true,
     onEnter: () => {
       // lotteAnim.setDirection(1);
       // lotteAnim.playSegments(1, data.endSegment, true);
       lotteAnim.play();
+      // lotteAnim.goToAndStop(50, true);
     },
   });
 
   // lotteAnim.play();
 });
-
-// lottie.goToAndStop(3, false, lottieData[0].name);
 
 // roll("[roll]", 100);
 // liveReload();

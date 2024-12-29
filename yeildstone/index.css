@@ -38,3 +38,10 @@
   left: 633px;
   top: 939px;
 }
+
+.lottie-animation-2 {
+  width: 170%;
+  position: absolute;
+  transform: translate(10%, 3%);
+  mask-image: linear-gradient(109deg, #000 50%, #00000000 60%);
+}
