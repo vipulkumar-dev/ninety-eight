@@ -435,42 +435,42 @@ const lottieData = [
   {
     name: "hero_lottie_1",
     link: "https://cdn.prod.website-files.com/675b2366b8047c66057f0ae8/676eea196883f1e67f67fcf1_YieldStone%20-%20motion%201.json",
-    endSegment: 10,
+    start: "top bottom",
   },
   {
     name: "lottie_2",
     link: "https://cdn.prod.website-files.com/675b2366b8047c66057f0ae8/676f8988fe632e96fee59eba_YieldStone%20-%20motion%202.json",
-    endSegment: 50,
+    start: "center bottom",
   },
   {
     name: "lottie_3",
     link: "https://cdn.prod.website-files.com/675b2366b8047c66057f0ae8/6771677fde847249fa8d583b_YieldStone%20-%20motion%203.json",
-    endSegment: 50,
+    start: "center bottom",
   },
   {
     name: "lottie_4",
     link: "https://cdn.prod.website-files.com/675b2366b8047c66057f0ae8/677167aeb76ee24f1124f31e_YieldStone%20-%20motion%204.json",
-    endSegment: 50,
+    start: "center bottom",
   },
   {
     name: "modal_lottie_1",
     link: "https://cdn.prod.website-files.com/675b2366b8047c66057f0ae8/676f8a3e66ec3b839a9b4acf_YieldStone%20-%20motion%205.json",
-    endSegment: 50,
+    start: "center bottom",
   },
   {
     name: "modal_lottie_2",
     link: "https://cdn.prod.website-files.com/675b2366b8047c66057f0ae8/676f8a3e66ec3b839a9b4acf_YieldStone%20-%20motion%205.json",
-    endSegment: 50,
+    start: "center bottom",
   },
   {
     name: "lottie_6",
     link: "https://cdn.prod.website-files.com/675b2366b8047c66057f0ae8/677167c90801d6e0aae00070_YieldStone%20-%20motion%206.json",
-    endSegment: 50,
+    start: `center+=${PIN_SPACING} bottom`,
   },
   {
     name: "lottie_7",
     link: "https://cdn.prod.website-files.com/675b2366b8047c66057f0ae8/676f8a6af9dc9e24913aa565_YieldStone%20-%20motion%207.json",
-    endSegment: 50,
+    start: "top bottom",
   },
 ];
 
@@ -488,8 +488,8 @@ lottieData.forEach((data) => {
   });
 
   ScrollTrigger.create({
-    trigger: lottie_container,
-    start: "top bottom",
+    trigger: lottie_container.parentElement,
+    start: data.start,
     end: "+=0",
     // markers: true,
     // once: true,
