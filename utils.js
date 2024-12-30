@@ -11,10 +11,9 @@ export function debounce(func, delay) {
 }
 
 export function scrollResotration() {
-  // window.onbeforeunload = function () {
-  //   window.scrollTo(0, 0);
-  // };
-  $("html, body").animate({ scrollTop: 0 }, 500);
+  window.onbeforeunload = function () {
+    $("html, body").animate({ scrollTop: 0 }, 500);
+  };
 }
 
 export function lenisInit() {
