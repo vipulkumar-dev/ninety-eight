@@ -10,6 +10,12 @@ export function debounce(func, delay) {
   };
 }
 
+export function scrollResotration() {
+  window.onbeforeunload = function () {
+    window.scrollTo(0, 0);
+  };
+}
+
 export function lenisInit() {
   // Initialize a new Lenis instance for smooth scrolling
   const lenis = new Lenis();

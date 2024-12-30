@@ -1,5 +1,5 @@
 import PhotoSwipeLightbox from "https://unpkg.com/photoswipe/dist/photoswipe-lightbox.esm.js";
-import { lenisInit } from "../utils.js";
+import { lenisInit, scrollResotration } from "../utils.js";
 
 const isDesktop = window.innerWidth > 991;
 
@@ -514,9 +514,7 @@ lottieData.forEach((data) => {
   // lotteAnim.play();
 });
 
-if ("scrollRestoration" in history) {
-  history.scrollRestoration = "manual";
-}
+scrollResotration();
 
 // roll("[roll]", 100);
 // liveReload();
