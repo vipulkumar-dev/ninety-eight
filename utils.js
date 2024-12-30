@@ -14,6 +14,10 @@ export function scrollResotration() {
   window.onbeforeunload = function () {
     window.scrollTo(0, 0);
   };
+
+  if ("scrollRestoration" in history) {
+    history.scrollRestoration = "manual";
+  }
 }
 
 export function lenisInit() {

@@ -316,16 +316,6 @@ const phaseTl = gsap.timeline({
     pin: isDesktop ? ".section_container_phase" : false,
     scrub: true,
     anticipatePin: 1,
-    // onUpdate: () => {
-    //   const current_card = Math.floor(self.progress * (total_cards - 0.5));
-    //   if (current_card !== last_card) {
-    //     last_card = current_card;
-    //     phase_wrapper.querySelectorAll(".card.active").forEach((card) => {
-    //       card.classList?.remove("active");
-    //     });
-    //     phase_cards[current_card]?.classList?.add("active");
-    //   }
-    // },
   },
   defaults: {
     duration: 1,
@@ -394,20 +384,18 @@ if (isDesktop) {
   );
 }
 
-const nomics_tl = gsap.timeline({
-  scrollTrigger: {
-    trigger: ".section_team",
-    start: "center center",
-    end: "bottom center",
-    // markers: true,
-    // pin: true,
-    // scrub: true,
-    onEnter: () => {
-      ScrollTrigger.refresh();
-    },
-    onLeave: () => {
-      ScrollTrigger.refresh();
-    },
+ScrollTrigger.create({
+  trigger: ".section_team",
+  start: "center center",
+  end: "bottom center",
+  // markers: true,
+  // pin: true,
+  // scrub: true,
+  onEnter: () => {
+    ScrollTrigger.refresh();
+  },
+  onLeave: () => {
+    ScrollTrigger.refresh();
   },
 });
 
@@ -500,21 +488,11 @@ lottieData.forEach((data) => {
       trigger: lottie_container.parentElement,
       start: data.start,
       end: "+=0",
-      // markers: true,
-      // once: true,
       onEnter: () => {
-        // lotteAnim.setDirection(1);
-        // lotteAnim.playSegments(1, data.endSegment, true);
         lotteAnim.play();
-        // lotteAnim.goToAndStop(50, true);
       },
     });
   }
-
-  // lotteAnim.play();
 });
 
 scrollResotration();
-
-// roll("[roll]", 100);
-// liveReload();
