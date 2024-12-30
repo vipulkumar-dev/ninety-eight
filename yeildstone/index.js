@@ -474,7 +474,7 @@ const lottieData = [
     name: "lottie_6",
     link: "https://cdn.prod.website-files.com/675b2366b8047c66057f0ae8/677167c90801d6e0aae00070_YieldStone%20-%20motion%206.json",
     start: `center+=${PIN_SPACING} bottom`,
-    isMobile: true,
+    isMobile: false,
   },
   {
     name: "lottie_7",
