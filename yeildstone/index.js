@@ -514,5 +514,9 @@ lottieData.forEach((data) => {
   // lotteAnim.play();
 });
 
+if ("scrollRestoration" in history) {
+  history.scrollRestoration = "manual";
+}
+
 // roll("[roll]", 100);
 // liveReload();
