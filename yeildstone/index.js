@@ -394,22 +394,24 @@ if (isDesktop) {
   );
 }
 
-const nomics_tl = gsap.timeline({
-  scrollTrigger: {
-    trigger: ".section_team",
-    start: "center center",
-    end: "bottom center",
-    // markers: true,
-    // pin: true,
-    // scrub: true,
-    onEnter: () => {
-      ScrollTrigger.refresh();
+if (isDesktop) {
+  const nomics_tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: ".section_team",
+      start: "center center",
+      end: "bottom center",
+      // markers: true,
+      // pin: true,
+      // scrub: true,
+      onEnter: () => {
+        ScrollTrigger.refresh();
+      },
+      onLeave: () => {
+        ScrollTrigger.refresh();
+      },
     },
-    onLeave: () => {
-      ScrollTrigger.refresh();
-    },
-  },
-});
+  });
+}
 
 ScrollTrigger.batch("[fade-animation]", {
   start: (element, triggers) => {
