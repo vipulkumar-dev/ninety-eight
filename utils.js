@@ -12,7 +12,7 @@ export function debounce(func, delay) {
 
 export function scrollResotration() {
   window.onbeforeunload = function () {
-    $("html, body").animate({ scrollTop: 0 }, 500);
+    window.scrollTo(0, 0);
   };
 }
 
