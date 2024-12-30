@@ -488,16 +488,16 @@ lottieData.forEach((data) => {
   const lottie_container = document.querySelector(
     `[lottie-container=${data.name}]`
   );
-  const lotteAnim = lottie.loadAnimation({
-    container: lottie_container, // the dom element that will contain the animation
-    renderer: "svg",
-    name: data.name,
-    loop: false,
-    autoplay: false,
-    path: data.link, // the path to the animation json
-  });
-
   if (data.isMobile || isDesktop) {
+    const lotteAnim = lottie.loadAnimation({
+      container: lottie_container, // the dom element that will contain the animation
+      renderer: "svg",
+      name: data.name,
+      loop: false,
+      autoplay: false,
+      path: data.link, // the path to the animation json
+    });
+
     ScrollTrigger.create({
       trigger: lottie_container.parentElement,
       start: data.start,
