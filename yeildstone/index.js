@@ -316,7 +316,7 @@ const phaseTl = gsap.timeline({
     pin: isDesktop ? ".section_container_phase" : false,
     scrub: true,
     anticipatePin: 1,
-    // markers: true,
+    markers: true,
   },
   defaults: {
     duration: 1,
