@@ -1,47 +1,39 @@
-.button.is-top {
-  transform-origin: 50% 100% 0;
-  transition: transform 0.35s cubic-bezier(0.76, 0, 0.24, 1) 0s,
-    -webkit-transform 0.35s cubic-bezier(0.76, 0, 0.24, 1) 0s;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
+tml,
+body {
+  max-width: 100%;
+  overflow-x: clip;
 }
 
-.button.is-bottom {
-  transform-origin: 50% 0 0;
-  -webkit-transform: rotateX(-90deg);
-  transform: rotateX(-90deg);
-
-  transition: transform 0.35s cubic-bezier(0.76, 0, 0.24, 1) 0s,
-    -webkit-transform 0.35s cubic-bezier(0.76, 0, 0.24, 1) 0s;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
+.pswp--zoomed-in .plus_svgpath {
+  opacity: 0;
 }
 
-.button_wrapper:hover .button.is-bottom {
-  -webkit-transform: rotateX(0deg) translateY(-100%);
-  transform: rotateX(0deg) translateY(-100%);
-  background-color: #060318;
+[fade-animation] {
+  opacity: 0;
+  transform: translateY(30px);
 }
 
-.button_wrapper:hover .button.is-top {
-  -webkit-transform: rotateX(-90deg) translateY(-100%);
-  transform: rotateX(-90deg) translateY(-100%);
-}
+@media (max-width: 768px) {
+  ul {
+    list-style: none;
+  }
+  ul li span {
+    display: inline-block;
+    position: relative;
+  }
+  ul li span::before {
+    content: "";
+    width: 15px;
+    height: 10.5px;
+    position: absolute;
+    left: -1.2em;
+    top: 0.26em;
+    background: url("https://cdn.prod.website-files.com/675b2366b8047c66057f0ae8/6773f335b4c306c65fc1d6ef_check.svg")
+      no-repeat center;
+    background-size: cover;
+  }
 
-/* Get Started */
-.get_started {
-  /* Group 33 */
-
-  position: absolute;
-  width: 38px;
-  height: 38px;
-  left: 633px;
-  top: 939px;
-}
-
-.lottie-animation-2 {
-  width: 170%;
-  position: absolute;
-  transform: translate(10%, 3%);
-  mask-image: linear-gradient(109deg, #000 50%, #00000000 60%);
+  .card li span::before {
+    opacity: 0.7;
+  }
 }

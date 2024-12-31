@@ -389,9 +389,6 @@ ScrollTrigger.create({
   trigger: ".section_team",
   start: "center center",
   end: "bottom center",
-  // markers: true,
-  // pin: true,
-  // scrub: true,
   onEnter: () => {
     ScrollTrigger.refresh();
   },
@@ -407,6 +404,7 @@ ScrollTrigger.batch("[fade-animation]", {
     }
     return "top 100%";
   },
+
   end: "top top",
   // markers: true,
   onEnter: (elements, triggers) => {
@@ -471,6 +469,8 @@ const lottieData = [
   },
 ];
 
+lottie.setQuality("low");
+
 lottieData.forEach((data) => {
   const lottie_container = document.querySelector(
     `[lottie-container=${data.name}]`
@@ -491,7 +491,9 @@ lottieData.forEach((data) => {
       // markers: true,
       end: "top bottom",
       onEnter: () => {
-        lotteAnim.play();
+        setTimeout(() => {
+          lotteAnim.play();
+        }, 300);
       },
       onLeaveBack: () => {
         lotteAnim.goToAndStop(0, true);
