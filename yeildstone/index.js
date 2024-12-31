@@ -491,9 +491,7 @@ lottieData.forEach((data) => {
       // markers: true,
       end: "top bottom",
       onEnter: () => {
-        setTimeout(() => {
-          lotteAnim.play();
-        }, 300);
+        lotteAnim.play();
       },
       onLeaveBack: () => {
         lotteAnim.goToAndStop(0, true);
