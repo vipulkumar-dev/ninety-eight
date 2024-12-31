@@ -393,10 +393,10 @@ ScrollTrigger.create({
   // pin: true,
   // scrub: true,
   onEnter: () => {
-    ScrollTrigger.refresh();
+    phaseTl.scrollTrigger.refresh();
   },
   onLeave: () => {
-    ScrollTrigger.refresh();
+    phaseTl.scrollTrigger.refresh();
   },
 });
 
