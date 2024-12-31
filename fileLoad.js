@@ -19,8 +19,10 @@ function loadScript(primaryUrl, fallbackUrl) {
   document.head.appendChild(script);
 }
 
-// Call the function with your URLs
-loadScript(
-  "http://127.0.0.1:3000/yeildstone/index.js",
-  "https://ninety-eight.vercel.app/yeildstone/index.js"
-);
+document.addEventListener("DOMContentLoaded", () => {
+  // Call the function with your URLs
+  loadScript(
+    "http://127.0.0.1:3000/yeildstone/index.js",
+    "https://ninety-eight.vercel.app/yeildstone/index.js"
+  );
+});
