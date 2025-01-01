@@ -466,7 +466,7 @@ lottieData.forEach((data) => {
   if (data.isMobile || isDesktop) {
     const lotteAnim = lottie.loadAnimation({
       container: lottie_container, // the dom element that will contain the animation
-      renderer: "svg",
+      renderer: "canvas",
       name: data.name,
       loop: false,
       autoplay: false,
