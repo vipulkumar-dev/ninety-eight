@@ -489,17 +489,74 @@ lottieData.forEach((data) => {
       trigger: lottie_container.parentElement,
       start: data.start,
       // markers: true,
-      end: "top bottom",
+      end: "bottom top",
       onEnter: () => {
         setTimeout(() => {
-          lotteAnim.play();
+          if (data.name === "hero_lottie_1") {
+            console.log("hero_lottie_1_enter");
+            startYoyoAnimation(lotteAnim);
+          } else {
+            lotteAnim.play();
+          }
+        }, 300);
+      },
+      onEnterBack: () => {
+        setTimeout(() => {
+          if (data.name === "hero_lottie_1") {
+            console.log("hero_lottie_1_enterback");
+            startYoyoAnimation(lotteAnim);
+          }
         }, 300);
       },
       onLeaveBack: () => {
         lotteAnim.goToAndStop(0, true);
       },
+      onLeave: () => {
+        if (data.name === "hero_lottie_1") {
+          console.log("hero_lottie_1_leave");
+          stopYoyoAnimation(lotteAnim);
+        }
+      },
     });
   }
 });
+
+let isRunning = false; // Track the animation state
+
+function yoYoAnimation(animation) {
+  let playForward = true; // Track direction
+
+  function playAnimation(animation) {
+    if (isRunning) {
+      if (playForward) {
+        animation.playSegments([0, 110], true);
+      } else {
+        animation.playSegments([110, 0], true);
+      }
+      playForward = !playForward; // Toggle direction
+    }
+  }
+
+  animation.addEventListener("complete", () => {
+    if (isRunning) {
+      playAnimation(animation);
+    }
+  });
+
+  playAnimation(animation); // Start the first play
+}
+
+// Control functions
+function startYoyoAnimation(animation) {
+  if (!isRunning) {
+    isRunning = true;
+    yoYoAnimation(animation); // Restart the Yo-Yo animation logic
+  }
+}
+
+function stopYoyoAnimation(animation) {
+  isRunning = false; // Stop the animation logic
+  animation.stop(); // Stop the current animation
+}
 
 scrollResotration();
