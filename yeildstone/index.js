@@ -493,7 +493,6 @@ lottieData.forEach((data) => {
       onEnter: () => {
         setTimeout(() => {
           if (data.name === "hero_lottie_1") {
-            console.log("hero_lottie_1_enter");
             startYoyoAnimation(lotteAnim);
           } else {
             lotteAnim.play();
@@ -503,7 +502,6 @@ lottieData.forEach((data) => {
       onEnterBack: () => {
         setTimeout(() => {
           if (data.name === "hero_lottie_1") {
-            console.log("hero_lottie_1_enterback");
             startYoyoAnimation(lotteAnim);
           }
         }, 300);
@@ -513,7 +511,6 @@ lottieData.forEach((data) => {
       },
       onLeave: () => {
         if (data.name === "hero_lottie_1") {
-          console.log("hero_lottie_1_leave");
           stopYoyoAnimation(lotteAnim);
         }
       },
