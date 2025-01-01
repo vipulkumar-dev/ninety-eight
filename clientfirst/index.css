@@ -7,6 +7,11 @@
   position: relative;
   animation: blink 2s infinite none;
 }
+[img-ph]:has([no-anim]) {
+  overflow: hidden;
+  position: relative;
+  animation: none;
+}
 
 @keyframes blink {
   0%,
