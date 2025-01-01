@@ -1,5 +1,10 @@
 export function liveReload() {
   // <![CDATA[  <-- For SVG support
+
+  // if (!scriptLocation || scriptLocation.indexOf("http://example.com") != 0) {
+  //   //inline script or loaded from some other site
+  // }
+
   if ("WebSocket" in window) {
     (function () {
       function refreshCSS() {

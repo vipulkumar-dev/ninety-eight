@@ -23,6 +23,9 @@ function handleScroll() {
   ticking = false;
 }
 
+// var scriptLocation = document.currentScript.src;
+// console.log("scriptLocation", scriptLocation);
+
 window.addEventListener("scroll", () => {
   if (!ticking) {
     window.requestAnimationFrame(handleScroll);

@@ -444,18 +444,6 @@ const lottieData = [
     isMobile: true,
   },
   {
-    name: "modal_lottie_1",
-    link: "https://cdn.prod.website-files.com/675b2366b8047c66057f0ae8/676f8a3e66ec3b839a9b4acf_YieldStone%20-%20motion%205.json",
-    start: "top bottom",
-    isMobile: false,
-  },
-  {
-    name: "modal_lottie_2",
-    link: "https://cdn.prod.website-files.com/675b2366b8047c66057f0ae8/676f8a3e66ec3b839a9b4acf_YieldStone%20-%20motion%205.json",
-    start: "top bottom",
-    isMobile: false,
-  },
-  {
     name: "lottie_6",
     link: "https://cdn.prod.website-files.com/675b2366b8047c66057f0ae8/677167c90801d6e0aae00070_YieldStone%20-%20motion%206.json",
     start: `top+=${PIN_SPACING} bottom`,

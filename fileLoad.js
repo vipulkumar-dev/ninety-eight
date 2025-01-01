@@ -3,6 +3,7 @@ function loadScript(primaryUrl, fallbackUrl) {
   script.src = primaryUrl;
   script.type = "module";
   script.onload = () => console.log(`Loaded script from: ${primaryUrl}`);
+  document.setAttribute("data-script-mode", "local");
   script.onerror = () => {
     console.warn(
       `Failed to load script from: ${primaryUrl}, attempting fallback.`
@@ -15,13 +16,16 @@ function loadScript(primaryUrl, fallbackUrl) {
     fallbackScript.onerror = () =>
       console.error(`Failed to load script from: ${fallbackUrl}`);
     document.head.appendChild(fallbackScript);
+    document.setAttribute("data-script-mode", "server");
   };
   document.head.appendChild(script);
 }
 
+const FOLDERNAME = "clientFirst";
+
 document.addEventListener("DOMContentLoaded", () => {
   loadScript(
-    "http://127.0.0.1:3000/yeildstone/index.js",
-    "https://ninety-eight.vercel.app/yeildstone/index.js"
+    `http://127.0.0.1:3000/${FOLDERNAME}/index.js`,
+    `https://ninety-eight.vercel.app/${FOLDERNAME}/index.js`
   );
 });
