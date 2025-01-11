@@ -301,7 +301,7 @@ const move_x = phase_wrapper.offsetWidth - phase_container.offsetWidth;
 const phaseTl = gsap.timeline({
   scrollTrigger: {
     trigger: ".phase_wrapper",
-    start: isDesktop ? "center 55%" : "center 25%",
+    start: isDesktop ? "center 55%" : "top 25%",
     end: isDesktop ? `+=${PIN_SPACING}` : "bottom 25%",
     pin: isDesktop ? ".section_container_phase" : false,
     scrub: true,
