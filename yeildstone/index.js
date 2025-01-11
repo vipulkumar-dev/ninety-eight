@@ -3,18 +3,8 @@ import { lenisInit, scrollResotration } from "../utils.js";
 
 const isDesktop = window.innerWidth > 991;
 
-const closeArrowSVGString = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M18.9999 1.00007L1 19M0.999924 1L18.9998 18.9999" stroke="white" stroke-width="2.1"/>
-</svg>
-`;
-
-const zoomSVGString = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-<circle cx="11.3947" cy="11.3947" r="9.39474" stroke="white" stroke-width="1.8"/>
-<path d="M18.5791 18.5791L23.0002 23.0002" stroke="white" stroke-width="1.8"/>
-<path class="plus_svgpath transtion-base" d="M11.3501 7.53027C11.3501 9.92583 11.3501 14.8196 11.3501 15.2303" stroke="white" stroke-width="1.8"/>
-<path  d="M7.50049 11.3799C9.89604 11.3799 14.7898 11.3799 15.2005 11.3799" stroke="white" stroke-width="1.8"/>
-</svg>
-`;
+const closeArrowSVGString = `<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M18.9999 1.00007L1 19M0.999924 1L18.9998 18.9999" stroke="white" stroke-width="2.1"/></svg>`;
+const zoomSVGString = `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="11.3947" cy="11.3947" r="9.39474" stroke="white" stroke-width="1.8"/><path d="M18.5791 18.5791L23.0002 23.0002" stroke="white" stroke-width="1.8"/><path class="plus_svgpath transtion-base" d="M11.3501 7.53027C11.3501 9.92583 11.3501 14.8196 11.3501 15.2303" stroke="white" stroke-width="1.8"/><path  d="M7.50049 11.3799C9.89604 11.3799 14.7898 11.3799 15.2005 11.3799" stroke="white" stroke-width="1.8"/></svg>`;
 
 const lightbox = new PhotoSwipeLightbox({
   closeSVG: closeArrowSVGString,
@@ -311,7 +301,7 @@ const move_x = phase_wrapper.offsetWidth - phase_container.offsetWidth;
 const phaseTl = gsap.timeline({
   scrollTrigger: {
     trigger: ".phase_wrapper",
-    start: isDesktop ? "center 65%" : "top 25%",
+    start: isDesktop ? "center 55%" : "center 25%",
     end: isDesktop ? `+=${PIN_SPACING}` : "bottom 25%",
     pin: isDesktop ? ".section_container_phase" : false,
     scrub: true,
