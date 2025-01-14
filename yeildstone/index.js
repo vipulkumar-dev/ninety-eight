@@ -295,6 +295,7 @@ if (isDesktop) {
     freeMode: true,
     slidesPerView: "auto",
     spaceBetween: 36,
+    grabCursor: true,
   });
 }
 
