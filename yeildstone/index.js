@@ -288,6 +288,16 @@ document.querySelectorAll(".feature_container").forEach((feature_container) => {
   }
 });
 
+///// TEAM /////
+
+if (isDesktop) {
+  const swiper = new Swiper(".swiper", {
+    freeMode: true,
+    slidesPerView: "auto",
+    spaceBetween: 36,
+  });
+}
+
 ///// PHASE /////
 
 const phase_cards = document.querySelectorAll(".card");
