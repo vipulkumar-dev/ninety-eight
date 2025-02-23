@@ -35,6 +35,8 @@ window.addEventListener("scroll", () => {
 
 console.log("deepnode");
 
+// Nav
+
 const nav_items = document.querySelectorAll(".nav_item");
 let active_nav = 0;
 
@@ -69,6 +71,101 @@ function addActiveNav(nav) {
     ease: "power2.inOut",
   });
 }
+
+// Steps
+
+const steps_container = document.querySelector(".steps_container");
+const step_block = document.querySelectorAll(".step_block");
+
+const stepTl = gsap.timeline({
+  paused: true,
+  scrollTrigger: {
+    trigger: steps_container,
+    start: "center center",
+    end: "+=800px",
+    // markers: true,
+    scrub: 1,
+    pin: true,
+  },
+  defaults: {
+    duration: 0.3,
+    ease: "power1.inOut",
+  },
+});
+
+stepTl
+  .addLabel("step1")
+  .to(step_block, {
+    x: "-100%",
+  })
+  .to(
+    ".step_number.step_1",
+    {
+      opacity: 0,
+    },
+    "<"
+  )
+  .to(
+    ".step_number.step_2",
+    {
+      opacity: 1,
+    },
+    "<"
+  )
+  .to(step_block, { duration: 0.15 })
+  .addLabel("step2")
+  .to(step_block, { duration: 0.15 })
+  .to(step_block, {
+    x: "-200%",
+  })
+  .to(
+    ".step_number.step_2",
+    {
+      opacity: 0,
+    },
+    "<"
+  )
+  .to(
+    ".step_number.step_3",
+    {
+      opacity: 1,
+    },
+    "<"
+  )
+  .to(step_block, { duration: 0.15 })
+  .addLabel("step3");
+
+document.querySelectorAll("[data-scroll-label]").forEach((element) =>
+  element.addEventListener("click", () => {
+    const scrollLabel = element.getAttribute("data-scroll-label");
+    gsap.to(window, {
+      scrollTo: stepTl.scrollTrigger.labelToScroll(scrollLabel),
+    });
+  })
+);
+
+// Coin
+
+const video = document.querySelector("#coin-video video");
+
+const handleMouseMove = (event) => {
+  const mousePositionX = event.clientX;
+  const mappedTime = gsap.utils.mapRange(
+    0,
+    window.innerWidth,
+    video.duration,
+    0,
+    mousePositionX
+  );
+
+  gsap.to(video, {
+    currentTime: mappedTime,
+    ease: "none",
+    duration: 0.3,
+  });
+};
+
+window.addEventListener("mousemove", handleMouseMove);
 
 // FAQ
 
