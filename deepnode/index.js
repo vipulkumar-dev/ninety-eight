@@ -1,4 +1,4 @@
-import { roll } from "../utils.js";
+import { roll, lenisInit } from "../utils.js";
 import { liveReload } from "../liveReload.js";
 
 const header = document.getElementById("header");
@@ -34,6 +34,8 @@ window.addEventListener("scroll", () => {
 });
 
 console.log("deepnode");
+
+lenisInit();
 
 // Nav
 
