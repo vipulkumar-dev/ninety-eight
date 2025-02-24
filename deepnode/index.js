@@ -85,7 +85,7 @@ const stepTl = gsap.timeline({
     end: "+=800px",
     // markers: true,
     scrub: 1,
-    pin: true,
+    pin: ".section_pin",
   },
   defaults: {
     duration: 0.3,
@@ -140,6 +140,7 @@ document.querySelectorAll("[data-scroll-label]").forEach((element) =>
     const scrollLabel = element.getAttribute("data-scroll-label");
     gsap.to(window, {
       scrollTo: stepTl.scrollTrigger.labelToScroll(scrollLabel),
+      duration: 1,
     });
   })
 );
