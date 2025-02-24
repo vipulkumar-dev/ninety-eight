@@ -74,8 +74,6 @@ function addActiveNav(nav) {
   });
 }
 
-Steps;
-
 const steps_container = document.querySelector(".steps_container");
 const step_block = document.querySelectorAll(".step_block");
 
