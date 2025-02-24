@@ -1,5 +1,6 @@
 import { roll, lenisInit } from "../utils.js";
 import { liveReload } from "../liveReload.js";
+lenisInit();
 
 const header = document.getElementById("header");
 let lastScrollPosition = 0;
@@ -34,8 +35,6 @@ window.addEventListener("scroll", () => {
 });
 
 console.log("deepnode");
-
-lenisInit();
 
 // Nav
 
@@ -83,9 +82,9 @@ const stepTl = gsap.timeline({
     trigger: steps_container,
     start: "center center",
     end: "+=800px",
-    // markers: true,
+    markers: true,
     scrub: 1,
-    pin: ".section_pin",
+    pin: true,
   },
   defaults: {
     duration: 0.3,
@@ -147,26 +146,26 @@ document.querySelectorAll("[data-scroll-label]").forEach((element) =>
 
 // Coin
 
-// const video = document.querySelector("#coin-video video");
+const video = document.querySelector("#coin-video video");
 
-// const handleMouseMove = (event) => {
-//   const mousePositionX = event.clientX;
-//   const mappedTime = gsap.utils.mapRange(
-//     0,
-//     window.innerWidth,
-//     video.duration,
-//     0,
-//     mousePositionX
-//   );
+const handleMouseMove = (event) => {
+  const mousePositionX = event.clientX;
+  const mappedTime = gsap.utils.mapRange(
+    0,
+    window.innerWidth,
+    video.duration,
+    0,
+    mousePositionX
+  );
 
-//   gsap.to(video, {
-//     currentTime: mappedTime,
-//     ease: "none",
-//     duration: 0.3,
-//   });
-// };
+  gsap.to(video, {
+    currentTime: mappedTime,
+    ease: "none",
+    duration: 0.3,
+  });
+};
 
-// window.addEventListener("mousemove", handleMouseMove);
+window.addEventListener("mousemove", handleMouseMove);
 
 // FAQ
 
