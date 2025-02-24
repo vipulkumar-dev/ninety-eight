@@ -82,9 +82,9 @@ const stepTl = gsap.timeline({
     trigger: steps_container,
     start: "center center",
     end: "+=800px",
-    markers: true,
+    // markers: true,
     scrub: 1,
-    pin: true,
+    pin: ".section_pin",
   },
   defaults: {
     duration: 0.3,
