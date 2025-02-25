@@ -22,8 +22,16 @@ body {
 
 .btn:hover .btn_txt {
   transform: translateY(-18px);
+}
+
+.btn:hover .btn_txt.top {
   opacity: 0;
-  filter: drop-shadow(0 1em #fff);
+  /* filter: drop-shadow(0 1em #fff); */
+}
+
+.btn:hover .btn_txt.bottom {
+  opacity: 1;
+  /* filter: drop-shadow(0 1em #fff); */
 }
 
 /* If the element has both img-ph and no-anim attribute, disable animation */
