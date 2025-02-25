@@ -208,7 +208,10 @@ function faqTimeline(faqItem) {
       onComplete: () => {
         lenis.resize();
         ScrollTrigger.refresh();
-        console.log("refresh");
+      },
+      onReverseComplete: () => {
+        lenis.resize();
+        ScrollTrigger.refresh();
       },
     })
     .to(faqItem, {
