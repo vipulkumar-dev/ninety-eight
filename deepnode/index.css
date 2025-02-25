@@ -11,7 +11,7 @@ body {
 [fade-animation] {
   opacity: 0;
   transform: translateY(30px);
-  filter: blur(10px);
+  filter: blur(8px);
 }
 
 [img-ph] {
