@@ -73,9 +73,9 @@ function addActiveNav(nav) {
   nav.appendChild(nav_bg);
   Flip.from(state, {
     absolute: true,
-    duration: 0.4,
+    duration: 0.6,
     zIndex: -1,
-    ease: "power2.inOut",
+    ease: "power3.inOut",
   });
 }
 
