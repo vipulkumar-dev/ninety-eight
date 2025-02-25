@@ -231,5 +231,5 @@ function faqTimeline(faqItem) {
 }
 
 // console.log("From how it why");
-// roll("[roll]", 80);
+roll("[roll]", 80);
 liveReload();
