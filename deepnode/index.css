@@ -34,6 +34,10 @@ body {
   filter: blur(0px);
 }
 
+.btn:hover .btn_background {
+  opacity: 1;
+}
+
 /* If the element has both img-ph and no-anim attribute, disable animation */
 [img-ph][no-anim] {
   animation: none;
