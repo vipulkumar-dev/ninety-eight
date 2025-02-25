@@ -1,6 +1,6 @@
 import { roll, lenisInit } from "../utils.js";
 import { liveReload } from "../liveReload.js";
-lenisInit();
+const lenis = lenisInit();
 
 const header = document.getElementById("header");
 let lastScrollPosition = 0;
@@ -204,6 +204,11 @@ function faqTimeline(faqItem) {
       defaults: {
         duration: 0.4,
         ease: "power2.inOut",
+      },
+      onComplete: () => {
+        lenis.resize();
+        ScrollTrigger.refresh();
+        console.log("refresh");
       },
     })
     .to(faqItem, {
