@@ -202,8 +202,8 @@ function faqTimeline(faqItem) {
     .timeline({
       paused: true,
       defaults: {
-        duration: 0.4,
-        ease: "power2.inOut",
+        duration: 0.6,
+        ease: "power3.inOut",
       },
       onComplete: () => {
         lenis.resize();
