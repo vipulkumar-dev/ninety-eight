@@ -247,11 +247,12 @@ ScrollTrigger.batch("[fade-animation]", {
   },
 
   end: "top top",
-  // markers: true,
+  markers: true,
   onEnter: (elements, triggers) => {
     gsap.to(elements, {
       opacity: 1,
       y: 0,
+      filter: "blur(0px)",
       stagger: 0.04,
       duration: 0.8,
       ease: "power3.inOut",
