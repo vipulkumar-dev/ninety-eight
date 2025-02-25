@@ -41,6 +41,7 @@ body {
 .social_wrap:hover .social_chip {
   transform: translate(50%, -25px);
   opacity: 1;
+  filter: blur(0px);
 }
 
 /* If the element has both img-ph and no-anim attribute, disable animation */
