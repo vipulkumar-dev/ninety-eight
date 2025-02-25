@@ -32,6 +32,12 @@ window.addEventListener("scroll", () => {
     window.requestAnimationFrame(handleScroll);
     ticking = true;
   }
+
+  if (window.scrollY > 50) {
+    header.classList.add("active");
+  } else {
+    header.classList.remove("active");
+  }
 });
 
 console.log("deepnode");
@@ -73,6 +79,8 @@ function addActiveNav(nav) {
   });
 }
 
+const PIN_SPACING = 800;
+
 const steps_container = document.querySelector(".steps_container");
 const step_block = document.querySelectorAll(".step_block");
 
@@ -81,7 +89,7 @@ const stepTl = gsap.timeline({
   scrollTrigger: {
     trigger: steps_container,
     start: "center center",
-    end: "+=800px",
+    end: `+=${PIN_SPACING}px`,
     // markers: true,
     scrub: 1,
     pin: ".section_pin",
@@ -229,6 +237,27 @@ function faqTimeline(faqItem) {
 
   return faqTl;
 }
+
+ScrollTrigger.batch("[fade-animation]", {
+  start: (element, triggers) => {
+    if (element.trigger.hasAttribute("after-pinned")) {
+      return `top+=${PIN_SPACING} 100%`;
+    }
+    return "top 100%";
+  },
+
+  end: "top top",
+  // markers: true,
+  onEnter: (elements, triggers) => {
+    gsap.to(elements, {
+      opacity: 1,
+      y: 0,
+      stagger: 0.04,
+      duration: 0.8,
+      ease: "power3.inOut",
+    });
+  },
+});
 
 // console.log("From how it why");
 roll("[roll]", 80);

@@ -8,6 +8,11 @@ body {
   overflow-x: clip;
 }
 
+[fade-animation] {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
 [img-ph] {
   overflow: hidden;
   position: relative;
