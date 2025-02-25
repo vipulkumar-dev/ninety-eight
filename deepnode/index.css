@@ -26,7 +26,7 @@ body {
 
 .btn:hover .btn_txt.top {
   opacity: 0;
-  filter: blur(5px);
+  filter: blur(3px);
 }
 
 .btn:hover .btn_txt.bottom {
