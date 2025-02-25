@@ -224,6 +224,7 @@ function faqTimeline(faqItem) {
       {
         height: "auto",
         opacity: 1,
+        filter: "blur(0px)",
       },
       0
     )
