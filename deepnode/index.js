@@ -202,7 +202,7 @@ function faqTimeline(faqItem) {
     .timeline({
       paused: true,
       defaults: {
-        duration: 0.3,
+        duration: 0.4,
         ease: "power2.inOut",
       },
     })
