@@ -79,7 +79,7 @@ function addActiveNav(nav) {
   });
 }
 
-const PIN_SPACING = 800;
+const PIN_SPACING = 1000;
 
 const steps_container = document.querySelector(".steps_container");
 const step_block = document.querySelectorAll(".step_block");
@@ -91,11 +91,11 @@ const stepTl = gsap.timeline({
     start: "center center",
     end: `+=${PIN_SPACING}px`,
     // markers: true,
-    scrub: 1,
+    scrub: 0.2,
     pin: ".section_pin",
   },
   defaults: {
-    duration: 0.3,
+    duration: 0.5,
     ease: "power1.inOut",
   },
 });

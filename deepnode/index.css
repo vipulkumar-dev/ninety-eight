@@ -20,6 +20,10 @@ body {
   animation: blink 2s infinite none;
 }
 
+.btn:hover .btn_txt {
+  transform: translateY(-18px);
+}
+
 /* If the element has both img-ph and no-anim attribute, disable animation */
 [img-ph][no-anim] {
   animation: none;
