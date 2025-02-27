@@ -84,6 +84,9 @@ body {
 .feature_card:hover .feature_card_heading {
   color: #11d1fc;
 }
+.feature_card:hover .feature_card_text {
+  opacity: 1;
+}
 
 /* If the element has both img-ph and no-anim attribute, disable animation */
 [img-ph][no-anim] {
