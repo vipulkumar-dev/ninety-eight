@@ -154,26 +154,26 @@ document.querySelectorAll("[data-scroll-label]").forEach((element) =>
 
 // Coin
 
-const video = document.querySelector("#coin-video video");
+// const video = document.querySelector("#coin-video");
 
-const handleMouseMove = (event) => {
-  const mousePositionX = event.clientX;
-  const mappedTime = gsap.utils.mapRange(
-    0,
-    window.innerWidth,
-    video.duration,
-    0,
-    mousePositionX
-  );
+// const handleMouseMove = (event) => {
+//   const mousePositionX = event.clientX;
+//   const mappedTime = gsap.utils.mapRange(
+//     0,
+//     window.innerWidth,
+//     video.duration,
+//     0,
+//     mousePositionX
+//   );
 
-  gsap.to(video, {
-    currentTime: mappedTime,
-    ease: "none",
-    duration: 0.3,
-  });
-};
+//   gsap.to(video, {
+//     currentTime: mappedTime,
+//     ease: "none",
+//     duration: 0.3,
+//   });
+// };
 
-window.addEventListener("mousemove", handleMouseMove);
+// window.addEventListener("mousemove", handleMouseMove);
 
 // FAQ
 

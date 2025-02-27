@@ -44,6 +44,47 @@ body {
   filter: blur(0px);
 }
 
+.future_card:hover {
+  border: 1px solid #11d1fc;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.future_card:hover .future_card_bg.active {
+  opacity: 100%;
+}
+
+.future_card:hover .future_card_bg.unactive {
+  opacity: 0%;
+}
+
+.future_card:hover .future_card_heading.active {
+  opacity: 100%;
+}
+
+.future_card:hover .future_card_heading.unactive {
+  opacity: 0%;
+}
+
+.hero_bg video::before {
+  position: absolute;
+  width: 100%;
+  height: 40%;
+  top: 0;
+  left: 0;
+  background-color: red;
+  z-index: 10;
+}
+
+.feature_card:hover .feature_card_ray {
+  width: 100%;
+  height: 100%;
+  opacity: 50%;
+}
+
+.feature_card:hover .feature_card_heading {
+  color: #11d1fc;
+}
+
 /* If the element has both img-ph and no-anim attribute, disable animation */
 [img-ph][no-anim] {
   animation: none;
