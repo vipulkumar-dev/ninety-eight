@@ -318,7 +318,7 @@ function setupScrollTrigger(riveInstance, stateMachineName, triggerId) {
       trigger: `#${triggerId}`,
       start: `top 80%`,
       end: "bottom center",
-      markers: true,
+      // markers: true,
       pinnedContainer: ".section_pin",
       scrub: 0.5, // Adjust scrub value as needed
     },
