@@ -275,7 +275,7 @@ function createRiveInstance(config) {
   const canvas = document.getElementById(canvasId);
 
   const riveInstance = new rive.Rive({
-    src: "https://cdn.prod.website-files.com/67b83ab9b85547fd239c9364/67c2cea04b1066f0bdbfc1f9_coin-bg.riv",
+    src: "https://cdn.prod.website-files.com/67b83ab9b85547fd239c9364/67c2d9840f31989491f9a2a3_coin-bg2.riv",
     canvas: canvas,
     autoplay: false,
     artboard: artboard,
@@ -316,9 +316,11 @@ function setupScrollTrigger(riveInstance, stateMachineName, triggerId) {
   const animationTimeline = gsap.timeline({
     scrollTrigger: {
       trigger: `#${triggerId}`,
-      start: `top+=${PIN_SPACING} 60%`,
-      end: "+=500px",
-      scrub: 0.7, // Adjust scrub value as needed
+      start: `top 80%`,
+      end: "end center",
+      markers: true,
+      pinnedContainer: ".section_pin",
+      scrub: true, // Adjust scrub value as needed
     },
   });
 
