@@ -275,7 +275,7 @@ function createRiveInstance(config) {
   const canvas = document.getElementById(canvasId);
 
   const riveInstance = new rive.Rive({
-    src: "https://cdn.prod.website-files.com/67b83ab9b85547fd239c9364/67c2d9840f31989491f9a2a3_coin-bg2.riv",
+    src: "https://cdn.prod.website-files.com/67b83ab9b85547fd239c9364/67c2db621c1d4c036d722394_untitled.riv",
     canvas: canvas,
     autoplay: false,
     artboard: artboard,
@@ -317,10 +317,10 @@ function setupScrollTrigger(riveInstance, stateMachineName, triggerId) {
     scrollTrigger: {
       trigger: `#${triggerId}`,
       start: `top 80%`,
-      end: "end center",
+      end: "bottom center",
       markers: true,
       pinnedContainer: ".section_pin",
-      scrub: true, // Adjust scrub value as needed
+      scrub: 0.5, // Adjust scrub value as needed
     },
   });
 
