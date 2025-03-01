@@ -316,7 +316,7 @@ function setupScrollTrigger(riveInstance, stateMachineName, triggerId) {
   const animationTimeline = gsap.timeline({
     scrollTrigger: {
       trigger: `#${triggerId}`,
-      start: `top 80%`,
+      start: `top 90%`,
       end: "bottom center",
       // markers: true,
       pinnedContainer: ".section_pin",
