@@ -268,6 +268,91 @@ ScrollTrigger.batch("[fade-animation]", {
   },
 });
 
+const riveInstances = [];
+
+function createRiveInstance(config) {
+  const { canvasId, artboard, stateMachine, triggerId } = config;
+  const canvas = document.getElementById(canvasId);
+
+  const riveInstance = new rive.Rive({
+    src: "https://cdn.prod.website-files.com/67b83ab9b85547fd239c9364/67c2cea04b1066f0bdbfc1f9_coin-bg.riv",
+    canvas: canvas,
+    autoplay: false,
+    artboard: artboard,
+    stateMachines: [stateMachine],
+    onLoad: () => {
+      riveInstance.resizeDrawingSurfaceToCanvas();
+      setupScrollTrigger(riveInstance, stateMachine, triggerId);
+    },
+  });
+
+  riveInstances.push(riveInstance);
+}
+
+function useStateMachineInput(
+  riveInstance,
+  stateMachineName,
+  inputName,
+  initialValue
+) {
+  const input = riveInstance
+    .stateMachineInputs(stateMachineName)
+    .find((input) => input.name === inputName);
+  if (input) {
+    input.value = initialValue;
+  }
+  return input;
+}
+
+function setupScrollTrigger(riveInstance, stateMachineName, triggerId) {
+  const progressInput = useStateMachineInput(
+    riveInstance,
+    stateMachineName,
+    "progress",
+    0
+  );
+  gsap.registerPlugin(ScrollTrigger);
+
+  const animationTimeline = gsap.timeline({
+    scrollTrigger: {
+      trigger: `#${triggerId}`,
+      start: `top+=${PIN_SPACING} 60%`,
+      end: "+=500px",
+      scrub: 0.7, // Adjust scrub value as needed
+    },
+  });
+
+  animationTimeline.to(progressInput, {
+    value: 100,
+    onUpdate: () => {
+      riveInstance.play();
+    },
+    onStart: () => {
+      riveInstance.play();
+    },
+    onComplete: () => {
+      riveInstance.pause();
+    },
+  });
+}
+
+function initializeAnimations(configs) {
+  configs.forEach((config) => {
+    createRiveInstance(config);
+  });
+}
+
+const animationConfigs = [
+  {
+    canvasId: "coin-bg",
+    artboard: "production",
+    stateMachine: "State Machine 1",
+    triggerId: "coin-bg",
+  },
+];
+
+initializeAnimations(animationConfigs);
+
 // console.log("From how it why");
 roll("[roll]", 80);
 liveReload();
