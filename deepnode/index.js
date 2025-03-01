@@ -237,7 +237,7 @@ function faqTimeline(faqItem) {
       0
     )
     .to(
-      faqItem.querySelector(".faq_arrow"),
+      faqItem.querySelectorAll(".faq_arrow"),
       {
         rotate: 45,
       },
