@@ -277,7 +277,7 @@ function createRiveInstance(config) {
   const riveInstance = new rive.Rive({
     src: "https://cdn.prod.website-files.com/67b83ab9b85547fd239c9364/67c2db621c1d4c036d722394_untitled.riv",
     canvas: canvas,
-    autoplay: false,
+    autoplay: true,
     artboard: artboard,
     stateMachines: [stateMachine],
     onLoad: () => {
