@@ -78,8 +78,10 @@ body {
   opacity: 1;
 }
 
-.team_block:hover .team_image {
-  transform: translate(0%, -15px);
+@media screen and (min-width: 991px) {
+  .team_block:hover .team_image {
+    transform: translate(0%, -15px);
+  }
 }
 
 /* If the element has both img-ph and no-anim attribute, disable animation */
