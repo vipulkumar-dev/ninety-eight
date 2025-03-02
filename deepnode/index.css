@@ -21,7 +21,7 @@ body {
 }
 
 .btn:hover .btn_txt {
-  transform: translateY(-20px);
+  transform: translateY(-1em);
 }
 
 .btn:hover .btn_txt.top {
