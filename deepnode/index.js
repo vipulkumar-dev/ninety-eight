@@ -1,6 +1,8 @@
-import { roll, lenisInit } from "../utils.js";
+import { roll, lenisInit, getDevices } from "../utils.js";
 import { liveReload } from "../liveReload.js";
+
 const lenis = lenisInit();
+const { isDesktop, isMobile } = getDevices();
 
 const header = document.getElementById("header");
 let lastScrollPosition = 0;
@@ -217,13 +219,13 @@ function faqTimeline(faqItem) {
     .to(faqItem, {
       backgroundColor: "rgba(17, 209, 252, 0.1)",
       color: "white",
-      paddingLeft: "35px",
+      paddingLeft: isMobile ? "16px" : "35px",
       borderColor: "#11d1fc",
     })
     .to(
       faqItem.querySelector(".faq_content"),
       {
-        gap: "26px",
+        gap: isMobile ? "20px" : "26px",
       },
       0
     )
@@ -317,7 +319,7 @@ function setupScrollTrigger(riveInstance, stateMachineName, triggerId) {
     scrollTrigger: {
       trigger: `#${triggerId}`,
       start: `top 90%`,
-      end: "bottom center",
+      end: "bottom+=100px center",
       // markers: true,
       pinnedContainer: ".section_pin",
       scrub: 0.5, // Adjust scrub value as needed

@@ -39,6 +39,13 @@ export function lenisInit() {
   return lenis;
 }
 
+export function getDevices() {
+  return {
+    isDesktop: window.innerWidth > 991,
+    isMobile: window.innerWidth < 991,
+  };
+}
+
 export function roll(
   targets,
   pixelPerSecond = 1000,
