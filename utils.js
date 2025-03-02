@@ -75,3 +75,17 @@ export function roll(
 
   return rollAnims;
 }
+
+export function convertVhToFixedHeight() {
+  // Select all sections with vh-based heights (adjust selector as needed)
+  const sections = document.querySelectorAll("[data-vh-section]");
+
+  sections.forEach((section) => {
+    // Get computed height of the section
+    const computedHeight = section.offsetHeight;
+
+    // Set the fixed height in pixels
+    section.style.height = `${computedHeight}px`;
+    section.style.minHeight = "unset"; // To override any min-height
+  });
+}

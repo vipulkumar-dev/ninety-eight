@@ -1,4 +1,9 @@
-import { roll, lenisInit, getDevices } from "../utils.js";
+import {
+  roll,
+  lenisInit,
+  getDevices,
+  convertVhToFixedHeight,
+} from "../utils.js";
 import { liveReload } from "../liveReload.js";
 
 const lenis = lenisInit();
@@ -356,6 +361,7 @@ const animationConfigs = [
 ];
 
 initializeAnimations(animationConfigs);
+convertVhToFixedHeight();
 
 // console.log("From how it why");
 roll("[roll]", 80);
