@@ -320,29 +320,34 @@ function setupScrollTrigger(riveInstance, stateMachineName, triggerId) {
   );
   gsap.registerPlugin(ScrollTrigger);
 
-  const animationTimeline = gsap.timeline({
-    scrollTrigger: {
-      trigger: `#${triggerId}`,
-      start: `top 90%`,
-      end: "bottom+=100px center",
-      // markers: true,
-      pinnedContainer: ".section_pin",
-      scrub: 0.5, // Adjust scrub value as needed
-    },
-  });
+  if (isDesktop) {
+    const animationTimeline = gsap.timeline({
+      scrollTrigger: {
+        trigger: `#${triggerId}`,
+        start: `top 90%`,
+        end: "bottom+=100px center",
+        // markers: true,
+        pinnedContainer: ".section_pin",
+        scrub: 0.5, // Adjust scrub value as needed
+      },
+    });
 
-  animationTimeline.to(progressInput, {
-    value: 100,
-    onUpdate: () => {
-      riveInstance.play();
-    },
-    onStart: () => {
-      riveInstance.play();
-    },
-    onComplete: () => {
-      riveInstance.pause();
-    },
-  });
+    animationTimeline.to(progressInput, {
+      value: 100,
+      onUpdate: () => {
+        riveInstance.play();
+      },
+      onStart: () => {
+        riveInstance.play();
+      },
+      onComplete: () => {
+        riveInstance.pause();
+      },
+    });
+  } else {
+    progressInput.value = 100;
+    riveInstance.play();
+  }
 }
 
 function initializeAnimations(configs) {
