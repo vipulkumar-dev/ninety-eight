@@ -102,6 +102,17 @@ menu_tl
     "-=0.7"
   )
   .fromTo(
+    ".navigation_bg",
+    {
+      opacity: "0%",
+    },
+    {
+      opacity: "100%",
+      duration: 1.2,
+    },
+    "<"
+  )
+  .fromTo(
     ".nav_animate",
     {
       x: "150px",
