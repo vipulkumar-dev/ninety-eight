@@ -46,7 +46,8 @@ body {
 
 .future_card:hover {
   border: 1px solid #11d1fc;
-  color: rgba(0, 0, 0, 0.7);
+  /* color: rgba(0, 0, 0, 0.7); */
+  box-shadow: rgba(17, 209, 252, 0.57) 0px 0px 100px 1px;
 }
 
 .future_card:hover .future_card_bg.active {
