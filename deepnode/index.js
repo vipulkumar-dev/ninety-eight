@@ -33,11 +33,14 @@ function handleScroll() {
 
 // var scriptLocation = document.currentScript.src;
 // console.log("scriptLocation", scriptLocation);
+let isMenuOpen = false;
 
 window.addEventListener("scroll", () => {
-  if (!ticking) {
-    window.requestAnimationFrame(handleScroll);
-    ticking = true;
+  if (!isMenuOpen) {
+    if (!ticking) {
+      window.requestAnimationFrame(handleScroll);
+      ticking = true;
+    }
   }
 
   if (window.scrollY > 50) {
@@ -111,7 +114,6 @@ menu_tl
     "-=1.1"
   );
 
-let isMenuOpen = false;
 document.querySelector(".menu_trigger").addEventListener("click", () => {
   if (!isMenuOpen) {
     console.log("open");
