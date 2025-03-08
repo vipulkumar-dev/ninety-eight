@@ -2,18 +2,6 @@
   outline: 1px solid red;
 } */
 
-html,
-body {
-  max-width: 100%;
-  overflow-x: clip;
-}
-
-[fade-animation] {
-  opacity: 0;
-  transform: translateY(30px);
-  filter: blur(8px);
-}
-
 [img-ph] {
   overflow: hidden;
   position: relative;
