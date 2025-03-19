@@ -11,7 +11,8 @@
 .btn_wpr {
   position: relative;
 }
-.btn_wpr::before {
+.btn_wpr::before,
+.social_icn_wpr::before {
   content: "";
   position: absolute;
   left: 0;
@@ -21,6 +22,10 @@
   background-color: black;
   z-index: -1;
   transform: translateY(9px);
+}
+
+.social_icn_wpr::before {
+  transform: translateY(4px);
 }
 
 .hero_biao_image {
