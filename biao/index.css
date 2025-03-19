@@ -8,6 +8,20 @@
   animation: blink 2s infinite none;
 }
 
+.hero_biao_image {
+  animation: hero_animation 4s infinite none;
+}
+
+@keyframes hero_animation {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
 /* If the element has both img-ph and no-anim attribute, disable animation */
 [img-ph][no-anim] {
   animation: none;
