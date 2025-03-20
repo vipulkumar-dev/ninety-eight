@@ -41,6 +41,46 @@ const about_dash = gsap.to(".about_dash", {
   },
 });
 
+const step_tl = gsap.timeline({
+  scrollTrigger: {
+    trigger: ".step_wpr",
+    start: "center center",
+    end: "=+400px",
+    scrub: 1,
+    pin: ".section_buy",
+    // markers: true,
+  },
+  defaults: {
+    // children inherit these defaults
+    duration: 1,
+    ease: "none",
+  },
+});
+step_tl
+  .to(".buy_step", {})
+  .to(".buy_step.second", {
+    color: "#ee1c25",
+  })
+  .to(
+    ".buy_step.first",
+    {
+      color: "#fff",
+    },
+    "<"
+  )
+  .to(".buy_step", {})
+  .to(".buy_step.third", {
+    color: "#ee1c25",
+  })
+  .to(
+    ".buy_step.second",
+    {
+      color: "#fff",
+    },
+    "<"
+  )
+  .to(".buy_step", {});
+
 // var scriptLocation = document.currentScript.src;
 // console.log("scriptLocation", scriptLocation);
 
