@@ -51,6 +51,27 @@ window.addEventListener("scroll", () => {
   }
 });
 
+ScrollTrigger.batch("[fade-animation]", {
+  start: (element, triggers) => {
+    if (element.trigger.hasAttribute("after-pinned")) {
+      return `top+=${PIN_SPACING} 100%`;
+    }
+    return "top 100%";
+  },
+
+  end: "top top",
+  // markers: true,
+  onEnter: (elements, triggers) => {
+    gsap.to(elements, {
+      opacity: 1,
+      y: 0,
+      stagger: 0.06,
+      duration: 0.9,
+      ease: "power2.inOut",
+    });
+  },
+});
+
 // console.log("From how it why");
 roll("[roll]", 80);
 liveReload();
