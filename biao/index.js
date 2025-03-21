@@ -66,7 +66,7 @@ ScrollTrigger.batch("[fade-animation]", {
       opacity: 1,
       y: 0,
       stagger: 0.06,
-      duration: 0.9,
+      duration: 0.8,
       ease: "power2.inOut",
     });
   },
