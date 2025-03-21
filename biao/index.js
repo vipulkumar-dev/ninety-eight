@@ -29,13 +29,21 @@ if (isDesktop) {
   lenisInit();
 }
 
-const about_dash = gsap.to(".about_dash", {
-  top: "83.3%",
+const about_wpr = document.querySelector(".about_content");
+const about_dash = document.querySelector(".about_dash");
+const DASH_TRANSFORM = isMobile ? 184 : 144;
+
+const about_dash_tw = gsap.to(about_dash, {
+  top: () => {
+    const topH = about_wpr.offsetHeight;
+    const dashtopH = about_dash.offsetHeight;
+    return `${topH + DASH_TRANSFORM - dashtopH}px`;
+  },
   ease: "linear",
   scrollTrigger: {
     trigger: ".about_content",
     start: "top 30%",
-    end: "bottom 50%",
+    end: "bottom 60%",
     scrub: 0.3,
     // markers: true,
   },
