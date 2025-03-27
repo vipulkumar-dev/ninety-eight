@@ -355,7 +355,7 @@ ScrollTrigger.batch("[fade-animation]", {
       opacity: 1,
       y: 0,
       filter: "blur(0px)",
-      stagger: 0.04,
+      stagger: 0.07,
       duration: 0.8,
       ease: "power3.inOut",
     });
