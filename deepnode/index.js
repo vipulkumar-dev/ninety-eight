@@ -355,7 +355,11 @@ ScrollTrigger.batch("[fade-animation]", {
       opacity: 1,
       y: 0,
       filter: "blur(0px)",
-      stagger: 0.07,
+      // stagger: 0.07,
+      stagger: {
+        // wrap advanced options in an object
+        each: 0.1,
+      },
       duration: 0.8,
       ease: "power3.inOut",
     });
@@ -411,8 +415,8 @@ function setupScrollTrigger(riveInstance, stateMachineName, triggerId) {
     const animationTimeline = gsap.timeline({
       scrollTrigger: {
         trigger: `#${triggerId}`,
-        start: `top 90%`,
-        end: "bottom+=100px center",
+        start: `top 70%`,
+        end: "bottom center",
         // markers: true,
         pinnedContainer: ".section_pin",
         scrub: 0.5, // Adjust scrub value as needed
