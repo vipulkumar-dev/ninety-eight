@@ -361,6 +361,7 @@ ScrollTrigger.batch("[fade-animation]", {
         each: 0.1,
       },
       duration: 0.8,
+      delay: 0.3,
       ease: "power3.inOut",
     });
   },
@@ -417,9 +418,9 @@ function setupScrollTrigger(riveInstance, stateMachineName, triggerId) {
         trigger: `#${triggerId}`,
         start: `top 70%`,
         end: "bottom center",
-        // markers: true,
+        markers: true,
         pinnedContainer: ".section_pin",
-        scrub: 0.5, // Adjust scrub value as needed
+        scrub: 3, // Adjust scrub value as needed
       },
     });
 
