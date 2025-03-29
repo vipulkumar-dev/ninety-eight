@@ -384,7 +384,7 @@ if (isDesktop) {
           each: 0.2,
         },
         duration: 0.8,
-        delay: 0.3,
+        // delay: 0.3,
         ease: "power3.inOut",
       });
     },
