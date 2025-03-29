@@ -355,11 +355,7 @@ ScrollTrigger.batch("[fade-animation]", {
       opacity: 1,
       y: 0,
       filter: "blur(0px)",
-      // stagger: 0.07,
-      stagger: {
-        // wrap advanced options in an object
-        each: 0.1,
-      },
+      stagger: 0.07,
       duration: 0.8,
       delay: 0.3,
       ease: "power3.inOut",
@@ -367,27 +363,29 @@ ScrollTrigger.batch("[fade-animation]", {
   },
 });
 if (isDesktop) {
-  ScrollTrigger.create({
-    trigger: "#coin-section",
-    start: "center 75%",
-    end: "bottom 50%+=100px",
-    pinnedContainer: ".section_pin",
-    // markers: true,
-    onEnter: () => {
-      gsap.to("[c-fade-animation]", {
-        opacity: 1,
-        y: 0,
-        filter: "blur(0px)",
-        // stagger: 0.07,
-        stagger: {
-          // wrap advanced options in an object
-          each: 0.2,
-        },
-        duration: 0.8,
-        // delay: 0.3,
-        ease: "power3.inOut",
-      });
-    },
+  document.querySelectorAll("[c-fade-section]").forEach((fadeSection) => {
+    ScrollTrigger.create({
+      trigger: fadeSection,
+      start: "center 75%",
+      end: "bottom 50%+=100px",
+      pinnedContainer: ".section_pin",
+      // markers: true,
+      onEnter: () => {
+        gsap.to("[c-fade-animation]", {
+          opacity: 1,
+          y: 0,
+          filter: "blur(0px)",
+          // stagger: 0.07,
+          stagger: {
+            // wrap advanced options in an object
+            each: 0.2,
+          },
+          duration: 0.8,
+          // delay: 0.3,
+          ease: "power3.inOut",
+        });
+      },
+    });
   });
 } else {
   ScrollTrigger.batch("[c-fade-animation]", {
