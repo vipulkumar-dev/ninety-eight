@@ -393,7 +393,7 @@ if (isDesktop) {
       if (element.trigger.hasAttribute("after-pinned")) {
         return `top+=${PIN_SPACING} 100%`;
       }
-      return "top 100%";
+      return "top-=100px 100%";
     },
     end: "top top",
     // markers: true,
