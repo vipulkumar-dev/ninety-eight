@@ -369,10 +369,10 @@ ScrollTrigger.batch("[fade-animation]", {
 if (isDesktop) {
   ScrollTrigger.create({
     trigger: "#coin-section",
-    start: "center 70%",
+    start: "center 75%",
     end: "bottom 50%+=100px",
     pinnedContainer: ".section_pin",
-    markers: true,
+    // markers: true,
     onEnter: () => {
       gsap.to("[c-fade-animation]", {
         opacity: 1,
