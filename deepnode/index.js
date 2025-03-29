@@ -390,7 +390,10 @@ if (isDesktop) {
 } else {
   ScrollTrigger.batch("[c-fade-animation]", {
     start: (element, triggers) => {
-      return `top+=${PIN_SPACING} 100%`;
+      if (element.trigger.hasAttribute("after-pinned")) {
+        return `top+=${PIN_SPACING} 100%`;
+      }
+      return "top 100%";
     },
     end: "top top",
     // markers: true,
