@@ -366,6 +366,53 @@ ScrollTrigger.batch("[fade-animation]", {
     });
   },
 });
+if (isDesktop) {
+  ScrollTrigger.create({
+    trigger: "#coin-section",
+    start: "center 70%",
+    end: "bottom 50%+=100px",
+    pinnedContainer: ".section_pin",
+    markers: true,
+    onEnter: () => {
+      gsap.to("[c-fade-animation]", {
+        opacity: 1,
+        y: 0,
+        filter: "blur(0px)",
+        // stagger: 0.07,
+        stagger: {
+          // wrap advanced options in an object
+          each: 0.2,
+        },
+        duration: 0.8,
+        delay: 0.3,
+        ease: "power3.inOut",
+      });
+    },
+  });
+} else {
+  ScrollTrigger.batch("[c-fade-animation]", {
+    start: (element, triggers) => {
+      return `top+=${PIN_SPACING} 100%`;
+    },
+    end: "top top",
+    // markers: true,
+    onEnter: (elements, triggers) => {
+      gsap.to(elements, {
+        opacity: 1,
+        y: 0,
+        filter: "blur(0px)",
+        // stagger: 0.07,
+        stagger: {
+          // wrap advanced options in an object
+          each: 0.1,
+        },
+        duration: 0.8,
+        delay: 0.3,
+        ease: "power3.inOut",
+      });
+    },
+  });
+}
 
 const riveInstances = [];
 
@@ -418,7 +465,7 @@ function setupScrollTrigger(riveInstance, stateMachineName, triggerId) {
         trigger: `#${triggerId}`,
         start: `top 70%`,
         end: "bottom center",
-        markers: true,
+        // markers: true,
         pinnedContainer: ".section_pin",
         scrub: 3, // Adjust scrub value as needed
       },
