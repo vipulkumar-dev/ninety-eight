@@ -38,8 +38,11 @@ window.addEventListener("scroll", () => {
 
 const aboutItems = document.querySelectorAll(".about_item");
 
+const aboutItemWidth = aboutItems[aboutItems.length - 1].offsetWidth;
+
 // Loop through each item and add the event listener
 aboutItems.forEach((item) => {
+  item.style.width = aboutItemWidth + "px";
   item.addEventListener("mouseenter", function () {
     // Remove the 'active' class from all 'about_item' elements
     aboutItems.forEach((item) => item.classList.remove("active"));
