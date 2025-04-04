@@ -1,5 +1,8 @@
-import { roll } from "../utils.js";
+import { roll, getDevices, lenisInit } from "../utils.js";
 import { liveReload } from "../liveReload.js";
+
+const lenis = lenisInit();
+const { isDesktop, isMobile } = getDevices();
 
 const header = document.getElementById("header");
 let lastScrollPosition = 0;
@@ -32,6 +35,67 @@ window.addEventListener("scroll", () => {
     ticking = true;
   }
 });
+
+const faq_items = document.querySelectorAll(".faq_item");
+
+faq_items.forEach((faqItem, index) => {
+  faqItem.isActive = false;
+  const faqTl = faqTimeline(faqItem);
+  faqItem.addEventListener("click", () => {
+    console.log(faqItem);
+    if (!faqItem.isActive) {
+      faqTl.play();
+      faqItem.isActive = true;
+    } else {
+      faqTl.reverse();
+      faqItem.isActive = false;
+    }
+  });
+
+  if (index == 0) {
+    faqItem.click();
+  }
+});
+
+function faqTimeline(faqItem) {
+  const faqTl = gsap
+    .timeline({
+      paused: true,
+      defaults: {
+        duration: 0.6,
+        ease: "power3.inOut",
+      },
+      onComplete: () => {
+        lenis.resize();
+        ScrollTrigger.refresh();
+      },
+      onReverseComplete: () => {
+        lenis.resize();
+        ScrollTrigger.refresh();
+      },
+    })
+    .to(faqItem, {
+      gap: isMobile ? "20px" : "26px",
+    })
+
+    .to(
+      faqItem.querySelector(".faq_para"),
+      {
+        height: "auto",
+        opacity: 1,
+      },
+      0
+    )
+    .to(
+      faqItem.querySelectorAll(".faq_arrow"),
+      {
+        rotate: 180,
+      },
+      0
+    );
+
+  return faqTl;
+}
 
 console.log("adivsory");
 roll("[roll]", 80);

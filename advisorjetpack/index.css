@@ -13,6 +13,9 @@
   animation: none;
 }
 
+.about_item .about_content {
+  opacity: 1;
+}
 @keyframes blink {
   0%,
   100% {
