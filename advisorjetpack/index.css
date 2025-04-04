@@ -17,6 +17,14 @@
   opacity: 1;
 }
 
+.about_item.active .about_overlay {
+  opacity: 1;
+}
+
+.about_item.active .about_image {
+  filter: saturate(100%);
+}
+
 @keyframes blink {
   0%,
   100% {

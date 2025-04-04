@@ -36,6 +36,19 @@ window.addEventListener("scroll", () => {
   }
 });
 
+const aboutItems = document.querySelectorAll(".about_item");
+
+// Loop through each item and add the event listener
+aboutItems.forEach((item) => {
+  item.addEventListener("mouseenter", function () {
+    // Remove the 'active' class from all 'about_item' elements
+    aboutItems.forEach((item) => item.classList.remove("active"));
+
+    // Add the 'active' class to the current element
+    item.classList.add("active");
+  });
+});
+
 const faq_items = document.querySelectorAll(".faq_item");
 
 faq_items.forEach((faqItem, index) => {
