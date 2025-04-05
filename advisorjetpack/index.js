@@ -140,6 +140,10 @@ const swiper = new Swiper(".swiper", {
   slidesPerView: "auto",
   spaceBetween: 23,
   // grabCursor: true,
+  navigation: {
+    nextEl: ".swiper-custom-button.is-next",
+    prevEl: ".swiper-custom-button.is-prev",
+  },
 });
 
 console.log("adivsory");
