@@ -8,6 +8,12 @@
   animation: blink 2s infinite none;
 }
 
+.swiper {
+  overflow: visible !important;
+}
+.swiper-slide {
+  transition-property: all !important;
+}
 /* If the element has both img-ph and no-anim attribute, disable animation */
 [img-ph][no-anim] {
   animation: none;
