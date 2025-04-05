@@ -136,5 +136,5 @@ function faqTimeline(faqItem) {
 }
 
 console.log("adivsory");
-roll("[roll]", 80);
+roll("[roll]", 60);
 liveReload();
