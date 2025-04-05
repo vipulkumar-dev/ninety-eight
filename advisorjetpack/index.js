@@ -135,6 +135,13 @@ function faqTimeline(faqItem) {
   return faqTl;
 }
 
+const swiper = new Swiper(".swiper", {
+  // freeMode: true,
+  slidesPerView: "auto",
+  spaceBetween: 23,
+  // grabCursor: true,
+});
+
 console.log("adivsory");
 roll("[roll]", 60);
 liveReload();
