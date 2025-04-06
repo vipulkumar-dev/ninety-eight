@@ -144,6 +144,10 @@ const swiper = new Swiper(".swiper", {
     nextEl: ".swiper-custom-button.is-next",
     prevEl: ".swiper-custom-button.is-prev",
   },
+  pagination: {
+    el: ".swiper-pagination",
+    clickable: true,
+  },
 });
 
 console.log("adivsory");

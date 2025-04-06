@@ -14,6 +14,24 @@
 .swiper-slide {
   transition-property: all !important;
 }
+
+.swiper-pagination {
+  position: static;
+  display: flex;
+}
+
+.swiper-pagination-bullet {
+  background-color: white;
+  opacity: 20%;
+  width: 14px;
+  height: 14px;
+  border-radius: 0;
+}
+
+.swiper-pagination-bullet.swiper-pagination-bullet-active {
+  opacity: 100%;
+}
+
 /* If the element has both img-ph and no-anim attribute, disable animation */
 [img-ph][no-anim] {
   animation: none;
