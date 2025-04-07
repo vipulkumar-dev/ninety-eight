@@ -34,6 +34,12 @@ window.addEventListener("scroll", () => {
     window.requestAnimationFrame(handleScroll);
     ticking = true;
   }
+
+  if (window.scrollY > 0) {
+    header.classList.add("active");
+  } else {
+    header.classList.remove("active");
+  }
 });
 
 const pillar_wpr = document.querySelector(".pillar_content");
