@@ -141,6 +141,23 @@ function faqTimeline(faqItem) {
   return faqTl;
 }
 
+const items = document.querySelectorAll("[data-number]");
+
+gsap.from(items, {
+  textContent: 0,
+  duration: 1,
+  scrollTrigger: {
+    trigger: items,
+    start: "top 80%",
+    end: "top 80%",
+    // markers: true,
+  },
+  ease: Power1.easeIn,
+  snap: { textContent: 1 },
+  // stagger: 1,
+  // onUpdate: textContent.replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+});
+
 const swiper = new Swiper(".swiper", {
   // freeMode: true,
   slidesPerView: "auto",
