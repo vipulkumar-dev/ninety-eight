@@ -20,6 +20,14 @@
   opacity: 100%;
 }
 
+.feature_card:hover .card_icon.is-red {
+  opacity: 100%;
+}
+
+.feature_card:hover .card_icon {
+  opacity: 0%;
+}
+
 .swiper {
   overflow: visible !important;
 }
