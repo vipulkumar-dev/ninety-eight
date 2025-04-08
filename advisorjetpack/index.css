@@ -16,6 +16,10 @@
   color: #ee1c25;
 }
 
+.feature_card:hover .feature_card_text.is-red {
+  opacity: 100%;
+}
+
 .swiper {
   overflow: visible !important;
 }
