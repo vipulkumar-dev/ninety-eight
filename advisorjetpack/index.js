@@ -148,8 +148,8 @@ gsap.from(items, {
   duration: 1,
   scrollTrigger: {
     trigger: items,
-    start: "top 80%",
-    end: "top 80%",
+    start: "top 70%",
+    end: "top 70%",
     // markers: true,
   },
   ease: Power1.easeIn,

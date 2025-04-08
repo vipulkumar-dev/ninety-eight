@@ -12,6 +12,10 @@
   opacity: 100%;
 }
 
+.nav_item:hover .nav_icon {
+  color: #ee1c25;
+}
+
 .swiper {
   overflow: visible !important;
 }
