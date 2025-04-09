@@ -1,4 +1,9 @@
-import { roll, getDevices, lenisInit } from "../utils.js";
+import {
+  roll,
+  getDevices,
+  lenisInit,
+  convertVhToFixedHeight,
+} from "../utils.js";
 import { liveReload } from "../liveReload.js";
 
 const lenis = lenisInit();
@@ -172,6 +177,8 @@ const swiper = new Swiper(".swiper", {
     clickable: true,
   },
 });
+
+convertVhToFixedHeight();
 
 console.log("adivsory");
 roll("[roll]", 60);
