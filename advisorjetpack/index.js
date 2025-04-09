@@ -165,9 +165,15 @@ gsap.from(items, {
 
 const swiper = new Swiper(".swiper", {
   // freeMode: true,
-  slidesPerView: "auto",
-  spaceBetween: 23,
+  slidesPerView: 1,
+  spaceBetween: 16,
   // grabCursor: true,
+  breakpoints: {
+    479: {
+      slidesPerView: "auto",
+      spaceBetween: 23,
+    },
+  },
   navigation: {
     nextEl: ".swiper-custom-button.is-next",
     prevEl: ".swiper-custom-button.is-prev",
