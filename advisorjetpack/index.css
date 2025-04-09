@@ -57,24 +57,26 @@
   animation: none;
 }
 
-.about_item.active .about_content {
-  opacity: 1;
-}
-
-.about_item.active .about_overlay {
-  opacity: 1;
-}
-
-.about_item.active .about_image {
-  filter: saturate(100%);
-}
-
-@keyframes blink {
-  0%,
-  100% {
-    background-color: hsla(0, 0%, 100%, 0.05);
+@media only screen and (max-width: 767px) {
+  .about_item.active .about_content {
+    opacity: 1;
   }
-  50% {
-    background-color: hsla(0, 0%, 100%, 0.09);
+
+  .about_item.active .about_overlay {
+    opacity: 1;
+  }
+
+  .about_item.active .about_image {
+    filter: saturate(100%);
+  }
+
+  @keyframes blink {
+    0%,
+    100% {
+      background-color: hsla(0, 0%, 100%, 0.05);
+    }
+    50% {
+      background-color: hsla(0, 0%, 100%, 0.09);
+    }
   }
 }
