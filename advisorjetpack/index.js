@@ -8,6 +8,7 @@ import { liveReload } from "../liveReload.js";
 
 const lenis = lenisInit();
 const { isDesktop, isMobile } = getDevices();
+let isMenuOpen;
 
 const header = document.getElementById("header");
 let lastScrollPosition = 0;
@@ -35,9 +36,11 @@ function handleScroll() {
 // console.log("scriptLocation", scriptLocation);
 
 window.addEventListener("scroll", () => {
-  if (!ticking) {
-    window.requestAnimationFrame(handleScroll);
-    ticking = true;
+  if (!isMenuOpen) {
+    if (!ticking) {
+      window.requestAnimationFrame(handleScroll);
+      ticking = true;
+    }
   }
 
   if (window.scrollY > 0) {
@@ -182,6 +185,75 @@ const swiper = new Swiper(".swiper", {
     el: ".swiper-pagination",
     clickable: true,
   },
+});
+
+const menu_tl = gsap.timeline({
+  paused: true,
+  defaults: {
+    duration: 0.3,
+    ease: "power3.inOut",
+  },
+});
+
+menu_tl
+
+  .to(".menu_line.top", {
+    y: 7,
+    duration: 0.2,
+  })
+  .to(
+    ".menu_line.bottom",
+    {
+      y: -7,
+      duration: 0.2,
+    },
+    "<"
+  )
+
+  .to(".menu_line.top", {
+    rotate: 45,
+  })
+  .to(
+    ".menu_line.bottom",
+    {
+      rotate: -45,
+    },
+    "<"
+  )
+  .fromTo(
+    ".navigation_wrapper",
+    {
+      y: "-100%",
+    },
+    {
+      y: "0%",
+      duration: 1.2,
+    },
+    "-=0.7"
+  )
+  .fromTo(
+    ".nav_animate",
+    {
+      x: "150px",
+    },
+    {
+      x: "0px",
+      duration: 0.9,
+      stagger: 0.03,
+    },
+    "-=1.1"
+  );
+
+isMenuOpen = false;
+document.querySelector(".menu_trigger").addEventListener("click", () => {
+  if (!isMenuOpen) {
+    console.log("open");
+    menu_tl.play();
+  } else {
+    console.log("close");
+    menu_tl.reverse();
+  }
+  isMenuOpen = !isMenuOpen;
 });
 
 convertVhToFixedHeight();
