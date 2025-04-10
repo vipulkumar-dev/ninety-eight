@@ -71,20 +71,22 @@ const pillar_dash_tw = gsap.to(pillar_dash, {
 });
 
 ////
+document.querySelectorAll(".about_container").forEach((about_container) => {
+  const aboutItems = about_container.querySelectorAll(".about_item");
+  console.log(aboutItems);
 
-const aboutItems = document.querySelectorAll(".about_item");
+  const aboutItemWidth = aboutItems[aboutItems.length - 1].offsetWidth;
 
-const aboutItemWidth = aboutItems[aboutItems.length - 1].offsetWidth;
+  // Loop through each item and add the event listener
+  aboutItems.forEach((item) => {
+    item.style.width = aboutItemWidth + "px";
+    item.addEventListener("mouseenter", function () {
+      // Remove the 'active' class from all 'about_item' elements
+      aboutItems.forEach((item) => item.classList.remove("active"));
 
-// Loop through each item and add the event listener
-aboutItems.forEach((item) => {
-  item.style.width = aboutItemWidth + "px";
-  item.addEventListener("mouseenter", function () {
-    // Remove the 'active' class from all 'about_item' elements
-    aboutItems.forEach((item) => item.classList.remove("active"));
-
-    // Add the 'active' class to the current element
-    item.classList.add("active");
+      // Add the 'active' class to the current element
+      item.classList.add("active");
+    });
   });
 });
 
