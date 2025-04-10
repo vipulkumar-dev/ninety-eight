@@ -50,26 +50,6 @@ window.addEventListener("scroll", () => {
   }
 });
 
-const pillar_wpr = document.querySelector(".pillar_content");
-const pillar_dash = document.querySelector(".pillar_dash");
-const DASH_TRANSFORM = isMobile ? 18 : 18;
-
-const pillar_dash_tw = gsap.to(pillar_dash, {
-  top: () => {
-    const topH = pillar_wpr.offsetHeight;
-    const dashtopH = pillar_dash.offsetHeight;
-    return `${topH - DASH_TRANSFORM}px`;
-  },
-  ease: "linear",
-  scrollTrigger: {
-    trigger: ".pillar_content",
-    start: "top 30%",
-    end: "bottom 60%",
-    scrub: 0.3,
-    // markers: true,
-  },
-});
-
 ////
 document.querySelectorAll(".about_container").forEach((about_container) => {
   const aboutItems = about_container.querySelectorAll(".about_item");
