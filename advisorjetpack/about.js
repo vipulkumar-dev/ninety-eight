@@ -133,19 +133,23 @@ function faqTimeline(faqItem) {
 
 const items = document.querySelectorAll("[data-number]");
 
-gsap.from(items, {
-  textContent: 0,
-  duration: 1,
-  scrollTrigger: {
-    trigger: items,
-    start: "top 70%",
-    end: "top 70%",
-    // markers: true,
-  },
-  ease: Power1.easeIn,
-  snap: { textContent: 1 },
-  // stagger: 1,
-  // onUpdate: textContent.replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+items.forEach((item) => {
+  const hasIsPoint = item.hasAttribute("is-point");
+
+  gsap.from(item, {
+    textContent: hasIsPoint ? 0.0 : 0,
+    duration: 1,
+    scrollTrigger: {
+      trigger: item,
+      start: "top 70%",
+      end: "top 70%",
+      // markers: true,
+    },
+    ease: Power1.easeIn,
+    snap: { textContent: hasIsPoint ? 0.1 : 1 },
+    // stagger: 1, // not used in individual loops
+    // onUpdate: textContent.replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+  });
 });
 
 const swiper = new Swiper(".swiper", {
