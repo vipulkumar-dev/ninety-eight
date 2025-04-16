@@ -18,6 +18,12 @@
   opacity: 100%;
 }
 
+.image_testimonial img {
+  width: auto;
+  height: auto;
+  position: relative;
+}
+
 .nav_item:hover .nav_icon {
   color: #fff;
 }
