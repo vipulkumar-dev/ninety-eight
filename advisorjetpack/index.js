@@ -299,6 +299,13 @@ ScrollTrigger.batch("[fade-animation]", {
   },
 });
 
+document.querySelectorAll("[tab_item]").forEach((tab) => {
+  tab.addEventListener("click", () => {
+    lenis.resize();
+    ScrollTrigger.refresh();
+  });
+});
+
 convertVhToFixedHeight();
 
 console.log("adivsory");
