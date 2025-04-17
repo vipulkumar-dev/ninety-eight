@@ -43,6 +43,20 @@ window.addEventListener("scroll", () => {
     },
   });
 
+  loaderTl
+    .to(".loader_bg_left", {
+      x: "-101%",
+      duration: 2,
+    })
+    .to(
+      ".loader_bg_right",
+      {
+        x: "101%",
+        duration: 2,
+      },
+      "<"
+    );
+
   const hero_svg_path = document.querySelectorAll(".hero_svg path");
 
   hero_svg_path.forEach((path) => {
@@ -50,20 +64,23 @@ window.addEventListener("scroll", () => {
     path.style.strokeDasharray = length;
     path.style.strokeDashoffset = length;
   });
-  loaderTl.to(hero_svg_path, {
-    strokeDashoffset: 0,
-    delay: 0.2,
-    stagger: 0.1,
-  });
-
-  loaderTl.to(
-    hero_svg_path,
-    {
-      fill: "rgb(251, 240, 218)",
-      duration: 2,
-    },
-    "<=+1.5"
-  );
+  loaderTl
+    .to(
+      hero_svg_path,
+      {
+        strokeDashoffset: 0,
+        stagger: 0.1,
+      },
+      "=-1.5"
+    )
+    .to(
+      hero_svg_path,
+      {
+        fill: "rgb(251, 240, 218)",
+        duration: 2,
+      },
+      "<=+1.5"
+    );
 })();
 
 // console.log("From how it why");
