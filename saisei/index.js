@@ -43,6 +43,11 @@ window.addEventListener("scroll", () => {
     },
   });
 
+  loaderTl.to(".loader_line", {
+    height: "0%",
+    duration: 2,
+  });
+
   loaderTl
     .to(".loader_bg_left", {
       x: "-101%",
