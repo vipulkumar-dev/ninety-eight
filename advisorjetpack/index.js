@@ -23,8 +23,8 @@ function wrapImage(img) {
   const link = document.createElement("a");
   link.href = img.src;
   link.className = "zoom_image";
-  link.setAttribute("data-pswp-width", width);
-  link.setAttribute("data-pswp-height", height);
+  link.setAttribute("data-pswp-width", width * 0.6);
+  link.setAttribute("data-pswp-height", height * 0.6);
 
   img.parentNode.insertBefore(link, img);
   link.appendChild(img);
@@ -33,7 +33,9 @@ function wrapImage(img) {
 const lightbox = new PhotoSwipeLightbox({
   // closeSVG: closeArrowSVGString,
   // zoomSVG: zoomSVGString,
+
   gallery: "#modal-gallery",
+  secondaryZoomLevel: 1.5,
   children: ".zoom_image",
   pswpModule: () => import("https://unpkg.com/photoswipe"),
 });
