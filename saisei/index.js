@@ -43,21 +43,21 @@ window.addEventListener("scroll", () => {
     },
   });
 
-  const paths = document.querySelectorAll(".hero_svg path");
+  const hero_svg_path = document.querySelectorAll(".hero_svg path");
 
-  paths.forEach((path) => {
+  hero_svg_path.forEach((path) => {
     const length = path.getTotalLength();
     path.style.strokeDasharray = length;
     path.style.strokeDashoffset = length;
   });
-  loaderTl.to(paths, {
+  loaderTl.to(hero_svg_path, {
     strokeDashoffset: 0,
     delay: 0.2,
     stagger: 0.1,
   });
 
   loaderTl.to(
-    paths,
+    hero_svg_path,
     {
       fill: "rgb(251, 240, 218)",
       duration: 2,
