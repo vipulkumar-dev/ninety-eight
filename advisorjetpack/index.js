@@ -1,5 +1,31 @@
 import { roll, getDevices, convertVhToFixedHeight } from "../utils.js";
+import PhotoSwipeLightbox from "https://unpkg.com/photoswipe/dist/photoswipe-lightbox.esm.js";
 import { liveReload } from "../liveReload.js";
+
+document.querySelectorAll("#modal-gallery img").forEach((img) => {
+  const width = img.naturalWidth;
+  const height = img.naturalHeight;
+
+  const link = document.createElement("a");
+  link.href = img.src;
+  link.className = "zoom_image";
+  link.setAttribute("data-pswp-width", width);
+  link.setAttribute("data-pswp-height", height);
+
+  // Insert link before the image and move the image inside the link
+  img.parentNode.insertBefore(link, img);
+  link.appendChild(img);
+});
+
+const lightbox = new PhotoSwipeLightbox({
+  // closeSVG: closeArrowSVGString,
+  // zoomSVG: zoomSVGString,
+  gallery: "#modal-gallery",
+  children: ".zoom_image",
+  pswpModule: () => import("https://unpkg.com/photoswipe"),
+});
+
+lightbox.init();
 
 function lenisInit() {
   // Initialize a new Lenis instance for smooth scrolling
