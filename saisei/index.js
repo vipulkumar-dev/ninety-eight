@@ -35,6 +35,37 @@ window.addEventListener("scroll", () => {
   }
 });
 
+(function loaderAnimatiion() {
+  const loaderTl = gsap.timeline({
+    defaults: {
+      duration: 3,
+      ease: "power4.inOut",
+    },
+  });
+
+  const paths = document.querySelectorAll(".hero_svg path");
+
+  paths.forEach((path) => {
+    const length = path.getTotalLength();
+    path.style.strokeDasharray = length;
+    path.style.strokeDashoffset = length;
+  });
+  loaderTl.to(paths, {
+    strokeDashoffset: 0,
+    delay: 0.2,
+    stagger: 0.1,
+  });
+
+  loaderTl.to(
+    paths,
+    {
+      fill: "rgb(251, 240, 218)",
+      duration: 2,
+    },
+    "<=+1.5"
+  );
+})();
+
 // console.log("From how it why");
 roll("[roll]", 80);
 liveReload();
