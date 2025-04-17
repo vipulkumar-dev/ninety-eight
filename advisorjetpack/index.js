@@ -19,12 +19,13 @@ function wrapImage(img) {
 
   const width = img.naturalWidth;
   const height = img.naturalHeight;
+  scaleFactor = isDesktop ? 0.6 : 1;
 
   const link = document.createElement("a");
   link.href = img.src;
   link.className = "zoom_image";
-  link.setAttribute("data-pswp-width", width * 0.6);
-  link.setAttribute("data-pswp-height", height * 0.6);
+  link.setAttribute("data-pswp-width", width * scaleFactor);
+  link.setAttribute("data-pswp-height", height * scaleFactor);
 
   img.parentNode.insertBefore(link, img);
   link.appendChild(img);
