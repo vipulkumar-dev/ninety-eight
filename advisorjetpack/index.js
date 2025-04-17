@@ -20,7 +20,7 @@ function wrapImage(img) {
 
   const width = img.naturalWidth;
   const height = img.naturalHeight;
-  scaleFactor = isDesktop ? 0.6 : 1;
+  let scaleFactor = isDesktop ? 0.6 : 1;
 
   const link = document.createElement("a");
   link.href = img.src;
