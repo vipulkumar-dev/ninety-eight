@@ -1,6 +1,7 @@
 import { roll, getDevices, convertVhToFixedHeight } from "../utils.js";
 import PhotoSwipeLightbox from "https://unpkg.com/photoswipe/dist/photoswipe-lightbox.esm.js";
 import { liveReload } from "../liveReload.js";
+const { isDesktop, isMobile } = getDevices();
 
 document.querySelectorAll("#modal-gallery img").forEach((img) => {
   // Only proceed when the image is fully loaded
@@ -65,7 +66,7 @@ function lenisInit() {
 }
 
 const lenis = lenisInit();
-const { isDesktop, isMobile } = getDevices();
+
 let isMenuOpen;
 
 const header = document.getElementById("header");
