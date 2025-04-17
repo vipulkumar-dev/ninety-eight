@@ -3,6 +3,20 @@ import PhotoSwipeLightbox from "https://unpkg.com/photoswipe/dist/photoswipe-lig
 import { liveReload } from "../liveReload.js";
 
 document.querySelectorAll("#modal-gallery img").forEach((img) => {
+  // Only proceed when the image is fully loaded
+  if (img.complete && img.naturalWidth) {
+    wrapImage(img);
+  } else {
+    img.addEventListener("load", () => {
+      wrapImage(img);
+    });
+  }
+});
+
+function wrapImage(img) {
+  // Skip if it's already wrapped
+  if (img.parentElement.classList.contains("zoom_image")) return;
+
   const width = img.naturalWidth;
   const height = img.naturalHeight;
 
@@ -12,10 +26,9 @@ document.querySelectorAll("#modal-gallery img").forEach((img) => {
   link.setAttribute("data-pswp-width", width);
   link.setAttribute("data-pswp-height", height);
 
-  // Insert link before the image and move the image inside the link
   img.parentNode.insertBefore(link, img);
   link.appendChild(img);
-});
+}
 
 const lightbox = new PhotoSwipeLightbox({
   // closeSVG: closeArrowSVGString,
