@@ -43,16 +43,57 @@ window.addEventListener("scroll", () => {
     },
   });
 
-  loaderTl.to(".loader_line", {
-    height: "0%",
-    duration: 2,
-  });
-
   loaderTl
-    .to(".loader_bg_left", {
-      x: "-101%",
+    .to(".loader_center_line", {
+      height: "0%",
       duration: 2,
     })
+    .to(
+      ".loader_line",
+      {
+        height: "0%",
+        duration: 2,
+      },
+      "<"
+    );
+
+  const loader_circle = document.querySelector(".loader_circle");
+  const length = loader_circle.getTotalLength();
+
+  // Set the stroke dash values
+  loader_circle.style.strokeDasharray = length;
+  loader_circle.style.strokeDashoffset = 0;
+
+  loaderTl
+    .to(
+      ".loader_svg",
+      {
+        opacity: "0",
+        delay: 1,
+        duration: 1.3,
+        // duration: 5,
+      },
+      "<"
+    )
+    .to(
+      ".loader_circle",
+      {
+        strokeDashoffset: length,
+        duration: 1.3,
+        // duration: 5,
+      },
+      "<-0.4"
+    );
+
+  loaderTl
+    .to(
+      ".loader_bg_left",
+      {
+        x: "-101%",
+        duration: 2,
+      },
+      "=-0.4"
+    )
     .to(
       ".loader_bg_right",
       {
