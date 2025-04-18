@@ -149,7 +149,8 @@ window.addEventListener("scroll", () => {
         duration: 1.5,
       },
       "<"
-    );
+    )
+    .from("#scroll-text", { y: 30, opacity: 0, duration: 1.5 }, "<+1");
 })();
 
 // console.log("From how it why");
