@@ -127,6 +127,29 @@ window.addEventListener("scroll", () => {
       },
       "<=+1.5"
     );
+
+  new SplitText("#hero-paragraph", { type: "lines" });
+  new SplitText("#hero-paragraph", { type: "lines", linesClass: "line" });
+
+  loaderTl
+    .from(
+      "#hero-paragraph .line > div",
+      {
+        y: 30,
+        opacity: 0,
+        stagger: 0.1,
+        duration: 2,
+      },
+      "<"
+    )
+    .from(
+      ".hero-svg-small",
+      {
+        opacity: 0,
+        duration: 1.5,
+      },
+      "<"
+    );
 })();
 
 // console.log("From how it why");
