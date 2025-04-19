@@ -207,10 +207,20 @@ menu_open_tl
     "[nav_animate]",
     {
       y: 50,
+
       duration: 1.5,
       stagger: 0.05,
     },
     "<"
+  )
+  .from(
+    "[nav_animate_fade]",
+    {
+      opacity: 0,
+      duration: 1.5,
+      stagger: 0.05,
+    },
+    "<+1.5"
   );
 
 const menu_close_tl = gsap.timeline({
@@ -225,10 +235,14 @@ menu_close_tl
     x: "-101%",
     duration: 1.5,
   })
-  .to(".navigation_right", {
-    x: "101%",
-    duration: 1.5,
-  });
+  .to(
+    ".navigation_right",
+    {
+      x: "101%",
+      duration: 1.5,
+    },
+    "<"
+  );
 
 const menu_trigger = document.querySelector(".menu_trigger");
 const menu_close = document.querySelector(".menu_close");
