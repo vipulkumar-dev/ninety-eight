@@ -146,7 +146,7 @@ window.addEventListener("scroll", () => {
         stagger: 0.1,
         duration: 2,
       },
-      "<+0.3"
+      "<"
     );
 
   new SplitText("#hero-paragraph", { type: "lines" });
