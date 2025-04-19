@@ -204,7 +204,26 @@ menu_open_tl
     "<+0.5"
   )
   .from(
+    ".nav_border_left",
+    {
+      width: "0%",
+      duration: 1.5,
+      stagger: 0.05,
+    },
+    "<"
+  )
+  .from(
     "[nav_animate]",
+    {
+      y: 50,
+
+      duration: 1.5,
+      stagger: 0.05,
+    },
+    "<"
+  )
+  .from(
+    "[nav_animate_left]",
     {
       y: 50,
 
@@ -220,7 +239,7 @@ menu_open_tl
       duration: 1.5,
       stagger: 0.05,
     },
-    "<+1.5"
+    "<+0.5"
   );
 
 const menu_close_tl = gsap.timeline({
