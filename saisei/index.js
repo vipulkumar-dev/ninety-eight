@@ -128,6 +128,26 @@ window.addEventListener("scroll", () => {
       "<=+1.5"
     );
 
+  loaderTl
+    .from(
+      ".header_border",
+      {
+        width: 0,
+        duration: 1.5,
+      },
+      "<"
+    )
+    .from(
+      "[nav-reveal]",
+      {
+        y: 30,
+        opacity: 0,
+        stagger: 0.1,
+        duration: 2,
+      },
+      "<+0.3"
+    );
+
   new SplitText("#hero-paragraph", { type: "lines" });
   new SplitText("#hero-paragraph", { type: "lines", linesClass: "line" });
 
