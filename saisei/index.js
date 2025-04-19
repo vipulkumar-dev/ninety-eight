@@ -308,6 +308,10 @@ document.querySelectorAll("[parallax-image]").forEach((image) => {
     }
   );
 
+  if (image.hasAttribute("not-reveal")) {
+    return;
+  }
+
   gsap.fromTo(
     wrapper,
     {
