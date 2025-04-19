@@ -5,6 +5,7 @@ const header = document.getElementById("header");
 let lastScrollPosition = 0;
 let delta = 50; // Minimum scroll distance before toggling header
 let ticking = false;
+let isMenuOpen = false;
 
 function handleScroll() {
   const currentScrollPosition = window.scrollY;
@@ -172,6 +173,63 @@ window.addEventListener("scroll", () => {
     )
     .from("#scroll-text", { y: 30, opacity: 0, duration: 1.5 }, "<+1");
 })();
+
+const menu_open_tl = gsap.timeline({
+  paused: true,
+  defaults: {
+    duration: 2,
+    ease: "power4.inOut",
+  },
+});
+menu_open_tl
+  .to(".navigation_left", {
+    x: "0%",
+    duration: 1.5,
+  })
+  .from(
+    ".nav_border",
+    {
+      width: "0%",
+      duration: 1.5,
+      stagger: 0.05,
+    },
+    "<+0.5"
+  )
+  .from(
+    "[nav_animate]",
+    {
+      y: 50,
+      duration: 1.5,
+      stagger: 0.05,
+    },
+    "<"
+  );
+
+const menu_close_tl = gsap.timeline({
+  paused: true,
+  defaults: {
+    duration: 2,
+    ease: "power4.inOut",
+  },
+});
+menu_close_tl.to(".navigation_left", {
+  x: "-101%",
+  duration: 1.5,
+});
+
+const menu_trigger = document.querySelector(".menu_trigger");
+
+menu_trigger.addEventListener("click", () => {
+  if (!isMenuOpen) {
+    console.log("open");
+    // stop the closing timeline
+    menu_open_tl.restart();
+  } else {
+    // stop the opening timeline
+    menu_close_tl.restart();
+  }
+  isMenuOpen = !isMenuOpen;
+});
 
 // console.log("From how it why");
 roll("[roll]", 80);
