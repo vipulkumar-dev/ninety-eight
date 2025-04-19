@@ -186,6 +186,14 @@ menu_open_tl
     x: "0%",
     duration: 1.5,
   })
+  .to(
+    ".navigation_right",
+    {
+      x: "0%",
+      duration: 1.5,
+    },
+    "<"
+  )
   .from(
     ".nav_border",
     {
@@ -212,23 +220,27 @@ const menu_close_tl = gsap.timeline({
     ease: "power4.inOut",
   },
 });
-menu_close_tl.to(".navigation_left", {
-  x: "-101%",
-  duration: 1.5,
-});
+menu_close_tl
+  .to(".navigation_left", {
+    x: "-101%",
+    duration: 1.5,
+  })
+  .to(".navigation_right", {
+    x: "101%",
+    duration: 1.5,
+  });
 
 const menu_trigger = document.querySelector(".menu_trigger");
+const menu_close = document.querySelector(".menu_close");
 
 menu_trigger.addEventListener("click", () => {
-  if (!isMenuOpen) {
-    console.log("open");
-    // stop the closing timeline
-    menu_open_tl.restart();
-  } else {
-    // stop the opening timeline
-    menu_close_tl.restart();
-  }
-  isMenuOpen = !isMenuOpen;
+  menu_open_tl.restart();
+  isMenuOpen = true;
+});
+
+menu_close.addEventListener("click", () => {
+  menu_close_tl.restart();
+  isMenuOpen = false;
 });
 
 // console.log("From how it why");
