@@ -276,6 +276,57 @@ menu_close.addEventListener("click", () => {
   isMenuOpen = false;
 });
 
+document.querySelectorAll("[parallax-image]").forEach((image) => {
+  //wrap the image with a div
+  const wrapper = document.createElement("div");
+  wrapper.classList.add("parallax-image-wrapper");
+  wrapper.style.overflow = "hidden";
+  image.parentNode.insertBefore(wrapper, image);
+  wrapper.appendChild(image);
+
+  const parallaxtl = gsap.timeline({
+    scrollTrigger: {
+      trigger: wrapper,
+      start: "top bottom",
+      end: "bottom top",
+      scrub: true,
+      // markers: true,
+    },
+  });
+  const PARALLAXAMOUNT = 140;
+  const imageHeight = image.clientHeight;
+  wrapper.style.height = `${imageHeight}px`;
+  image.style.height = `${imageHeight + PARALLAXAMOUNT}px`;
+
+  parallaxtl.fromTo(
+    image,
+    {
+      y: 0,
+    },
+    {
+      y: -PARALLAXAMOUNT,
+    }
+  );
+
+  gsap.fromTo(
+    wrapper,
+    {
+      clipPath: "polygon(0 0, 0 0, 0 100%, 0% 100%)",
+    },
+    {
+      clipPath: "polygon(0 0, 100% 0, 100% 100%, 0% 100%)",
+      duration: 1.5,
+      delay: 0.5,
+      ease: "power3.inOut",
+      scrollTrigger: {
+        trigger: wrapper,
+        start: "top 90%",
+        end: "bottom top",
+      },
+    }
+  );
+});
+
 // console.log("From how it why");
 roll("[roll]", 80);
 liveReload();
