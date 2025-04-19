@@ -320,13 +320,65 @@ document.querySelectorAll("[parallax-image]").forEach((image) => {
       ease: "power3.inOut",
       scrollTrigger: {
         trigger: wrapper,
-        start: "top 90%",
+        start: "top bottom",
         end: "bottom top",
       },
     }
   );
 });
 
+document.querySelectorAll("[para-reveal]").forEach((text) => {
+  new SplitText(text, { type: "lines" });
+  new SplitText(text, { type: "lines", linesClass: "line" });
+
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: text,
+      start: "top bottom",
+      end: "bottom top",
+    },
+  });
+  tl.fromTo(
+    text.querySelectorAll(".line > div"),
+    {
+      y: "140%",
+    },
+    {
+      y: 0,
+
+      stagger: 0.1,
+      duration: 1.5,
+      ease: "power4.inOut",
+    }
+  );
+});
+
+document.querySelectorAll("[basic-reveal]").forEach((element) => {
+  gsap.from(element, {
+    scrollTrigger: {
+      trigger: element,
+      start: "top bottom",
+      end: "bottom top",
+    },
+    y: "150%",
+    duration: 1.5,
+    ease: "power4.inOut",
+  });
+});
+
+document.querySelectorAll("[border-reveal]").forEach((element) => {
+  gsap.from(element, {
+    scrollTrigger: {
+      trigger: element,
+      start: "top bottom",
+      end: "bottom top",
+    },
+    width: "0%",
+    duration: 1.5,
+    ease: "power4.inOut",
+  });
+});
+
 // console.log("From how it why");
-roll("[roll]", 80);
+// roll("[roll]", 80);
 liveReload();
