@@ -358,16 +358,54 @@ document.querySelectorAll("[para-reveal]").forEach((text) => {
 });
 
 document.querySelectorAll("[basic-reveal]").forEach((element) => {
-  gsap.from(element, {
-    scrollTrigger: {
-      trigger: element,
-      start: "top bottom",
-      end: "bottom top",
-    },
+  // gsap.from(element, {
+  //   scrollTrigger: {
+  //     trigger: element,
+  //     start: "top bottom",
+  //     end: "bottom top",
+  //   },
+  //   y: "150%",
+  //   duration: 1.5,
+  //   ease: "power4.inOut",
+  // });
+
+  gsap.set(element, {
     y: "150%",
-    duration: 1.5,
-    ease: "power4.inOut",
   });
+});
+
+ScrollTrigger.batch("[basic-reveal]", {
+  start: "top bottom",
+  end: "bottom top",
+  // markers: true,
+  onEnter: (elements, triggers) => {
+    gsap.to(elements, {
+      y: 0,
+      stagger: 0.15,
+      duration: 1.5,
+      ease: "power3.inOut",
+    });
+  },
+});
+
+document.querySelectorAll("[fade-in]").forEach((element) => {
+  gsap.set(element, {
+    opacity: 0,
+  });
+});
+
+ScrollTrigger.batch("[fade-in]", {
+  start: "top bottom",
+  end: "bottom top",
+  // markers: true,
+  onEnter: (elements, triggers) => {
+    gsap.to(elements, {
+      opacity: 1,
+      stagger: 0.1,
+      duration: 3,
+      ease: "power3.inOut",
+    });
+  },
 });
 
 document.querySelectorAll("[border-reveal]").forEach((element) => {
