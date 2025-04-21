@@ -439,25 +439,22 @@ document.querySelectorAll(".footer_link_content").forEach((element) => {
       left: "0%",
       right: "0%",
     }
-  ).fromTo(
+  ).to(
     element.querySelector(".footer_link_border"),
-    {
-      right: "0%",
-      left: "0%",
-    },
+
     {
       right: "0%",
       left: "100%",
     }
   );
 
-  let isHovering = false;
-  let tweenToProgress = null;
+  let tween = null;
 
+  // Kill any running tween
   const stopTween = () => {
-    if (tweenToProgress) {
-      tweenToProgress.kill();
-      tweenToProgress = null;
+    if (tween) {
+      tween.kill();
+      tween = null;
     }
   };
 
@@ -469,18 +466,13 @@ document.querySelectorAll(".footer_link_content").forEach((element) => {
   element.addEventListener("mouseenter", () => {
     // play the animation until 50%
 
-    isHovering = true;
     stopTween();
 
-    if (tl.progress() < 0.5) {
-      tweenToProgress = gsap.to(tl, {
-        progress: 0.5,
-        duration: (0.5 - tl.progress()) * tl.duration(),
-        ease: "power3.out",
-      });
-    } else {
-      tl.play(); // Resume from current point if past halfway
-    }
+    tween = gsap.to(tl, {
+      progress: 0.5,
+      duration: Math.abs(tl.progress() - 0.5) * tl.duration(),
+      ease: "power2.out",
+    });
 
     gsap.to(element.querySelector(".footer_link_shadow"), {
       width: "100%",
@@ -489,18 +481,18 @@ document.querySelectorAll(".footer_link_content").forEach((element) => {
     });
   });
   element.addEventListener("mouseleave", () => {
-    isHovering = false;
     stopTween();
 
-    if (tl.progress() < 0.5) {
-      tweenToProgress = gsap.to(tl, {
-        progress: 0,
-        duration: tl.progress() * tl.duration(),
-        ease: "power3.in",
-      });
-    } else {
-      tl.play();
-    }
+    tween = gsap.to(tl, {
+      progress: 1,
+      duration: (1 - tl.progress()) * tl.duration(),
+      ease: "power2.inOut",
+    });
+
+    // Optional: reset timeline after complete if you want repeat behavior
+    tween.then(() => {
+      tl.pause(0);
+    });
 
     gsap.to(element.querySelector(".footer_link_shadow"), {
       width: "0%",
