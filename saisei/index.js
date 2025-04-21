@@ -469,14 +469,14 @@ document.querySelectorAll(".footer_link_content").forEach((element) => {
     stopTween();
 
     tween = gsap.to(tl, {
-      progress: 0.5,
+      progress: 1,
       duration: Math.abs(tl.progress() - 0.5) * tl.duration(),
-      ease: "power2.out",
+      ease: "power3.out",
     });
 
     gsap.to(element.querySelector(".footer_link_shadow"), {
       width: "100%",
-      duration: 0.5,
+      duration: 1,
       ease: "power3.inOut",
     });
   });
@@ -486,7 +486,7 @@ document.querySelectorAll(".footer_link_content").forEach((element) => {
     tween = gsap.to(tl, {
       progress: 1,
       duration: (1 - tl.progress()) * tl.duration(),
-      ease: "power2.inOut",
+      ease: "power3.inOut",
     });
 
     // Optional: reset timeline after complete if you want repeat behavior
@@ -496,7 +496,7 @@ document.querySelectorAll(".footer_link_content").forEach((element) => {
 
     gsap.to(element.querySelector(".footer_link_shadow"), {
       width: "0%",
-      duration: 0.5,
+      duration: 1,
       ease: "power3.inOut",
     });
   });
