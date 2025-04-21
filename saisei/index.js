@@ -499,12 +499,24 @@ document.querySelectorAll(".footer_link_content").forEach((element) => {
 });
 
 document.querySelectorAll(".process-block").forEach((element) => {
+  let isOpen = false;
+
   element.addEventListener("mouseenter", () => {
     gsap.to(element.querySelector(".bg-off-brown"), {
       top: "0%",
       duration: 0.5,
       ease: "power3.inOut",
     });
+  });
+
+  element.addEventListener("click", () => {
+    console.log(isOpen);
+    gsap.to(element.querySelector(".process-answer"), {
+      height: isOpen ? "0px" : "auto",
+      duration: 0.5,
+      ease: "power3.inOut",
+    });
+    isOpen = !isOpen;
   });
 
   element.addEventListener("mouseleave", () => {
