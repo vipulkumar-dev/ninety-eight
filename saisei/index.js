@@ -498,6 +498,24 @@ document.querySelectorAll(".footer_link_content").forEach((element) => {
   });
 });
 
+document.querySelectorAll(".process-block").forEach((element) => {
+  element.addEventListener("mouseenter", () => {
+    gsap.to(element.querySelector(".bg-off-brown"), {
+      top: "0%",
+      duration: 0.5,
+      ease: "power3.inOut",
+    });
+  });
+
+  element.addEventListener("mouseleave", () => {
+    gsap.to(element.querySelector(".bg-off-brown"), {
+      top: "100%",
+      duration: 0.5,
+      ease: "power3.inOut",
+    });
+  });
+});
+
 // console.log("From how it why");
 // roll("[roll]", 80);
 liveReload();
