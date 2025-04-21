@@ -523,7 +523,7 @@ document.querySelectorAll(".process-block").forEach((element) => {
 
     if (!element.isOpen) {
       gsap.from(element.querySelectorAll("[process-reveal]"), {
-        y: "150%",
+        y: "50px",
         stagger: 0.01,
         duration: 1,
         ease: "power3.inOut",
