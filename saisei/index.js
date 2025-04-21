@@ -499,7 +499,7 @@ document.querySelectorAll(".footer_link_content").forEach((element) => {
 });
 
 document.querySelectorAll(".process-block").forEach((element) => {
-  let isOpen = false;
+  element.isOpen = false;
 
   element.addEventListener("mouseenter", () => {
     gsap.to(element.querySelector(".bg-off-brown"), {
@@ -510,13 +510,21 @@ document.querySelectorAll(".process-block").forEach((element) => {
   });
 
   element.addEventListener("click", () => {
-    console.log(isOpen);
     gsap.to(element.querySelector(".process-answer"), {
-      height: isOpen ? "0px" : "auto",
+      height: element.isOpen ? "0px" : "auto",
       duration: 0.5,
       ease: "power3.inOut",
     });
-    isOpen = !isOpen;
+
+    if (!element.isOpen) {
+      gsap.from(element.querySelectorAll("[process-reveal]"), {
+        y: "150%",
+        stagger: 0.01,
+        duration: 1,
+        ease: "power4.inOut",
+      });
+    }
+    element.isOpen = !element.isOpen;
   });
 
   element.addEventListener("mouseleave", () => {
