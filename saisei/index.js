@@ -515,13 +515,18 @@ document.querySelectorAll(".process-block").forEach((element) => {
       duration: 0.5,
       ease: "power3.inOut",
     });
+    gsap.to(element.querySelectorAll(".process-btn"), {
+      y: element.isOpen ? "0%" : "-100%",
+      duration: 0.5,
+      ease: "power3.inOut",
+    });
 
     if (!element.isOpen) {
       gsap.from(element.querySelectorAll("[process-reveal]"), {
         y: "150%",
         stagger: 0.01,
         duration: 1,
-        ease: "power4.inOut",
+        ease: "power3.inOut",
       });
     }
     element.isOpen = !element.isOpen;
