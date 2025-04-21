@@ -498,7 +498,9 @@ document.querySelectorAll(".footer_link_content").forEach((element) => {
   });
 });
 
-document.querySelectorAll(".process-block").forEach((element) => {
+const processBlocks = document.querySelectorAll(".process-block");
+
+processBlocks.forEach((element) => {
   element.isOpen = false;
 
   element.addEventListener("mouseenter", () => {
@@ -510,25 +512,15 @@ document.querySelectorAll(".process-block").forEach((element) => {
   });
 
   element.addEventListener("click", () => {
-    gsap.to(element.querySelector(".process-answer"), {
-      height: element.isOpen ? "0px" : "auto",
-      duration: 0.5,
-      ease: "power3.inOut",
-    });
-    gsap.to(element.querySelectorAll(".process-btn"), {
-      y: element.isOpen ? "0%" : "-100%",
-      duration: 0.5,
-      ease: "power3.inOut",
+    // all other elements should be closed
+    processBlocks.forEach((processBlock) => {
+      if (processBlock !== element) {
+        processBlock.isOpen = false;
+        toggleProcess(processBlock, true);
+      }
     });
 
-    if (!element.isOpen) {
-      gsap.from(element.querySelectorAll("[process-reveal]"), {
-        y: "50px",
-        stagger: 0.01,
-        duration: 1,
-        ease: "power3.inOut",
-      });
-    }
+    toggleProcess(element, element.isOpen);
     element.isOpen = !element.isOpen;
   });
 
@@ -540,6 +532,28 @@ document.querySelectorAll(".process-block").forEach((element) => {
     });
   });
 });
+
+function toggleProcess(element, isOpen) {
+  gsap.to(element.querySelector(".process-answer"), {
+    height: isOpen ? "0px" : "auto",
+    duration: 0.5,
+    ease: "power3.inOut",
+  });
+  gsap.to(element.querySelectorAll(".process-btn"), {
+    y: isOpen ? "0%" : "-100%",
+    duration: 0.5,
+    ease: "power3.inOut",
+  });
+
+  if (!isOpen) {
+    gsap.from(element.querySelectorAll("[process-reveal]"), {
+      y: "50px",
+      stagger: 0.01,
+      duration: 1,
+      ease: "power3.inOut",
+    });
+  }
+}
 
 // console.log("From how it why");
 // roll("[roll]", 80);
