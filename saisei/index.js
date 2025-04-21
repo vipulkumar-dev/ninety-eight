@@ -421,6 +421,95 @@ document.querySelectorAll("[border-reveal]").forEach((element) => {
   });
 });
 
+document.querySelectorAll(".footer_link_content").forEach((element) => {
+  const tl = gsap.timeline({
+    paused: true,
+    defaults: {
+      duration: 0.5,
+      ease: "none",
+    },
+  });
+  tl.fromTo(
+    element.querySelector(".footer_link_border"),
+    {
+      left: "0%",
+      right: "100%",
+    },
+    {
+      left: "0%",
+      right: "0%",
+    }
+  ).fromTo(
+    element.querySelector(".footer_link_border"),
+    {
+      right: "0%",
+      left: "0%",
+    },
+    {
+      right: "0%",
+      left: "100%",
+    }
+  );
+
+  let isHovering = false;
+  let tweenToProgress = null;
+
+  const stopTween = () => {
+    if (tweenToProgress) {
+      tweenToProgress.kill();
+      tweenToProgress = null;
+    }
+  };
+
+  // Reset timeline when it's done
+  tl.eventCallback("onComplete", () => {
+    tl.pause(0); // Go back to start, paused
+  });
+
+  element.addEventListener("mouseenter", () => {
+    // play the animation until 50%
+
+    isHovering = true;
+    stopTween();
+
+    if (tl.progress() < 0.5) {
+      tweenToProgress = gsap.to(tl, {
+        progress: 0.5,
+        duration: (0.5 - tl.progress()) * tl.duration(),
+        ease: "power3.out",
+      });
+    } else {
+      tl.play(); // Resume from current point if past halfway
+    }
+
+    gsap.to(element.querySelector(".footer_link_shadow"), {
+      width: "100%",
+      duration: 0.5,
+      ease: "power3.inOut",
+    });
+  });
+  element.addEventListener("mouseleave", () => {
+    isHovering = false;
+    stopTween();
+
+    if (tl.progress() < 0.5) {
+      tweenToProgress = gsap.to(tl, {
+        progress: 0,
+        duration: tl.progress() * tl.duration(),
+        ease: "power3.in",
+      });
+    } else {
+      tl.play();
+    }
+
+    gsap.to(element.querySelector(".footer_link_shadow"), {
+      width: "0%",
+      duration: 0.5,
+      ease: "power3.inOut",
+    });
+  });
+});
+
 // console.log("From how it why");
 // roll("[roll]", 80);
 liveReload();
