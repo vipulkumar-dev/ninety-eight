@@ -439,14 +439,10 @@ document.querySelectorAll(".footer_link_content").forEach((element) => {
       left: "0%",
       right: "0%",
     }
-  ).to(
-    element.querySelector(".footer_link_border"),
-
-    {
-      right: "0%",
-      left: "100%",
-    }
-  );
+  ).to(element.querySelector(".footer_link_border"), {
+    right: "0%",
+    left: "100%",
+  });
 
   let tween = null;
 
@@ -469,14 +465,14 @@ document.querySelectorAll(".footer_link_content").forEach((element) => {
     stopTween();
 
     tween = gsap.to(tl, {
-      progress: 1,
+      progress: 0.5,
       duration: Math.abs(tl.progress() - 0.5) * tl.duration(),
       ease: "power3.out",
     });
 
     gsap.to(element.querySelector(".footer_link_shadow"), {
       width: "100%",
-      duration: 1,
+      duration: 0.5,
       ease: "power3.inOut",
     });
   });
@@ -496,7 +492,7 @@ document.querySelectorAll(".footer_link_content").forEach((element) => {
 
     gsap.to(element.querySelector(".footer_link_shadow"), {
       width: "0%",
-      duration: 1,
+      duration: 0.5,
       ease: "power3.inOut",
     });
   });
