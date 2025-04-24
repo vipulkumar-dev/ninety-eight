@@ -22,6 +22,10 @@ function wrapImage(img) {
   const height = img.naturalHeight;
   let scaleFactor = isDesktop ? 0.6 : 1;
 
+  if (width < 600 && height < 600) {
+    scaleFactor = 1;
+  }
+
   const link = document.createElement("a");
   link.href = img.src;
   link.className = "zoom_image";
