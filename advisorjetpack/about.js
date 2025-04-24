@@ -141,8 +141,8 @@ items.forEach((item) => {
     duration: 1,
     scrollTrigger: {
       trigger: item,
-      start: "top 70%",
-      end: "top 70%",
+      start: "top bottom",
+      end: "top bottom",
       // markers: true,
     },
     ease: Power1.easeIn,
