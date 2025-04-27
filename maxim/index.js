@@ -43,7 +43,7 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
     breakpoints: {
       479: {
         slidesPerView: "auto",
-        spaceBetween: 23,
+        spaceBetween: 16,
       },
     },
 
