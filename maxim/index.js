@@ -46,23 +46,22 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
         spaceBetween: 28,
       },
     },
-
-    // If we need pagination
-    // pagination: {
-    //   el: ".swiper-pagination",
-    // },
-
-    // // Navigation arrows
-    // navigation: {
-    //   nextEl: ".swiper-button-next",
-    //   prevEl: ".swiper-button-prev",
-    // },
-
-    // // And if we need scrollbar
-    // scrollbar: {
-    //   el: ".swiper-scrollbar",
-    // },
   });
+});
+
+ScrollTrigger.batch("[fade-animation]", {
+  start: "top bottom",
+  end: "top top",
+  // markers: true,
+  onEnter: (elements, triggers) => {
+    gsap.to(elements, {
+      opacity: 1,
+      y: 0,
+      stagger: 0.06,
+      duration: 0.8,
+      ease: "power2.inOut",
+    });
+  },
 });
 
 // console.log("From how it why");
