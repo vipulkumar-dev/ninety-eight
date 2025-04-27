@@ -37,13 +37,13 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
   const swiperInstance = new Swiper(swiper, {
     // Optional parameters
     direction: "horizontal",
-    slidesPerView: "auto",
-    spaceBetween: 28,
+    slidesPerView: 1,
+    spaceBetween: 16,
     // loop: true,
     breakpoints: {
       479: {
         slidesPerView: "auto",
-        spaceBetween: 16,
+        spaceBetween: 28,
       },
     },
 
