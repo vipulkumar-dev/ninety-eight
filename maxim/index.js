@@ -40,6 +40,12 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
     slidesPerView: "auto",
     spaceBetween: 28,
     // loop: true,
+    breakpoints: {
+      479: {
+        slidesPerView: "auto",
+        spaceBetween: 23,
+      },
+    },
 
     // If we need pagination
     // pagination: {
