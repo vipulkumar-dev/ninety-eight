@@ -28,9 +28,11 @@ function handleScroll() {
 // console.log("scriptLocation", scriptLocation);
 
 window.addEventListener("scroll", () => {
-  if (!ticking) {
-    window.requestAnimationFrame(handleScroll);
-    ticking = true;
+  if (!isMenuOpen) {
+    if (!ticking) {
+      window.requestAnimationFrame(handleScroll);
+      ticking = true;
+    }
   }
 });
 
