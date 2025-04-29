@@ -49,6 +49,11 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
         spaceBetween: 28,
       },
     },
+
+    navigation: {
+      nextEl: swiper.querySelector(".swiper_next"),
+      prevEl: swiper.querySelector(".swiper_prev"),
+    },
   });
 });
 
