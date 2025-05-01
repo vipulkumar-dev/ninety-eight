@@ -119,26 +119,65 @@ window.addEventListener("scroll", () => {
 });
 
 document.querySelectorAll(".btn").forEach((btn) => {
+  const btn_tl = gsap.timeline({
+    paused: true,
+    defaults: {
+      duration: 0.3,
+      ease: "power3.inOut",
+    },
+  });
+
+  btn_tl.to(btn.querySelector(".btn_bg_path"), {
+    duration: 0.3,
+    // scale: 1.2,
+    attr: {
+      d: "M8 0.5H257C261.142 0.5 264.5 3.85786 264.5 8V55C264.5 59.1421 261.142 62.5 257 62.5H8C3.85786 62.5 0.5 59.1421 0.5 55V8L0.509766 7.61426C0.710536 3.65139 3.98724 0.5 8 0.5Z",
+      delta: 0,
+    },
+    scale: 1,
+    ease: "power3.inOut",
+  });
+
+  //   <svg width="265" height="63" viewBox="0 0 265 63" fill="none" xmlns="http://www.w3.org/2000/svg">
+  // <path d="" fill="black" stroke="#949494"/>
+  // </svg>
+
   btn.addEventListener("mouseenter", (e) => {
-    const target = e.currentTarget;
-    const rect = target.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
+    btn_tl.play();
+  });
 
-    const ripple = document.createElement("span");
-    ripple.classList.add("ripple");
-    ripple.style.left = `${x}px`;
-    ripple.style.top = `${y}px`;
-
-    target.appendChild(ripple);
-
-    setTimeout(() => {
-      ripple.remove();
-    }, 600);
+  btn.addEventListener("mouseleave", (e) => {
+    btn_tl.reverse();
   });
 });
 
-//M8 0.5H257C261.142 0.5 264.5 3.85786 264.5 8V55C264.5 59.1421 261.142 62.5 257 62.5H27.2646C25.3029 62.5 23.4193 61.7309 22.0176 60.3584L12.3496 50.8926L2.75293 41.4961C1.31212 40.0853 0.5 38.1532 0.5 36.1367V8L0.509766 7.61426C0.710536 3.65139 3.98724 0.5 8 0.5Z
+//
+
+document.querySelectorAll("[para-reveal]").forEach((text) => {
+  new SplitText(text, { type: "lines" });
+  new SplitText(text, { type: "lines", linesClass: "para_line" });
+
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: text,
+      start: "top bottom",
+      end: "bottom top",
+    },
+  });
+  tl.fromTo(
+    text.querySelectorAll(".para_line > div"),
+    {
+      y: "140%",
+    },
+    {
+      y: 0,
+
+      stagger: 0.1,
+      duration: 1.5,
+      ease: "power4.inOut",
+    }
+  );
+});
 
 // console.log("From how it why");
 roll("[roll]", 80);

@@ -13,6 +13,10 @@
   animation: none;
 }
 
+.para_line {
+  overflow: hidden;
+}
+
 @keyframes blink {
   0%,
   100% {
