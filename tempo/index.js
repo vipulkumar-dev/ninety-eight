@@ -1,7 +1,9 @@
-import { roll, getDevices } from "../utils.js";
+import { roll, getDevices, lenisInit } from "../utils.js";
 import { liveReload } from "../liveReload.js";
 
 const { isDesktop, isMobile } = getDevices();
+
+const lenis = lenisInit();
 
 const header = document.getElementById("header");
 let isMenuOpen = false;
@@ -185,7 +187,34 @@ document.querySelectorAll("[para-reveal]").forEach((text) => {
   // );
 });
 
-ScrollTrigger.batch(["[reveal]"], {
+document.querySelectorAll("[reveal]").forEach((el) => {
+  if (el.hasAttribute("para-reveal")) {
+    setReset(el.querySelectorAll(".para_line"));
+  } else setReset(el);
+});
+
+function setReset(targets) {
+  gsap.set(targets, {
+    y: (index, target) => {
+      console.log(target);
+      if (target.hasAttribute("fade-reveal")) {
+        return "0%";
+      }
+      return "140%";
+    },
+    opacity: 0,
+    scaleY: (index, target) => {
+      console.log(target);
+      if (target.hasAttribute("fade-reveal")) {
+        return 1;
+      }
+      return 2;
+    },
+    transformOrigin: "top",
+  });
+}
+
+ScrollTrigger.batch("[reveal]", {
   start: "top bottom",
   end: "top top",
   // markers: true,
@@ -201,26 +230,20 @@ ScrollTrigger.batch(["[reveal]"], {
           animateItems.push(line);
         });
       }
+      if (element.hasAttribute("fade-reveal")) {
+        animateItems.push(element);
+      }
     });
     console.log("animateItems", animateItems);
 
-    gsap.fromTo(
-      animateItems,
-      {
-        y: "140%",
-        scaleY: 2,
-        opacity: 0,
-        transformOrigin: "top",
-      },
-      {
-        y: 0,
-        opacity: 1,
-        scaleY: 1,
-        stagger: 0.05,
-        duration: 2,
-        ease: "power4.inOut",
-      }
-    );
+    gsap.to(animateItems, {
+      y: "0%",
+      opacity: 1,
+      scaleY: 1,
+      stagger: 0.07,
+      duration: 1.3,
+      ease: "power4.inOut",
+    });
   },
 });
 
