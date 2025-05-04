@@ -8,10 +8,6 @@
   animation: blink 2s infinite none;
 }
 
-.zoom_image {
-  width: 378.672px;
-}
-
 .w-lightbox-container img {
   position: static;
   width: auto;
