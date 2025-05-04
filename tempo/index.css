@@ -13,9 +13,9 @@
   animation: none;
 }
 
-.para_line {
+/* .para_line {
   overflow: hidden;
-}
+} */
 
 @keyframes blink {
   0%,
