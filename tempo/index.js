@@ -99,7 +99,7 @@ menu_tl
 
 const menu_trigger = document.querySelector(".menu_trigger");
 
-menu_trigger.addEventListener("click", () => {
+menu_trigger?.addEventListener("click", () => {
   if (!isMenuOpen) {
     menu_tl.play();
   } else {
@@ -156,31 +156,74 @@ document.querySelectorAll(".btn").forEach((btn) => {
 //
 
 document.querySelectorAll("[para-reveal]").forEach((text) => {
-  new SplitText(text, { type: "lines" });
-  new SplitText(text, { type: "lines", linesClass: "para_line" });
-
-  const tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: text,
-      start: "top bottom",
-      end: "bottom top",
-    },
+  new SplitText(text, {
+    type: "lines",
+    deepslice: true,
+    mask: "lines",
+    linesClass: "para_line",
   });
-  tl.fromTo(
-    text.querySelectorAll(".para_line > div"),
-    {
-      y: "140%",
-    },
-    {
-      y: 0,
 
-      stagger: 0.1,
-      duration: 1.5,
-      ease: "power4.inOut",
-    }
-  );
+  // const tl = gsap.timeline({
+  //   scrollTrigger: {
+  //     trigger: text,
+  //     start: "top bottom",
+  //     end: "bottom top",
+  //   },
+  // });
+  // tl.fromTo(
+  //   text.querySelectorAll(".para_line"),
+  //   {
+  //     y: "140%",
+  //   },
+  //   {
+  //     y: 0,
+
+  //     stagger: 0.1,
+  //     duration: 1.5,
+  //     ease: "power4.inOut",
+  //   }
+  // );
+});
+
+ScrollTrigger.batch(["[reveal]"], {
+  start: "top bottom",
+  end: "top top",
+  // markers: true,
+  onEnter: (elements, triggers) => {
+    const animateItems = [];
+
+    elements.forEach((element) => {
+      if (element.hasAttribute("basic-reveal")) {
+        animateItems.push(element);
+      }
+      if (element.hasAttribute("para-reveal")) {
+        element.querySelectorAll(".para_line").forEach((line) => {
+          animateItems.push(line);
+        });
+      }
+    });
+    console.log("animateItems", animateItems);
+
+    gsap.fromTo(
+      animateItems,
+      {
+        y: "140%",
+        scaleY: 2,
+        opacity: 0,
+        transformOrigin: "top",
+      },
+      {
+        y: 0,
+        opacity: 1,
+        scaleY: 1,
+        stagger: 0.05,
+        duration: 2,
+        ease: "power4.inOut",
+      }
+    );
+  },
 });
 
 // console.log("From how it why");
-roll("[roll]", 80);
+roll("[roll]", 60);
 liveReload();

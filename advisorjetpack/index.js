@@ -346,10 +346,36 @@ ScrollTrigger.batch("[fade-animation]", {
   },
 });
 
+// let msnry = new Masonry("#macy-container", {
+//   itemSelector: ".zoom_image",
+//   columnWidth: 378.672,
+//   gutter: 16,
+// });
 document.querySelectorAll("[tab_item]").forEach((tab) => {
   tab.addEventListener("click", () => {
     lenis.resize();
+
+    // macyInstance.recalculate(true);
     // ScrollTrigger.refresh();
+
+    // if (!mancyInstance) {
+    //   mancyInstance = new Macy({
+    //     container: "#macy-container", //Id of the grid
+    //     trueOrder: false,
+    //     margin: 25, //Gap between
+    //     columns: 1, //Colums
+    //     debug: true,
+    //     waitForImages: true,
+    //     mobileFirst: true,
+    //     breakAt: {
+    //       1200: 3,
+    //       940: 2,
+    //       520: 1,
+    //       400: 1,
+    //     },
+    //   });
+    // }
+    // macyInstance.recalculate();
   });
 });
 
