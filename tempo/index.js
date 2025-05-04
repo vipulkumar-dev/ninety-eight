@@ -206,7 +206,7 @@ function setReset(targets) {
     scaleY: (index, target) => {
       console.log(target);
       if (target.hasAttribute("fade-reveal")) {
-        return 1;
+        return 1.08;
       }
       return 2;
     },
@@ -241,7 +241,13 @@ ScrollTrigger.batch("[reveal]", {
       opacity: 1,
       scaleY: 1,
       stagger: 0.07,
-      duration: 1.3,
+      duration: (index, target) => {
+        console.log(target);
+        if (target.hasAttribute("fade-reveal")) {
+          return 0.8;
+        }
+        return 1.3;
+      },
       ease: "power4.inOut",
     });
   },
