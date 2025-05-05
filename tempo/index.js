@@ -13,6 +13,7 @@ let ticking = false;
 
 function handleScroll() {
   const currentScrollPosition = window.scrollY;
+  console.log("currentScrollPosition", currentScrollPosition);
 
   if (Math.abs(currentScrollPosition - lastScrollPosition) > delta) {
     if (currentScrollPosition > lastScrollPosition) {
@@ -30,6 +31,7 @@ function handleScroll() {
 
 window.addEventListener("scroll", () => {
   if (!isMenuOpen) {
+    console.log("isMenuOpen", isMenuOpen);
     if (!ticking) {
       window.requestAnimationFrame(handleScroll);
       ticking = true;
@@ -53,12 +55,12 @@ const menu_tl = gsap.timeline({
 
 menu_tl
   .to(".menu_line.top", {
-    top: "50%",
+    y: "6.5px",
   })
   .to(
     ".menu_line.bottom",
     {
-      bottom: "50%",
+      y: "-6.5px",
     },
     "<"
   )
@@ -78,25 +80,32 @@ menu_tl
   .fromTo(
     ".navigation_wrapper",
     {
-      x: "100%",
+      y: "-100%",
     },
     {
-      x: "0%",
-      duration: 0.8,
+      y: "0%",
+      duration: 2,
+      ease: "power4.inOut",
     },
-    "-=0.7"
+    "-=1.3"
   )
   .fromTo(
-    ".nav_animate",
+    ".nav_animate .nav_item",
     {
-      x: "500px",
+      y: "150%",
+      opacity: 0,
+      scaleY: 2,
+      transformOrigin: "top",
     },
     {
-      x: "0%",
-      stagger: 0.04,
-      duration: 0.8,
+      y: "0%",
+      opacity: 1,
+      scaleY: 1,
+      stagger: 0.07,
+      duration: 1.3,
+      ease: "power4.inOut",
     },
-    "-=0.7"
+    "-=1"
   );
 
 const menu_trigger = document.querySelector(".menu_trigger");
@@ -108,17 +117,11 @@ menu_trigger?.addEventListener("click", () => {
     menu_tl.reverse();
   }
   isMenuOpen = !isMenuOpen;
+  console.log("isMenuOpen", isMenuOpen);
 });
 
 // var scriptLocation = document.currentScript.src;
 // console.log("scriptLocation", scriptLocation);
-
-window.addEventListener("scroll", () => {
-  if (!ticking) {
-    window.requestAnimationFrame(handleScroll);
-    ticking = true;
-  }
-});
 
 document.querySelectorAll(".btn").forEach((btn) => {
   const btn_tl = gsap.timeline({
@@ -249,7 +252,7 @@ document.querySelectorAll("[reveal]").forEach((el) => {
 function setReset(targets) {
   gsap.set(targets, {
     y: (index, target) => {
-      console.log(target);
+      // console.log(target);
       if (target.hasAttribute("fade-reveal")) {
         return "0%";
       }
@@ -257,7 +260,7 @@ function setReset(targets) {
     },
     opacity: 0,
     scaleY: (index, target) => {
-      console.log(target);
+      // console.log(target);
       if (target.hasAttribute("fade-reveal")) {
         return 1.2;
       }
@@ -287,7 +290,7 @@ ScrollTrigger.batch("[reveal]", {
         animateItems.push(element);
       }
     });
-    console.log("animateItems", animateItems);
+    // console.log("animateItems", animateItems);
 
     gsap.to(animateItems, {
       y: "0%",
@@ -295,7 +298,7 @@ ScrollTrigger.batch("[reveal]", {
       scaleY: 1,
       stagger: 0.07,
       duration: (index, target) => {
-        console.log(target);
+        // console.log(target);
         if (target.hasAttribute("fade-reveal")) {
           return 1.3;
         }
