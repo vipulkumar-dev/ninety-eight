@@ -105,7 +105,7 @@ menu_tl
       duration: 1.3,
       ease: "power4.inOut",
     },
-    "-=1"
+    "-=1.2"
   );
 
 const menu_trigger = document.querySelector(".menu_trigger");
