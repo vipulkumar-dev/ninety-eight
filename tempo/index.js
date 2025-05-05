@@ -53,71 +53,55 @@ const menu_tl = gsap.timeline({
   },
 });
 
+const nav_items_tl = gsap.timeline({
+  paused: true,
+  defaults: {
+    ease: "power4.inOut",
+  },
+});
+
 menu_tl
-  .to(".menu_line.top", {
-    y: "6.5px",
-  })
-  .to(
-    ".menu_line.bottom",
-    {
-      y: "-6.5px",
-    },
-    "<"
-  )
-  .to(".menu_line.top", {
-    rotate: 225,
-    width: "82%",
-    duration: 0.5,
-  })
-  .to(
-    ".menu_line.bottom",
-    {
-      rotate: -45,
-      width: "82%",
-    },
-    "<"
-  )
+  .to(".menu_line.top", { y: "6.5px" })
+  .to(".menu_line.bottom", { y: "-6.5px" }, "<")
+  .to(".menu_line.top", { rotate: 225, width: "82%", duration: 0.5 })
+  .to(".menu_line.bottom", { rotate: -45, width: "82%" }, "<")
   .fromTo(
     ".navigation_wrapper",
-    {
-      y: "-100%",
-    },
-    {
-      y: "0%",
-      duration: 2,
-      ease: "power4.inOut",
-    },
+    { y: "-100%" },
+    { y: "0%", duration: 2 },
     "-=1.3"
-  )
-  .fromTo(
-    ".nav_animate .nav_item",
-    {
-      y: "150%",
-      opacity: 0,
-      scaleY: 2,
-      transformOrigin: "top",
-    },
-    {
-      y: "0%",
-      opacity: 1,
-      scaleY: 1,
-      stagger: 0.07,
-      duration: 1.3,
-      ease: "power4.inOut",
-    },
-    "-=1.2"
   );
+
+nav_items_tl.fromTo(
+  ".nav_animate .nav_item",
+  {
+    y: "150%",
+    opacity: 0,
+    scaleY: 2,
+    transformOrigin: "top",
+  },
+  {
+    y: "0%",
+    opacity: 1,
+    scaleY: 1,
+    stagger: 0.07,
+    delay: 0.4,
+    duration: 1.3,
+  },
+  0 // start immediately
+);
 
 const menu_trigger = document.querySelector(".menu_trigger");
 
 menu_trigger?.addEventListener("click", () => {
   if (!isMenuOpen) {
     menu_tl.play();
+    nav_items_tl.play(0); // always play forward
   } else {
     menu_tl.reverse();
+    // Don't reverse nav_items_tl (skip it)
   }
   isMenuOpen = !isMenuOpen;
-  console.log("isMenuOpen", isMenuOpen);
 });
 
 // var scriptLocation = document.currentScript.src;
