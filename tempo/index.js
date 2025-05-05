@@ -192,7 +192,7 @@ document.querySelectorAll("[parallax-image]").forEach((image) => {
       // markers: true,
     },
   });
-  const PARALLAXAMOUNT = 100;
+  const PARALLAXAMOUNT = isDesktop ? 100 : 50;
   const imageHeight = image.clientHeight;
   wrapper.style.height = `${imageHeight}px`;
   image.style.height = `${imageHeight + PARALLAXAMOUNT}px`;
