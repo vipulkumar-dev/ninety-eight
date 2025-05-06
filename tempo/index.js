@@ -251,6 +251,11 @@ document.querySelectorAll("[para-reveal]").forEach((text) => {
     deepslice: true,
     mask: "lines",
     linesClass: "para_line",
+    onSplit: () => {
+      gsap.set("[para-reveal]", {
+        opacity: 1,
+      });
+    },
   });
 });
 
@@ -279,7 +284,7 @@ ScrollTrigger.batch("[reveal]", {
     }
     return "top bottom";
   },
-  markers: true,
+  // markers: true,
   onEnter: (elements, triggers) => {
     const animateItems = [];
 
