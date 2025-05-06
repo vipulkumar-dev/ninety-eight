@@ -251,12 +251,11 @@ document.querySelectorAll("[para-reveal]").forEach((text) => {
     deepslice: true,
     mask: "lines",
     linesClass: "para_line",
-    onSplit: () => {
-      gsap.set("[para-reveal]", {
-        opacity: 1,
-      });
-    },
   });
+});
+
+gsap.set("[para-reveal]", {
+  opacity: 1,
 });
 
 ScrollTrigger.batch("[reveal]", {
