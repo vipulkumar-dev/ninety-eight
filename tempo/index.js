@@ -245,17 +245,25 @@ document.querySelectorAll("[para-reveal]").forEach((text) => {
   // );
 });
 
+document.querySelectorAll("[reveal]").forEach((el) => {
+  console.log("text", el);
+});
+
 ScrollTrigger.batch("[reveal]", {
   start: (scrollInstance) => {
-    const eltrigger = scrollInstance.trigger;
-    const eltriggerHeight = eltrigger.clientHeight * 1.4;
+    try {
+      const eltrigger = scrollInstance.trigger;
+      const eltriggerHeight = eltrigger.clientHeight * 1.4;
 
-    console.log("eltriggerHeight", eltrigger);
+      console.log("eltrigger", eltrigger);
 
-    if (eltrigger.hasAttribute("basic-reveal")) {
-      return `top-=${eltriggerHeight}px bottom`;
+      if (eltrigger.hasAttribute("basic-reveal")) {
+        return `top-=${eltriggerHeight}px bottom`;
+      }
+      return "top bottom";
+    } catch (error) {
+      console.log("error", error);
     }
-    return "top bottom";
   },
   end: (scrollInstance) => {
     const eltrigger = scrollInstance.trigger;
@@ -266,9 +274,10 @@ ScrollTrigger.batch("[reveal]", {
     }
     return "top bottom";
   },
-  // markers: true,
+  markers: true,
   onEnter: (elements, triggers) => {
     const animateItems = [];
+    console.log("elements", elements);
 
     elements.forEach((element) => {
       if (element.hasAttribute("basic-reveal")) {
