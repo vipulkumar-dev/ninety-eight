@@ -215,102 +215,6 @@ document.querySelectorAll("[parallax-image]").forEach((image) => {
 
 //
 
-document.querySelectorAll("[para-reveal]").forEach((text) => {
-  new SplitText(text, {
-    type: "lines",
-    deepslice: true,
-    mask: "lines",
-    linesClass: "para_line",
-  });
-
-  // const tl = gsap.timeline({
-  //   scrollTrigger: {
-  //     trigger: text,
-  //     start: "top bottom",
-  //     end: "bottom top",
-  //   },
-  // });
-  // tl.fromTo(
-  //   text.querySelectorAll(".para_line"),
-  //   {
-  //     y: "140%",
-  //   },
-  //   {
-  //     y: 0,
-
-  //     stagger: 0.1,
-  //     duration: 1.5,
-  //     ease: "power4.inOut",
-  //   }
-  // );
-});
-
-document.querySelectorAll("[reveal]").forEach((el) => {
-  console.log("text", el);
-});
-
-ScrollTrigger.batch("[reveal]", {
-  start: (scrollInstance) => {
-    try {
-      const eltrigger = scrollInstance.trigger;
-      const eltriggerHeight = eltrigger.clientHeight * 1.4;
-
-      console.log("eltrigger", eltrigger);
-
-      if (eltrigger.hasAttribute("basic-reveal")) {
-        return `top-=${eltriggerHeight}px bottom`;
-      }
-      return "top bottom";
-    } catch (error) {
-      console.log("error", error);
-    }
-  },
-  end: (scrollInstance) => {
-    const eltrigger = scrollInstance.trigger;
-    const eltriggerHeight = eltrigger.clientHeight * 1.4;
-
-    if (eltrigger.hasAttribute("basic-reveal")) {
-      return `top-=${eltriggerHeight}px bottom`;
-    }
-    return "top bottom";
-  },
-  markers: true,
-  onEnter: (elements, triggers) => {
-    const animateItems = [];
-    console.log("elements", elements);
-
-    elements.forEach((element) => {
-      if (element.hasAttribute("basic-reveal")) {
-        animateItems.push(element);
-      }
-      if (element.hasAttribute("para-reveal")) {
-        element.querySelectorAll(".para_line").forEach((line) => {
-          animateItems.push(line);
-        });
-      }
-      if (element.hasAttribute("fade-reveal")) {
-        animateItems.push(element);
-      }
-    });
-    // console.log("animateItems", animateItems);
-
-    gsap.to(animateItems, {
-      y: "0%",
-      opacity: 1,
-      scaleY: 1,
-      stagger: 0.07,
-      duration: (index, target) => {
-        // console.log(target);
-        if (target.hasAttribute("fade-reveal")) {
-          return 1.3;
-        }
-        return 1.3;
-      },
-      ease: "power4.inOut",
-    });
-  },
-});
-
 // document.querySelectorAll("[reveal]").forEach((el) => {
 //   if (el.hasAttribute("para-reveal")) {
 //     setReset(el.querySelectorAll(".para_line"));
@@ -340,4 +244,75 @@ ScrollTrigger.batch("[reveal]", {
 
 // console.log("From how it why");
 roll("[roll]", 60);
+
+document.querySelectorAll("[para-reveal]").forEach((text) => {
+  new SplitText(text, {
+    type: "lines",
+    deepslice: true,
+    mask: "lines",
+    linesClass: "para_line",
+  });
+});
+
+ScrollTrigger.batch("[reveal]", {
+  start: (scrollInstance) => {
+    try {
+      const eltrigger = scrollInstance.trigger;
+      const eltriggerHeight = eltrigger.clientHeight * 1.4;
+
+      // console.log("eltrigger", eltrigger);
+
+      if (eltrigger.hasAttribute("basic-reveal")) {
+        return `top-=${eltriggerHeight}px bottom`;
+      }
+      return "top bottom";
+    } catch (error) {
+      console.log("error", error);
+    }
+  },
+  end: (scrollInstance) => {
+    const eltrigger = scrollInstance.trigger;
+    const eltriggerHeight = eltrigger.clientHeight * 1.4;
+
+    if (eltrigger.hasAttribute("basic-reveal")) {
+      return `top-=${eltriggerHeight}px bottom`;
+    }
+    return "top bottom";
+  },
+  markers: true,
+  onEnter: (elements, triggers) => {
+    const animateItems = [];
+
+    elements.forEach((element) => {
+      if (element.hasAttribute("basic-reveal")) {
+        animateItems.push(element);
+      }
+      if (element.hasAttribute("para-reveal")) {
+        console.log("para", element);
+        element.querySelectorAll(".para_line").forEach((line) => {
+          animateItems.push(line);
+        });
+      }
+      if (element.hasAttribute("fade-reveal")) {
+        animateItems.push(element);
+      }
+    });
+    // console.log("animateItems", animateItems);
+
+    gsap.to(animateItems, {
+      y: "0%",
+      opacity: 1,
+      scaleY: 1,
+      stagger: 0.07,
+      duration: (index, target) => {
+        // console.log(target);
+        if (target.hasAttribute("fade-reveal")) {
+          return 1.3;
+        }
+        return 1.3;
+      },
+      ease: "power4.inOut",
+    });
+  },
+});
 liveReload();

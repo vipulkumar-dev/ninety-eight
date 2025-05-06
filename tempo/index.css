@@ -16,6 +16,12 @@
 /* .para_line {
   overflow: hidden;
 } */
+.portfolio_card:hover {
+  color: white;
+}
+.portfolio_card:hover .is-active {
+  opacity: 100%;
+}
 
 @keyframes blink {
   0%,
