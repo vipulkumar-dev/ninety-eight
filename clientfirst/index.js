@@ -111,13 +111,6 @@ menu_trigger.addEventListener("click", () => {
 // var scriptLocation = document.currentScript.src;
 // console.log("scriptLocation", scriptLocation);
 
-window.addEventListener("scroll", () => {
-  if (!ticking) {
-    window.requestAnimationFrame(handleScroll);
-    ticking = true;
-  }
-});
-
 // console.log("From how it why");
 roll("[roll]", 80);
 liveReload();
