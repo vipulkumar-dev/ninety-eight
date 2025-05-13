@@ -110,6 +110,48 @@ if (header) {
   });
 }
 
+const parallax_contents = document.querySelectorAll(".parallax_content");
+
+const parallaxWidth =
+  parallax_contents[0].offsetWidth * parallax_contents.length;
+
+gsap.set(".hero_paralax_item", {
+  width: `${parallaxWidth}px`,
+});
+
+const heroParallaxItemWidth =
+  document.querySelector(".hero_paralax_item").offsetWidth;
+const windowWidth = window.innerWidth;
+
+const paralax_amount = heroParallaxItemWidth - windowWidth;
+
+const parallaxTl = gsap.timeline({
+  scrollTrigger: {
+    trigger: ".section_hero",
+    start: "top top",
+    end: `+=${paralax_amount * 1.2}`,
+    scrub: 1,
+    pin: true,
+    // markers: true,
+  },
+});
+
+document.querySelectorAll(".hero_paralax_item").forEach((item, index) => {
+  const parallaxDelay = Number(item.getAttribute("parallax-delay"));
+  gsap.to(item, {
+    x: `-${paralax_amount - parallaxDelay * 300}px`,
+    scrollTrigger: {
+      trigger: ".section_hero",
+      start: "top top",
+      end: `+=${paralax_amount * 1.2}`,
+      scrub: 1 + parallaxDelay * 0.5,
+      // pin: true,
+      // markers: true,
+    },
+    ease: "power1.inOut",
+  });
+});
+
 // var scriptLocation = document.currentScript.src;
 // console.log("scriptLocation", scriptLocation);
 
@@ -199,47 +241,5 @@ function about_bio_deactive(about_bio, index) {
 
   about_bio.isactive = false;
 }
-
-const parallax_contents = document.querySelectorAll(".parallax_content");
-
-const parallaxWidth =
-  parallax_contents[0].offsetWidth * parallax_contents.length;
-
-gsap.set(".hero_paralax_item", {
-  width: `${parallaxWidth}px`,
-});
-
-const heroParallaxItemWidth =
-  document.querySelector(".hero_paralax_item").offsetWidth;
-const windowWidth = window.innerWidth;
-
-const paralax_amount = heroParallaxItemWidth - windowWidth;
-
-const parallaxTl = gsap.timeline({
-  scrollTrigger: {
-    trigger: ".section_hero",
-    start: "top top",
-    end: `+=${paralax_amount * 1.2}`,
-    scrub: 1,
-    pin: true,
-    // markers: true,
-  },
-});
-
-document.querySelectorAll(".hero_paralax_item").forEach((item, index) => {
-  const parallaxDelay = Number(item.getAttribute("parallax-delay"));
-  gsap.to(item, {
-    x: `-${paralax_amount - parallaxDelay * 300}px`,
-    scrollTrigger: {
-      trigger: ".section_hero",
-      start: "top top",
-      end: `+=${paralax_amount * 1.2}`,
-      scrub: 1 + parallaxDelay * 0.5,
-      // pin: true,
-      // markers: true,
-    },
-    ease: "power1.inOut",
-  });
-});
 
 liveReload();
