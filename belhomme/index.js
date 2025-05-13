@@ -235,7 +235,7 @@ function about_bio_active(about_bio, index) {
 
 function about_bio_deactive(about_bio, index) {
   gsap.to(about_bio, {
-    height: 60,
+    height: isDesktop ? 60 : 36,
     ...about_bio_default,
   });
   gsap.to(about_bio.querySelector(".about_shadow"), {
