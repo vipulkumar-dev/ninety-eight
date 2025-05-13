@@ -248,6 +248,6 @@ function about_bio_deactive(about_bio, index) {
   about_bio.isactive = false;
 }
 
-convertVhToFixedHeight();
+// convertVhToFixedHeight();
 
 liveReload();
