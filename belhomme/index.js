@@ -1,8 +1,8 @@
-import { roll, getDevices } from "../utils.js";
+import { roll, getDevices, lenisInit } from "../utils.js";
 import { liveReload } from "../liveReload.js";
 
 const { isDesktop, isMobile } = getDevices();
-
+const lenis = lenisInit();
 const header = document.getElementById("header");
 if (header) {
   let isMenuOpen = false;
@@ -145,6 +145,101 @@ closeTriggers.forEach((closeTrigger) => {
   });
 });
 
-// console.log("From how it why");
-roll("[roll]", 80);
+document.querySelectorAll(".about_bio").forEach((about_bion, index) => {
+  about_bion.isactive = index !== 0 ? false : true;
+  about_bion.addEventListener("mouseenter", () => {
+    // don't do anything if already active
+    if (!about_bion.isactive) {
+      document
+        .querySelectorAll(".about_bio")
+        .forEach((about_bion_inner, innerIndex) => {
+          if (about_bion_inner.isactive) {
+            about_bio_deactive(about_bion_inner, innerIndex);
+          }
+        });
+      about_bio_active(about_bion, index);
+    }
+  });
+});
+
+const about_bio_default = {
+  duration: 0.8,
+  ease: "power4.inOut",
+};
+
+function about_bio_active(about_bio, index) {
+  gsap.to(about_bio, {
+    height: "auto",
+    ...about_bio_default,
+  });
+  gsap.to(about_bio.querySelector(".about_shadow"), {
+    opacity: 0,
+    ...about_bio_default,
+  });
+  gsap.to(`[about-image-${index}]`, {
+    opacity: 1,
+    ...about_bio_default,
+  });
+  about_bio.isactive = true;
+}
+
+function about_bio_deactive(about_bio, index) {
+  gsap.to(about_bio, {
+    height: 60,
+    ...about_bio_default,
+  });
+  gsap.to(about_bio.querySelector(".about_shadow"), {
+    opacity: 1,
+    ...about_bio_default,
+  });
+  gsap.to(`[about-image-${index}]`, {
+    opacity: 0,
+    ...about_bio_default,
+  });
+
+  about_bio.isactive = false;
+}
+
+const parallax_contents = document.querySelectorAll(".parallax_content");
+
+const parallaxWidth =
+  parallax_contents[0].offsetWidth * parallax_contents.length;
+
+gsap.set(".hero_paralax_item", {
+  width: `${parallaxWidth}px`,
+});
+
+const heroParallaxItemWidth =
+  document.querySelector(".hero_paralax_item").offsetWidth;
+const windowWidth = window.innerWidth;
+
+const paralax_amount = heroParallaxItemWidth - windowWidth;
+
+const parallaxTl = gsap.timeline({
+  scrollTrigger: {
+    trigger: ".section_hero",
+    start: "top top",
+    end: `+=${paralax_amount * 1.2}`,
+    scrub: 1,
+    pin: true,
+    // markers: true,
+  },
+});
+
+document.querySelectorAll(".hero_paralax_item").forEach((item, index) => {
+  const parallaxDelay = Number(item.getAttribute("parallax-delay"));
+  gsap.to(item, {
+    x: `-${paralax_amount - parallaxDelay * 300}px`,
+    scrollTrigger: {
+      trigger: ".section_hero",
+      start: "top top",
+      end: `+=${paralax_amount * 1.2}`,
+      scrub: 1 + parallaxDelay * 0.5,
+      // pin: true,
+      // markers: true,
+    },
+    ease: "power1.inOut",
+  });
+});
+
 liveReload();

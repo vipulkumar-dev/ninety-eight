@@ -13,6 +13,10 @@
   animation: none;
 }
 
+.about_bio.is-active .about_shadow {
+  opacity: 0;
+}
+
 @keyframes blink {
   0%,
   100% {

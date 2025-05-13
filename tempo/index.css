@@ -13,9 +13,6 @@
   animation: none;
 }
 
-/* .para_line {
-  overflow: hidden;
-} */
 .portfolio_card:hover {
   color: white;
 }
