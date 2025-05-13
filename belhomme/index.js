@@ -147,7 +147,7 @@ const parallaxTl = gsap.timeline({
 document.querySelectorAll(".hero_paralax_item").forEach((item, index) => {
   const parallaxDelay = Number(item.getAttribute("parallax-delay"));
   gsap.to(item, {
-    x: `-${paralax_amount - parallaxDelay * 400}px`,
+    x: `-${paralax_amount - parallaxDelay * 300}px`,
     scrollTrigger: {
       trigger: ".section_hero",
       start: "top top",
