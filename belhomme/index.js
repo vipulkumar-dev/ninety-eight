@@ -115,7 +115,7 @@ if (header) {
   });
 }
 
-convertVhToFixedHeight();
+// convertVhToFixedHeight();
 
 const parallax_contents = document.querySelectorAll(".parallax_content");
 
