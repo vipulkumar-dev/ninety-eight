@@ -115,6 +115,8 @@ if (header) {
   });
 }
 
+convertVhToFixedHeight();
+
 const parallax_contents = document.querySelectorAll(".parallax_content");
 
 const parallaxWidth =
@@ -247,7 +249,5 @@ function about_bio_deactive(about_bio, index) {
 
   about_bio.isactive = false;
 }
-
-// convertVhToFixedHeight();
 
 liveReload();
