@@ -1,4 +1,9 @@
-import { roll, getDevices, lenisInit } from "../utils.js";
+import {
+  roll,
+  getDevices,
+  lenisInit,
+  convertVhToFixedHeight,
+} from "../utils.js";
 import { liveReload } from "../liveReload.js";
 
 const { isDesktop, isMobile } = getDevices();
@@ -241,5 +246,7 @@ function about_bio_deactive(about_bio, index) {
 
   about_bio.isactive = false;
 }
+
+convertVhToFixedHeight();
 
 liveReload();
