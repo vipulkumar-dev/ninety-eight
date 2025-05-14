@@ -195,20 +195,24 @@ closeTriggers.forEach((closeTrigger) => {
   });
 });
 
+let hoverTimeout;
 document.querySelectorAll(".about_bio").forEach((about_bion, index) => {
   about_bion.isactive = index !== 0 ? false : true;
   about_bion.addEventListener("mouseenter", () => {
-    // don't do anything if already active
-    if (!about_bion.isactive) {
-      document
-        .querySelectorAll(".about_bio")
-        .forEach((about_bion_inner, innerIndex) => {
-          if (about_bion_inner.isactive) {
-            about_bio_deactive(about_bion_inner, innerIndex);
-          }
-        });
-      about_bio_active(about_bion, index);
-    }
+    clearTimeout(hoverTimeout);
+    hoverTimeout = setTimeout(() => {
+      // don't do anything if already active
+      if (!about_bion.isactive) {
+        document
+          .querySelectorAll(".about_bio")
+          .forEach((about_bion_inner, innerIndex) => {
+            if (about_bion_inner.isactive) {
+              about_bio_deactive(about_bion_inner, innerIndex);
+            }
+          });
+        about_bio_active(about_bion, index);
+      }
+    }, 70);
   });
 });
 
