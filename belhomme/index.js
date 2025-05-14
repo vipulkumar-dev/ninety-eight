@@ -139,7 +139,7 @@ const parallaxTl = gsap.timeline({
     end: `+=${paralax_amount * 1.2}`,
     scrub: 1,
     pin: true,
-    anticipatePin: 1,
+    anticipatePin: 2,
     // markers: true,
   },
 });
