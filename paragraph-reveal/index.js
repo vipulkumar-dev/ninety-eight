@@ -1,6 +1,8 @@
 import { roll, getDevices } from "../utils.js";
 import { liveReload } from "../liveReload.js";
 
+gsap.registerPlugin(SplitText);
+
 const { isDesktop, isMobile } = getDevices();
 const header = document.getElementById("header");
 if (header) {
@@ -109,7 +111,142 @@ if (header) {
   });
 }
 
-console.log("paragraph-reveal loaded");
+const paragraph = document.querySelector("#paragraph");
+// split elements with the class "split" into words and lines
+let split = SplitText.create(paragraph, {
+  type: "lines",
+  mask: "lines",
+});
+
+// now animate the lines in a staggered fashion
+
+document.querySelector("#basic").addEventListener("click", () => {
+  gsap.fromTo(
+    split.lines,
+    {
+      y: "200%",
+      transformOrigin: "top center",
+      // opacity: 0,
+      // scaleY: 2,
+      // skewY: 4,
+    },
+    {
+      y: "0%",
+      transformOrigin: "top center",
+      opacity: 1,
+      scaleY: 1,
+      skewY: 0,
+      stagger: 0.06,
+      ease: "power4.out",
+      overwrite: true,
+      duration: 0.8,
+    }
+  );
+});
+
+document.querySelector("#opacity").addEventListener("click", () => {
+  gsap.fromTo(
+    split.lines,
+    {
+      y: "200%",
+      transformOrigin: "top center",
+      opacity: 0,
+      // scaleY: 2,
+      // skewY: 4,
+    },
+    {
+      y: "0%",
+      transformOrigin: "top center",
+      opacity: 1,
+      scaleY: 1,
+      skewY: 0,
+      stagger: 0.06,
+      ease: "power4.out",
+      overwrite: true,
+      duration: 0.8,
+    }
+  );
+});
+
+document.querySelector("#scaley").addEventListener("click", () => {
+  gsap.fromTo(
+    split.lines,
+    {
+      y: "200%",
+      transformOrigin: "top center",
+      opacity: 0,
+      scaleY: 2,
+      // skewY: 4,
+    },
+    {
+      y: "0%",
+      transformOrigin: "top center",
+      opacity: 1,
+      scaleY: 1,
+      skewY: 0,
+      stagger: 0.06,
+      ease: "power4.out",
+      overwrite: true,
+      duration: 0.8,
+    }
+  );
+});
+
+document.querySelector("#scaley").addEventListener("click", () => {
+  gsap.fromTo(
+    split.lines,
+    {
+      y: "200%",
+      transformOrigin: "top center",
+      opacity: 0,
+      scaleY: 2,
+      // skewY: 4,
+    },
+    {
+      y: "0%",
+      transformOrigin: "top center",
+      opacity: 1,
+      scaleY: 1,
+      skewY: 0,
+      stagger: 0.06,
+      ease: "power4.out",
+      overwrite: true,
+      duration: 0.8,
+    }
+  );
+});
+document.querySelector("#skewy").addEventListener("click", () => {
+  gsap.fromTo(
+    split.lines,
+    {
+      y: "200%",
+      transformOrigin: "top center",
+      opacity: 0,
+      scaleY: 2,
+      skewY: 4,
+    },
+    {
+      y: "0%",
+      transformOrigin: "top center",
+      opacity: 1,
+      scaleY: 1,
+      skewY: 0,
+      stagger: 0.06,
+      ease: "power4.out",
+      overwrite: true,
+      duration: 0.8,
+    }
+  );
+});
+
+// toggle active class on the button when clicked
+document.querySelectorAll(".reveal_btn").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    btn.classList.add("active");
+  });
+});
+
+console.log(paragraph);
 
 // var scriptLocation = document.currentScript.src;
 // console.log("scriptLocation", scriptLocation);
