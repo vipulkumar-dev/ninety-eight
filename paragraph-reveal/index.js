@@ -144,78 +144,78 @@ document.querySelector("#basic").addEventListener("click", () => {
   );
 });
 
-document.querySelector("#opacity").addEventListener("click", () => {
-  gsap.fromTo(
-    split.lines,
-    {
-      y: "200%",
-      transformOrigin: "top center",
-      opacity: 0,
-      // scaleY: 2,
-      // skewY: 4,
-    },
-    {
-      y: "0%",
-      transformOrigin: "top center",
-      opacity: 1,
-      scaleY: 1,
-      skewY: 0,
-      stagger: 0.06,
-      ease: "power4.out",
-      overwrite: true,
-      duration: 0.8,
-    }
-  );
-});
+// document.querySelector("#scaley").addEventListener("click", () => {
+//   gsap.fromTo(
+//     split.lines,
+//     {
+//       y: "200%",
+//       transformOrigin: "top center",
+//       opacity: 0,
+//       scaleY: 2,
+//       // skewY: 4,
+//     },
+//     {
+//       y: "0%",
+//       transformOrigin: "top center",
+//       opacity: 1,
+//       scaleY: 1,
+//       skewY: 0,
+//       stagger: 0.06,
+//       ease: "power4.out",
+//       overwrite: true,
+//       duration: 0.8,
+//     }
+//   );
+// });
 
-document.querySelector("#scaley").addEventListener("click", () => {
-  gsap.fromTo(
-    split.lines,
-    {
-      y: "200%",
-      transformOrigin: "top center",
-      opacity: 0,
-      scaleY: 2,
-      // skewY: 4,
-    },
-    {
-      y: "0%",
-      transformOrigin: "top center",
-      opacity: 1,
-      scaleY: 1,
-      skewY: 0,
-      stagger: 0.06,
-      ease: "power4.out",
-      overwrite: true,
-      duration: 0.8,
-    }
-  );
-});
+// document.querySelector("#scaley").addEventListener("click", () => {
+//   gsap.fromTo(
+//     split.lines,
+//     {
+//       y: "200%",
+//       transformOrigin: "top center",
+//       opacity: 0,
+//       scaleY: 2,
+//       // skewY: 4,
+//     },
+//     {
+//       y: "0%",
+//       transformOrigin: "top center",
+//       opacity: 1,
+//       scaleY: 1,
+//       skewY: 0,
+//       stagger: 0.06,
+//       ease: "power4.out",
+//       overwrite: true,
+//       duration: 0.8,
+//     }
+//   );
+// });
+// document.querySelector("#skewy").addEventListener("click", () => {
+//   gsap.fromTo(
+//     split.lines,
+//     {
+//       y: "200%",
+//       transformOrigin: "top center",
+//       opacity: 0,
+//       scaleY: 2,
+//       skewY: 4,
+//     },
+//     {
+//       y: "0%",
+//       transformOrigin: "top center",
+//       opacity: 1,
+//       scaleY: 1,
+//       skewY: 0,
+//       stagger: 0.06,
+//       ease: "power4.out",
+//       overwrite: true,
+//       duration: 0.8,
+//     }
+//   );
+// });
 
-document.querySelector("#scaley").addEventListener("click", () => {
-  gsap.fromTo(
-    split.lines,
-    {
-      y: "200%",
-      transformOrigin: "top center",
-      opacity: 0,
-      scaleY: 2,
-      // skewY: 4,
-    },
-    {
-      y: "0%",
-      transformOrigin: "top center",
-      opacity: 1,
-      scaleY: 1,
-      skewY: 0,
-      stagger: 0.06,
-      ease: "power4.out",
-      overwrite: true,
-      duration: 0.8,
-    }
-  );
-});
-document.querySelector("#skewy").addEventListener("click", () => {
+document.querySelector("#main").addEventListener("click", () => {
   gsap.fromTo(
     split.lines,
     {
@@ -224,6 +224,7 @@ document.querySelector("#skewy").addEventListener("click", () => {
       opacity: 0,
       scaleY: 2,
       skewY: 4,
+      filter: "blur(5px)",
     },
     {
       y: "0%",
@@ -231,6 +232,7 @@ document.querySelector("#skewy").addEventListener("click", () => {
       opacity: 1,
       scaleY: 1,
       skewY: 0,
+      filter: "blur(0px)",
       stagger: 0.06,
       ease: "power4.out",
       overwrite: true,
