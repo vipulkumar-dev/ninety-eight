@@ -21,9 +21,4 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
   });
 });
 
-// var scriptLocation = document.currentScript.src;
-// console.log("scriptLocation", scriptLocation);
-
-// console.log("From how it why");
-roll("[roll]", 80);
 liveReload();
