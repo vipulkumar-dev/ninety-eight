@@ -13,6 +13,10 @@
   animation: none;
 }
 
+swiper-slide:hover .project_image {
+  transform: scale(1.05);
+}
+
 @keyframes blink {
   0%,
   100% {
