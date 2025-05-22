@@ -112,6 +112,7 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
     slidesPerView: "auto",
     spaceBetween: 16,
     centeredSlides: true,
+    centeredSlidesBounds: true,
     autoplay: {
       delay: 3000,
     },
