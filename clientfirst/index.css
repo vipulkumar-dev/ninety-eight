@@ -2,27 +2,6 @@
   outline: 1px solid red;
 } */
 
-[img-ph] {
-  overflow: hidden;
-  position: relative;
-  animation: blink 2s infinite none;
-}
-
-/* If the element has both img-ph and no-anim attribute, disable animation */
-[img-ph][no-anim] {
-  animation: none;
-}
-
 .swiper-slide:hover .project_image {
   transform: scale(1.05);
-}
-
-@keyframes blink {
-  0%,
-  100% {
-    background-color: hsla(0, 0%, 100%, 0.05);
-  }
-  50% {
-    background-color: hsla(0, 0%, 100%, 0.09);
-  }
 }
