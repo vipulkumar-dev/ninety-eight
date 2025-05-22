@@ -120,126 +120,61 @@ let split = SplitText.create(paragraph, {
 
 // now animate the lines in a staggered fashion
 
+let isActiveReveal = false;
+
 document.querySelector("#basic").addEventListener("click", () => {
-  gsap.fromTo(
-    split.lines,
-    {
-      y: "200%",
-      transformOrigin: "top center",
-      // opacity: 0,
-      // scaleY: 2,
-      // skewY: 4,
-    },
-    {
-      y: "0%",
-      transformOrigin: "top center",
-      opacity: 1,
-      scaleY: 1,
-      skewY: 0,
-      stagger: 0.06,
-      ease: "power4.out",
-      overwrite: true,
-      duration: 0.8,
-    }
-  );
+  if (!isActiveReveal) {
+    gsap.fromTo(
+      split.lines,
+      {
+        y: "200%",
+        transformOrigin: "top center",
+        // opacity: 0,
+        // scaleY: 2,
+        // skewY: 4,
+      },
+      {
+        y: "0%",
+        transformOrigin: "top center",
+        opacity: 1,
+        scaleY: 1,
+        skewY: 0,
+        stagger: 0.04,
+        ease: "power1.out",
+        overwrite: true,
+        duration: 0.6,
+      }
+    );
+
+    isActiveReveal = true;
+  } else {
+    gsap.fromTo(
+      split.lines,
+      {
+        y: "200%",
+        transformOrigin: "top center",
+        opacity: 0,
+        scaleY: 2,
+        skewY: 4,
+        filter: "blur(3px)",
+      },
+      {
+        y: "0%",
+        transformOrigin: "top center",
+        opacity: 1,
+        scaleY: 1,
+        skewY: 0,
+        filter: "blur(0px)",
+        stagger: 0.06,
+        ease: "power4.out",
+        overwrite: true,
+        duration: 0.8,
+      }
+    );
+  }
 });
 
-// document.querySelector("#scaley").addEventListener("click", () => {
-//   gsap.fromTo(
-//     split.lines,
-//     {
-//       y: "200%",
-//       transformOrigin: "top center",
-//       opacity: 0,
-//       scaleY: 2,
-//       // skewY: 4,
-//     },
-//     {
-//       y: "0%",
-//       transformOrigin: "top center",
-//       opacity: 1,
-//       scaleY: 1,
-//       skewY: 0,
-//       stagger: 0.06,
-//       ease: "power4.out",
-//       overwrite: true,
-//       duration: 0.8,
-//     }
-//   );
-// });
-
-// document.querySelector("#scaley").addEventListener("click", () => {
-//   gsap.fromTo(
-//     split.lines,
-//     {
-//       y: "200%",
-//       transformOrigin: "top center",
-//       opacity: 0,
-//       scaleY: 2,
-//       // skewY: 4,
-//     },
-//     {
-//       y: "0%",
-//       transformOrigin: "top center",
-//       opacity: 1,
-//       scaleY: 1,
-//       skewY: 0,
-//       stagger: 0.06,
-//       ease: "power4.out",
-//       overwrite: true,
-//       duration: 0.8,
-//     }
-//   );
-// });
-// document.querySelector("#skewy").addEventListener("click", () => {
-//   gsap.fromTo(
-//     split.lines,
-//     {
-//       y: "200%",
-//       transformOrigin: "top center",
-//       opacity: 0,
-//       scaleY: 2,
-//       skewY: 4,
-//     },
-//     {
-//       y: "0%",
-//       transformOrigin: "top center",
-//       opacity: 1,
-//       scaleY: 1,
-//       skewY: 0,
-//       stagger: 0.06,
-//       ease: "power4.out",
-//       overwrite: true,
-//       duration: 0.8,
-//     }
-//   );
-// });
-
-document.querySelector("#main").addEventListener("click", () => {
-  gsap.fromTo(
-    split.lines,
-    {
-      y: "200%",
-      transformOrigin: "top center",
-      opacity: 0,
-      scaleY: 2,
-      skewY: 4,
-      filter: "blur(5px)",
-    },
-    {
-      y: "0%",
-      transformOrigin: "top center",
-      opacity: 1,
-      scaleY: 1,
-      skewY: 0,
-      filter: "blur(0px)",
-      stagger: 0.06,
-      ease: "power4.out",
-      overwrite: true,
-      duration: 0.8,
-    }
-  );
-});
+document.querySelector("#main").addEventListener("click", () => {});
 
 // toggle active class on the button when clicked
 document.querySelectorAll(".reveal_btn").forEach((btn) => {

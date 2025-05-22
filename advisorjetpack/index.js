@@ -239,6 +239,7 @@ const swiper = new Swiper(".swiper", {
   // freeMode: true,
   slidesPerView: 1,
   spaceBetween: 16,
+
   // grabCursor: true,
   breakpoints: {
     479: {
