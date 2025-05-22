@@ -13,7 +13,7 @@
   animation: none;
 }
 
-swiper-slide:hover .project_image {
+.swiper-slide:hover .project_image {
   transform: scale(1.05);
 }
 
