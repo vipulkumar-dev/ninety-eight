@@ -158,37 +158,58 @@ document.querySelectorAll(".press_item").forEach((press_item) => {
   });
 });
 
-// document.querySelectorAll(".btn").forEach((btn) => {
-//   let split = new SplitText(btn, {
-//     type: "words",
-//     wordsClass: "btn_shadow",
-//     deepslice: true,
-//     mask: "lines",
-//   });
-//   split.words.forEach((word) => {
-//     gsap.set(word, { filter: "drop-shadow(0 1em #000)" });
-//   });
+document.querySelectorAll(".btn").forEach((btn) => {
+  let split = new SplitText(btn, {
+    type: "words",
+    wordsClass: "btn_char",
+    deepslice: true,
+    mask: "words",
+  });
 
-//   btn.addEventListener("mouseenter", () => {
-//     gsap.to(split.words, {
-//       y: "-100%",
-//       stagger: 0.07,
-//       duration: 1,
-//       ease: "power4.inOut",
-//     });
-//   });
+  split.words.forEach((word) => {
+    setwordAnimation(word);
+  });
 
-//   btn.addEventListener("mouseleave", () => {
-//     gsap.to(split.words, {
-//       y: "0%",
-//       stagger: 0.07,
-//       duration: 1,
-//       ease: "power4.inOut",
-//     });
-//   });
+  gsap.set(".btn_char-mask", {
+    overflow: "visible",
+  });
 
-//   console.log("split", split.words);
-// });
+  btn.addEventListener("mouseenter", () => {
+    gsap.to(btn.querySelectorAll(".btn_char-mask"), {
+      y: "-100%",
+      stagger: 0.07,
+      duration: 1,
+      ease: "power4.inOut",
+    });
+  });
+
+  btn.addEventListener("mouseleave", () => {
+    gsap.to(btn.querySelectorAll(".btn_char-mask"), {
+      y: "0%",
+      stagger: 0.07,
+      duration: 1,
+      ease: "power4.inOut",
+    });
+  });
+
+  console.log("split", split.words);
+});
+
+function setwordAnimation(word) {
+  // clone the word element
+  const clone = word.cloneNode(true);
+  word.parentNode.appendChild(clone);
+
+  gsap.set(clone, {
+    position: "absolute",
+    top: "100%",
+    left: 0,
+    // y: "100%",
+    // opacity: 0,
+    // duration: 0.5,
+    // ease: "power4.out",
+  });
+}
 
 document.querySelectorAll("[para-reveal]").forEach((text) => {
   new SplitText(text, {
