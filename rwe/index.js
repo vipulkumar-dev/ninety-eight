@@ -158,6 +158,38 @@ document.querySelectorAll(".press_item").forEach((press_item) => {
   });
 });
 
+// document.querySelectorAll(".btn").forEach((btn) => {
+//   let split = new SplitText(btn, {
+//     type: "words",
+//     wordsClass: "btn_shadow",
+//     deepslice: true,
+//     mask: "lines",
+//   });
+//   split.words.forEach((word) => {
+//     gsap.set(word, { filter: "drop-shadow(0 1em #000)" });
+//   });
+
+//   btn.addEventListener("mouseenter", () => {
+//     gsap.to(split.words, {
+//       y: "-100%",
+//       stagger: 0.07,
+//       duration: 1,
+//       ease: "power4.inOut",
+//     });
+//   });
+
+//   btn.addEventListener("mouseleave", () => {
+//     gsap.to(split.words, {
+//       y: "0%",
+//       stagger: 0.07,
+//       duration: 1,
+//       ease: "power4.inOut",
+//     });
+//   });
+
+//   console.log("split", split.words);
+// });
+
 document.querySelectorAll("[para-reveal]").forEach((text) => {
   new SplitText(text, {
     type: "lines",
@@ -165,6 +197,28 @@ document.querySelectorAll("[para-reveal]").forEach((text) => {
     mask: "lines",
     linesClass: "para_line",
   });
+});
+
+document.querySelectorAll("[parallax-image]").forEach((image) => {
+  const parallaxAmount = image.getAttribute("parallax-image");
+  gsap.fromTo(
+    image,
+    {
+      y: Number(parallaxAmount),
+    },
+    {
+      scrollTrigger: {
+        trigger: image,
+        start: "top bottom",
+        end: "bottom top",
+        scrub: true,
+        // markers: true,
+      },
+      y: -1 * Number(parallaxAmount),
+      duration: 1,
+      ease: "none",
+    }
+  );
 });
 
 gsap.set("[para-reveal]", {
@@ -197,7 +251,7 @@ ScrollTrigger.batch("[reveal]", {
         animateItems.push(element);
       }
       if (element.hasAttribute("para-reveal")) {
-        console.log("para", element);
+        // console.log("para", element);
         element.querySelectorAll(".para_line").forEach((line) => {
           animateItems.push(line);
         });
