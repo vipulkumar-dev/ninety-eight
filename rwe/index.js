@@ -250,7 +250,7 @@ const horizontalTl = gsap.timeline({
   scrollTrigger: {
     trigger: ".horizontal_section_wpr",
     start: "center center",
-    end: "+=2500",
+    end: "+=3500",
     scrub: 1,
     pin: ".section_pin",
     // markers: true,
@@ -260,7 +260,8 @@ document.querySelectorAll(".horizontal_section").forEach((section, i) => {
   if (i !== 0) {
     horizontalTl.to(".horizontal_section", {
       xPercent: -100 * i,
-      ease: "none",
+      ease: "power2.inOut",
+      delay: 0.05,
     });
   }
 });
