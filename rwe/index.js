@@ -213,7 +213,7 @@ ScrollTrigger.batch("[reveal]", {
       opacity: 1,
       scaleY: 1,
       stagger: 0.07,
-      duration: 1.3,
+      duration: 1.5,
       ease: "power4.inOut",
     });
   },
