@@ -140,6 +140,30 @@ gsap.to(".brand_stripe", {
   ease: "none",
 });
 
+function wiggle(selector) {
+  document.querySelectorAll(selector).forEach((el) => {
+    // wiggleProp(el, "scale", 0.93, 1);
+    // wiggleProp(el, "rotation", -5, 5);
+    wiggleProp(el, "x", -1, 1);
+    wiggleProp(el, "y", -3, 3);
+  });
+}
+
+function wiggleProp(element, prop, min, max) {
+  const duration = Math.random() * (0.6 - 0.3) + 1;
+
+  const tweenValue = Math.random() * (max - min) + min;
+
+  gsap.to(element, {
+    [prop]: tweenValue,
+    duration: duration,
+    ease: "power1.inOut",
+    onComplete: () => wiggleProp(element, prop, min, max),
+  });
+}
+
+wiggle("[wiggle]");
+
 document.querySelectorAll(".press_item").forEach((press_item) => {
   const split = new SplitText(press_item.querySelector(".press_item_txt"), {
     type: "lines",
@@ -205,6 +229,43 @@ document.querySelectorAll(".btn").forEach((btn) => {
 
   btn.addEventListener("mouseleave", () => {
     gsap.to(btn.querySelectorAll(".btn_char-mask"), {
+      y: "0%",
+      stagger: 0.07,
+      duration: 1,
+      ease: "power4.inOut",
+    });
+  });
+
+  console.log("split", split.words);
+});
+
+document.querySelectorAll("[hover-link]").forEach((link) => {
+  let split = new SplitText(link.querySelector("p"), {
+    type: "words",
+    wordsClass: "link_char",
+    deepslice: true,
+    mask: "words",
+  });
+
+  split.words.forEach((word) => {
+    setwordAnimation(word);
+  });
+
+  gsap.set(".link_char-mask", {
+    overflow: "visible",
+  });
+
+  link.addEventListener("mouseenter", () => {
+    gsap.to(link.querySelectorAll(".link_char-mask"), {
+      y: "-100%",
+      stagger: 0.07,
+      duration: 1,
+      ease: "power4.inOut",
+    });
+  });
+
+  link.addEventListener("mouseleave", () => {
+    gsap.to(link.querySelectorAll(".link_char-mask"), {
       y: "0%",
       stagger: 0.07,
       duration: 1,
