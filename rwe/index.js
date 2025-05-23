@@ -141,19 +141,39 @@ gsap.to(".brand_stripe", {
 });
 
 document.querySelectorAll(".press_item").forEach((press_item) => {
+  const split = new SplitText(press_item.querySelector(".press_item_txt"), {
+    type: "lines",
+    linesClass: "press_item_line",
+    deepslice: true,
+    mask: "lines",
+  });
   press_item.addEventListener("mouseenter", () => {
     gsap.to(press_item.querySelector(".press_item_content"), {
       height: "auto",
       opacity: 1,
-      duration: 0.3,
+      duration: 0.5,
+      ease: "power3.inOut",
     });
+
+    gsap.fromTo(
+      split.lines,
+      { y: "150%" },
+      {
+        y: "0%",
+        duration: 0.5,
+        stagger: 0.04,
+        delay: 0.1,
+        ease: "power3.inOut",
+      }
+    );
   });
 
   press_item.addEventListener("mouseleave", () => {
     gsap.to(press_item.querySelector(".press_item_content"), {
       height: "0",
       opacity: 0,
-      duration: 0.3,
+      duration: 0.5,
+      ease: "power3.inOut",
     });
   });
 });
