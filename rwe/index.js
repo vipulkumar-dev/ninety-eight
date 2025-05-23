@@ -126,25 +126,41 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
   });
 });
 
-gsap.to(".brand_stripe_rev", {
-  y: "-100%",
-  repeat: -1,
-  duration: 20,
-  ease: "none",
-});
+if (isDesktop) {
+  gsap.to(".brand_stripe_rev", {
+    y: "-100%",
+    repeat: -1,
+    duration: 20,
+    ease: "none",
+  });
 
-gsap.to(".brand_stripe", {
-  y: "100%",
-  repeat: -1,
-  duration: 20,
-  ease: "none",
-});
+  gsap.to(".brand_stripe", {
+    y: "100%",
+    repeat: -1,
+    duration: 20,
+    ease: "none",
+  });
+} else {
+  gsap.to(".brand_stripe_rev", {
+    x: "-100%",
+    repeat: -1,
+    duration: 20,
+    ease: "none",
+  });
+
+  gsap.to(".brand_stripe", {
+    x: "100%",
+    repeat: -1,
+    duration: 20,
+    ease: "none",
+  });
+}
 
 function wiggle(selector) {
   document.querySelectorAll(selector).forEach((el) => {
     // wiggleProp(el, "scale", 0.93, 1);
     // wiggleProp(el, "rotation", -5, 5);
-    wiggleProp(el, "x", -1, 1);
+    wiggleProp(el, "x", -1.5, 1.5);
     wiggleProp(el, "y", -3, 3);
   });
 }
@@ -163,44 +179,45 @@ function wiggleProp(element, prop, min, max) {
 }
 
 wiggle("[wiggle]");
-
-document.querySelectorAll(".press_item").forEach((press_item) => {
-  const split = new SplitText(press_item.querySelector(".press_item_txt"), {
-    type: "lines",
-    linesClass: "press_item_line",
-    deepslice: true,
-    mask: "lines",
-  });
-  press_item.addEventListener("mouseenter", () => {
-    gsap.to(press_item.querySelector(".press_item_content"), {
-      height: "auto",
-      opacity: 1,
-      duration: 0.5,
-      ease: "power3.inOut",
+if (isDesktop) {
+  document.querySelectorAll(".press_item").forEach((press_item) => {
+    const split = new SplitText(press_item.querySelector(".press_item_txt"), {
+      type: "lines",
+      linesClass: "press_item_line",
+      deepslice: true,
+      mask: "lines",
     });
-
-    gsap.fromTo(
-      split.lines,
-      { y: "150%" },
-      {
-        y: "0%",
+    press_item.addEventListener("mouseenter", () => {
+      gsap.to(press_item.querySelector(".press_item_content"), {
+        height: "auto",
+        opacity: 1,
         duration: 0.5,
-        stagger: 0.04,
-        delay: 0.1,
         ease: "power3.inOut",
-      }
-    );
-  });
+      });
 
-  press_item.addEventListener("mouseleave", () => {
-    gsap.to(press_item.querySelector(".press_item_content"), {
-      height: "0",
-      opacity: 0,
-      duration: 0.5,
-      ease: "power3.inOut",
+      gsap.fromTo(
+        split.lines,
+        { y: "150%" },
+        {
+          y: "0%",
+          duration: 0.5,
+          stagger: 0.04,
+          delay: 0.1,
+          ease: "power3.inOut",
+        }
+      );
+    });
+
+    press_item.addEventListener("mouseleave", () => {
+      gsap.to(press_item.querySelector(".press_item_content"), {
+        height: "0",
+        opacity: 0,
+        duration: 0.5,
+        ease: "power3.inOut",
+      });
     });
   });
-});
+}
 
 document.querySelectorAll(".btn").forEach((btn) => {
   let split = new SplitText(btn, {
@@ -324,29 +341,30 @@ document.querySelectorAll(".horizontal_section").forEach((section, i) => {
     });
   }
 });
-
-document.querySelectorAll("[parallax-image]").forEach((image) => {
-  const parallaxAmount = image.getAttribute("parallax-image");
-  gsap.fromTo(
-    image,
-    {
-      y: Number(parallaxAmount),
-    },
-    {
-      scrollTrigger: {
-        trigger: image,
-        start: "top bottom",
-        end: "bottom top",
-        pinnedContainer: ".section_pin",
-        scrub: true,
-        // markers: true,
+if (isDesktop) {
+  document.querySelectorAll("[parallax-image]").forEach((image) => {
+    const parallaxAmount = image.getAttribute("parallax-image");
+    gsap.fromTo(
+      image,
+      {
+        y: Number(parallaxAmount),
       },
-      y: -1 * Number(parallaxAmount),
-      duration: 1,
-      ease: "none",
-    }
-  );
-});
+      {
+        scrollTrigger: {
+          trigger: image,
+          start: "top bottom",
+          end: "bottom top",
+          pinnedContainer: ".section_pin",
+          scrub: true,
+          // markers: true,
+        },
+        y: -1 * Number(parallaxAmount),
+        duration: 1,
+        ease: "none",
+      }
+    );
+  });
+}
 
 ScrollTrigger.batch("[reveal]", {
   start: (scrollInstance) => {
