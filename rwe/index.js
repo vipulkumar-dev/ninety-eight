@@ -158,4 +158,65 @@ document.querySelectorAll(".press_item").forEach((press_item) => {
   });
 });
 
+document.querySelectorAll("[para-reveal]").forEach((text) => {
+  new SplitText(text, {
+    type: "lines",
+    deepslice: true,
+    mask: "lines",
+    linesClass: "para_line",
+  });
+});
+
+gsap.set("[para-reveal]", {
+  opacity: 1,
+});
+
+ScrollTrigger.batch("[reveal]", {
+  start: (scrollInstance) => {
+    const eltrigger = scrollInstance.trigger;
+    const eltriggerHeight = eltrigger.clientHeight * 1.4;
+    if (eltrigger.hasAttribute("basic-reveal")) {
+      return `top-=${eltriggerHeight}px bottom`;
+    }
+    return "top bottom";
+  },
+  end: (scrollInstance) => {
+    const eltrigger = scrollInstance.trigger;
+    const eltriggerHeight = eltrigger.clientHeight * 1.4;
+    if (eltrigger.hasAttribute("basic-reveal")) {
+      return `top-=${eltriggerHeight}px bottom`;
+    }
+    return "top bottom";
+  },
+  // markers: true,
+  onEnter: (elements, triggers) => {
+    const animateItems = [];
+
+    elements.forEach((element) => {
+      if (element.hasAttribute("basic-reveal")) {
+        animateItems.push(element);
+      }
+      if (element.hasAttribute("para-reveal")) {
+        console.log("para", element);
+        element.querySelectorAll(".para_line").forEach((line) => {
+          animateItems.push(line);
+        });
+      }
+      if (element.hasAttribute("fade-reveal")) {
+        animateItems.push(element);
+      }
+    });
+    // console.log("animateItems", animateItems);
+
+    gsap.to(animateItems, {
+      y: "0%",
+      opacity: 1,
+      scaleY: 1,
+      stagger: 0.07,
+      duration: 1.3,
+      ease: "power4.inOut",
+    });
+  },
+});
+
 liveReload();
