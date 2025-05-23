@@ -220,28 +220,6 @@ document.querySelectorAll("[para-reveal]").forEach((text) => {
   });
 });
 
-document.querySelectorAll("[parallax-image]").forEach((image) => {
-  const parallaxAmount = image.getAttribute("parallax-image");
-  gsap.fromTo(
-    image,
-    {
-      y: Number(parallaxAmount),
-    },
-    {
-      scrollTrigger: {
-        trigger: image,
-        start: "top bottom",
-        end: "bottom top",
-        scrub: true,
-        // markers: true,
-      },
-      y: -1 * Number(parallaxAmount),
-      duration: 1,
-      ease: "none",
-    }
-  );
-});
-
 gsap.set("[para-reveal]", {
   opacity: 1,
 });
@@ -260,10 +238,33 @@ document.querySelectorAll(".horizontal_section").forEach((section, i) => {
   if (i !== 0) {
     horizontalTl.to(".horizontal_section", {
       xPercent: -100 * i,
-      ease: "power2.inOut",
+      ease: "power1.inOut",
       delay: 0.05,
     });
   }
+});
+
+document.querySelectorAll("[parallax-image]").forEach((image) => {
+  const parallaxAmount = image.getAttribute("parallax-image");
+  gsap.fromTo(
+    image,
+    {
+      y: Number(parallaxAmount),
+    },
+    {
+      scrollTrigger: {
+        trigger: image,
+        start: "top bottom",
+        end: "bottom top",
+        pinnedContainer: ".section_pin",
+        scrub: true,
+        // markers: true,
+      },
+      y: -1 * Number(parallaxAmount),
+      duration: 1,
+      ease: "none",
+    }
+  );
 });
 
 ScrollTrigger.batch("[reveal]", {
@@ -283,6 +284,7 @@ ScrollTrigger.batch("[reveal]", {
     }
     return "top bottom";
   },
+  pinnedContainer: ".section_pin",
   // markers: true,
   onEnter: (elements, triggers) => {
     const animateItems = [];
