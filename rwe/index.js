@@ -246,6 +246,25 @@ gsap.set("[para-reveal]", {
   opacity: 1,
 });
 
+const horizontalTl = gsap.timeline({
+  scrollTrigger: {
+    trigger: ".horizontal_section_wpr",
+    start: "center center",
+    end: "+=2500",
+    scrub: 1,
+    pin: ".section_pin",
+    // markers: true,
+  },
+});
+document.querySelectorAll(".horizontal_section").forEach((section, i) => {
+  if (i !== 0) {
+    horizontalTl.to(".horizontal_section", {
+      xPercent: -100 * i,
+      ease: "none",
+    });
+  }
+});
+
 ScrollTrigger.batch("[reveal]", {
   start: (scrollInstance) => {
     const eltrigger = scrollInstance.trigger;
