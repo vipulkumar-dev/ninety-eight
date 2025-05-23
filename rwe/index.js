@@ -114,15 +114,30 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
     centeredSlides: true,
     grabCursor: true,
     centeredSlidesBounds: true,
-    autoplay: {
-      delay: 3000,
-    },
+    loopFillGroupBlank: false,
+    // autoplay: {
+    //   delay: 3000,
+    // },
     loop: true,
     navigation: {
       nextEl: swiper.parentNode.querySelector(".swiper_next"),
       prevEl: swiper.parentNode.querySelector(".swiper_prev"),
     },
   });
+});
+
+gsap.to(".brand_stripe_rev", {
+  y: "-100%",
+  repeat: -1,
+  duration: 20,
+  ease: "none",
+});
+
+gsap.to(".brand_stripe", {
+  y: "100%",
+  repeat: -1,
+  duration: 20,
+  ease: "none",
 });
 
 document.querySelectorAll(".press_item").forEach((press_item) => {
