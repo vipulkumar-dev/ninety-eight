@@ -113,8 +113,8 @@ document.querySelectorAll(".btn").forEach((btn) => {
   const btn_tl = gsap.timeline({
     paused: true,
     defaults: {
-      duration: 0.4,
-      ease: "power3.inOut",
+      duration: 0.7,
+      ease: "power4.inOut",
     },
   });
 
@@ -229,10 +229,10 @@ ScrollTrigger.batch("[reveal]", {
       opacity: 1,
       filter: "blur(0px)",
       scaleY: 1,
-      stagger: 0.05,
+      stagger: 0.04,
       duration: (index, target) => {
         if (target.hasAttribute("extra-time")) {
-          return 2;
+          return 2.5;
         }
         return 1.5;
       },
