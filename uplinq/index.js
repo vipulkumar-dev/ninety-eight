@@ -113,30 +113,23 @@ document.querySelectorAll(".btn").forEach((btn) => {
   const btn_tl = gsap.timeline({
     paused: true,
     defaults: {
-      duration: 1,
-      ease: "power4.inOut",
+      duration: 0.4,
+      ease: "power3.inOut",
     },
   });
 
   btn_tl.to(
-    btn.querySelectorAll(".btn_arrow_wpr"),
+    btn.querySelectorAll(".arrow_line"),
     {
-      x: "100%",
+      x: "0%",
     },
     0
   );
 
   btn_tl.to(
-    btn.querySelector(".btn_arrow_first"),
+    btn.querySelector("svg"),
     {
-      scale: "0",
-    },
-    0
-  );
-  btn_tl.to(
-    btn.querySelector(".btn_arrow_last"),
-    {
-      scale: "1",
+      x: "0px",
     },
     0
   );
