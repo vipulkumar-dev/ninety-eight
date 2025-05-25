@@ -134,14 +134,21 @@ document.querySelectorAll(".btn").forEach((btn) => {
     0
   );
 
-  gsap.to(".line", {
-    top: "100%",
-    ease: "none",
-    repeat: -1,
-    duration: 4,
-    delay: (index) => {
-      return index * 1;
-    },
+  document.querySelectorAll(".line").forEach((line) => {
+    gsap.fromTo(
+      line,
+      { top: "0%" },
+      {
+        top: "100%",
+        ease: "none",
+        repeat: -1,
+        duration: 6,
+        delay: (index, target) => {
+          const sepeficDelay = Number(target.getAttribute("delay"));
+          return sepeficDelay;
+        },
+      }
+    );
   });
 
   // btn_tl.to(
