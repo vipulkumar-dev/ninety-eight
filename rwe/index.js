@@ -384,9 +384,12 @@ const horizontalTl = gsap.timeline({
 });
 document.querySelectorAll(".horizontal_section").forEach((section, i) => {
   horizontalTl.to(section, {
-    scale: 150,
     ease: "power1.inOut",
     opacity: 1,
+  });
+  horizontalTl.to(section, {
+    scale: 150,
+    ease: "power1.inOut",
   });
 });
 if (isDesktop) {
