@@ -256,49 +256,55 @@ document.querySelectorAll(".btn").forEach((btn) => {
   console.log("split", split.words);
 });
 
-const txt_timeline_tl = gsap.timeline({
-  // paused: true,
-  repeat: -1,
-  defaults: {
-    duration: 1.3,
-    ease: "power4.inOut",
-  },
-});
-const txt_timeline_items = document.querySelectorAll(".txt_timeline_item");
-const txt_timeline_wpr = document.querySelector(".txt_timeline_wpr");
+document
+  .querySelectorAll(".txt_timeline_container")
+  .forEach((txt_timeline_container) => {
+    const txt_timeline_tl = gsap.timeline({
+      // paused: true,
+      repeat: -1,
+      defaults: {
+        duration: 1.1,
+        ease: "power4.inOut",
+      },
+    });
+    const txt_timeline_items =
+      txt_timeline_container.querySelectorAll(".txt_timeline_item");
+    const txt_timeline_wpr =
+      txt_timeline_container.querySelector(".txt_timeline_wpr");
 
-txt_timeline_items.forEach((timeline_item, index) => {
-  const nextIndex = index == txt_timeline_items.length - 1 ? 0 : index + 1;
+    txt_timeline_items.forEach((timeline_item, index) => {
+      const nextIndex = index == txt_timeline_items.length - 1 ? 0 : index + 1;
 
-  txt_timeline_tl.fromTo(
-    txt_timeline_items[index],
-    { opacity: 1, y: "0%" },
-    {
-      opacity: 0,
-      y: "-100%",
-    }
-  );
-  txt_timeline_tl.fromTo(
-    txt_timeline_items[nextIndex],
-    {
-      opacity: 0,
-      y: "100%",
-    },
-    {
-      opacity: 1,
-      y: "0%",
-    },
-    "<"
-  );
-  txt_timeline_tl.to(
-    txt_timeline_wpr,
-    {
-      width: txt_timeline_items[nextIndex].offsetWidth,
-    },
-    "<"
-  );
-  txt_timeline_tl.to(txt_timeline_wpr, {});
-});
+      txt_timeline_tl.fromTo(
+        txt_timeline_items[index],
+        { opacity: 1, y: "0%" },
+        {
+          opacity: 0,
+          y: "-100%",
+        }
+      );
+      txt_timeline_tl.fromTo(
+        txt_timeline_items[nextIndex],
+        {
+          opacity: 0,
+          y: "100%",
+        },
+        {
+          opacity: 1,
+          y: "0%",
+        },
+        "<"
+      );
+      txt_timeline_tl.to(
+        txt_timeline_wpr,
+        {
+          width: txt_timeline_items[nextIndex].offsetWidth,
+        },
+        "<"
+      );
+      txt_timeline_tl.to(txt_timeline_wpr, {});
+    });
+  });
 
 document.querySelectorAll("[hover-link]").forEach((link) => {
   let split = new SplitText(link.querySelector("p"), {
