@@ -297,6 +297,7 @@ txt_timeline_items.forEach((timeline_item, index) => {
     },
     "<"
   );
+  txt_timeline_tl.to(txt_timeline_wpr, {});
 });
 
 document.querySelectorAll("[hover-link]").forEach((link) => {
