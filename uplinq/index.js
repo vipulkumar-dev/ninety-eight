@@ -137,9 +137,9 @@ document.querySelectorAll(".btn").forEach((btn) => {
   document.querySelectorAll(".line").forEach((line) => {
     gsap.fromTo(
       line,
-      { top: "0%" },
+      { bottom: "0%" },
       {
-        top: "100%",
+        bottom: "100%",
         ease: "none",
         repeat: -1,
         duration: 6,
