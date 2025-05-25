@@ -134,6 +134,16 @@ document.querySelectorAll(".btn").forEach((btn) => {
     0
   );
 
+  gsap.to(".line", {
+    top: "100%",
+    ease: "none",
+    repeat: -1,
+    duration: 4,
+    delay: (index) => {
+      return index * 1;
+    },
+  });
+
   // btn_tl.to(
   //   btn.querySelector(".btn_bg_path"),
   //   {
