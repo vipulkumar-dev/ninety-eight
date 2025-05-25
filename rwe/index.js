@@ -376,18 +376,22 @@ const horizontalTl = gsap.timeline({
   scrollTrigger: {
     trigger: ".horizontal_section_wpr",
     start: "center center",
-    end: "+=5500",
+    end: "+=5000",
     scrub: 1,
     pin: ".section_pin",
     // markers: true,
   },
 });
 document.querySelectorAll(".horizontal_section").forEach((section, i) => {
-  horizontalTl.to(section, {
-    ease: "power1.inOut",
-    opacity: 1,
-    duration: 0.2,
-  });
+  horizontalTl.to(
+    section,
+    {
+      ease: "none",
+      opacity: 1,
+      duration: 0.2,
+    },
+    "-=0.3"
+  );
   horizontalTl.to(section, {
     scale: 150,
     color: "black",
