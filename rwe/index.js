@@ -386,6 +386,7 @@ document.querySelectorAll(".horizontal_section").forEach((section, i) => {
   horizontalTl.to(section, {
     scale: 150,
     ease: "power1.inOut",
+    opacity: 1,
   });
 });
 if (isDesktop) {
