@@ -256,7 +256,7 @@ document.querySelectorAll(".btn").forEach((btn) => {
   console.log("split", split.words);
 });
 
-document.querySelectorAll("[]").forEach((btn) => {
+document.querySelectorAll("[continue-text]").forEach((btn) => {
   let split = new SplitText(btn, {
     type: "words",
     wordsClass: "btn_char",
