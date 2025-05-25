@@ -256,6 +256,15 @@ document.querySelectorAll(".btn").forEach((btn) => {
   console.log("split", split.words);
 });
 
+document.querySelectorAll("[]").forEach((btn) => {
+  let split = new SplitText(btn, {
+    type: "words",
+    wordsClass: "btn_char",
+    deepslice: true,
+    mask: "words",
+  });
+});
+
 document.querySelectorAll("[hover-link]").forEach((link) => {
   let split = new SplitText(link.querySelector("p"), {
     type: "words",

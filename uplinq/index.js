@@ -113,7 +113,7 @@ document.querySelectorAll(".btn").forEach((btn) => {
   const btn_tl = gsap.timeline({
     paused: true,
     defaults: {
-      duration: 0.4,
+      duration: 0.3,
       ease: "power3.inOut",
     },
   });
