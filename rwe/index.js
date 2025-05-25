@@ -376,20 +376,17 @@ const horizontalTl = gsap.timeline({
   scrollTrigger: {
     trigger: ".horizontal_section_wpr",
     start: "center center",
-    end: "+=3500",
+    end: "+=5500",
     scrub: 1,
     pin: ".section_pin",
     // markers: true,
   },
 });
 document.querySelectorAll(".horizontal_section").forEach((section, i) => {
-  if (i !== 0) {
-    horizontalTl.to(".horizontal_section", {
-      xPercent: -100 * i,
-      ease: "power1.inOut",
-      delay: 0.05,
-    });
-  }
+  horizontalTl.to(section, {
+    scale: 150,
+    ease: "power1.inOut",
+  });
 });
 if (isDesktop) {
   document.querySelectorAll("[parallax-image]").forEach((image) => {
