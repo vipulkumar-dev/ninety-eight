@@ -382,7 +382,9 @@ const horizontalTl = gsap.timeline({
     // markers: true,
   },
 });
-document.querySelectorAll(".horizontal_section").forEach((section, i) => {
+
+const horizontalSections = document.querySelectorAll(".horizontal_section");
+horizontalSections.forEach((section, i) => {
   horizontalTl.to(
     section,
     {
@@ -392,12 +394,14 @@ document.querySelectorAll(".horizontal_section").forEach((section, i) => {
     },
     "-=0.3"
   );
-  horizontalTl.to(section, {
-    scale: 150,
-    // color: "black",
-    ease: "power1.inOut",
-    duration: 0.5,
-  });
+  if (i !== horizontalSections.length - 1) {
+    horizontalTl.to(section, {
+      scale: 150,
+      // color: "black",
+      ease: "power1.inOut",
+      duration: 0.5,
+    });
+  }
 });
 if (isDesktop) {
   document.querySelectorAll("[parallax-image]").forEach((image) => {
