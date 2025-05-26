@@ -314,7 +314,6 @@ setInterval(() => {
 
   const hero_img_first_front =
     hero_img_wpr_random_first?.querySelector(".hero_image");
-
   const hero_img_first_front_src = hero_img_first_front?.getAttribute("src");
 
   const hero_img_first_back = hero_img_wpr_random_first?.querySelector(
@@ -326,7 +325,6 @@ setInterval(() => {
 
   const hero_img_second_front =
     hero_img_wpr_random_second?.querySelector(".hero_image");
-
   const hero_img_second_front_src = hero_img_second_front?.getAttribute("src");
 
   const hero_img_second_back = hero_img_wpr_random_second?.querySelector(
