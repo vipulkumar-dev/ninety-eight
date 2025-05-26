@@ -160,8 +160,8 @@ function wiggle(selector) {
   document.querySelectorAll(selector).forEach((el) => {
     // wiggleProp(el, "scale", 0.93, 1);
     // wiggleProp(el, "rotation", -5, 5);
-    wiggleProp(el, "x", -1.5, 1.5);
-    wiggleProp(el, "y", -3, 3);
+    wiggleProp(el, "x", -3, 3);
+    wiggleProp(el, "y", -5, 5);
   });
 }
 
@@ -305,6 +305,54 @@ document
       txt_timeline_tl.to(txt_timeline_wpr, {});
     });
   });
+
+setInterval(() => {
+  const hero_img_wprs = document.querySelectorAll(".hero_img_wpr");
+
+  const hero_img_wpr_random_first =
+    hero_img_wprs[Math.floor(Math.random() * hero_img_wprs.length)];
+
+  const hero_img_first_front =
+    hero_img_wpr_random_first?.querySelector(".hero_image");
+
+  const hero_img_first_front_src = hero_img_first_front?.getAttribute("src");
+
+  const hero_img_first_back = hero_img_wpr_random_first?.querySelector(
+    ".hero_image.is-back"
+  );
+
+  const hero_img_first_back_src = hero_img_first_back?.getAttribute("src");
+
+  const hero_img_wpr_random_second =
+    hero_img_wprs[Math.floor(Math.random() * hero_img_wprs.length)];
+
+  const hero_img_second_front =
+    hero_img_wpr_random_second?.querySelector(".hero_image");
+
+  const hero_img_second_front_src = hero_img_second_front?.getAttribute("src");
+
+  const hero_img_second_back = hero_img_wpr_random_second?.querySelector(
+    ".hero_image.is-back"
+  );
+
+  const hero_img_second_back_src = hero_img_second_back?.getAttribute("src");
+
+  hero_img_first_back.setAttribute("src", hero_img_second_front_src);
+  hero_img_second_back.setAttribute("src", hero_img_first_front_src);
+
+  gsap.to([hero_img_first_front, hero_img_second_front], {
+    opacity: 0,
+    duration: 1,
+    onComplete: () => {
+      hero_img_first_front.setAttribute("src", hero_img_second_front_src);
+      hero_img_second_front.setAttribute("src", hero_img_first_front_src);
+      gsap.set([hero_img_first_front, hero_img_second_front], {
+        opacity: 1,
+        delay: 1,
+      });
+    },
+  });
+}, 2000);
 
 document.querySelectorAll("[hover-link]").forEach((link) => {
   let split = new SplitText(link.querySelector("p"), {
