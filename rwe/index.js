@@ -376,7 +376,7 @@ const horizontalTl = gsap.timeline({
   scrollTrigger: {
     trigger: ".horizontal_section_wpr",
     start: "center center",
-    end: "+=5000",
+    end: "+=4500",
     scrub: 1,
     pin: ".section_pin",
     // markers: true,
