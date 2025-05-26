@@ -321,8 +321,6 @@ setInterval(() => {
     ".hero_image.is-back"
   );
 
-  const hero_img_first_back_src = hero_img_first_back?.getAttribute("src");
-
   const hero_img_wpr_random_second =
     hero_img_wprs[Math.floor(Math.random() * hero_img_wprs.length)];
 
@@ -334,8 +332,6 @@ setInterval(() => {
   const hero_img_second_back = hero_img_wpr_random_second?.querySelector(
     ".hero_image.is-back"
   );
-
-  const hero_img_second_back_src = hero_img_second_back?.getAttribute("src");
 
   hero_img_first_back.setAttribute("src", hero_img_second_front_src);
   hero_img_second_back.setAttribute("src", hero_img_first_front_src);
