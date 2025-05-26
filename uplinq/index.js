@@ -134,53 +134,6 @@ document.querySelectorAll(".btn").forEach((btn) => {
     0
   );
 
-  document.querySelectorAll(".line").forEach((line) => {
-    gsap.fromTo(
-      line,
-      { bottom: "0%" },
-      {
-        bottom: "100%",
-        ease: "none",
-        repeat: -1,
-        duration: 6,
-        delay: (index, target) => {
-          const sepeficDelay = Number(target.getAttribute("delay"));
-          return sepeficDelay;
-        },
-      }
-    );
-  });
-
-  // btn_tl.to(
-  //   btn.querySelector(".btn_bg_path"),
-  //   {
-  //     duration: 1,
-  //     // morphSVG:
-  //     //   "M8 0.5H257C261.142 0.5 264.5 3.85786 264.5 8V55C264.5 59.1421 261.142 62.5 257 62.5H8.16504C4.05427 62.4998 0.709905 59.1906 0.666016 55.0801L0.5 39.4951V8L0.509766 7.61426C0.710536 3.65139 3.98724 0.5 8 0.5Z",
-
-  //     fill: "white",
-  //     ease: "power4.inOut",
-  //   },
-  //   0
-  // );
-
-  // btn_tl.to(
-  //   btn,
-  //   {
-  //     duration: 1,
-  //     // morphSVG:
-  //     //   "M8 0.5H257C261.142 0.5 264.5 3.85786 264.5 8V55C264.5 59.1421 261.142 62.5 257 62.5H8.16504C4.05427 62.4998 0.709905 59.1906 0.666016 55.0801L0.5 39.4951V8L0.509766 7.61426C0.710536 3.65139 3.98724 0.5 8 0.5Z",
-
-  //     color: "black",
-  //     ease: "power4.inOut",
-  //   },
-  //   0
-  // );
-
-  //   <svg width="265" height="63" viewBox="0 0 265 63" fill="none" xmlns="http://www.w3.org/2000/svg">
-  // <path d="M8 0.5H257C261.142 0.5 264.5 3.85786 264.5 8V55C264.5 59.1421 261.142 62.5 257 62.5H8.16504C4.05427 62.4998 0.709905 59.1906 0.666016 55.0801L0.5 39.4951V8L0.509766 7.61426C0.710536 3.65139 3.98724 0.5 8 0.5Z" fill="black" stroke="#949494"/>
-  // </svg>
-
   btn.addEventListener("mouseenter", (e) => {
     btn_tl.play();
   });
@@ -188,6 +141,23 @@ document.querySelectorAll(".btn").forEach((btn) => {
   btn.addEventListener("mouseleave", (e) => {
     btn_tl.reverse();
   });
+});
+
+document.querySelectorAll(".line").forEach((line) => {
+  gsap.fromTo(
+    line,
+    { bottom: "0%" },
+    {
+      bottom: "100%",
+      ease: "none",
+      repeat: -1,
+      duration: 6,
+      delay: (index, target) => {
+        const sepeficDelay = Number(target.getAttribute("delay"));
+        return sepeficDelay;
+      },
+    }
+  );
 });
 
 document.querySelectorAll("[para-reveal]").forEach((text) => {
