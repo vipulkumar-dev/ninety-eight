@@ -394,7 +394,7 @@ document.querySelectorAll(".horizontal_section").forEach((section, i) => {
   );
   horizontalTl.to(section, {
     scale: 150,
-    color: "black",
+    // color: "black",
     ease: "power1.inOut",
     duration: 0.5,
   });
