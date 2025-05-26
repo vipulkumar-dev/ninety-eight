@@ -298,7 +298,7 @@ document
       txt_timeline_tl.to(
         txt_timeline_wpr,
         {
-          width: txt_timeline_items[nextIndex].offsetWidth,
+          width: txt_timeline_items[nextIndex].clientWidth,
         },
         "<"
       );
