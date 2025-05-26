@@ -347,6 +347,51 @@ setInterval(() => {
     },
   });
 }, 2000);
+document.querySelectorAll("[magnet]").forEach((magnet) => {
+  const magnetButton = magnet;
+  const shapka = magnetButton.querySelector(".shapka");
+  const strength = magnetButton.getAttribute("magnet") || 50;
+
+  if (isDesktop) {
+    magnetButton.addEventListener("mousemove", handleMagnetMove);
+    magnetButton.addEventListener("mouseout", handleMagnetOut);
+  }
+  function handleMagnetOut(event) {
+    gsap.to([magnetButton, shapka], {
+      x: 0,
+      y: 0,
+      ease: "elastic.out(1,0.4)",
+      duration: 1.5,
+    });
+  }
+
+  function handleMagnetMove(event) {
+    const bounding = magnetButton.getBoundingClientRect();
+    const magneticWidth =
+      (event.clientX - bounding.left) / magnetButton.offsetWidth - 0.5;
+    const magneticHeight =
+      (event.clientY - bounding.top) / magnetButton.offsetHeight - 0.5;
+
+    gsap.to(magnetButton, {
+      x: magneticWidth * strength,
+      y: magneticHeight * strength,
+      ease: "power2.out",
+      duration: 1,
+    });
+    // shapka should be pointer events none
+
+    if (shapka) {
+      gsap.to(shapka, {
+        x: magneticWidth * (strength / 2),
+        y: magneticHeight * (strength / 2),
+        ease: "power2.out",
+        duration: 1,
+      });
+    }
+
+    //magnetButton.style.transform = 'translate(' + (((( event.clientX - bounding.left)/(magnetButton.offsetWidth))) - 0.5) * strength + 'px,'+ (((( event.clientY - bounding.top)/(magnetButton.offsetHeight))) - 0.5) * strength + 'px)';
+  }
+});
 
 document.querySelectorAll("[hover-link]").forEach((link) => {
   let split = new SplitText(link.querySelector("p"), {
