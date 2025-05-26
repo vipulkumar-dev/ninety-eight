@@ -425,6 +425,39 @@ if (isDesktop) {
         ease: "none",
       }
     );
+
+    const purpose_image_bg_tl = gsap.timeline({
+      paused: true,
+      defaults: {
+        duration: 0.4,
+        ease: "power3.inOut",
+      },
+    });
+
+    purpose_image_bg_tl.set(image.querySelectorAll(".purpose_image_bg"), {
+      opacity: 1,
+    });
+    purpose_image_bg_tl.to(image.querySelector(".purpose_image_bg.first"), {
+      rotate: -15,
+      x: "-40px",
+    });
+
+    purpose_image_bg_tl.to(
+      image.querySelector(".purpose_image_bg.second"),
+      {
+        rotate: 15,
+        x: "40px",
+      },
+      "<"
+    );
+
+    image.addEventListener("mouseenter", () => {
+      purpose_image_bg_tl.play();
+    });
+
+    image.addEventListener("mouseleave", () => {
+      purpose_image_bg_tl.reverse();
+    });
   });
 }
 
