@@ -479,14 +479,14 @@ if (isDesktop) {
     });
     purpose_image_bg_tl.to(image.querySelector(".purpose_image_bg.first"), {
       rotate: -20,
-      x: "-90px",
+      x: "-100px",
     });
 
     purpose_image_bg_tl.to(
       image.querySelector(".purpose_image_bg.second"),
       {
         rotate: 20,
-        x: "90px",
+        x: "100px",
       },
       "<"
     );
