@@ -258,6 +258,8 @@ document.querySelectorAll(".btn").forEach((btn) => {
 
 function swapImages() {
   const hero_img_wprs = document.querySelectorAll(".hero_img_wpr");
+  const hero_img_wprs_hide = document.querySelectorAll(".hero_img_wpr.is-hide");
+  console.log("hero_img_wprs_hide", hero_img_wprs_hide);
 
   if (hero_img_wprs.length < 2) {
     gsap.delayedCall(2, swapImages);
@@ -266,13 +268,17 @@ function swapImages() {
 
   const getRandom = () =>
     hero_img_wprs[Math.floor(Math.random() * hero_img_wprs.length)];
+  const getRandomHide = () =>
+    hero_img_wprs_hide[Math.floor(Math.random() * hero_img_wprs_hide.length)];
 
   let hero_img_wpr_random_first = getRandom();
-  let hero_img_wpr_random_second = getRandom();
+  let hero_img_wpr_random_second = getRandomHide();
+
+  console.log("hero_img_wprs_hide", hero_img_wpr_random_second);
 
   // Ensure they are not the same
   while (hero_img_wpr_random_first === hero_img_wpr_random_second) {
-    hero_img_wpr_random_second = getRandom();
+    hero_img_wpr_random_second = getRandomHide();
   }
 
   const hero_img_first_front =
@@ -305,8 +311,10 @@ function swapImages() {
       hero_img_first_front.setAttribute("src", src2);
       hero_img_second_front.setAttribute("src", src1);
 
-      gsap.set([hero_img_first_front, hero_img_second_front], {
+      gsap.to([hero_img_first_front, hero_img_second_front], {
         opacity: 1,
+        duration: 0,
+        delay: 1,
       });
 
       // Call again after delay
