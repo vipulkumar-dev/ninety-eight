@@ -475,15 +475,15 @@ if (isDesktop) {
       opacity: 1,
     });
     purpose_image_bg_tl.to(image.querySelector(".purpose_image_bg.first"), {
-      rotate: -15,
-      x: "-40px",
+      rotate: -20,
+      x: "-90px",
     });
 
     purpose_image_bg_tl.to(
       image.querySelector(".purpose_image_bg.second"),
       {
-        rotate: 15,
-        x: "40px",
+        rotate: 20,
+        x: "90px",
       },
       "<"
     );
