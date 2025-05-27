@@ -427,7 +427,7 @@ document.querySelectorAll("[hover-link]").forEach((link) => {
     });
   });
 
-  console.log("split", split.words);
+  // console.log("split", split.words);
 });
 
 function setwordAnimation(word) {
@@ -596,5 +596,27 @@ ScrollTrigger.batch("[reveal]", {
     });
   },
 });
+
+(function overlapEffect() {
+  document.querySelectorAll(".overlay_section").forEach((overlay_section) => {
+    gsap.set(overlay_section.querySelector(".overlay_wpr"), {
+      y: "-50%",
+    });
+
+    gsap.to(overlay_section.querySelector(".overlay_wpr"), {
+      y: "0%",
+      duration: 1,
+      ease: "none",
+      scrollTrigger: {
+        trigger: overlay_section,
+        start: "top bottom",
+        end: "bottom bottom",
+        scrub: true,
+        // pin: true,
+        markers: true,
+      },
+    });
+  });
+})();
 
 liveReload();
