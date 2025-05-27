@@ -256,47 +256,50 @@ document.querySelectorAll(".btn").forEach((btn) => {
   console.log("split", split.words);
 });
 
-setInterval(() => {
-  const hero_img_wprs = document.querySelectorAll(".hero_img_wpr");
+function swapFourImages() {
+  const hero_img_wprs = Array.from(document.querySelectorAll(".hero_img_wpr"));
 
-  const hero_img_wpr_random_first =
-    hero_img_wprs[Math.floor(Math.random() * hero_img_wprs.length)];
+  if (hero_img_wprs.length < 4) {
+    gsap.delayedCall(2, swapFourImages);
+    return;
+  }
 
-  const hero_img_first_front =
-    hero_img_wpr_random_first?.querySelector(".hero_image");
-  const hero_img_first_front_src = hero_img_first_front?.getAttribute("src");
+  // Shuffle and pick 4 unique wrappers
+  const shuffled = hero_img_wprs.sort(() => 0.5 - Math.random()).slice(0, 4);
 
-  const hero_img_first_back = hero_img_wpr_random_first?.querySelector(
-    ".hero_image.is-back"
-  );
+  const fronts = shuffled.map((wpr) => wpr.querySelector(".hero_image"));
+  const backs = shuffled.map((wpr) => wpr.querySelector(".hero_image.is-back"));
+  const srcs = fronts.map((img) => img?.getAttribute("src"));
 
-  const hero_img_wpr_random_second =
-    hero_img_wprs[Math.floor(Math.random() * hero_img_wprs.length)];
+  if (srcs.some((src) => !src)) {
+    gsap.delayedCall(2, swapFourImages);
+    return;
+  }
 
-  const hero_img_second_front =
-    hero_img_wpr_random_second?.querySelector(".hero_image");
-  const hero_img_second_front_src = hero_img_second_front?.getAttribute("src");
+  // Rotate srcs for the back images
+  for (let i = 0; i < 4; i++) {
+    backs[i].setAttribute("src", srcs[(i + 1) % 4]);
+  }
 
-  const hero_img_second_back = hero_img_wpr_random_second?.querySelector(
-    ".hero_image.is-back"
-  );
-
-  hero_img_first_back.setAttribute("src", hero_img_second_front_src);
-  hero_img_second_back.setAttribute("src", hero_img_first_front_src);
-
-  gsap.to([hero_img_first_front, hero_img_second_front], {
+  gsap.to(fronts, {
     opacity: 0,
     duration: 1,
     onComplete: () => {
-      hero_img_first_front.setAttribute("src", hero_img_second_front_src);
-      hero_img_second_front.setAttribute("src", hero_img_first_front_src);
-      gsap.set([hero_img_first_front, hero_img_second_front], {
+      for (let i = 0; i < 4; i++) {
+        fronts[i].setAttribute("src", srcs[(i + 1) % 4]);
+      }
+
+      gsap.set(fronts, {
         opacity: 1,
-        delay: 1,
       });
+
+      gsap.delayedCall(2, swapFourImages);
     },
   });
-}, 2000);
+}
+
+swapFourImages();
+
 document.querySelectorAll("[magnet]").forEach((magnet) => {
   const magnetButton = magnet;
   const shapka = magnetButton.querySelector(".shapka");
