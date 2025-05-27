@@ -303,7 +303,7 @@ swapFourImages();
 document.querySelectorAll("[magnet]").forEach((magnet) => {
   const magnetButton = magnet;
   const shapka = magnetButton.querySelector(".shapka");
-  const strength = magnetButton.getAttribute("magnet") || 50;
+  const strength = magnetButton.getAttribute("magnet") || 90;
 
   if (isDesktop) {
     magnetButton.addEventListener("mousemove", handleMagnetMove);
@@ -479,14 +479,14 @@ if (isDesktop) {
     });
     purpose_image_bg_tl.to(image.querySelector(".purpose_image_bg.first"), {
       rotate: -20,
-      x: "-150px",
+      x: "-100px",
     });
 
     purpose_image_bg_tl.to(
       image.querySelector(".purpose_image_bg.second"),
       {
         rotate: 20,
-        x: "150px",
+        x: "100px",
       },
       "<"
     );
