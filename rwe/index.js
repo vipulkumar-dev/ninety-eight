@@ -329,7 +329,7 @@ swapImages();
 document.querySelectorAll("[magnet]").forEach((magnet) => {
   const magnetButton = magnet;
   const shapka = magnetButton.querySelector(".shapka");
-  const strength = magnetButton.getAttribute("magnet") || 90;
+  const strength = magnetButton.getAttribute("magnet") || 200;
 
   if (isDesktop) {
     magnetButton.addEventListener("mousemove", handleMagnetMove);
