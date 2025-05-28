@@ -5,3 +5,7 @@
 .swiper-slide:hover .project_image {
   transform: scale(1.05);
 }
+
+.header.active .header_bg {
+  opacity: 1;
+}
