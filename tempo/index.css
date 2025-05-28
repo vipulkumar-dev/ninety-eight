@@ -20,6 +20,10 @@
   opacity: 100%;
 }
 
+.hero_video_wpr:hover .hero_video_btn {
+  scale: 1.2;
+}
+
 @keyframes blink {
   0%,
   100% {
