@@ -21,7 +21,7 @@
 }
 
 .hero_video_wpr:hover .hero_video_btn {
-  scale: 1.2;
+  transform: translate(-50%, -50%) scale(1.1);
 }
 
 @keyframes blink {
