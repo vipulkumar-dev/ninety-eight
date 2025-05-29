@@ -555,6 +555,24 @@ document.querySelectorAll("[parallax-wpr]").forEach((image) => {
       y: -PARALLAXAMOUNT,
     }
   );
+
+  gsap.fromTo(
+    wrapper,
+    {
+      clipPath: "polygon(0 0, 0 0, 0 100%, 0% 100%)",
+    },
+    {
+      clipPath: "polygon(0 0, 100% 0, 100% 100%, 0% 100%)",
+      duration: 1.5,
+      delay: 0.5,
+      ease: "power4.inOut",
+      scrollTrigger: {
+        trigger: wrapper,
+        start: "top bottom",
+        end: "bottom top",
+      },
+    }
+  );
 });
 
 liveReload();
