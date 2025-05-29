@@ -438,6 +438,19 @@ gsap.set("[para-reveal]", {
   opacity: 1,
 });
 
+document.querySelectorAll("[chars-reveal]").forEach((text) => {
+  new SplitText(text, {
+    type: "chars",
+    deepslice: true,
+    mask: "chars",
+    charsClass: "para_chars",
+  });
+});
+
+gsap.set("[chars-reveal]", {
+  opacity: 1,
+});
+
 const horizontalTl = gsap.timeline({
   scrollTrigger: {
     trigger: ".horizontal_section_wpr",
@@ -559,6 +572,13 @@ ScrollTrigger.batch("[reveal]", {
           animateItems.push(line);
         });
       }
+
+      if (element.hasAttribute("chars-reveal")) {
+        // console.log("chars", element);
+        element.querySelectorAll(".para_chars").forEach((char) => {
+          animateItems.push(char);
+        });
+      }
       if (element.hasAttribute("fade-reveal")) {
         animateItems.push(element);
       }
@@ -650,5 +670,12 @@ document
     });
   });
 })();
+
+gsap.to(".bg_map_image", {
+  rotate: 360,
+  duration: 20,
+  ease: "none",
+  repeat: -1,
+});
 
 liveReload();
