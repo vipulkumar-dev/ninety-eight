@@ -2,7 +2,7 @@ import { roll, getDevices, lenisInit } from "../utils.js";
 import { liveReload } from "../liveReload.js";
 
 const lenis = lenisInit();
-
+const { isDesktop, isMobile } = getDevices();
 const header = document.getElementById("header");
 
 if (header) {
