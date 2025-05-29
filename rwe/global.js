@@ -1,5 +1,6 @@
 import { roll, getDevices, lenisInit } from "../utils.js";
 import { liveReload } from "../liveReload.js";
+gsap.registerPlugin(ScrollTrigger, SplitText);
 
 const lenis = lenisInit();
 const { isDesktop, isMobile } = getDevices();
@@ -251,6 +252,22 @@ document.querySelectorAll("[magnet]").forEach((magnet) => {
   }
 });
 
+function setwordAnimation(word) {
+  // clone the word element
+  const clone = word.cloneNode(true);
+  word.parentNode.appendChild(clone);
+
+  gsap.set(clone, {
+    position: "absolute",
+    top: "100%",
+    left: 0,
+    // y: "100%",
+    // opacity: 0,
+    // duration: 0.5,
+    // ease: "power4.out",
+  });
+}
+
 (function hoverlinkEffect() {
   document.querySelectorAll("[hover-link]").forEach((link) => {
     let split = new SplitText(link.querySelector("p"), {
@@ -288,22 +305,6 @@ document.querySelectorAll("[magnet]").forEach((magnet) => {
 
     // console.log("split", split.words);
   });
-
-  function setwordAnimation(word) {
-    // clone the word element
-    const clone = word.cloneNode(true);
-    word.parentNode.appendChild(clone);
-
-    gsap.set(clone, {
-      position: "absolute",
-      top: "100%",
-      left: 0,
-      // y: "100%",
-      // opacity: 0,
-      // duration: 0.5,
-      // ease: "power4.out",
-    });
-  }
 })();
 
 if (isDesktop) {
@@ -522,5 +523,38 @@ ScrollTrigger.batch("[reveal]", {
     });
   });
 })();
+
+document.querySelectorAll("[parallax-wpr]").forEach((image) => {
+  //wrap the image with a div
+  const wrapper = document.createElement("div");
+  wrapper.classList.add("parallax-image-wrapper");
+  wrapper.style.overflow = "hidden";
+  image.parentNode.insertBefore(wrapper, image);
+  wrapper.appendChild(image);
+
+  const parallaxtl = gsap.timeline({
+    scrollTrigger: {
+      trigger: wrapper,
+      start: "top bottom",
+      end: "bottom top",
+      scrub: true,
+      // markers: true,
+    },
+  });
+  const PARALLAXAMOUNT = isDesktop ? 100 : 50;
+  const imageHeight = image.clientHeight;
+  wrapper.style.height = `${imageHeight}px`;
+  image.style.height = `${imageHeight + PARALLAXAMOUNT}px`;
+
+  parallaxtl.fromTo(
+    image,
+    {
+      y: 0,
+    },
+    {
+      y: -PARALLAXAMOUNT,
+    }
+  );
+});
 
 liveReload();
