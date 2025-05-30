@@ -572,6 +572,18 @@ ScrollTrigger.batch(".parallax-image-wrapper", {
       ease: "power4.inOut",
       stagger: 0.3,
     });
+
+    const elementImages = elements.map((element) =>
+      element.querySelector("[parallax-wpr]")
+    );
+
+    gsap.to(elementImages, {
+      scale: 1,
+      duration: 1.5,
+      delay: 0.5,
+      ease: "power4.inOut",
+      stagger: 0.3,
+    });
   },
 });
 gsap.set("[parallax-wpr]", {
