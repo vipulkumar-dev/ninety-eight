@@ -7,6 +7,7 @@ document.querySelectorAll("[timeline-heading]").forEach((heading) => {
       start: "top center",
       end: "bottom center",
       toggleActions: "play none none reverse",
+      scrub: true,
       //   markers: true,
     },
   });
