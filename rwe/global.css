@@ -5,3 +5,7 @@
 .swiper-slide:hover .project_image {
   transform: scale(1.05);
 }
+
+.court_block.active .court_txt {
+  opacity: 1 !important;
+}
