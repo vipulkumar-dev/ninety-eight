@@ -541,7 +541,11 @@ document.querySelectorAll("[parallax-wpr]").forEach((image) => {
       // markers: true,
     },
   });
-  const PARALLAXAMOUNT = isDesktop ? 100 : 50;
+  let PARALLAXAMOUNT = isDesktop ? 100 : 50;
+  if (image.hasAttribute("no-parallax")) {
+    PARALLAXAMOUNT = 0;
+  }
+
   const imageHeight = image.clientHeight;
   wrapper.style.height = `${imageHeight}px`;
   image.style.height = `${imageHeight + PARALLAXAMOUNT}px`;
