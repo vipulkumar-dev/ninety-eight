@@ -24,4 +24,32 @@ document.querySelectorAll(".court_block").forEach((court_block) => {
   });
 });
 
+const defaultsCourt = {
+  duration: 0.6,
+  ease: "power3.inOut",
+};
+document.querySelector("[court-off]")?.addEventListener("mouseenter", () => {
+  gsap.to(".off_txt", {
+    opacity: 1,
+    ...defaultsCourt,
+  });
+
+  gsap.to(".on_txt", {
+    opacity: 0,
+    ...defaultsCourt,
+  });
+});
+
+document.querySelector("[court-on]")?.addEventListener("mouseenter", () => {
+  gsap.to(".off_txt", {
+    opacity: 0,
+    ...defaultsCourt,
+  });
+
+  gsap.to(".on_txt", {
+    opacity: 1,
+    ...defaultsCourt,
+  });
+});
+
 console.log("About page script loaded");
