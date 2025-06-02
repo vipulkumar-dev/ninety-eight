@@ -1,55 +1,31 @@
-document.querySelectorAll("[timeline-heading]").forEach((heading) => {
-  gsap.to(heading, {
-    color: "#76b3f4",
-    duration: 0.6,
-    scrollTrigger: {
-      trigger: heading,
-      start: "top center",
-      end: "bottom center",
-      toggleActions: "play none none reverse",
-      scrub: true,
-      //   markers: true,
-    },
-  });
-});
+const jordanEl = document.querySelector(".jordan.main");
+jordanEl.offsetWidth; // Force reflow
 
-document.querySelectorAll(".court_block").forEach((court_block) => {
-  court_block.addEventListener("mouseenter", () => {
-    court_block.classList.add("active");
-    document.querySelectorAll(".court_block").forEach((other_block) => {
-      if (other_block !== court_block) {
-        other_block.classList.remove("active");
-      }
-    });
-  });
-});
-
-const defaultsCourt = {
+gsap.to(jordanEl, {
+  left: jordanEl.parentElement.offsetWidth - jordanEl.offsetWidth + "px",
   duration: 0.6,
-  ease: "power3.inOut",
-};
-document.querySelector("[court-off]")?.addEventListener("mouseenter", () => {
-  gsap.to(".off_txt", {
-    opacity: 1,
-    ...defaultsCourt,
-  });
-
-  gsap.to(".on_txt", {
-    opacity: 0,
-    ...defaultsCourt,
-  });
+  scrollTrigger: {
+    trigger: ".section_title_slide",
+    start: "top bottom",
+    end: "bottom top",
+    toggleActions: "play none none reverse",
+    scrub: true,
+    // markers: true,
+  },
 });
 
-document.querySelector("[court-on]")?.addEventListener("mouseenter", () => {
-  gsap.to(".off_txt", {
-    opacity: 0,
-    ...defaultsCourt,
-  });
+const hennesy = document.querySelector(".hennesy.main");
+hennesy.offsetWidth; // Force reflow
 
-  gsap.to(".on_txt", {
-    opacity: 1,
-    ...defaultsCourt,
-  });
+gsap.to(hennesy, {
+  right: hennesy.parentElement.offsetWidth - hennesy.offsetWidth + "px",
+  duration: 0.6,
+  scrollTrigger: {
+    trigger: ".section_title_slide",
+    start: "top bottom",
+    end: "bottom top",
+    toggleActions: "play none none reverse",
+    scrub: true,
+    // markers: true,
+  },
 });
-
-console.log("About page script loaded");
