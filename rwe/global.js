@@ -590,4 +590,6 @@ gsap.set("[parallax-wpr]", {
   opacity: 1,
 });
 
+roll("[roll]", 60);
+
 liveReload();
