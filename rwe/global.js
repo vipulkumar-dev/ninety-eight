@@ -503,6 +503,9 @@ ScrollTrigger.batch("[reveal]", {
 })();
 
 (function overlapEffect() {
+  if (isMobile) {
+    return;
+  }
   document.querySelectorAll(".overlay_section").forEach((overlay_section) => {
     gsap.set(overlay_section.querySelector(".overlay_wpr"), {
       y: "-50%",
