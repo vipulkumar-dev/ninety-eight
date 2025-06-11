@@ -145,11 +145,23 @@ horizontalSections.forEach((section, i) => {
     "-=0.3"
   );
   if (i !== horizontalSections.length - 1) {
-    horizontalTl.to(section, {
-      scale: 150,
+    horizontalTl.to(section.querySelector(".horizontal_text"), {
+      // scale: 150,
+      fontSize: "4000px",
       // color: "black",
       ease: "power1.inOut",
       duration: 0.5,
     });
+
+    // horizontalTl.to(
+    //   section.querySelector(".horizontal_text"),
+    //   {
+    //     backgroundSize: "0.66%",
+    //     // color: "black",
+    //     ease: "power1.inOut",
+    //     duration: 0.5,
+    //   },
+    //   "<"
+    // );
   }
 });
