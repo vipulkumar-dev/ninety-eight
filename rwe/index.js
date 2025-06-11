@@ -11,9 +11,9 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
     grabCursor: true,
     centeredSlidesBounds: true,
     loopFillGroupBlank: false,
-    // autoplay: {
-    //   delay: 3000,
-    // },
+    autoplay: {
+      delay: 3000,
+    },
     loop: true,
     navigation: {
       nextEl: swiper.parentNode.querySelector(".swiper_next"),
