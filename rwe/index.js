@@ -147,7 +147,7 @@ horizontalSections.forEach((section, i) => {
   if (i !== horizontalSections.length - 1) {
     horizontalTl.to(section.querySelector(".horizontal_text"), {
       // scale: 150,
-      fontSize: "4000px",
+      fontSize: "10000px",
       // color: "black",
       ease: "power1.inOut",
       duration: 0.5,
