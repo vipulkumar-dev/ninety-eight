@@ -135,16 +135,17 @@ const horizontalTl = gsap.timeline({
 
 const horizontalSections = document.querySelectorAll(".horizontal_section");
 horizontalSections.forEach((section, i) => {
+  horizontalTl.to(
+    section,
+    {
+      ease: "none",
+      opacity: 1,
+      duration: 0.15,
+    },
+    "-=0.3"
+  );
+
   if (i !== horizontalSections.length - 1) {
-    horizontalTl.to(
-      section,
-      {
-        ease: "none",
-        opacity: 1,
-        duration: 0.15,
-      },
-      "-=0.3"
-    );
     horizontalTl.to(section, {
       scale: 150,
       // fontSize: "1000vw",
