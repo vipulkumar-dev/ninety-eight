@@ -134,9 +134,10 @@ const horizontalTl = gsap.timeline({
 });
 
 const horizontalSections = document.querySelectorAll(".horizontal_section");
+const horizontal__block = document.querySelectorAll(".horizontal__block");
 horizontalSections.forEach((section, i) => {
   horizontalTl.to(
-    section,
+    horizontal__block[i],
     {
       ease: "none",
       opacity: 1,
