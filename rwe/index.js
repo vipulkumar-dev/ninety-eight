@@ -145,9 +145,13 @@ horizontalSections.forEach((section, i) => {
     "-=0.3"
   );
   if (i !== horizontalSections.length - 1) {
-    horizontalTl.to(section.querySelector(".horizontal_text"), {
-      // scale: 150,
-      fontSize: "10000px",
+    horizontalTl.to(section, {
+      scale: 150,
+      // fontSize: "1000vw",
+      // left: (target, index) => {
+      //   console.log("target", target);
+      //   return `50%`;
+      // },
       // color: "black",
       ease: "power1.inOut",
       duration: 0.5,
