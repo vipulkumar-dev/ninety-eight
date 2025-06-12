@@ -23,32 +23,30 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
 });
 
 if (isDesktop) {
-  gsap.to(".brand_stripe_rev", {
+  const logos_wpr = document.querySelector(".logos");
+
+  const brand_stripe_rev = gsap.to(".brand_stripe_rev", {
     y: "-100%",
     repeat: -1,
     duration: 20,
     ease: "none",
   });
 
-  gsap.to(".brand_stripe", {
+  const brand_stripe = gsap.to(".brand_stripe", {
     y: "100%",
     repeat: -1,
     duration: 20,
     ease: "none",
   });
-} else {
-  gsap.to(".brand_stripe_rev", {
-    x: "-100%",
-    repeat: -1,
-    duration: 20,
-    ease: "none",
+
+  logos_wpr.addEventListener("mouseenter", () => {
+    brand_stripe_rev.pause();
+    brand_stripe.pause();
   });
 
-  gsap.to(".brand_stripe", {
-    x: "100%",
-    repeat: -1,
-    duration: 20,
-    ease: "none",
+  logos_wpr.addEventListener("mouseleave", () => {
+    brand_stripe_rev.resume();
+    brand_stripe.resume();
   });
 }
 
