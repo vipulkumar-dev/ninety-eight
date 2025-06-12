@@ -169,3 +169,29 @@ horizontalSections.forEach((section, i) => {
     // );
   }
 });
+
+const loader = document.querySelector(".loader");
+const loaderTl = gsap.timeline({
+  paused: true,
+});
+loaderTl.to(".loader_line", {
+  top: "69%",
+  duration: 1,
+  ease: "power3.inOut",
+});
+loaderTl.to(".loader_line", {
+  top: "43%",
+  duration: 1,
+  ease: "power3.inOut",
+});
+loaderTl.to(".loader_line", {
+  top: "0%",
+  duration: 1,
+  ease: "power3.inOut",
+});
+
+loaderTl.to(loader, {
+  autoAlpha: 0,
+});
+
+loaderTl.play();
