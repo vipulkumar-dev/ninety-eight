@@ -396,62 +396,74 @@ gsap.set("[rotate-reveal]", {
   scale: 0,
 });
 
-ScrollTrigger.batch("[reveal]", {
-  start: (scrollInstance) => {
-    const eltrigger = scrollInstance.trigger;
-    const eltriggerHeight = eltrigger.clientHeight * 1.4;
-    if (eltrigger.hasAttribute("basic-reveal")) {
-      return `top-=${eltriggerHeight}px bottom`;
-    }
-    return "top bottom";
-  },
-  end: (scrollInstance) => {
-    const eltrigger = scrollInstance.trigger;
-    const eltriggerHeight = eltrigger.clientHeight * 1.4;
-    if (eltrigger.hasAttribute("basic-reveal")) {
-      return `top-=${eltriggerHeight}px bottom`;
-    }
-    return "top bottom";
-  },
-  pinnedContainer: ".section_pin",
-  // markers: true,
-  onEnter: (elements, triggers) => {
-    const animateItems = [];
+function initReveal() {
+  ScrollTrigger.batch("[reveal]", {
+    start: (scrollInstance) => {
+      const eltrigger = scrollInstance.trigger;
+      const eltriggerHeight = eltrigger.clientHeight * 1.4;
+      if (eltrigger.hasAttribute("basic-reveal")) {
+        return `top-=${eltriggerHeight}px bottom`;
+      }
+      return "top bottom";
+    },
+    end: (scrollInstance) => {
+      const eltrigger = scrollInstance.trigger;
+      const eltriggerHeight = eltrigger.clientHeight * 1.4;
+      if (eltrigger.hasAttribute("basic-reveal")) {
+        return `top-=${eltriggerHeight}px bottom`;
+      }
+      return "top bottom";
+    },
+    pinnedContainer: ".section_pin",
+    // markers: true,
+    onEnter: (elements, triggers) => {
+      const animateItems = [];
 
-    elements.forEach((element) => {
-      if (element.hasAttribute("basic-reveal")) {
-        animateItems.push(element);
-      }
-      if (element.hasAttribute("para-reveal")) {
-        // console.log("para", element);
-        element.querySelectorAll(".para_line").forEach((line) => {
-          animateItems.push(line);
-        });
-      }
+      elements.forEach((element) => {
+        if (element.hasAttribute("basic-reveal")) {
+          animateItems.push(element);
+        }
+        if (element.hasAttribute("para-reveal")) {
+          // console.log("para", element);
+          element.querySelectorAll(".para_line").forEach((line) => {
+            animateItems.push(line);
+          });
+        }
 
-      if (element.hasAttribute("chars-reveal")) {
-        // console.log("chars", element);
-        element.querySelectorAll(".para_chars").forEach((char) => {
-          animateItems.push(char);
-        });
-      }
-      if (element.hasAttribute("fade-reveal")) {
-        animateItems.push(element);
-      }
-    });
-    // console.log("animateItems", animateItems);
+        if (element.hasAttribute("chars-reveal")) {
+          // console.log("chars", element);
+          element.querySelectorAll(".para_chars").forEach((char) => {
+            animateItems.push(char);
+          });
+        }
+        if (element.hasAttribute("fade-reveal")) {
+          animateItems.push(element);
+        }
+      });
+      // console.log("animateItems", animateItems);
 
-    gsap.to(animateItems, {
-      y: "0%",
-      opacity: 1,
-      scale: 1,
-      rotate: "0deg",
-      stagger: 0.05,
-      duration: 1.5,
-      ease: "power4.inOut",
-    });
-  },
-});
+      gsap.to(animateItems, {
+        y: "0%",
+        opacity: 1,
+        scale: 1,
+        rotate: "0deg",
+        stagger: 0.05,
+        duration: 1.5,
+        ease: "power4.inOut",
+      });
+    },
+  });
+}
+
+if (isLoader) {
+  setTimeout(() => {
+    initReveal();
+  }, 2000);
+} else {
+  initReveal();
+}
+
+// Delay to ensure all elements are loaded before initializing reveal
 
 (function timelineTextEffect() {
   document
