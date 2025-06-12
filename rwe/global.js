@@ -391,6 +391,11 @@ gsap.set("[chars-reveal]", {
   opacity: 1,
 });
 
+gsap.set("[rotate-reveal]", {
+  rotate: 60,
+  scale: 0,
+});
+
 ScrollTrigger.batch("[reveal]", {
   start: (scrollInstance) => {
     const eltrigger = scrollInstance.trigger;
@@ -440,7 +445,7 @@ ScrollTrigger.batch("[reveal]", {
       y: "0%",
       opacity: 1,
       scale: 1,
-      rotate: 0,
+      rotate: "0deg",
       stagger: 0.05,
       duration: 1.5,
       ease: "power4.inOut",
