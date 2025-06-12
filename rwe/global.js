@@ -392,7 +392,7 @@ gsap.set("[chars-reveal]", {
 });
 
 gsap.set("[rotate-reveal]", {
-  rotate: 60,
+  rotate: -60,
   scale: 0,
 });
 
