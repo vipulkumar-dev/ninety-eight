@@ -13,3 +13,7 @@
 /* .horizontal_text.is-black {
   background-size: 100%;
 } */
+
+.brand_logo_block:hover .brand_logo_image {
+  transform: scale(1.1);
+}
