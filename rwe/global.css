@@ -15,7 +15,7 @@
 } */
 
 .brand_logo_block:hover .brand_logo_img {
-  transform: scale(1.1);
+  transform: scale(1.2);
 }
 .brand_logo_block:hover .globe_icon {
   opacity: 100%;
