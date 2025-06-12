@@ -246,5 +246,5 @@ loaderTl.to(loader, {
 loaderTl.play();
 
 if (isMobile) {
-  roll("[roll]", 60);
+  roll("[mob-roll]", 60);
 }
