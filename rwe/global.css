@@ -14,6 +14,9 @@
   background-size: 100%;
 } */
 
-.brand_logo_block:hover .brand_logo_image {
+.brand_logo_block:hover .brand_logo_img {
   transform: scale(1.1);
+}
+.brand_logo_block:hover .globe_icon {
+  opacity: 100%;
 }
