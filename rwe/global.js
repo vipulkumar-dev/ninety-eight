@@ -440,6 +440,7 @@ ScrollTrigger.batch("[reveal]", {
       y: "0%",
       opacity: 1,
       scaleY: 1,
+      rotate: 0,
       stagger: 0.05,
       duration: 1.5,
       ease: "power4.inOut",
