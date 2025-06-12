@@ -174,21 +174,54 @@ const loader = document.querySelector(".loader");
 const loaderTl = gsap.timeline({
   paused: true,
 });
-loaderTl.to(".loader_line", {
-  top: "69%",
-  duration: 1,
-  ease: "power3.inOut",
-});
-loaderTl.to(".loader_line", {
-  top: "43%",
-  duration: 1,
-  ease: "power3.inOut",
-});
-loaderTl.to(".loader_line", {
-  top: "0%",
-  duration: 1,
-  ease: "power3.inOut",
-});
+loaderTl
+  .to(".loader_line", {
+    top: "69%",
+    duration: 1,
+    ease: "power3.inOut",
+  })
+  .to(
+    ".loader_counter",
+    {
+      textContent: "31%",
+      duration: 1,
+      ease: "power3.inOut",
+      snap: { textContent: 1 },
+    },
+    "<"
+  );
+loaderTl
+  .to(".loader_line", {
+    top: "43%",
+    duration: 1,
+    ease: "power3.inOut",
+  })
+  .to(
+    ".loader_counter",
+    {
+      textContent: "57%",
+      duration: 1,
+      ease: "power3.inOut",
+      snap: { textContent: 1 },
+    },
+    "<"
+  );
+loaderTl
+  .to(".loader_line", {
+    top: "0%",
+    duration: 1,
+    ease: "power3.inOut",
+  })
+  .to(
+    ".loader_counter",
+    {
+      textContent: "100%",
+      duration: 1,
+      ease: "power3.inOut",
+      snap: { textContent: 1 },
+    },
+    "<"
+  );
 
 loaderTl.to(loader, {
   autoAlpha: 0,
