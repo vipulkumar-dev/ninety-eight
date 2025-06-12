@@ -439,7 +439,7 @@ ScrollTrigger.batch("[reveal]", {
     gsap.to(animateItems, {
       y: "0%",
       opacity: 1,
-      scaleY: 1,
+      scale: 1,
       rotate: 0,
       stagger: 0.05,
       duration: 1.5,
