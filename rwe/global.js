@@ -127,9 +127,8 @@ function wiggleProp(element, prop, min, max) {
     onComplete: () => wiggleProp(element, prop, min, max),
   });
 }
-
-wiggle("[wiggle]");
 if (isDesktop) {
+  wiggle("[wiggle]");
   document.querySelectorAll(".press_item").forEach((press_item) => {
     const split = new SplitText(press_item.querySelector(".press_item_txt"), {
       type: "lines",
@@ -205,52 +204,53 @@ document.querySelectorAll(".btn").forEach((btn) => {
 
   console.log("split", split.words);
 });
+if (isDesktop) {
+  document.querySelectorAll("[magnet]").forEach((magnet) => {
+    const magnetButton = magnet;
+    const shapka = magnetButton.querySelector(".shapka");
+    const strength = magnetButton.getAttribute("magnet") || 200;
 
-document.querySelectorAll("[magnet]").forEach((magnet) => {
-  const magnetButton = magnet;
-  const shapka = magnetButton.querySelector(".shapka");
-  const strength = magnetButton.getAttribute("magnet") || 200;
-
-  if (isDesktop) {
-    magnetButton.addEventListener("mousemove", handleMagnetMove);
-    magnetButton.addEventListener("mouseout", handleMagnetOut);
-  }
-  function handleMagnetOut(event) {
-    gsap.to([magnetButton, shapka], {
-      x: 0,
-      y: 0,
-      ease: "elastic.out(1,0.4)",
-      duration: 1.5,
-    });
-  }
-
-  function handleMagnetMove(event) {
-    const bounding = magnetButton.getBoundingClientRect();
-    const magneticWidth =
-      (event.clientX - bounding.left) / magnetButton.offsetWidth - 0.5;
-    const magneticHeight =
-      (event.clientY - bounding.top) / magnetButton.offsetHeight - 0.5;
-
-    gsap.to(magnetButton, {
-      x: magneticWidth * strength,
-      y: magneticHeight * strength,
-      ease: "power2.out",
-      duration: 1,
-    });
-    // shapka should be pointer events none
-
-    if (shapka) {
-      gsap.to(shapka, {
-        x: magneticWidth * (strength / 2),
-        y: magneticHeight * (strength / 2),
-        ease: "power2.out",
-        duration: 1,
+    if (isDesktop) {
+      magnetButton.addEventListener("mousemove", handleMagnetMove);
+      magnetButton.addEventListener("mouseout", handleMagnetOut);
+    }
+    function handleMagnetOut(event) {
+      gsap.to([magnetButton, shapka], {
+        x: 0,
+        y: 0,
+        ease: "elastic.out(1,0.4)",
+        duration: 1.5,
       });
     }
 
-    //magnetButton.style.transform = 'translate(' + (((( event.clientX - bounding.left)/(magnetButton.offsetWidth))) - 0.5) * strength + 'px,'+ (((( event.clientY - bounding.top)/(magnetButton.offsetHeight))) - 0.5) * strength + 'px)';
-  }
-});
+    function handleMagnetMove(event) {
+      const bounding = magnetButton.getBoundingClientRect();
+      const magneticWidth =
+        (event.clientX - bounding.left) / magnetButton.offsetWidth - 0.5;
+      const magneticHeight =
+        (event.clientY - bounding.top) / magnetButton.offsetHeight - 0.5;
+
+      gsap.to(magnetButton, {
+        x: magneticWidth * strength,
+        y: magneticHeight * strength,
+        ease: "power2.out",
+        duration: 1,
+      });
+      // shapka should be pointer events none
+
+      if (shapka) {
+        gsap.to(shapka, {
+          x: magneticWidth * (strength / 2),
+          y: magneticHeight * (strength / 2),
+          ease: "power2.out",
+          duration: 1,
+        });
+      }
+
+      //magnetButton.style.transform = 'translate(' + (((( event.clientX - bounding.left)/(magnetButton.offsetWidth))) - 0.5) * strength + 'px,'+ (((( event.clientY - bounding.top)/(magnetButton.offsetHeight))) - 0.5) * strength + 'px)';
+    }
+  });
+}
 
 function setwordAnimation(word) {
   // clone the word element

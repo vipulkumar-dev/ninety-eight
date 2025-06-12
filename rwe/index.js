@@ -48,6 +48,20 @@ if (isDesktop) {
     brand_stripe_rev.resume();
     brand_stripe.resume();
   });
+} else {
+  gsap.to(".brand_stripe_rev", {
+    x: "-100%",
+    repeat: -1,
+    duration: 30,
+    ease: "none",
+  });
+
+  gsap.to(".brand_stripe", {
+    x: "100%",
+    repeat: -1,
+    duration: 30,
+    ease: "none",
+  });
 }
 
 function swapImages() {
@@ -118,7 +132,9 @@ function swapImages() {
 }
 
 // Start the loop
-swapImages();
+if (isDesktop) {
+  swapImages();
+}
 
 const horizontalTl = gsap.timeline({
   scrollTrigger: {
@@ -228,3 +244,7 @@ loaderTl.to(loader, {
 });
 
 loaderTl.play();
+
+if (isMobile) {
+  roll("[roll]", 60);
+}
