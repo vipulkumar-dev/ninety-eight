@@ -1,0 +1,22 @@
+/* * {
+  outline: 1px solid red;
+} */
+
+.swiper-slide:hover .project_image {
+  transform: scale(1.05);
+}
+
+.court_block.active .court_txt {
+  opacity: 1 !important;
+}
+
+/* .horizontal_text.is-black {
+  background-size: 100%;
+} */
+
+.brand_logo_block:hover .brand_logo_img {
+  transform: scale(1.2);
+}
+.brand_logo_block:hover .globe_icon {
+  opacity: 100%;
+}
