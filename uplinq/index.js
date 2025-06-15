@@ -110,36 +110,47 @@ if (header) {
 // console.log("scriptLocation", scriptLocation);
 
 document.querySelectorAll(".btn").forEach((btn) => {
-  const btn_tl = gsap.timeline({
-    paused: true,
-    defaults: {
+  const btn_blur_wpr = btn.querySelector(".btn_blur_wpr");
+  const btn_width = btn.clientWidth;
+  const btn_blur_wpr_width = btn_blur_wpr.clientWidth;
+  const boundingRect = btn.getBoundingClientRect();
+
+  btn.addEventListener("mousemove", (e) => {
+    const x = e.clientX - boundingRect.left;
+
+    // Center position normalized between 0 (left) and 1 (right)
+    const t = x / btn_width;
+
+    // Create a curve that is 1 at edges and 0.66 at center
+    const curve = 1 - 0.35 * Math.sin(Math.PI * t);
+
+    const dynamic_width = btn_blur_wpr_width * curve;
+
+    const mapped_x = gsap.utils.mapRange(
+      0,
+      btn_width,
+      0,
+      btn_width - dynamic_width,
+      x
+    );
+
+    const mapped_opacity = gsap.utils.mapRange(0, btn_width, 0, 1, x);
+
+    gsap.to(btn_blur_wpr, {
+      x: mapped_x,
+      width: dynamic_width,
       duration: 0.3,
-      ease: "power3.inOut",
-    },
-  });
+    });
 
-  btn_tl.to(
-    btn.querySelectorAll(".arrow_line"),
-    {
-      x: "0%",
-    },
-    0
-  );
+    gsap.to(btn_blur_wpr.querySelector(".blur_left"), {
+      opacity: mapped_opacity,
+      duration: 0.3,
+    });
 
-  btn_tl.to(
-    btn.querySelector("svg"),
-    {
-      x: "0px",
-    },
-    0
-  );
-
-  btn.addEventListener("mouseenter", (e) => {
-    btn_tl.play();
-  });
-
-  btn.addEventListener("mouseleave", (e) => {
-    btn_tl.reverse();
+    gsap.to(btn_blur_wpr.querySelector(".blur_right"), {
+      opacity: 1 - mapped_opacity,
+      duration: 0.3,
+    });
   });
 });
 
