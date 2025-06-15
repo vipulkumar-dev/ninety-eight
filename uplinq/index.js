@@ -143,22 +143,22 @@ document.querySelectorAll(".btn").forEach((btn) => {
   });
 });
 
-document.querySelectorAll(".line").forEach((line) => {
-  gsap.fromTo(
-    line,
-    { bottom: "0%" },
-    {
-      bottom: "100%",
-      ease: "none",
-      repeat: -1,
-      duration: 6,
-      delay: (index, target) => {
-        const sepeficDelay = Number(target.getAttribute("delay"));
-        return sepeficDelay;
-      },
-    }
-  );
-});
+// document.querySelectorAll(".line").forEach((line) => {
+//   gsap.fromTo(
+//     line,
+//     { bottom: "0%" },
+//     {
+//       bottom: "100%",
+//       ease: "none",
+//       repeat: -1,
+//       duration: 6,
+//       delay: (index, target) => {
+//         const sepeficDelay = Number(target.getAttribute("delay"));
+//         return sepeficDelay;
+//       },
+//     }
+//   );
+// });
 
 document.querySelectorAll("[para-reveal]").forEach((text) => {
   new SplitText(text, {
