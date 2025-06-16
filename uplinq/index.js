@@ -156,29 +156,21 @@ document.querySelectorAll(".btn").forEach((btn) => {
 
 document.querySelectorAll(".btn_secondary").forEach((btn) => {
   const bg = btn.querySelector(".btn_seconday_bg");
-  let shouldStop = false;
 
   const btn_twin = gsap.to(bg, {
-    rotation: "+=180",
-    duration: 2,
-    repeat: -1,
+    height: "300%",
+    rotate: 90,
+    duration: 1,
     paused: true,
     ease: "power3.inOut",
-    onRepeat: () => {
-      if (shouldStop) {
-        btn_twin.pause();
-        shouldStop = false;
-      }
-    },
   });
 
   btn.addEventListener("mouseenter", () => {
-    shouldStop = false;
     btn_twin.play();
   });
 
   btn.addEventListener("mouseleave", () => {
-    shouldStop = true;
+    btn_twin.reverse();
   });
 });
 
