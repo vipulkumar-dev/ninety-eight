@@ -155,22 +155,38 @@ document.querySelectorAll(".btn").forEach((btn) => {
 });
 
 document.querySelectorAll(".btn_secondary").forEach((btn) => {
-  const bg = btn.querySelector(".btn_seconday_bg");
-
-  const btn_twin = gsap.to(bg, {
-    height: "300%",
-    rotate: 90,
-    duration: 1,
+  const btn_tl = gsap.timeline({
     paused: true,
-    ease: "power3.inOut",
   });
 
+  btn_tl.to(
+    btn.querySelector(".btn_seconday_bg"),
+    {
+      height: "300%",
+      rotate: 90,
+      duration: 0.8,
+
+      ease: "power3.inOut",
+    },
+    0
+  );
+  btn_tl.to(
+    btn.querySelector(".btn_arrow"),
+    {
+      rotate: 45,
+      duration: 0.8,
+
+      ease: "power4.inOut",
+    },
+    0
+  );
+
   btn.addEventListener("mouseenter", () => {
-    btn_twin.play();
+    btn_tl.play();
   });
 
   btn.addEventListener("mouseleave", () => {
-    btn_twin.reverse();
+    btn_tl.reverse();
   });
 });
 
