@@ -190,65 +190,6 @@ document.querySelectorAll(".btn_secondary").forEach((btn) => {
   });
 });
 
-(function faq_init() {
-  const faq_items = document.querySelectorAll(".faq_item");
-
-  faq_items.forEach((faqItem, index) => {
-    faqItem.isActive = false;
-    const faqTl = faqTimeline(faqItem);
-    faqItem.addEventListener("click", () => {
-      if (!faqItem.isActive) {
-        faqTl.play();
-        faqItem.isActive = true;
-      } else {
-        faqTl.reverse();
-        faqItem.isActive = false;
-      }
-    });
-
-    if (index == 0) {
-      faqItem.click();
-    }
-  });
-
-  function faqTimeline(faqItem) {
-    const faqTl = gsap
-      .timeline({
-        paused: true,
-        defaults: {
-          duration: 0.8,
-          ease: "power4.inOut",
-        },
-        onComplete: () => {
-          lenis.resize();
-          ScrollTrigger.refresh();
-        },
-        onReverseComplete: () => {
-          lenis.resize();
-          ScrollTrigger.refresh();
-        },
-      })
-      .to(
-        faqItem.querySelector(".faq_content"),
-        {
-          height: "auto",
-          opacity: 1,
-          filter: "blur(0px)",
-        },
-        0
-      )
-      .to(
-        faqItem.querySelectorAll(".faq_arrow"),
-        {
-          rotate: 90,
-        },
-        0
-      );
-
-    return faqTl;
-  }
-})();
-
 (function card_rotate() {
   gsap.from(".card_who.is-top", {
     rotateZ: 5,
@@ -377,5 +318,64 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
     },
   });
 });
+
+// (function faq_init() {
+//   const faq_items = document.querySelectorAll(".faq_item");
+
+//   faq_items.forEach((faqItem, index) => {
+//     faqItem.isActive = false;
+//     const faqTl = faqTimeline(faqItem);
+//     faqItem.addEventListener("click", () => {
+//       if (!faqItem.isActive) {
+//         faqTl.play();
+//         faqItem.isActive = true;
+//       } else {
+//         faqTl.reverse();
+//         faqItem.isActive = false;
+//       }
+//     });
+
+//     if (index == 0) {
+//       faqItem.click();
+//     }
+//   });
+
+//   function faqTimeline(faqItem) {
+//     const faqTl = gsap
+//       .timeline({
+//         paused: true,
+//         defaults: {
+//           duration: 0.8,
+//           ease: "power4.inOut",
+//         },
+//         onComplete: () => {
+//           lenis.resize();
+//           ScrollTrigger.refresh();
+//         },
+//         onReverseComplete: () => {
+//           lenis.resize();
+//           ScrollTrigger.refresh();
+//         },
+//       })
+//       .to(
+//         faqItem.querySelector(".faq_content"),
+//         {
+//           height: "auto",
+//           opacity: 1,
+//           filter: "blur(0px)",
+//         },
+//         0
+//       )
+//       .to(
+//         faqItem.querySelectorAll(".faq_arrow"),
+//         {
+//           rotate: 90,
+//         },
+//         0
+//       );
+
+//     return faqTl;
+//   }
+// })();
 
 liveReload();
