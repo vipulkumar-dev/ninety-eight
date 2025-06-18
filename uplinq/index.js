@@ -249,6 +249,32 @@ document.querySelectorAll(".btn_secondary").forEach((btn) => {
   }
 })();
 
+(function card_rotate() {
+  gsap.from(".card_who.is-top", {
+    rotateZ: 5,
+    duration: 1.5,
+    scrollTrigger: {
+      trigger: ".card_who.is-top",
+      start: "top bottom",
+      end: "bottom top",
+      scrub: 1,
+      // markers: true,
+    },
+  });
+
+  gsap.from(".card_who.is-back", {
+    rotateZ: -5,
+    duration: 1.5,
+    scrollTrigger: {
+      trigger: ".card_who.is-back",
+      start: "top bottom",
+      end: "bottom top",
+      scrub: 1,
+      // markers: true,
+    },
+  });
+})();
+
 // document.querySelectorAll(".line").forEach((line) => {
 //   gsap.fromTo(
 //     line,
