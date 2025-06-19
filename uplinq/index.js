@@ -224,7 +224,7 @@ document.querySelectorAll(".btn_secondary").forEach((btn) => {
     duration: 1.5,
     scrollTrigger: {
       trigger: ".cta_logo",
-      start: "center bottom",
+      start: "center 80%",
       end: "center top",
       scrub: 1,
       // markers: true,
@@ -262,7 +262,7 @@ gsap.set("[para-reveal]", {
   opacity: 1,
 });
 
-ScrollTrigger.batch("[reveal]", {
+ScrollTrigger.batch("[basic-reveal],[fade-reveal],[para-reveal]", {
   start: (scrollInstance) => {
     const eltrigger = scrollInstance.trigger;
     const eltriggerHeight = eltrigger.clientHeight * 1.4;
