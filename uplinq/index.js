@@ -224,8 +224,8 @@ document.querySelectorAll(".btn_secondary").forEach((btn) => {
     duration: 1.5,
     scrollTrigger: {
       trigger: ".cta_logo",
-      start: "top 70%",
-      end: "bottom top",
+      start: "center bottom",
+      end: "center top",
       scrub: 1,
       // markers: true,
     },
