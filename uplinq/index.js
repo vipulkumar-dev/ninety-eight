@@ -106,6 +106,74 @@ if (header) {
     isMenuOpen = !isMenuOpen;
   });
 }
+
+(function faq_init() {
+  const faq_items = document.querySelectorAll(".faq_item");
+
+  let skipCallback = true;
+
+  faq_items.forEach((faqItem, index) => {
+    faqItem.isActive = false;
+    const faqTl = faqTimeline(faqItem);
+
+    faqItem.addEventListener("click", () => {
+      if (!faqItem.isActive) {
+        faqTl.play();
+        faqItem.isActive = true;
+      } else {
+        faqTl.reverse();
+        faqItem.isActive = false;
+      }
+    });
+
+    if (index === 0) {
+      faqItem.click(); // auto-open first item
+    }
+  });
+
+  function faqTimeline(faqItem) {
+    const faqTl = gsap
+      .timeline({
+        paused: true,
+        defaults: {
+          duration: 0.8,
+          ease: "power4.inOut",
+        },
+        onComplete: () => {
+          if (skipCallback) {
+            skipCallback = false; // only skip first
+            return;
+          }
+          console.log("FAQ animation complete");
+          lenis.resize();
+          ScrollTrigger.refresh();
+        },
+        onReverseComplete: () => {
+          lenis.resize();
+          ScrollTrigger.refresh();
+        },
+      })
+      .to(
+        faqItem.querySelector(".faq_content"),
+        {
+          height: "auto",
+          opacity: 1,
+          filter: "blur(0px)",
+        },
+        0
+      )
+      .to(
+        faqItem.querySelectorAll(".faq_arrow"),
+        {
+          rotate: 90,
+        },
+        0
+      );
+
+    return faqTl;
+  }
+})();
+
 // var scriptLocation = document.currentScript.src;
 // console.log("scriptLocation", scriptLocation);
 
@@ -334,64 +402,5 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
     },
   });
 });
-
-(function faq_init() {
-  const faq_items = document.querySelectorAll(".faq_item");
-
-  faq_items.forEach((faqItem, index) => {
-    faqItem.isActive = false;
-    const faqTl = faqTimeline(faqItem);
-    faqItem.addEventListener("click", () => {
-      if (!faqItem.isActive) {
-        faqTl.play();
-        faqItem.isActive = true;
-      } else {
-        faqTl.reverse();
-        faqItem.isActive = false;
-      }
-    });
-
-    if (index == 0) {
-      faqItem.click();
-    }
-  });
-
-  function faqTimeline(faqItem) {
-    const faqTl = gsap
-      .timeline({
-        paused: true,
-        defaults: {
-          duration: 0.8,
-          ease: "power4.inOut",
-        },
-        onComplete: () => {
-          // lenis.resize();
-          // ScrollTrigger.refresh();
-        },
-        onReverseComplete: () => {
-          lenis.resize();
-          ScrollTrigger.refresh();
-        },
-      })
-      .to(
-        faqItem.querySelector(".faq_content"),
-        {
-          height: "auto",
-          opacity: 1,
-          filter: "blur(0px)",
-        },
-        0
-      )
-      .to(
-        faqItem.querySelectorAll(".faq_arrow"),
-        {
-          rotate: 90,
-        },
-        0
-      );
-
-    return faqTl;
-  }
-})();
 
 liveReload();
