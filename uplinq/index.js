@@ -174,6 +174,30 @@ if (header) {
   }
 })();
 
+const faqSection = document.querySelector(".section_faq");
+
+if (faqSection) {
+  const observer = new IntersectionObserver(
+    (entries, observer) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          lenis.resize();
+          ScrollTrigger.refresh();
+          observer.unobserve(entry.target); // safer than faqSection
+        }
+      });
+    },
+    {
+      root: null,
+      threshold: 0.1,
+    }
+  );
+
+  observer.observe(faqSection);
+} else {
+  console.warn(".section_faq not found in the DOM");
+}
+
 // var scriptLocation = document.currentScript.src;
 // console.log("scriptLocation", scriptLocation);
 
