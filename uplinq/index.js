@@ -266,17 +266,17 @@ ScrollTrigger.batch("[reveal]", {
   start: (scrollInstance) => {
     const eltrigger = scrollInstance.trigger;
     const eltriggerHeight = eltrigger.clientHeight * 1.4;
-    if (eltrigger.hasAttribute("basic-reveal")) {
-      return `top-=${eltriggerHeight}px bottom`;
-    }
+    // if (eltrigger.hasAttribute("basic-reveal")) {
+    //   return `top-=${eltriggerHeight}px bottom`;
+    // }
     return "top bottom";
   },
   end: (scrollInstance) => {
     const eltrigger = scrollInstance.trigger;
     const eltriggerHeight = eltrigger.clientHeight * 1.4;
-    if (eltrigger.hasAttribute("basic-reveal")) {
-      return `top-=${eltriggerHeight}px bottom`;
-    }
+    // if (eltrigger.hasAttribute("basic-reveal")) {
+    //   return `top-=${eltriggerHeight}px bottom`;
+    // }
     return "top bottom";
   },
   // markers: true,
