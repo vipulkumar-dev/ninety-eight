@@ -193,6 +193,7 @@ document.querySelectorAll(".btn_secondary").forEach((btn) => {
 (function card_rotate() {
   gsap.from(".card_who.is-top", {
     rotateZ: 5,
+    paused: true,
     duration: 1.5,
     scrollTrigger: {
       trigger: ".card_who.is-top",
@@ -205,10 +206,25 @@ document.querySelectorAll(".btn_secondary").forEach((btn) => {
 
   gsap.from(".card_who.is-back", {
     rotateZ: -5,
+    paused: true,
     duration: 1.5,
     scrollTrigger: {
       trigger: ".card_who.is-back",
       start: "top bottom",
+      end: "bottom top",
+      scrub: 1,
+      // markers: true,
+    },
+  });
+})();
+
+(function cta_logo() {
+  gsap.to(".cta_logo_overlay", {
+    height: "100%",
+    duration: 1.5,
+    scrollTrigger: {
+      trigger: ".cta_logo",
+      start: "top 70%",
       end: "bottom top",
       scrub: 1,
       // markers: true,
