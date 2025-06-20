@@ -330,6 +330,19 @@ document.querySelectorAll(".btn_secondary").forEach((btn) => {
       // markers: true,
     },
   });
+
+  gsap.to(".hero_screen_highlight", {
+    scaleX: 1.28,
+    paused: true,
+    duration: 1.5,
+    scrollTrigger: {
+      trigger: ".hero_screen_wpr",
+      start: "top 70%",
+      end: "top 40%",
+      scrub: 1,
+      // markers: true,
+    },
+  });
 })();
 
 (function cta_logo() {
