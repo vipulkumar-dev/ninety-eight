@@ -317,6 +317,21 @@ document.querySelectorAll(".btn_secondary").forEach((btn) => {
   });
 })();
 
+(function hero_screen() {
+  gsap.to(".hero_screen_blur", {
+    scaleX: 1.6,
+    paused: true,
+    duration: 1.5,
+    scrollTrigger: {
+      trigger: ".hero_screen_wpr",
+      start: "top 70%",
+      end: "top 40%",
+      scrub: 1,
+      // markers: true,
+    },
+  });
+})();
+
 (function cta_logo() {
   gsap.to(".cta_logo_overlay", {
     height: "100%",
