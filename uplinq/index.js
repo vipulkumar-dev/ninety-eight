@@ -261,7 +261,7 @@ document.querySelectorAll(".btn_secondary").forEach((btn) => {
   btn_tl.to(
     btn.querySelector(".btn_seconday_bg"),
     {
-      height: "200%",
+      height: "250%",
       rotate: 90,
       duration: 0.8,
 
