@@ -163,6 +163,13 @@ if (header) {
         0
       )
       .to(
+        faqItem.querySelector(".faq_storke"),
+        {
+          opacity: 1,
+        },
+        0
+      )
+      .to(
         faqItem.querySelectorAll(".faq_arrow"),
         {
           rotate: 90,
@@ -254,7 +261,7 @@ document.querySelectorAll(".btn_secondary").forEach((btn) => {
   btn_tl.to(
     btn.querySelector(".btn_seconday_bg"),
     {
-      height: "300%",
+      height: "200%",
       rotate: 90,
       duration: 0.8,
 
