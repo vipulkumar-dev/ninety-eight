@@ -17,6 +17,9 @@
 .swiper-slide-active .mask_blur {
   opacity: 0;
 }
+.swiper-slide-active .testimonial_image {
+  opacity: 0;
+}
 
 .swiper-slide.swiper-slide-prev {
   transform: scale(0.9) rotate(-3deg) translate(-15px, 0px) !important;
