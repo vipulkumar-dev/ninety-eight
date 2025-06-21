@@ -451,10 +451,13 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
     spaceBetween: 4,
     grabCursor: true,
     centeredSlides: true,
-    // centeredSlidesBounds: true,
-    autoplay: {
-      delay: 3000,
-    },
+    centerInsufficientSlides: true,
+
+    centeredSlidesBounds: true,
+    // autoplay: {
+    //   delay: 3000,
+    // },
+    oneWayMovement: true,
     loop: true,
     navigation: {
       nextEl: document.querySelector(".swiper_next"),
