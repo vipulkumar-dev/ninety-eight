@@ -38,8 +38,8 @@
 }
 
 .swiper-slide {
-  transform: scale(0.2) !important;
-  /* opacity: 0; */
+  transform: scale(0.4) !important;
+  opacity: 0;
 }
 
 .swiper {
