@@ -1,6 +1,8 @@
 import { roll, getDevices, lenisInit } from "../utils.js";
 import { liveReload } from "../liveReload.js";
 
+gsap.registerPlugin(ScrollTrigger, SplitText, Flip);
+
 const { isDesktop, isMobile } = getDevices();
 
 const lenis = lenisInit();
@@ -465,5 +467,32 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
     },
   });
 });
+
+document.querySelectorAll("[pricing-button]")?.forEach((button, index) => {
+  button.addEventListener("click", () => {
+    addActiveNav(button);
+  });
+});
+
+function addActiveNav(button) {
+  // button.forEach((button) => {
+  //   button.classList.remove("active");
+  // });
+  document.querySelectorAll("[pricing-button]").forEach((btn) => {
+    btn.classList.remove("active");
+  });
+  button.classList.add("active");
+
+  const pricing_btn_bg = document.querySelector(".pricing_btn_bg");
+  const state = Flip.getState(pricing_btn_bg);
+
+  button.appendChild(pricing_btn_bg);
+  Flip.from(state, {
+    absolute: true,
+    duration: 0.4,
+    zIndex: -1,
+    ease: "power3.inOut",
+  });
+}
 
 liveReload();
