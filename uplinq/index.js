@@ -452,11 +452,11 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
     grabCursor: true,
     centeredSlides: true,
     centerInsufficientSlides: true,
-
+    // longSwipes: false,
     centeredSlidesBounds: true,
-    // autoplay: {
-    //   delay: 3000,
-    // },
+    autoplay: {
+      delay: 4000,
+    },
     oneWayMovement: true,
     loop: true,
     navigation: {
