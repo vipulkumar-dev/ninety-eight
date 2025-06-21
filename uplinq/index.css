@@ -9,3 +9,23 @@
 .header.active .header_bg {
   opacity: 1;
 }
+
+.swiper-slide.swiper-slide-active {
+  transform: scale(1.1) rotate(0deg) !important;
+}
+
+.swiper-slide.swiper-slide-prev {
+  transform: scale(0.9) rotate(-3deg) !important;
+}
+
+.swiper-slide.swiper-slide-next {
+  transform: scale(0.9) rotate(3deg) !important;
+}
+
+.swiper-slide {
+  transform: scale(0.8) !important;
+}
+
+.swiper {
+  overflow: visible;
+}

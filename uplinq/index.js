@@ -447,14 +447,15 @@ ScrollTrigger.batch("[basic-reveal],[fade-reveal],[para-reveal]", {
 document.querySelectorAll(".swiper").forEach((swiper) => {
   const swiperInstance = new Swiper(swiper, {
     direction: "horizontal",
-    slidesPerView: "auto",
-    spaceBetween: 16,
+    slidesPerView: 3,
+    spaceBetween: 32,
+    grabCursor: true,
     centeredSlides: true,
     centeredSlidesBounds: true,
-    autoplay: {
-      delay: 3000,
-    },
-    loop: true,
+    // autoplay: {
+    //   delay: 3000,
+    // },
+    // loop: true,
     navigation: {
       nextEl: document.querySelector(".swiper_next"),
       prevEl: document.querySelector(".swiper_prev"),
