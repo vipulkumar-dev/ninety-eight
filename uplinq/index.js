@@ -448,7 +448,7 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
   const swiperInstance = new Swiper(swiper, {
     direction: "horizontal",
     slidesPerView: 3,
-    spaceBetween: 32,
+    spaceBetween: 4,
     grabCursor: true,
     centeredSlides: true,
     centeredSlidesBounds: true,
