@@ -451,11 +451,11 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
     spaceBetween: 4,
     grabCursor: true,
     centeredSlides: true,
-    centeredSlidesBounds: true,
-    // autoplay: {
-    //   delay: 3000,
-    // },
-    // loop: true,
+    // centeredSlidesBounds: true,
+    autoplay: {
+      delay: 3000,
+    },
+    loop: true,
     navigation: {
       nextEl: document.querySelector(".swiper_next"),
       prevEl: document.querySelector(".swiper_prev"),
