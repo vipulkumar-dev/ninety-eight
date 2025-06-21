@@ -474,6 +474,30 @@ document.querySelectorAll("[pricing-button]")?.forEach((button, index) => {
   });
 });
 
+const textTwin = gsap.to("[tax-value]", {
+  textContent: (index, target) => {
+    console.log("target", target);
+    if (target.hasAttribute("tax-value")) {
+      return target.getAttribute("tax-value");
+    }
+    return 100;
+  },
+  paused: true,
+  duration: 1,
+  ease: "power4.inOut",
+  snap: { textContent: 1 },
+});
+
+document.querySelector("[tax-button]")?.addEventListener("click", () => {
+  textTwin.play();
+});
+
+document
+  .querySelector("[bookkepeing-button]")
+  ?.addEventListener("click", () => {
+    textTwin.reverse();
+  });
+
 function addActiveNav(button) {
   // button.forEach((button) => {
   //   button.classList.remove("active");
