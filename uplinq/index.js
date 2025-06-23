@@ -361,6 +361,35 @@ document.querySelectorAll(".btn_secondary").forEach((btn) => {
   });
 })();
 
+(function hero_light_init() {
+  const hero_light_tl = gsap.timeline({
+    // paused: true,
+    repeat: -1,
+    yoyo: true,
+    defaults: {
+      ease: "none",
+      duration: 3,
+    },
+  });
+
+  hero_light_tl
+    .fromTo(
+      ".hero_light_2",
+      { opacity: "0%" },
+      {
+        opacity: "15%",
+      }
+    )
+    .fromTo(
+      ".hero_light_1",
+      { opacity: "100%" },
+      {
+        opacity: "80%",
+      }
+    ),
+    "<";
+})();
+
 // document.querySelectorAll(".line").forEach((line) => {
 //   gsap.fromTo(
 //     line,
