@@ -211,22 +211,25 @@ if (faqSection) {
 // console.log("scriptLocation", scriptLocation);
 
 document.querySelectorAll(".btn").forEach((btn) => {
-  const btn_blur_wpr = btn.querySelector(".btn_blur_wpr");
-  const btn_width = btn.clientWidth;
-  const btn_blur_wpr_width = btn_blur_wpr.clientWidth;
-  const boundingRect = btn.getBoundingClientRect();
+  let btn_blur_wpr = btn.querySelector(".btn_blur_wpr");
+  let btn_width = btn.clientWidth;
+  let btn_blur_wpr_width = btn_blur_wpr.clientWidth;
+  let boundingRect = btn.getBoundingClientRect();
+
+  // Update dimensions on resize
+  const updateMeasurements = () => {
+    btn_width = btn.clientWidth;
+    btn_blur_wpr_width = btn_blur_wpr.clientWidth;
+    boundingRect = btn.getBoundingClientRect();
+  };
+
+  window.addEventListener("resize", updateMeasurements);
 
   btn.addEventListener("mousemove", (e) => {
     const x = e.clientX - boundingRect.left;
-
-    // Center position normalized between 0 (left) and 1 (right)
     const t = x / btn_width;
-
-    // Create a curve that is 1 at edges and 0.66 at center
     const curve = 1 - 0.35 * Math.sin(Math.PI * t);
-
     const dynamic_width = btn_blur_wpr_width * curve;
-
     const mapped_x = gsap.utils.mapRange(
       0,
       btn_width,
@@ -234,7 +237,6 @@ document.querySelectorAll(".btn").forEach((btn) => {
       btn_width - dynamic_width,
       x
     );
-
     const mapped_opacity = gsap.utils.mapRange(0, btn_width, 0, 1, x);
 
     gsap.to(btn_blur_wpr, {
@@ -253,6 +255,9 @@ document.querySelectorAll(".btn").forEach((btn) => {
       duration: 0.3,
     });
   });
+
+  // Initial measurement
+  updateMeasurements();
 });
 
 document.querySelectorAll(".btn_secondary").forEach((btn) => {
