@@ -327,6 +327,7 @@ document.querySelectorAll(".btn_secondary").forEach((btn) => {
 (function popup_init() {
   const popupTriggers = document.querySelectorAll("[popup-trigger]");
   const closeTriggers = document.querySelectorAll("[popup-close]");
+  const iframe = document.querySelector("#testimonial_video");
 
   const popup_animation = gsap.timeline({
     paused: true,
@@ -341,7 +342,7 @@ document.querySelectorAll(".btn_secondary").forEach((btn) => {
       autoAlpha: 1,
     })
     .to(
-      ".main-wrapper",
+      [".main-wrapper", "#header"],
       {
         filter: "blur(12px)",
       },
@@ -350,13 +351,19 @@ document.querySelectorAll(".btn_secondary").forEach((btn) => {
 
   popupTriggers.forEach((popupTrigger) => {
     popupTrigger.addEventListener("click", () => {
+      const videoUrl = popupTrigger.getAttribute("popup-trigger");
+      if (iframe && videoUrl) {
+        iframe.setAttribute("src", videoUrl);
+      }
       popup_animation.play();
     });
   });
 
   closeTriggers.forEach((closeTrigger) => {
     closeTrigger.addEventListener("click", () => {
-      popup_animation.reverse();
+      popup_animation.reverse().eventCallback("onReverseComplete", () => {
+        if (iframe) iframe.removeAttribute("src");
+      });
     });
   });
 })();
