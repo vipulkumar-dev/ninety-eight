@@ -1,0 +1,8 @@
+* {
+  /* outline: 1px solid red; */
+}
+
+.video {
+  border-radius: 24px;
+  overflow: hidden;
+}

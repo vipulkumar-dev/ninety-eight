@@ -324,6 +324,43 @@ document.querySelectorAll(".btn_secondary").forEach((btn) => {
   });
 })();
 
+(function popup_init() {
+  const popupTriggers = document.querySelectorAll("[popup-trigger]");
+  const closeTriggers = document.querySelectorAll("[popup-close]");
+
+  const popup_animation = gsap.timeline({
+    paused: true,
+    defaults: {
+      duration: 1,
+      ease: "power4.inOut",
+    },
+  });
+
+  popup_animation
+    .to("[pop-up]", {
+      autoAlpha: 1,
+    })
+    .to(
+      ".main-wrapper",
+      {
+        filter: "blur(12px)",
+      },
+      "<"
+    );
+
+  popupTriggers.forEach((popupTrigger) => {
+    popupTrigger.addEventListener("click", () => {
+      popup_animation.play();
+    });
+  });
+
+  closeTriggers.forEach((closeTrigger) => {
+    closeTrigger.addEventListener("click", () => {
+      popup_animation.reverse();
+    });
+  });
+})();
+
 (function hero_screen() {
   gsap.to(".hero_screen_blur", {
     scaleX: 1.6,
