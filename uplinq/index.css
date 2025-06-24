@@ -15,31 +15,31 @@
 }
 
 .swiper-slide-active .mask_blur {
-  opacity: 0;
+  opacity: 0 !important;
 }
 .swiper-slide-active .testimonial_image,
 .swiper-slide-active .testimonial_glow {
-  opacity: 1;
+  opacity: 1 !important;
 }
 
 .swiper-slide.swiper-slide-active {
   transform: scale(1.1) rotate(0deg) translate(0px, 0px) !important;
-  opacity: 1;
+  opacity: 1 !important;
 }
 
 .swiper-slide.swiper-slide-prev {
   transform: scale(0.9) rotate(-3deg) translate(-25px, 0px) !important;
-  opacity: 1;
+  opacity: 1 !important;
 }
 
 .swiper-slide.swiper-slide-next {
   transform: scale(0.9) rotate(3deg) translate(25px, 0px) !important;
-  opacity: 1;
+  opacity: 1 !important;
 }
 
 .swiper-slide {
   transform: scale(0.4) !important;
-  opacity: 0;
+  opacity: 0 !important;
 }
 
 .swiper {
