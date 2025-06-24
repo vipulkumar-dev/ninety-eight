@@ -397,7 +397,7 @@ document.querySelectorAll(".btn_secondary").forEach((btn) => {
       trigger: ".cta_logo",
       start: "center 80%",
       end: "center top",
-      scrub: 1,
+      scrub: isDesktop ? 1 : false,
       // markers: true,
     },
   });
