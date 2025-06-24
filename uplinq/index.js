@@ -390,6 +390,7 @@ document.querySelectorAll(".btn_secondary").forEach((btn) => {
 })();
 
 (function cta_logo() {
+  if (isMobile) return;
   gsap.to(".cta_logo_overlay", {
     height: "100%",
     duration: 1.5,
@@ -397,7 +398,7 @@ document.querySelectorAll(".btn_secondary").forEach((btn) => {
       trigger: ".cta_logo",
       start: "center 80%",
       end: "center top",
-      scrub: isDesktop ? 1 : false,
+      scrub: 1,
       // markers: true,
     },
   });
