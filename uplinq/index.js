@@ -324,6 +324,31 @@ document.querySelectorAll(".btn_secondary").forEach((btn) => {
   });
 })();
 
+(function toggle_check_init() {
+  const toggleElements = document.querySelectorAll(".toggle_check");
+  let currentIndex = 0;
+
+  // Find initially active one (if any)
+  toggleElements.forEach((el, index) => {
+    if (el.classList.contains("active")) {
+      currentIndex = index;
+    } else {
+      el.classList.remove("active");
+    }
+  });
+
+  setInterval(() => {
+    // Remove active from all
+    toggleElements.forEach((el) => el.classList.remove("active"));
+
+    // Add active to current
+    toggleElements[currentIndex].classList.add("active");
+
+    // Move to next
+    currentIndex = (currentIndex + 1) % toggleElements.length;
+  }, 1500);
+})();
+
 (function popup_init() {
   const popupTriggers = document.querySelectorAll("[popup-trigger]");
   const closeTriggers = document.querySelectorAll("[popup-close]");
