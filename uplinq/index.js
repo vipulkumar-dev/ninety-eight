@@ -363,15 +363,26 @@ document.querySelectorAll(".btn_secondary").forEach((btn) => {
   });
 
   popup_animation
-    .to("[pop-up]", {
-      autoAlpha: 1,
-    })
     .to(
-      [".main-wrapper", "#header"],
+      "[pop-up]",
+      {
+        autoAlpha: 1,
+      },
+      0
+    )
+    .to(
+      [".page-wrapper"],
       {
         filter: "blur(12px)",
       },
-      "<"
+      0
+    )
+    .from(
+      "[popup-content]",
+      {
+        scale: 0.9,
+      },
+      0
     );
 
   popupTriggers.forEach((popupTrigger) => {
