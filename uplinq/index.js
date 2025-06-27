@@ -558,11 +558,10 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
     spaceBetween: 4,
     grabCursor: true,
     centeredSlides: true,
-    // longSwipes: false,
     autoplay: {
       delay: 4000,
     },
-    oneWayMovement: true,
+    // oneWayMovement: true,
     loop: true,
     navigation: {
       nextEl: document.querySelector(".swiper_next"),
