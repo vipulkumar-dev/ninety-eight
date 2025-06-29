@@ -325,8 +325,22 @@ document.querySelectorAll(".btn_secondary").forEach((btn) => {
 })();
 
 (function toggle_check_init() {
+  const card_tl = gsap.timeline({
+    paused: true,
+  });
+
+  card_tl
+    .to(".card_content.is-front", {
+      opacity: 0,
+    })
+    .to(".card_content.is-back", {
+      opacity: 1,
+    });
+
   const toggleElements = document.querySelectorAll(".toggle_check");
   let currentIndex = 0;
+  let loopCount = 0;
+  let playingForward = true;
 
   // Find initially active one (if any)
   toggleElements.forEach((el, index) => {
@@ -339,13 +353,29 @@ document.querySelectorAll(".btn_secondary").forEach((btn) => {
 
   setInterval(() => {
     // Remove active from all
+    if (currentIndex == 0) {
+      card_tl.reverse();
+    } else if (currentIndex == 4) {
+      card_tl.play();
+    }
+
+    playingForward = !playingForward;
+
     toggleElements.forEach((el) => el.classList.remove("active"));
 
     // Add active to current
     toggleElements[currentIndex].classList.add("active");
 
     // Move to next
-    currentIndex = (currentIndex + 1) % toggleElements.length;
+    currentIndex++;
+
+    // If loop completed (cycled through all elements)
+    if (currentIndex >= toggleElements.length) {
+      loopCount++;
+      currentIndex = 0;
+
+      // Toggle GSAP animation direction
+    }
   }, 1500);
 })();
 
