@@ -324,6 +324,61 @@ document.querySelectorAll(".btn_secondary").forEach((btn) => {
   });
 })();
 
+(function toggle_check_init() {
+  const card_tl = gsap.timeline({
+    paused: true,
+  });
+
+  card_tl
+    .to(".card_content.is-front", {
+      opacity: 0,
+    })
+    .to(".card_content.is-back", {
+      opacity: 1,
+    });
+
+  const toggleElements = document.querySelectorAll(".toggle_check");
+  let currentIndex = 0;
+  let loopCount = 0;
+  let playingForward = true;
+
+  // Find initially active one (if any)
+  toggleElements.forEach((el, index) => {
+    if (el.classList.contains("active")) {
+      currentIndex = index;
+    } else {
+      el.classList.remove("active");
+    }
+  });
+
+  setInterval(() => {
+    // Remove active from all
+    if (currentIndex == 0) {
+      card_tl.reverse();
+    } else if (currentIndex == 4) {
+      card_tl.play();
+    }
+
+    playingForward = !playingForward;
+
+    toggleElements.forEach((el) => el.classList.remove("active"));
+
+    // Add active to current
+    toggleElements[currentIndex].classList.add("active");
+
+    // Move to next
+    currentIndex++;
+
+    // If loop completed (cycled through all elements)
+    if (currentIndex >= toggleElements.length) {
+      loopCount++;
+      currentIndex = 0;
+
+      // Toggle GSAP animation direction
+    }
+  }, 1500);
+})();
+
 (function popup_init() {
   const popupTriggers = document.querySelectorAll("[popup-trigger]");
   const closeTriggers = document.querySelectorAll("[popup-close]");
@@ -338,15 +393,26 @@ document.querySelectorAll(".btn_secondary").forEach((btn) => {
   });
 
   popup_animation
-    .to("[pop-up]", {
-      autoAlpha: 1,
-    })
     .to(
-      [".main-wrapper", "#header"],
+      "[pop-up]",
+      {
+        autoAlpha: 1,
+      },
+      0
+    )
+    .to(
+      [".page-wrapper"],
       {
         filter: "blur(12px)",
       },
-      "<"
+      0
+    )
+    .from(
+      "[popup-content]",
+      {
+        scale: 0.9,
+      },
+      0
     );
 
   popupTriggers.forEach((popupTrigger) => {
@@ -533,11 +599,10 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
     spaceBetween: 4,
     grabCursor: true,
     centeredSlides: true,
-    // longSwipes: false,
     autoplay: {
       delay: 4000,
     },
-    oneWayMovement: true,
+    // oneWayMovement: true,
     loop: true,
     navigation: {
       nextEl: document.querySelector(".swiper_next"),
