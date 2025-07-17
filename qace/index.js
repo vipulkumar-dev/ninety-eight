@@ -152,12 +152,23 @@ document.querySelector(".menu_trigger").addEventListener("click", () => {
 // Nav
 
 const nav_items = document.querySelectorAll(".nav_item");
+const sections = [];
+
 let active_nav = 0;
 
+// Prepare sections list from nav hrefs
+nav_items.forEach((nav) => {
+  const id = nav.getAttribute("href");
+  const section = document.querySelector(id);
+  if (section) sections.push({ id, section });
+});
+
+// Mouse + click interactions
 nav_items.forEach((nav, index) => {
   nav.addEventListener("mouseenter", () => {
     addActiveNav(nav);
   });
+
   nav.addEventListener("mouseleave", () => {
     addActiveNav(nav_items[active_nav]);
   });
@@ -169,15 +180,14 @@ nav_items.forEach((nav, index) => {
 });
 
 function addActiveNav(nav) {
-  nav_items.forEach((nav) => {
-    nav.classList.remove("active");
-  });
+  nav_items.forEach((nav) => nav.classList.remove("active"));
   nav.classList.add("active");
 
   const nav_bg = document.querySelector(".nav_bg");
   const state = Flip.getState(nav_bg);
 
   nav.appendChild(nav_bg);
+
   Flip.from(state, {
     absolute: true,
     duration: 0.6,
@@ -185,6 +195,23 @@ function addActiveNav(nav) {
     ease: "power3.inOut",
   });
 }
+
+// Scroll-based nav update
+window.addEventListener("scroll", () => {
+  const middleY = window.innerHeight / 2;
+
+  for (let i = 0; i < sections.length; i++) {
+    const { section } = sections[i];
+    const rect = section.getBoundingClientRect();
+    if (rect.top <= middleY && rect.bottom >= middleY) {
+      if (active_nav !== i) {
+        active_nav = i;
+        addActiveNav(nav_items[i]);
+      }
+      break;
+    }
+  }
+});
 
 document.querySelectorAll(".btn").forEach((btn) => {
   let split = new SplitText(btn, {
@@ -281,8 +308,8 @@ function faqTimeline(faqItem) {
         ease: "power4.inOut",
       },
       onComplete: () => {
-        lenis.resize();
-        ScrollTrigger.refresh();
+        // lenis.resize();
+        // ScrollTrigger.refresh();
       },
       onReverseComplete: () => {
         lenis.resize();
@@ -323,5 +350,73 @@ function faqTimeline(faqItem) {
 
   return faqTl;
 }
+
+document.querySelectorAll("[para-reveal]").forEach((text) => {
+  new SplitText(text, {
+    type: "lines",
+    deepslice: true,
+    // mask: "lines",
+    linesClass: "para_line",
+  });
+});
+
+gsap.set("[para-reveal]", {
+  opacity: 1,
+});
+
+ScrollTrigger.batch("[basic-reveal],[fade-reveal],[para-reveal]", {
+  start: (scrollInstance) => {
+    const eltrigger = scrollInstance.trigger;
+    const eltriggerHeight = eltrigger.clientHeight * 1.4;
+    // if (eltrigger.hasAttribute("basic-reveal")) {
+    //   return `top-=${eltriggerHeight}px bottom`;
+    // }
+    return "top bottom";
+  },
+  end: (scrollInstance) => {
+    const eltrigger = scrollInstance.trigger;
+    const eltriggerHeight = eltrigger.clientHeight * 1.4;
+    // if (eltrigger.hasAttribute("basic-reveal")) {
+    //   return `top-=${eltriggerHeight}px bottom`;
+    // }
+    return "top bottom";
+  },
+  // markers: true,
+  onEnter: (elements, triggers) => {
+    const animateItems = [];
+    let duration = 1;
+
+    elements.forEach((element) => {
+      if (element.hasAttribute("basic-reveal")) {
+        animateItems.push(element);
+      }
+      if (element.hasAttribute("para-reveal")) {
+        console.log("para", element);
+        element.querySelectorAll(".para_line").forEach((line) => {
+          animateItems.push(line);
+        });
+      }
+      if (element.hasAttribute("fade-reveal")) {
+        animateItems.push(element);
+      }
+    });
+    // console.log("animateItems", animateItems);
+
+    gsap.to(animateItems, {
+      y: "0%",
+      opacity: 1,
+      filter: "blur(0px)",
+      scaleY: 1,
+      stagger: 0.04,
+      duration: (index, target) => {
+        if (target.hasAttribute("extra-time")) {
+          return 2.5;
+        }
+        return 1.5;
+      },
+      ease: "power4.inOut",
+    });
+  },
+});
 
 liveReload();
