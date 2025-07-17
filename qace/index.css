@@ -1,0 +1,11 @@
+/* * {
+  outline: 1px solid red;
+} */
+
+.swiper-slide:hover .project_image {
+  transform: scale(1.05);
+}
+
+.nav_item.active .nav_txt {
+  opacity: 1;
+}
