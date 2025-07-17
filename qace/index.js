@@ -81,13 +81,13 @@ menu_tl
     duration: 0.3,
   })
   .to(".menu_line.top", {
-    y: 5,
+    y: 5.2,
     duration: 0.2,
   })
   .to(
     ".menu_line.bottom",
     {
-      y: -5,
+      y: -5.2,
       duration: 0.2,
     },
     "<"
