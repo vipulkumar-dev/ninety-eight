@@ -170,23 +170,26 @@ document.querySelector(".menu_trigger").addEventListener("click", () => {
 const nav_items = document.querySelectorAll(".nav_item");
 const sections = [];
 
-let active_nav = 0;
-
-// Prepare sections list from nav hrefs
-nav_items.forEach((nav) => {
+// Build nav-section pairs, skipping navs without valid section
+const navSectionPairs = [];
+nav_items.forEach((nav, index) => {
   const id = nav.getAttribute("href");
   const section = document.querySelector(id);
-  if (section) sections.push({ id, section });
+  if (section) {
+    navSectionPairs.push({ nav, section, index });
+  }
 });
 
+let active_nav = 0;
+
 // Mouse + click interactions
-nav_items.forEach((nav, index) => {
+navSectionPairs.forEach(({ nav, index }) => {
   nav.addEventListener("mouseenter", () => {
     addActiveNav(nav);
   });
 
   nav.addEventListener("mouseleave", () => {
-    addActiveNav(nav_items[active_nav]);
+    addActiveNav(navSectionPairs[active_nav].nav);
   });
 
   nav.addEventListener("click", () => {
@@ -216,13 +219,13 @@ function addActiveNav(nav) {
 window.addEventListener("scroll", () => {
   const middleY = window.innerHeight / 2;
 
-  for (let i = 0; i < sections.length; i++) {
-    const { section } = sections[i];
+  for (let i = 0; i < navSectionPairs.length; i++) {
+    const { section } = navSectionPairs[i];
     const rect = section.getBoundingClientRect();
     if (rect.top <= middleY && rect.bottom >= middleY) {
       if (active_nav !== i) {
         active_nav = i;
-        addActiveNav(nav_items[i]);
+        addActiveNav(navSectionPairs[i].nav);
       }
       break;
     }
