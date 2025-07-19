@@ -9,9 +9,9 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
     speed: 500,
     // centeredSlides: true,
     // centeredSlidesBounds: true,
-    // autoplay: {
-    //   delay: 3000,
-    // },
+    autoplay: {
+      delay: 3000,
+    },
 
     loop: true,
     navigation: {
