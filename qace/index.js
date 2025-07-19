@@ -9,9 +9,6 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
     speed: 500,
     // centeredSlides: true,
     // centeredSlidesBounds: true,
-    autoplay: {
-      delay: 3000,
-    },
 
     loop: true,
     navigation: {
@@ -19,6 +16,24 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
       prevEl: document.querySelector(".swiper_prev"),
     },
   });
+});
+
+const wprElements = document.querySelectorAll("[active-pagination-dot-number]");
+
+wprElements.forEach((wpr) => {
+  const activeDot = parseInt(
+    wpr.getAttribute("active-pagination-dot-number"),
+    10
+  );
+  const dots = wpr.querySelectorAll(".pagination_dots");
+
+  // Remove 'active' from all dots
+  dots.forEach((dot) => dot.classList.remove("is-active"));
+
+  // Add 'active' to the correct dot (1-based to 0-based index)
+  if (dots[activeDot - 1]) {
+    dots[activeDot - 1].classList.add("is-active");
+  }
 });
 
 const lenis = lenisInit();
