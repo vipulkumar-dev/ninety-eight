@@ -1,23 +1,25 @@
 import { roll, getDevices, lenisInit } from "../utils.js";
 import { liveReload } from "../liveReload.js";
 
-// document.querySelectorAll(".swiper").forEach((swiper) => {
-//   const swiperInstance = new Swiper(swiper, {
-//     direction: "horizontal",
-//     slidesPerView: "auto",
-//     spaceBetween: 16,
-//     centeredSlides: true,
-//     centeredSlidesBounds: true,
-//     autoplay: {
-//       delay: 3000,
-//     },
-//     loop: true,
-//     navigation: {
-//       nextEl: document.querySelector(".swiper_next"),
-//       prevEl: document.querySelector(".swiper_prev"),
-//     },
-//   });
-// });
+document.querySelectorAll(".swiper").forEach((swiper) => {
+  const swiperInstance = new Swiper(swiper, {
+    direction: "horizontal",
+    slidesPerView: "auto",
+    spaceBetween: 16,
+    speed: 500,
+    // centeredSlides: true,
+    // centeredSlidesBounds: true,
+    // autoplay: {
+    //   delay: 3000,
+    // },
+
+    loop: true,
+    navigation: {
+      nextEl: document.querySelector(".swiper_next"),
+      prevEl: document.querySelector(".swiper_prev"),
+    },
+  });
+});
 
 const lenis = lenisInit();
 const { isDesktop, isMobile } = getDevices();

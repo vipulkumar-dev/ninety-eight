@@ -1,11 +1,13 @@
 /* * {
   outline: 1px solid red;
 } */
-
-.swiper-slide:hover .project_image {
-  transform: scale(1.05);
+.swiper-slide.swiper-slide-active {
+  opacity: 1 !important;
+  filter: blur(0px);
 }
 
-.nav_item.active .nav_txt {
-  opacity: 1;
+.swiper-slide {
+  opacity: 0 !important;
+  filter: blur(12px);
+  transition-property: all !important;
 }
