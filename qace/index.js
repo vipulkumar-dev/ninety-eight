@@ -5,7 +5,6 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
   const swiperInstance = new Swiper(swiper, {
     direction: "horizontal",
     slidesPerView: "auto",
-    spaceBetween: 16,
     speed: 500,
     // centeredSlides: true,
     // centeredSlidesBounds: true,
