@@ -445,7 +445,7 @@ function initReveal() {
 if (isLoader) {
   setTimeout(() => {
     initReveal();
-  }, 6400);
+  }, 6000);
 } else {
   initReveal();
 }
@@ -453,7 +453,7 @@ if (isLoader) {
 gsap.to("[loading-animation]", {
   opacity: 0,
   duration: 0.4,
-  delay: 6.2,
+  delay: 6.1,
   ease: "power2.inOut",
 });
 
