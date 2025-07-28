@@ -17,7 +17,7 @@
 
 .backed_item.unactive .backed_container {
   opacity: 0.1;
-  transition-duration: 300ms;
+  transition-duration: 100ms !important;
 }
 .backed_item.active .backed_title {
   opacity: 1 !important;
