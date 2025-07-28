@@ -195,10 +195,10 @@ gsap.to("[loading-animation]", {
   delay: 1,
   ease: "power4.inOut",
 });
-gsap.to(".loading_bg", {
-  opacity: 1,
-  duration: 0.7,
-  ease: "power4.inOut",
-});
+// gsap.to(".loading_bg", {
+//   opacity: 1,
+//   duration: 0.7,
+//   ease: "power4.inOut",
+// });
 
 liveReload();
