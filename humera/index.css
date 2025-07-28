@@ -5,3 +5,15 @@
 .swiper-slide:hover .project_image {
   transform: scale(1.05);
 }
+
+.btn:hover .btn_bg {
+  left: -100%;
+  bottom: -100%;
+}
+
+.backed_item.unactive .backed_container {
+  opacity: 0.1;
+}
+.backed_item.active .backed_title {
+  opacity: 1 !important;
+}

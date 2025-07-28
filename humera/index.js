@@ -21,6 +21,50 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
   });
 });
 
+document.querySelectorAll(".backed_item").forEach((item, _, allItems) => {
+  item.addEventListener("mouseenter", () => {
+    allItems.forEach((el) => {
+      if (el !== item) {
+        el.classList.add("unactive");
+        el.classList.remove("active");
+      } else {
+        el.classList.add("active");
+        el.classList.remove("unactive");
+      }
+    });
+    gsap.fromTo(
+      item.querySelector(".backed_label"),
+      {
+        y: 15,
+        scale: 0,
+        transformOrigin: "center bottom",
+        filter: "blur(15px)",
+        opacity: 0,
+        rotate: "-20deg",
+      },
+      {
+        y: 0,
+        scale: 1,
+        opacity: 1,
+        transformOrigin: "center bottom",
+        filter: "blur(0px)",
+        rotate: "0deg",
+        duration: 0.4,
+        ease: "power3.inOut",
+      }
+    );
+    console.log("Mouse entered:", item);
+  });
+});
+
+document.querySelectorAll("[backed-wpr]").forEach((wrapper) => {
+  wrapper.addEventListener("mouseleave", () => {
+    document.querySelectorAll(".backed_item").forEach((el) => {
+      el.classList.remove("active", "unactive");
+    });
+  });
+});
+
 document.querySelectorAll("[para-reveal]").forEach((text) => {
   new SplitText(text, {
     type: "lines",
@@ -47,7 +91,7 @@ gsap.set("[word-reveal]", {
   opacity: 1,
 });
 
-const isLoader = false;
+const isLoader = true;
 
 function initReveal() {
   ScrollTrigger.batch(
@@ -118,16 +162,17 @@ function initReveal() {
 if (isLoader) {
   setTimeout(() => {
     initReveal();
-  }, 6000);
+  }, 1200);
 } else {
   initReveal();
 }
 
 gsap.to("[loading-animation]", {
   opacity: 0,
-  duration: 0.4,
-  delay: 6.1,
-  ease: "power2.inOut",
+  filter: "blur(1px)",
+  duration: 0.7,
+  delay: 1,
+  ease: "power4.inOut",
 });
 
 liveReload();
