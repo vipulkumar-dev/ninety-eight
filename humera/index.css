@@ -32,5 +32,4 @@
   opacity: 1;
   pointer-events: auto;
   transition-delay: 0.2s !important;
-  transition: all 0.3s cubic-bezier(1, 0, 1, 1);
 }
