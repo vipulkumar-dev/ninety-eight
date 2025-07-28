@@ -25,6 +25,7 @@
 .header.active .nav_wrapper {
   width: 450px;
   filter: drop-shadow(rgba(0, 0, 0, 0.13) 0px 2px 40px);
+  padding-block: 20px;
 }
 
 .header.active .nav_cta {
