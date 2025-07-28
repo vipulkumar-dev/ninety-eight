@@ -21,44 +21,65 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
   });
 });
 
+let hoverTimeout;
+let isFirstHover = true;
+
 document.querySelectorAll(".backed_item").forEach((item, _, allItems) => {
   item.addEventListener("mouseenter", () => {
-    allItems.forEach((el) => {
-      if (el !== item) {
-        el.classList.add("unactive");
-        el.classList.remove("active");
-      } else {
-        el.classList.add("active");
-        el.classList.remove("unactive");
-      }
-    });
-    gsap.fromTo(
-      item.querySelector(".backed_label"),
-      {
-        y: 15,
-        scale: 0,
-        transformOrigin: "center bottom",
-        filter: "blur(15px)",
-        opacity: 0,
-        rotate: "-20deg",
-      },
-      {
-        y: 0,
-        scale: 1,
-        opacity: 1,
-        transformOrigin: "center bottom",
-        filter: "blur(0px)",
-        rotate: "0deg",
-        duration: 0.4,
-        ease: "power4.inOut",
-      }
-    );
-    console.log("Mouse entered:", item);
+    // Clear any existing timeout
+    clearTimeout(hoverTimeout);
+
+    // Add delay only for first hover
+    const delay = isFirstHover ? 100 : 0;
+
+    hoverTimeout = setTimeout(() => {
+      allItems.forEach((el) => {
+        if (el !== item) {
+          el.classList.add("unactive");
+          el.classList.remove("active");
+        } else {
+          el.classList.add("active");
+          el.classList.remove("unactive");
+        }
+      });
+
+      gsap.fromTo(
+        item.querySelector(".backed_label"),
+        {
+          y: 15,
+          scale: 0,
+          transformOrigin: "center bottom",
+          filter: "blur(15px)",
+          opacity: 0,
+          rotate: "-20deg",
+        },
+        {
+          y: 0,
+          scale: 1,
+          opacity: 1,
+          transformOrigin: "center bottom",
+          filter: "blur(0px)",
+          rotate: "0deg",
+          duration: 0.4,
+          ease: "power4.inOut",
+        }
+      );
+
+      // Mark that first hover is done
+      isFirstHover = false;
+      console.log("Mouse entered:", item);
+    }, delay);
   });
 });
 
 document.querySelectorAll("[backed-wpr]").forEach((wrapper) => {
   wrapper.addEventListener("mouseleave", () => {
+    // Clear timeout on mouseleave
+    clearTimeout(hoverTimeout);
+
+    // Reset first hover state
+    isFirstHover = true;
+
     document.querySelectorAll(".backed_item").forEach((el) => {
       el.classList.remove("active", "unactive");
     });
