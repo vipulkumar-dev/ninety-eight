@@ -50,7 +50,7 @@ document.querySelectorAll(".backed_item").forEach((item, _, allItems) => {
         filter: "blur(0px)",
         rotate: "0deg",
         duration: 0.4,
-        ease: "power3.inOut",
+        ease: "power4.inOut",
       }
     );
     console.log("Mouse entered:", item);

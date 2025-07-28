@@ -11,6 +11,10 @@
   bottom: -100%;
 }
 
+.video_button:hover .play_icon {
+  transform: translateX(2px);
+}
+
 .backed_item.unactive .backed_container {
   opacity: 0.1;
 }
