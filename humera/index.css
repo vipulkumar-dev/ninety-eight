@@ -33,3 +33,12 @@
   pointer-events: auto;
   transition-delay: 0.3s !important;
 }
+
+.faq_item.active .faq_body {
+  height: auto;
+  opacity: 1;
+}
+
+.faq_item.active .faq_icon {
+  rotate: 180deg;
+}

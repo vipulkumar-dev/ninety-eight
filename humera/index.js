@@ -2,7 +2,7 @@ import { roll, getDevices, lenisInit } from "../utils.js";
 import { liveReload } from "../liveReload.js";
 
 const { isDesktop, isMobile } = getDevices();
-const lenis = lenisInit(0.2);
+const lenis = lenisInit(0.15);
 
 const header = document.getElementById("header");
 
@@ -303,5 +303,16 @@ gsap.to("[loading-animation]", {
 //   duration: 0.7,
 //   ease: "power4.inOut",
 // });
+
+document.querySelectorAll(".faq_item").forEach((item) => {
+  item.addEventListener("click", () => {
+    document.querySelectorAll(".faq_item.active").forEach((activeItem) => {
+      if (activeItem !== item) {
+        activeItem.classList.remove("active");
+      }
+    });
+    item.classList.toggle("active");
+  });
+});
 
 liveReload();
