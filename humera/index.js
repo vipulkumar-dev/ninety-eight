@@ -1,7 +1,8 @@
-import { roll, getDevices } from "../utils.js";
+import { roll, getDevices, lenisInit } from "../utils.js";
 import { liveReload } from "../liveReload.js";
 
 const { isDesktop, isMobile } = getDevices();
+const lenis = lenisInit(0.2);
 
 const header = document.getElementById("header");
 
@@ -36,7 +37,7 @@ if (header) {
       }
     }
 
-    if (window.scrollY > 0) {
+    if (window.scrollY > 50) {
       header.classList.add("active");
     } else {
       header.classList.remove("active");

@@ -31,5 +31,5 @@
 .header.active .nav_cta {
   opacity: 1;
   pointer-events: auto;
-  transition-delay: 0.2s !important;
+  transition-delay: 0.3s !important;
 }
