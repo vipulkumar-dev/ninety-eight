@@ -304,15 +304,85 @@ gsap.to("[loading-animation]", {
 //   ease: "power4.inOut",
 // });
 
-document.querySelectorAll(".faq_item").forEach((item) => {
-  item.addEventListener("click", () => {
-    document.querySelectorAll(".faq_item.active").forEach((activeItem) => {
-      if (activeItem !== item) {
-        activeItem.classList.remove("active");
+(function faq_init() {
+  const faq_items = document.querySelectorAll(".faq_item");
+
+  let skipCallback = true;
+
+  faq_items.forEach((faqItem, index) => {
+    faqItem.isActive = false;
+    const faqTl = faqTimeline(faqItem);
+
+    faqItem.addEventListener("click", () => {
+      if (!faqItem.isActive) {
+        faqTl.play();
+        faqItem.isActive = true;
+      } else {
+        faqTl.reverse();
+        faqItem.isActive = false;
       }
     });
-    item.classList.toggle("active");
+
+    if (index === 0) {
+      faqItem.click(); // auto-open first item
+    }
   });
-});
+
+  function faqTimeline(faqItem) {
+    const faqTl = gsap
+      .timeline({
+        paused: true,
+        defaults: {
+          duration: 0.8,
+          ease: "power4.inOut",
+        },
+        onComplete: () => {
+          if (skipCallback) {
+            skipCallback = false; // only skip first
+            return;
+          }
+          console.log("FAQ animation complete");
+          lenis.resize();
+          ScrollTrigger.refresh();
+        },
+        onReverseComplete: () => {
+          lenis.resize();
+          ScrollTrigger.refresh();
+        },
+      })
+      .to(
+        faqItem,
+        {
+          borderRadius: "6px",
+        },
+        0
+      )
+      .to(
+        faqItem.querySelector(".faq_body"),
+        {
+          height: "auto",
+          opacity: 1,
+          filter: "blur(0px)",
+        },
+        0
+      )
+      .to(
+        faqItem.querySelector(".faq_storke"),
+        {
+          opacity: 1,
+        },
+        0
+      )
+      .to(
+        faqItem.querySelectorAll(".faq_icon"),
+        {
+          rotate: 180,
+        },
+        0
+      );
+
+    return faqTl;
+  }
+})();
 
 liveReload();
