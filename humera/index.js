@@ -289,7 +289,7 @@ function initReveal() {
           opacity: 1,
           filter: "blur(0px)",
           scaleY: 1,
-          stagger: 0.04,
+          stagger: 0.06,
           duration: (index, target) => {
             if (target.hasAttribute("extra-time")) {
               return 1.6;
