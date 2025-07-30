@@ -292,7 +292,7 @@ function initReveal() {
           stagger: 0.04,
           duration: (index, target) => {
             if (target.hasAttribute("extra-time")) {
-              return 2;
+              return 1.6;
             }
             return 1;
           },

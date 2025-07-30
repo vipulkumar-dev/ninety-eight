@@ -38,3 +38,7 @@
   filter: blur(0px);
   transition-delay: 0.3s !important;
 }
+
+.video_wpr:hover .video_play_icon {
+  transform: scale(1.2);
+}
