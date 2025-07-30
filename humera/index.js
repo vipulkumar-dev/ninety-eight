@@ -272,7 +272,7 @@ function initReveal() {
           stagger: 0.04,
           duration: (index, target) => {
             if (target.hasAttribute("extra-time")) {
-              return 2.5;
+              return 2;
             }
             return 1;
           },
@@ -360,6 +360,7 @@ gsap.to("[loading-animation]", {
         faqItem.querySelector(".faq_body"),
         {
           height: "auto",
+          y: 0,
           opacity: 1,
           filter: "blur(0px)",
         },
