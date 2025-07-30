@@ -24,8 +24,11 @@
 
 .header.active .nav_wrapper {
   width: 400px;
-  filter: drop-shadow(rgba(0, 0, 0, 0.13) 0px 2px 40px);
   padding-block: 20px;
+}
+
+.header.active .nav-bg {
+  filter: drop-shadow(rgba(0, 0, 0, 0.2) 0px 2px 40px) blur(0px) !important;
 }
 
 .header.active .nav_cta {
