@@ -15,6 +15,10 @@
   transform: translateX(2px);
 }
 
+.article_link:hover .article_icon {
+  transform: translateX(2px);
+}
+
 .backed_item.unactive .backed_container {
   opacity: 0.1;
 }
