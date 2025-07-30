@@ -306,20 +306,28 @@ gsap.to("[loading-animation]", {
 
 (function faq_init() {
   const faq_items = document.querySelectorAll(".faq_item");
-
-  let skipCallback = true;
+  let activeIndex = null;
+  const timelines = [];
 
   faq_items.forEach((faqItem, index) => {
     faqItem.isActive = false;
     const faqTl = faqTimeline(faqItem);
+    timelines[index] = faqTl;
 
     faqItem.addEventListener("click", () => {
       if (!faqItem.isActive) {
+        // Close any open item
+        if (activeIndex !== null && activeIndex !== index) {
+          timelines[activeIndex].reverse();
+          faq_items[activeIndex].isActive = false;
+        }
         faqTl.play();
         faqItem.isActive = true;
+        activeIndex = index;
       } else {
         faqTl.reverse();
         faqItem.isActive = false;
+        activeIndex = null;
       }
     });
 
@@ -333,17 +341,8 @@ gsap.to("[loading-animation]", {
       .timeline({
         paused: true,
         defaults: {
-          duration: 0.8,
-          ease: "power4.inOut",
-        },
-        onComplete: () => {
-          if (skipCallback) {
-            skipCallback = false; // only skip first
-            return;
-          }
-          console.log("FAQ animation complete");
-          lenis.resize();
-          ScrollTrigger.refresh();
+          duration: 0.4,
+          ease: "power3.inOut",
         },
         onReverseComplete: () => {
           lenis.resize();
@@ -367,16 +366,9 @@ gsap.to("[loading-animation]", {
         0
       )
       .to(
-        faqItem.querySelector(".faq_storke"),
-        {
-          opacity: 1,
-        },
-        0
-      )
-      .to(
         faqItem.querySelectorAll(".faq_icon"),
         {
-          rotate: 180,
+          rotate: -180,
         },
         0
       );
