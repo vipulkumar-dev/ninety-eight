@@ -1,6 +1,26 @@
 import { roll, getDevices, lenisInit } from "../utils.js";
 import { liveReload } from "../liveReload.js";
 
+// Force scroll to top immediately
+(function scrollResotration() {
+  window.scrollTo(0, 0);
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
+
+  // Prevent scroll restoration
+  if ("scrollRestoration" in history) {
+    history.scrollRestoration = "manual";
+  }
+
+  window.addEventListener("load", () => {
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    }, 0);
+  });
+})();
+
 const { isDesktop, isMobile } = getDevices();
 const lenis = lenisInit(0.15);
 
@@ -298,6 +318,7 @@ gsap.to("[loading-animation]", {
   delay: 1,
   ease: "power4.inOut",
 });
+
 // gsap.to(".loading_bg", {
 //   opacity: 1,
 //   duration: 0.7,
