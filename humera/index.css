@@ -28,7 +28,8 @@
 }
 
 .header.active .nav_bg {
-  filter: drop-shadow(rgba(0, 0, 0, 0.2) 0px 2px 40px) blur(0px) !important;
+  filter: drop-shadow(rgba(0, 0, 0, 0.2) 0px 2px 40px);
+  opacity: 1;
 }
 
 .header.active .nav_cta {
