@@ -31,6 +31,13 @@
   padding-block: 20px;
 }
 
+@media (max-width: 479px) {
+  .header.active .nav_wrapper {
+    width: 100%;
+    padding-block: 14px;
+  }
+}
+
 .header.active .nav_bg {
   filter: drop-shadow(rgba(0, 0, 0, 0.2) 0px 2px 40px);
   opacity: 1;
