@@ -287,7 +287,6 @@ function initReveal() {
         gsap.to(animateItems, {
           y: "0%",
           opacity: 1,
-          scaleY: 1,
           stagger: 0.06,
           duration: (index, target) => {
             if (target.hasAttribute("extra-time")) {
