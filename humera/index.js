@@ -287,7 +287,6 @@ function initReveal() {
         gsap.to(animateItems, {
           y: "0%",
           opacity: 1,
-          filter: "blur(0px)",
           scaleY: 1,
           stagger: 0.06,
           duration: (index, target) => {
