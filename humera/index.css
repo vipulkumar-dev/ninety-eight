@@ -50,6 +50,6 @@
   transition-delay: 0.3s !important;
 }
 
-.video_wpr:hover .video_play_icon {
+.video_wpr:hover .play_image {
   transform: scale(1.2);
 }
