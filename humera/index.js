@@ -229,7 +229,6 @@ function initReveal() {
         // console.log("animateItems", animateItems);
 
         gsap.to(animateItems, {
-          y: "0%",
           opacity: 1,
           stagger: 0.06,
           duration: (index, target) => {
