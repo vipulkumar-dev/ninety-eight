@@ -21,13 +21,6 @@ import { liveReload } from "../liveReload.js";
   });
 })();
 
-try {
-  const lottie = Webflow.require("lottie");
-  lottie.lottie.setQuality("low");
-} catch (err) {
-  console.warn("Lottie not found, animations may not work as expected.");
-}
-
 const { isDesktop, isMobile } = getDevices();
 const lenis = lenisInit(0.15);
 
@@ -325,5 +318,21 @@ gsap.to("[loading-animation]", {
     return faqTl;
   }
 })();
+
+try {
+  const lottie = Webflow.require("lottie");
+  lottie.lottie.setQuality("low");
+  console.log(lottie.lottie.getRegisteredAnimations());
+} catch (err) {
+  console.warn("Lottie not found, animations may not work as expected.");
+}
+
+const actionVideo = document.getElementById("action-video");
+if (actionVideo) {
+  const video = actionVideo.querySelector("video");
+  if (video && video.hasAttribute("muted")) {
+    video.removeAttribute("muted");
+  }
+}
 
 liveReload();

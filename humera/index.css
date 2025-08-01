@@ -55,6 +55,6 @@
   transition-delay: 0.3s !important;
 }
 
-.video_wpr:hover .play_image {
+.plyr_component:hover .plyr_cover-icon {
   transform: scale(1.2);
 }
