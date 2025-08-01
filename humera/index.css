@@ -24,6 +24,11 @@
 }
 .backed_item.active .backed_title {
   opacity: 1 !important;
+  pointer-events: auto;
+}
+
+.backed_label:hover .backed_label_icon {
+  transform: scale(1.2);
 }
 
 .header.active .nav_wrapper {

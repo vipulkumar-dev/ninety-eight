@@ -21,6 +21,13 @@ import { liveReload } from "../liveReload.js";
   });
 })();
 
+try {
+  const lottie = Webflow.require("lottie");
+  lottie.lottie.setQuality("low");
+} catch (err) {
+  console.warn("Lottie not found, animations may not work as expected.");
+}
+
 const { isDesktop, isMobile } = getDevices();
 const lenis = lenisInit(0.15);
 
@@ -211,7 +218,7 @@ function initReveal() {
           if (element.hasAttribute("word-reveal")) {
             // console.log("word", element);
             element.querySelectorAll(".para_word").forEach((word) => {
-              console.log("word", word);
+              // console.log("word", word);
               animateItems.push(word);
             });
           }
