@@ -185,22 +185,8 @@ function initReveal() {
   ScrollTrigger.batch(
     "[basic-reveal],[fade-reveal],[para-reveal],[word-reveal]",
     {
-      start: (scrollInstance) => {
-        const eltrigger = scrollInstance.trigger;
-        const eltriggerHeight = eltrigger.clientHeight * 1.4;
-        // if (eltrigger.hasAttribute("basic-reveal")) {
-        //   return `top-=${eltriggerHeight}px bottom`;
-        // }
-        return "top bottom";
-      },
-      end: (scrollInstance) => {
-        const eltrigger = scrollInstance.trigger;
-        const eltriggerHeight = eltrigger.clientHeight * 1.4;
-        // if (eltrigger.hasAttribute("basic-reveal")) {
-        //   return `top-=${eltriggerHeight}px bottom`;
-        // }
-        return "top bottom";
-      },
+      start: "top bottom",
+      end: "top bottom",
       // markers: true,
       onEnter: (elements, triggers) => {
         const animateItems = [];
