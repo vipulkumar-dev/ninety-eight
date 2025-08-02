@@ -231,12 +231,24 @@ if (isLoader) {
   initReveal();
 }
 
+let lottie = null;
+try {
+  lottie = Webflow.require("lottie");
+  lottie.lottie.setQuality("low");
+  console.log(lottie.lottie.getRegisteredAnimations());
+} catch (err) {
+  console.warn("Lottie not found, animations may not work as expected.");
+}
+
 gsap.to("[loading-animation]", {
   opacity: 0,
   filter: "blur(1px)",
   duration: 0.7,
   delay: 3,
   ease: "power4.inOut",
+  onComplete: () => {
+    lottie.lottie.freeze();
+  },
 });
 
 // gsap.to(".loading_bg", {
@@ -318,18 +330,6 @@ gsap.to("[loading-animation]", {
     return faqTl;
   }
 })();
-
-try {
-  const lottie = Webflow.require("lottie");
-  lottie.lottie.setQuality("low");
-
-  if (window.innerWidth < 991) {
-    lottie.lottie.freeze();
-  }
-  console.log(lottie.lottie.getRegisteredAnimations());
-} catch (err) {
-  console.warn("Lottie not found, animations may not work as expected.");
-}
 
 const actionVideo = document.getElementById("action-video");
 if (actionVideo) {
