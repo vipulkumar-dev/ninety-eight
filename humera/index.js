@@ -172,7 +172,7 @@ gsap.set("[word-reveal]", {
   opacity: 1,
 });
 
-const isLoader = true;
+const isLoader = window.innerWidth > 991;
 
 function initReveal() {
   ScrollTrigger.batch(
