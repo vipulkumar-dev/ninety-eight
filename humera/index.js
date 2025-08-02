@@ -322,6 +322,12 @@ gsap.to("[loading-animation]", {
 try {
   const lottie = Webflow.require("lottie");
   lottie.lottie.setQuality("low");
+
+  if (window.innerWidth < 991) {
+    setTimeout(() => {
+      lottie.lottie.freeze();
+    }, 3500);
+  }
   console.log(lottie.lottie.getRegisteredAnimations());
 } catch (err) {
   console.warn("Lottie not found, animations may not work as expected.");
