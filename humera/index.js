@@ -324,9 +324,7 @@ try {
   lottie.lottie.setQuality("low");
 
   if (window.innerWidth < 991) {
-    setTimeout(() => {
-      lottie.lottie.freeze();
-    }, 3500);
+    lottie.lottie.freeze();
   }
   console.log(lottie.lottie.getRegisteredAnimations());
 } catch (err) {
