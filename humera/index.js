@@ -236,9 +236,7 @@ try {
   lottie = Webflow.require("lottie");
   lottie.lottie.setQuality("low");
   if (window.innerWidth < 991) {
-    setTimeout(() => {
-      lottie.lottie.freeze();
-    }, 4000);
+    lottie.lottie.freeze();
   }
 } catch (err) {
   console.warn("Lottie not found, animations may not work as expected.");
