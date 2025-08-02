@@ -235,7 +235,9 @@ let lottie = null;
 try {
   lottie = Webflow.require("lottie");
   lottie.lottie.setQuality("low");
-  console.log(lottie.lottie.getRegisteredAnimations());
+  if (window.innerWidth < 991) {
+    lottie.lottie.freeze();
+  }
 } catch (err) {
   console.warn("Lottie not found, animations may not work as expected.");
 }
@@ -246,9 +248,6 @@ gsap.to("[loading-animation]", {
   duration: 0.7,
   delay: 3,
   ease: "power4.inOut",
-  onComplete: () => {
-    lottie.lottie.freeze();
-  },
 });
 
 // gsap.to(".loading_bg", {
