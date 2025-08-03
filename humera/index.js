@@ -63,24 +63,6 @@ if (header) {
   });
 }
 
-document.querySelectorAll(".swiper").forEach((swiper) => {
-  const swiperInstance = new Swiper(swiper, {
-    direction: "horizontal",
-    slidesPerView: "auto",
-    spaceBetween: 16,
-    centeredSlides: true,
-    centeredSlidesBounds: true,
-    autoplay: {
-      delay: 3000,
-    },
-    loop: true,
-    navigation: {
-      nextEl: document.querySelector(".swiper_next"),
-      prevEl: document.querySelector(".swiper_prev"),
-    },
-  });
-});
-
 let hoverTimeout;
 let isFirstHover = true;
 
@@ -137,7 +119,6 @@ document.querySelectorAll("[backed-wpr]").forEach((wrapper) => {
     // Clear timeout on mouseleave
     clearTimeout(hoverTimeout);
 
-    // Reset first hover state
     isFirstHover = true;
 
     document.querySelectorAll(".backed_item").forEach((el) => {
@@ -236,7 +217,9 @@ try {
   lottie = Webflow.require("lottie");
   lottie.lottie.setQuality("low");
   if (window.innerWidth < 991) {
-    lottie.lottie.freeze();
+    setTimeout(() => {
+      lottie.lottie.freeze();
+    }, 4500);
   }
 } catch (err) {
   console.warn("Lottie not found, animations may not work as expected.");
@@ -329,13 +312,5 @@ gsap.to("[loading-animation]", {
     return faqTl;
   }
 })();
-
-const actionVideo = document.getElementById("action-video");
-if (actionVideo) {
-  const video = actionVideo.querySelector("video");
-  if (video && video.hasAttribute("muted")) {
-    video.removeAttribute("muted");
-  }
-}
 
 liveReload();
