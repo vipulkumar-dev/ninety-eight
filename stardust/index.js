@@ -269,6 +269,9 @@ function initReveal() {
             if (target.hasAttribute("extra-time")) {
               return 1.6;
             }
+            if (target.hasAttribute("extra-more-time")) {
+              return 2.3;
+            }
             return 1.4;
           },
           ease: "power4.inOut",
