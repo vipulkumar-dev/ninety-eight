@@ -202,6 +202,55 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
   }
 })();
 
+(function popup_init() {
+  const popupTriggers = document.querySelectorAll("[popup-trigger]");
+  const closeTriggers = document.querySelectorAll("[popup-close]");
+
+  const popup_animation = gsap.timeline({
+    paused: true,
+    defaults: {
+      duration: 1,
+      ease: "power4.inOut",
+    },
+  });
+
+  popup_animation
+    .to(
+      ".popup_wpr",
+      {
+        autoAlpha: 1,
+        pointerEvents: "auto",
+      },
+      0
+    )
+    .to(
+      [".close_area"],
+      {
+        backdropFilter: "blur(24px)",
+        backgroundColor: "rgba(0,0,0,0.5)",
+      },
+      0
+    )
+    .from(
+      "[popup-content]",
+      {
+        scale: 0.9,
+      },
+      0
+    );
+
+  popupTriggers.forEach((popupTrigger) => {
+    popupTrigger.addEventListener("click", () => {
+      popup_animation.play();
+    });
+  });
+  closeTriggers.forEach((closeTrigger) => {
+    closeTrigger.addEventListener("click", () => {
+      popup_animation.reverse();
+    });
+  });
+})();
+
 document.querySelectorAll("[para-reveal]").forEach((text) => {
   new SplitText(text, {
     type: "lines",
