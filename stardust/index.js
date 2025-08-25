@@ -209,7 +209,7 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
   const popup_animation = gsap.timeline({
     paused: true,
     defaults: {
-      duration: 1,
+      duration: 0.8,
       ease: "power4.inOut",
     },
   });
@@ -226,8 +226,8 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
     .to(
       [".close_area"],
       {
-        backdropFilter: "blur(24px)",
-        backgroundColor: "rgba(0,0,0,0.5)",
+        backdropFilter: "blur(30px)",
+        backgroundColor: "rgba(13, 12, 16, 0.8)",
       },
       0
     )
