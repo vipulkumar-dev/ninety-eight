@@ -1,13 +1,1 @@
-/* * {
-  outline: 1px solid red;
-} */
 
-.swiper-slide:hover .project_image {
-  transform: scale(1.05);
-}
-
-select {
-  appearance: none; /* remove default arrow */
-  -webkit-appearance: none;
-  -moz-appearance: none;
-}
