@@ -282,25 +282,23 @@ gsap.set("[word-reveal]", {
   ScrollTrigger.create({
     trigger: ".tab_wpr",
     start: "center center",
-    end: "+=1200px",
-    pin: true,
-    // markers: true,
+    end: "+=1500px",
+    pin: ".section_wpr",
     onUpdate: (self) => {
       const totalTabs = tabs.length;
       if (totalTabs === 0) return;
 
       const progress = self.progress;
 
-      // Use a non-linear mapping: less scroll for first and last tab
       let activeIndex;
-      if (progress < 0.15) {
+      if (progress < 0.1) {
         activeIndex = 0;
-      } else if (progress > 0.85) {
+      } else if (progress > 0.9) {
         activeIndex = totalTabs - 1;
       } else {
         // Spread the rest evenly
         activeIndex = Math.round(
-          1 + ((progress - 0.15) / 0.7) * (totalTabs - 2)
+          1 + ((progress - 0.1) / 0.8) * (totalTabs - 2)
         );
       }
 
@@ -324,6 +322,7 @@ function initReveal() {
     {
       start: "top bottom",
       end: "top bottom",
+      pinnedContainer: ".section_wpr",
       // markers: true,
       onEnter: (elements, triggers) => {
         const animateItems = [];
