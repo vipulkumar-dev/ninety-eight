@@ -277,6 +277,47 @@ gsap.set("[word-reveal]", {
   opacity: 1,
 });
 
+(function tabAnimation() {
+  const tabs = document.querySelectorAll(".tabs");
+  ScrollTrigger.create({
+    trigger: ".tab_wpr",
+    start: "center center",
+    end: "+=1200px",
+    pin: true,
+    // markers: true,
+    onUpdate: (self) => {
+      const totalTabs = tabs.length;
+      if (totalTabs === 0) return;
+
+      const progress = self.progress;
+
+      // Use a non-linear mapping: less scroll for first and last tab
+      let activeIndex;
+      if (progress < 0.15) {
+        activeIndex = 0;
+      } else if (progress > 0.85) {
+        activeIndex = totalTabs - 1;
+      } else {
+        // Spread the rest evenly
+        activeIndex = Math.round(
+          1 + ((progress - 0.15) / 0.7) * (totalTabs - 2)
+        );
+      }
+
+      activeIndex = Math.max(0, Math.min(totalTabs - 1, activeIndex));
+
+      tabs.forEach((tab, idx) => {
+        if (idx === activeIndex) {
+          tab.classList.add("active");
+          tab.click();
+        } else {
+          tab.classList.remove("active");
+        }
+      });
+    },
+  });
+})();
+
 function initReveal() {
   ScrollTrigger.batch(
     "[basic-reveal],[fade-reveal],[para-reveal],[word-reveal]",
