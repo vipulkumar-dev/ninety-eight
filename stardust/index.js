@@ -298,7 +298,7 @@ gsap.set("[word-reveal]", {
       } else {
         // Spread the rest evenly
         activeIndex = Math.round(
-          1 + ((progress - 0.1) / 0.8) * (totalTabs - 2)
+          1 + ((progress - 0.1) / 0.9) * (totalTabs - 2)
         );
       }
 
