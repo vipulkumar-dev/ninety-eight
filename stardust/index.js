@@ -202,4 +202,82 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
   }
 })();
 
+document.querySelectorAll("[para-reveal]").forEach((text) => {
+  new SplitText(text, {
+    type: "lines",
+    deepslice: true,
+    // mask: "lines",
+    linesClass: "para_line",
+  });
+});
+
+document.querySelectorAll("[word-reveal]").forEach((text) => {
+  new SplitText(text, {
+    type: "words",
+    deepslice: true,
+    // mask: "lines",
+    wordsClass: "para_word",
+  });
+});
+
+gsap.set("[para-reveal]", {
+  opacity: 1,
+});
+
+gsap.set("[word-reveal]", {
+  opacity: 1,
+});
+
+function initReveal() {
+  ScrollTrigger.batch(
+    "[basic-reveal],[fade-reveal],[para-reveal],[word-reveal]",
+    {
+      start: "top bottom",
+      end: "top bottom",
+      // markers: true,
+      onEnter: (elements, triggers) => {
+        const animateItems = [];
+
+        elements.forEach((element) => {
+          if (element.hasAttribute("basic-reveal")) {
+            animateItems.push(element);
+          }
+          if (element.hasAttribute("para-reveal")) {
+            // console.log("para", element);
+            element.querySelectorAll(".para_line").forEach((line) => {
+              animateItems.push(line);
+            });
+          }
+          if (element.hasAttribute("word-reveal")) {
+            // console.log("word", element);
+            element.querySelectorAll(".para_word").forEach((word) => {
+              // console.log("word", word);
+              animateItems.push(word);
+            });
+          }
+          if (element.hasAttribute("fade-reveal")) {
+            animateItems.push(element);
+          }
+        });
+        // console.log("animateItems", animateItems);
+
+        gsap.to(animateItems, {
+          filter: "blur(0px)",
+          opacity: 1,
+          stagger: 0.05,
+          duration: (index, target) => {
+            if (target.hasAttribute("extra-time")) {
+              return 1.6;
+            }
+            return 1.4;
+          },
+          ease: "power4.inOut",
+        });
+      },
+    }
+  );
+}
+
+initReveal();
+
 liveReload();
