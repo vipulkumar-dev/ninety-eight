@@ -272,9 +272,9 @@ function initReveal() {
             if (target.hasAttribute("extra-more-time")) {
               return 2.3;
             }
-            return 1.4;
+            return 1.2;
           },
-          ease: "power4.inOut",
+          ease: "power3.inOut",
         });
       },
     }
