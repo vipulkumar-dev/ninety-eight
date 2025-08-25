@@ -1,1 +1,9 @@
+/* * {
+  outline: 1px solid red;
+} */
 
+select {
+  appearance: none; /* remove default arrow */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
