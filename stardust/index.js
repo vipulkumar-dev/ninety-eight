@@ -3,7 +3,7 @@ import { liveReload } from "../liveReload.js";
 
 const { isDesktop, isMobile } = getDevices();
 
-const lenis = lenisInit(0.15);
+// const lenis = lenisInit(0.15);
 
 const header = document.getElementById("header");
 
@@ -166,7 +166,7 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
           ease: "power3.inOut",
         },
         onReverseComplete: () => {
-          lenis.resize();
+          // lenis.resize();
           ScrollTrigger.refresh();
         },
       })
