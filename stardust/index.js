@@ -1,6 +1,48 @@
 import { roll, getDevices, lenisInit } from "../utils.js";
 import { liveReload } from "../liveReload.js";
 
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+
+(function scrollResotration() {
+  window.scrollTo(0, 0);
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
+
+  // Prevent scroll restoration
+  if ("scrollRestoration" in history) {
+    history.scrollRestoration = "manual";
+  }
+
+  window.addEventListener("load", () => {
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    }, 0);
+  });
+})();
+
+(function initNavItemScroll() {
+  document.querySelectorAll(".nav_item").forEach((link) => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+
+      const targetId = link.getAttribute("data-href"); // e.g. "#section"
+      const targetEl = document.querySelector(`${targetId}`);
+      console.log(targetEl);
+
+      if (targetEl) {
+        gsap.to(window, {
+          duration: 1,
+          scrollTo: targetEl,
+          ease: "power2.inOut",
+        });
+      }
+      console.log("nav link clicked");
+    });
+  });
+})();
+
 const { isDesktop, isMobile } = getDevices();
 
 // const lenis = lenisInit(0.15);
@@ -10,7 +52,7 @@ const header = document.getElementById("header");
 if (header) {
   let isMenuOpen = false;
   let lastScrollPosition = 0;
-  let delta = isDesktop ? 30 : 60; // Minimum scroll distance before toggling header
+  let delta = isDesktop ? 60 : 90; // Minimum scroll distance before toggling header
   let ticking = false;
 
   function handleScroll() {
@@ -322,7 +364,8 @@ function initReveal() {
     {
       start: "top bottom",
       end: "top bottom",
-      pinnedContainer: ".section_wpr",
+      anticipatePin: 1,
+      // pinnedContainer: ".section_wpr",
       // markers: true,
       onEnter: (elements, triggers) => {
         const animateItems = [];
