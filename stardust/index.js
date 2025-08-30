@@ -52,7 +52,7 @@ const header = document.getElementById("header");
 if (header) {
   let isMenuOpen = false;
   let lastScrollPosition = 0;
-  let delta = isDesktop ? 60 : 90; // Minimum scroll distance before toggling header
+  let delta = isDesktop ? 70 : 100; // Minimum scroll distance before toggling header
   let ticking = false;
 
   function handleScroll() {
@@ -399,12 +399,12 @@ function initReveal() {
           stagger: 0.05,
           duration: (index, target) => {
             if (target.hasAttribute("extra-time")) {
-              return 1.6;
+              return 1.3;
             }
             if (target.hasAttribute("extra-more-time")) {
-              return 2.3;
+              return 2;
             }
-            return 1.2;
+            return 1;
           },
           ease: "power3.inOut",
         });
@@ -414,5 +414,36 @@ function initReveal() {
 }
 
 initReveal();
+
+const rive = Webflow.require("rive");
+
+const riveAnimations = [];
+document.querySelectorAll("[data-rive-url]").forEach((el) => {
+  const riveInstance = rive.getInstance(el);
+  if (riveInstance) {
+    riveAnimations.push(riveInstance);
+  }
+});
+
+riveAnimations.forEach((riveAnimation) => {
+  const riveContainer = riveAnimation.container;
+  // Play only when in view using Intersection Observer
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          riveAnimation.rive.play();
+          console.log("play", riveAnimation);
+        } else {
+          riveAnimation.rive.pause();
+          console.log("pause", riveAnimation);
+        }
+      });
+    },
+    { threshold: 0.1 }
+  );
+  observer.observe(riveContainer);
+});
+console.log("rive", riveAnimations);
 
 liveReload();
