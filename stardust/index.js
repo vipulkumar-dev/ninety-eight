@@ -444,11 +444,14 @@ function createRiveInstance(
 
   return riveInstance;
 }
-document.querySelectorAll("[data-rive-canvas]").forEach((el) => {
-  const artboard = el.getAttribute("artboard");
-  const aNIMATIO = createRiveInstance(el, riveUrl, artboard);
-  console.log(aNIMATIO.layout);
-});
+
+setTimeout(() => {
+  document.querySelectorAll("[data-rive-canvas]").forEach((el) => {
+    const artboard = el.getAttribute("artboard");
+    const aNIMATIO = createRiveInstance(el, riveUrl, artboard);
+    console.log(aNIMATIO.layout);
+  });
+}, 3000);
 
 // setTimeout(() => {
 //   (function riveInit() {
