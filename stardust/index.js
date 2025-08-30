@@ -415,35 +415,71 @@ function initReveal() {
 
 initReveal();
 
-const rive = Webflow.require("rive");
+const riveWebflow = Webflow.require("rive").rive;
+const riveUrl =
+  "https://cdn.prod.website-files.com/68a9961590783e9b6cea126c/68b1ed3e7bf01948caf00579_hero.riv";
 
-const riveAnimations = [];
-document.querySelectorAll("[data-rive-url]").forEach((el) => {
-  const riveInstance = rive.getInstance(el);
-  if (riveInstance) {
-    riveAnimations.push(riveInstance);
-  }
-});
+function createRiveInstance(
+  container,
+  url = riveUrl,
+  artboard = "main",
+  stateMachine = "State Machine 1"
+) {
+  const riveInstance = new riveWebflow.Rive({
+    src: url,
+    canvas: container,
+    artboard,
+    layout: new riveWebflow.Layout({
+      fit: "cover",
+      alignment: "center",
+    }),
+    stateMachines: stateMachine,
+    autoplay: true,
+    isTouchScrollEnabled: false,
 
-riveAnimations.forEach((riveAnimation) => {
-  const riveContainer = riveAnimation.container;
-  // Play only when in view using Intersection Observer
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          riveAnimation.rive.play();
-          console.log("play", riveAnimation);
-        } else {
-          riveAnimation.rive.pause();
-          console.log("pause", riveAnimation);
-        }
-      });
+    onLoad: () => {
+      riveInstance.resizeDrawingSurfaceToCanvas(); // This fixes the blur!
     },
-    { threshold: 0.1 }
-  );
-  observer.observe(riveContainer);
+  });
+
+  return riveInstance;
+}
+document.querySelectorAll("[data-rive-canvas]").forEach((el) => {
+  const artboard = el.getAttribute("artboard");
+  const aNIMATIO = createRiveInstance(el, riveUrl, artboard);
+  console.log(aNIMATIO.layout);
 });
-console.log("rive", riveAnimations);
+
+// setTimeout(() => {
+//   (function riveInit() {
+//     const rive = Webflow.require("rive");
+
+//     const riveAnimations = [];
+//     document.querySelectorAll("[data-rive-url]").forEach((el) => {
+//       const riveInstance = rive.getInstance(el);
+//       if (riveInstance) {
+//         riveAnimations.push(riveInstance);
+//       }
+//     });
+
+//     riveAnimations.forEach((riveAnimation) => {
+//       const riveContainer = riveAnimation.container;
+//       // Play only when in view using Intersection Observer
+//       const observer = new IntersectionObserver(
+//         (entries) => {
+//           entries.forEach((entry) => {
+//             if (entry.isIntersecting) {
+//               riveAnimation.rive.play();
+//             } else {
+//               riveAnimation.rive.pause();
+//             }
+//           });
+//         },
+//         { threshold: 0.1 }
+//       );
+//       observer.observe(riveContainer);
+//     });
+//   })();
+// }, 3000);
 
 liveReload();
