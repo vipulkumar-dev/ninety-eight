@@ -345,7 +345,13 @@ function createRiveInstance(
     isTouchScrollEnabled: true,
 
     onLoad: () => {
-      riveInstance.resizeDrawingSurfaceToCanvas(); // This fixes the blur!
+      riveInstance.resizeDrawingSurfaceToCanvas();
+      console.log("Rive loaded:", artboard, stateMachine);
+      if (artboard == "Hero") {
+        document.querySelector(".hero_image.is-rive").style.display = "block";
+        document.querySelector(".hero_image.is-image").style.display = "none";
+      }
+      // This fixes the blur!
     },
   });
 
