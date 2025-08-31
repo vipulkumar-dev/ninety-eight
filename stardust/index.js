@@ -322,7 +322,7 @@ function initReveal() {
 
 initReveal();
 
-const riveWebflow = rive;
+const riveWebflow = Webflow.require("rive").rive;
 const riveUrl =
   "https://cdn.prod.website-files.com/68a9961590783e9b6cea126c/68b1ed3e7bf01948caf00579_hero.riv";
 
