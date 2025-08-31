@@ -48,7 +48,6 @@ const { isDesktop, isMobile } = getDevices();
 // const lenis = lenisInit(0.15);
 
 const header = document.getElementById("header");
-
 if (header) {
   let isMenuOpen = false;
   let lastScrollPosition = 0;
@@ -86,86 +85,7 @@ if (header) {
       header.classList.remove("active");
     }
   });
-
-  // const menu_tl = gsap.timeline({
-  //   paused: true,
-  //   defaults: {
-  //     duration: 0.3,
-  //     ease: "power3.inOut",
-  //   },
-  // });
-
-  // const nav_items_tl = gsap.timeline({
-  //   paused: true,
-  //   defaults: {
-  //     ease: "power4.inOut",
-  //   },
-  // });
-
-  // menu_tl
-  //   .to(".menu_line.top", { y: "6.5px" })
-  //   .to(".menu_line.bottom", { y: "-6.5px" }, "<")
-  //   .to(".menu_line.top", { rotate: 225, width: "82%", duration: 0.5 })
-  //   .to(".menu_line.bottom", { rotate: -45, width: "82%" }, "<")
-  //   .fromTo(
-  //     ".navigation_wrapper",
-  //     { y: "-100%" },
-  //     { y: "0%", duration: 2 },
-  //     "-=1.3"
-  //   );
-
-  // nav_items_tl.fromTo(
-  //   ".nav_animate .nav_item",
-  //   {
-  //     y: "150%",
-  //     opacity: 0,
-  //     scaleY: 2,
-  //     transformOrigin: "top",
-  //   },
-  //   {
-  //     y: "0%",
-  //     opacity: 1,
-  //     scaleY: 1,
-  //     stagger: 0.07,
-  //     delay: 0.4,
-  //     duration: 1.3,
-  //   }
-  // );
-
-  // const menu_trigger = document.querySelector(".menu_trigger");
-
-  // menu_trigger?.addEventListener("click", () => {
-  //   if (!isMenuOpen) {
-  //     menu_tl.play();
-  //     // Only play nav_items_tl if it's not already playing or active
-  //     if (!nav_items_tl.isActive()) {
-  //       nav_items_tl.play(0);
-  //     } // always play forward
-  //   } else {
-  //     menu_tl.reverse();
-  //     // Don't reverse nav_items_tl (skip it)
-  //   }
-  //   isMenuOpen = !isMenuOpen;
-  // });
 }
-
-document.querySelectorAll(".swiper").forEach((swiper) => {
-  const swiperInstance = new Swiper(swiper, {
-    direction: "horizontal",
-    slidesPerView: "auto",
-    spaceBetween: 16,
-    centeredSlides: true,
-    centeredSlidesBounds: true,
-    autoplay: {
-      delay: 3000,
-    },
-    loop: true,
-    navigation: {
-      nextEl: document.querySelector(".swiper_next"),
-      prevEl: document.querySelector(".swiper_prev"),
-    },
-  });
-});
 
 (function faq_init() {
   const faq_items = document.querySelectorAll(".faq_item");
@@ -293,32 +213,6 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
   });
 })();
 
-document.querySelectorAll("[para-reveal]").forEach((text) => {
-  new SplitText(text, {
-    type: "lines",
-    deepslice: true,
-    // mask: "lines",
-    linesClass: "para_line",
-  });
-});
-
-document.querySelectorAll("[word-reveal]").forEach((text) => {
-  new SplitText(text, {
-    type: "words",
-    deepslice: true,
-    // mask: "lines",
-    wordsClass: "para_word",
-  });
-});
-
-gsap.set("[para-reveal]", {
-  opacity: 1,
-});
-
-gsap.set("[word-reveal]", {
-  opacity: 1,
-});
-
 (function tabAnimation() {
   const tabs = document.querySelectorAll(".tabs");
   ScrollTrigger.create({
@@ -357,6 +251,19 @@ gsap.set("[word-reveal]", {
     },
   });
 })();
+
+// Split lines for [para-reveal] and words for [word-reveal], then set initial opacity
+["para-reveal", "word-reveal"].forEach((attr) => {
+  document.querySelectorAll(`[${attr}]`).forEach((el) => {
+    new SplitText(el, {
+      type: attr === "para-reveal" ? "lines" : "words",
+      deepslice: true,
+      linesClass: attr === "para-reveal" ? "para_line" : undefined,
+      wordsClass: attr === "word-reveal" ? "para_word" : undefined,
+    });
+    gsap.set(el, { opacity: 1 });
+  });
+});
 
 function initReveal() {
   ScrollTrigger.batch(
@@ -415,7 +322,7 @@ function initReveal() {
 
 initReveal();
 
-const riveWebflow = Webflow.require("rive").rive;
+const riveWebflow = rive;
 const riveUrl =
   "https://cdn.prod.website-files.com/68a9961590783e9b6cea126c/68b1ed3e7bf01948caf00579_hero.riv";
 
@@ -435,7 +342,7 @@ function createRiveInstance(
     }),
     stateMachines: stateMachine,
     autoplay: false,
-    isTouchScrollEnabled: false,
+    isTouchScrollEnabled: true,
 
     onLoad: () => {
       riveInstance.resizeDrawingSurfaceToCanvas(); // This fixes the blur!
