@@ -434,7 +434,7 @@ function createRiveInstance(
       alignment: "center",
     }),
     stateMachines: stateMachine,
-    autoplay: true,
+    autoplay: false,
     isTouchScrollEnabled: false,
 
     onLoad: () => {
@@ -448,41 +448,32 @@ function createRiveInstance(
 setTimeout(() => {
   document.querySelectorAll("[data-rive-canvas]").forEach((el) => {
     const artboard = el.getAttribute("artboard");
-    const aNIMATIO = createRiveInstance(el, riveUrl, artboard);
-    console.log(aNIMATIO.layout);
+    const stateMachine = el.getAttribute("state-machine");
+    const riveAnimation = createRiveInstance(
+      el,
+      riveUrl,
+      artboard,
+      stateMachine
+    );
+
+    const riveContainer = el;
+    // Play only when in view using Intersection Observer
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            riveAnimation.play();
+            console.log("Rive animation played");
+          } else {
+            riveAnimation.pause();
+            console.log("Rive animation paused");
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+    observer.observe(riveContainer);
   });
-}, 3000);
-
-// setTimeout(() => {
-//   (function riveInit() {
-//     const rive = Webflow.require("rive");
-
-//     const riveAnimations = [];
-//     document.querySelectorAll("[data-rive-url]").forEach((el) => {
-//       const riveInstance = rive.getInstance(el);
-//       if (riveInstance) {
-//         riveAnimations.push(riveInstance);
-//       }
-//     });
-
-//     riveAnimations.forEach((riveAnimation) => {
-//       const riveContainer = riveAnimation.container;
-//       // Play only when in view using Intersection Observer
-//       const observer = new IntersectionObserver(
-//         (entries) => {
-//           entries.forEach((entry) => {
-//             if (entry.isIntersecting) {
-//               riveAnimation.rive.play();
-//             } else {
-//               riveAnimation.rive.pause();
-//             }
-//           });
-//         },
-//         { threshold: 0.1 }
-//       );
-//       observer.observe(riveContainer);
-//     });
-//   })();
-// }, 3000);
+}, 2500);
 
 liveReload();
