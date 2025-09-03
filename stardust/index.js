@@ -322,4 +322,37 @@ function initReveal() {
 
 initReveal();
 
+(function playPauseVideo() {
+  const videos = document.querySelectorAll(".auto_video");
+
+  videos.forEach((video) => {
+    // Ensure video is muted for autoplay to work
+    video.muted = true;
+
+    // Create intersection observer for each video
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Video is in view - play it
+            video.play().catch((error) => {
+              console.log("Error playing video:", error);
+            });
+            console.log("play");
+          } else {
+            // Video is out of view - pause it
+            video.pause();
+            console.log("pause");
+          }
+        });
+      },
+      {
+        threshold: 0.5, // Video starts playing when 10% is visible
+      }
+    );
+
+    observer.observe(video);
+  });
+})();
+
 liveReload();
