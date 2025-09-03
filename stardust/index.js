@@ -334,20 +334,22 @@ initReveal();
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            // Video is in view - play it
+            // Video is in view - show and play it
+            video.style.display = "block";
             video.play().catch((error) => {
               console.log("Error playing video:", error);
             });
             console.log("play");
           } else {
-            // Video is out of view - pause it
+            // Video is out of view - pause and hide it
             video.pause();
-            console.log("pause");
+            video.style.display = "none";
+            console.log("pause and hide");
           }
         });
       },
       {
-        threshold: 0.5, // Video starts playing when 10% is visible
+        threshold: 0, // Video starts playing when any part becomes visible
       }
     );
 
