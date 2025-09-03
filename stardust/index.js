@@ -329,7 +329,17 @@ initReveal();
     // Ensure video is muted for autoplay to work
     video.muted = true;
 
-    // Create intersection observer for each video
+    // Create a wrapper div if it doesn't exist
+    if (!video.parentElement.classList.contains("video-wrapper")) {
+      const wrapper = document.createElement("div");
+      wrapper.className = "video-wrapper";
+      video.parentNode.insertBefore(wrapper, video);
+      wrapper.appendChild(video);
+    }
+
+    const wrapper = video.parentElement;
+
+    // Observe the wrapper, not the video itself
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -344,16 +354,16 @@ initReveal();
             // Video is out of view - pause and hide it
             video.pause();
             video.style.display = "none";
-            console.log("pause and hide");
+            console.log("pause");
           }
         });
       },
       {
-        threshold: 0, // Video starts playing when any part becomes visible
+        threshold: 0,
       }
     );
 
-    observer.observe(video);
+    observer.observe(wrapper);
   });
 })();
 
