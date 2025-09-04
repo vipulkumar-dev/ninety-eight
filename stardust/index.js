@@ -341,13 +341,13 @@ initReveal();
             console.log("play");
           } else {
             // Video is out of view - pause and hide it
-            video.reset();
+            video.pause();
             console.log("pause");
           }
         });
       },
       {
-        threshold: 0,
+        threshold: 0.5,
       }
     );
 
