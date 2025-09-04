@@ -448,7 +448,7 @@ initReveal();
           }
         });
       },
-      { threshold: 0, rootMargin: "400px" }
+      { threshold: 0, rootMargin: "200px" }
     );
 
     observer.observe(video);
