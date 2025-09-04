@@ -329,32 +329,12 @@ initReveal();
     // Ensure video is muted for autoplay to work
     video.muted = true;
 
-    // Create a wrapper div if it doesn't exist
-    if (!video.parentElement.classList.contains("video-wrapper")) {
-      const wrapper = document.createElement("div");
-      wrapper.className = "video-wrapper";
-
-      // Set wrapper to 100% width and height
-      wrapper.style.width = "100%";
-      wrapper.style.height = "100%";
-
-      video.parentNode.insertBefore(wrapper, video);
-      wrapper.appendChild(video);
-    }
-
-    const wrapper = video.parentElement;
-
-    // Ensure existing wrappers also have 100% dimensions
-    wrapper.style.width = "100%";
-    wrapper.style.height = "100%";
-
     // Observe the wrapper, not the video itself
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             // Video is in view - show and play it
-            video.style.display = "block";
             video.play().catch((error) => {
               console.log("Error playing video:", error);
             });
@@ -362,13 +342,13 @@ initReveal();
           } else {
             // Video is out of view - pause and hide it
             video.pause();
-            video.style.display = "none";
+
             console.log("pause");
           }
         });
       },
       {
-        threshold: 0,
+        threshold: 0.5,
       }
     );
 
