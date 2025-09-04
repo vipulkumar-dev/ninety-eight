@@ -333,11 +333,20 @@ initReveal();
     if (!video.parentElement.classList.contains("video-wrapper")) {
       const wrapper = document.createElement("div");
       wrapper.className = "video-wrapper";
+
+      // Set wrapper to 100% width and height
+      wrapper.style.width = "100%";
+      wrapper.style.height = "100%";
+
       video.parentNode.insertBefore(wrapper, video);
       wrapper.appendChild(video);
     }
 
     const wrapper = video.parentElement;
+
+    // Ensure existing wrappers also have 100% dimensions
+    wrapper.style.width = "100%";
+    wrapper.style.height = "100%";
 
     // Observe the wrapper, not the video itself
     const observer = new IntersectionObserver(
