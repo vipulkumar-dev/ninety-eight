@@ -219,7 +219,20 @@ if (header) {
   // Create the timeline
   const tl = gsap.timeline();
 
-  // Add opacity animations to the timeline
+  const clickableElements = document.querySelectorAll("[data-scroll-tab]");
+
+  // Helper function to set active tab
+  function setActiveTab(labelName) {
+    clickableElements.forEach((el) => el.classList.remove("active"));
+    const activeElement = Array.from(clickableElements).find(
+      (el) => el.getAttribute("data-scroll-tab") === labelName
+    );
+    if (activeElement) {
+      activeElement.classList.add("active");
+    }
+  }
+
+  // Add opacity animations to the timeline with onComplete callbacks
   tl.add("first")
     .to(".tab_content", {
       duration: 1,
@@ -237,6 +250,7 @@ if (header) {
         filter: "blur(0px)",
         duration: 3,
         ease: "power3.inOut",
+        onStart: () => setActiveTab("second"),
       },
       "<"
     )
@@ -257,6 +271,7 @@ if (header) {
         filter: "blur(0px)",
         duration: 3,
         ease: "power3.inOut",
+        onStart: () => setActiveTab("third"),
       },
       "<"
     )
@@ -277,10 +292,14 @@ if (header) {
         filter: "blur(0px)",
         duration: 3,
         ease: "power3.inOut",
+        onStart: () => setActiveTab("fourth"),
       },
       "<"
     )
     .add("fourth");
+
+  // Set initial active state
+  setActiveTab("first");
 
   ScrollTrigger.create({
     trigger: ".tab_wpr",
@@ -291,18 +310,12 @@ if (header) {
     scrub: 1,
   });
 
-  const clickableElements = document.querySelectorAll("[data-scroll-tab]");
-
   clickableElements.forEach((element) => {
     element.addEventListener("click", () => {
       const targetLabel = element.getAttribute("data-scroll-tab");
 
       if (targetLabel) {
-        // Remove active class from all clickable elements
-        clickableElements.forEach((el) => el.classList.remove("active"));
-
-        // Add active class to the clicked element
-        element.classList.add("active");
+        setActiveTab(targetLabel);
 
         gsap.to(window, {
           scrollTo: tl.scrollTrigger.labelToScroll(targetLabel),
