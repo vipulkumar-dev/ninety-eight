@@ -215,40 +215,80 @@ if (header) {
 
 (function tabAnimation() {
   const tabs = document.querySelectorAll(".tabs");
+
+  // Create the timeline
+  const tl = gsap.timeline();
+
+  // Add opacity animations to the timeline
+  tl.add("first")
+    .to(".tab_content", {
+      duration: 1,
+    })
+    .to(".tab_content.first", {
+      opacity: 0,
+      filter: "blur(3px)",
+      duration: 3,
+      ease: "power3.inOut",
+    })
+    .to(
+      ".tab_content.second",
+      {
+        opacity: 1,
+        filter: "blur(0px)",
+        duration: 3,
+        ease: "power3.inOut",
+      },
+      "<"
+    )
+    .add("second")
+    .to(".tab_content", {
+      duration: 2,
+    })
+    .to(".tab_content.second", {
+      opacity: 0,
+      filter: "blur(3px)",
+      duration: 3,
+      ease: "power3.inOut",
+    })
+    .to(
+      ".tab_content.third",
+      {
+        opacity: 1,
+        filter: "blur(0px)",
+        duration: 3,
+        ease: "power3.inOut",
+      },
+      "<"
+    )
+    .add("third")
+    .to(".tab_content", {
+      duration: 2,
+    })
+    .to(".tab_content.third", {
+      opacity: 0,
+      filter: "blur(3px)",
+      duration: 3,
+      ease: "power3.inOut",
+    })
+    .to(
+      ".tab_content.fourth",
+      {
+        opacity: 1,
+        filter: "blur(0px)",
+        duration: 3,
+        ease: "power3.inOut",
+      },
+      "<"
+    )
+    .add("fourth");
+
   ScrollTrigger.create({
     trigger: ".tab_wpr",
     start: "center center",
     end: "+=1500px",
     pin: ".section_wpr",
-    onUpdate: (self) => {
-      const totalTabs = tabs.length;
-      if (totalTabs === 0) return;
-
-      const progress = self.progress;
-
-      let activeIndex;
-      if (progress < 0.1) {
-        activeIndex = 0;
-      } else if (progress > 0.9) {
-        activeIndex = totalTabs - 1;
-      } else {
-        // Spread the rest evenly
-        activeIndex = Math.round(
-          1 + ((progress - 0.1) / 0.9) * (totalTabs - 2)
-        );
-      }
-
-      activeIndex = Math.max(0, Math.min(totalTabs - 1, activeIndex));
-
-      tabs.forEach((tab, idx) => {
-        if (idx === activeIndex) {
-          tab.classList.add("active");
-          tab.click();
-        } else {
-          tab.classList.remove("active");
-        }
-      });
-    },
+    animation: tl,
+    scrub: 1,
   });
 })();
 
