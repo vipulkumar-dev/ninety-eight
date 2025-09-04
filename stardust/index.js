@@ -306,7 +306,7 @@ if (header) {
 
         gsap.to(window, {
           scrollTo: tl.scrollTrigger.labelToScroll(targetLabel),
-          duration: 1.5,
+          duration: 0.8,
           ease: "power3.inOut",
         });
       }
