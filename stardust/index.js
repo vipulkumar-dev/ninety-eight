@@ -326,33 +326,76 @@ initReveal();
   const videos = document.querySelectorAll(".auto_video");
 
   videos.forEach((video) => {
-    // Ensure video is muted for autoplay to work
     video.muted = true;
 
-    // Observe the wrapper, not the video itself
+    // Store original sources for restoration
+    if (!video.dataset.originalSources) {
+      const sources = video.querySelectorAll("source");
+      const sourcesData = Array.from(sources).map((source) => ({
+        src: source.src,
+        type: source.type,
+        media: source.media || "",
+      }));
+      video.dataset.originalSources = JSON.stringify(sourcesData);
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            // Video is in view - show and play it
+            // Video is in view - restore sources and play
+            console.log("play");
+            restoreVideoSources(video);
             video.play().catch((error) => {
               console.log("Error playing video:", error);
             });
-            console.log("play");
           } else {
-            // Video is out of view - pause and hide it
-            video.pause();
+            // Video is out of view - clean up all sources
             console.log("pause");
+            video.pause();
+            clearAllVideoSources(video);
           }
         });
       },
-      {
-        threshold: 0.5,
-      }
+      { threshold: 0.5 }
     );
 
     observer.observe(video);
   });
 })();
+
+function clearAllVideoSources(video) {
+  // Remove src attribute from video element
+  video.removeAttribute("src");
+
+  // Clear all source elements
+  const sources = video.querySelectorAll("source");
+  sources.forEach((source) => {
+    source.removeAttribute("src");
+  });
+
+  // Trigger load to release resources
+  video.load();
+}
+
+function restoreVideoSources(video) {
+  if (!video.dataset.originalSources) return;
+
+  const sourcesData = JSON.parse(video.dataset.originalSources);
+  const sources = video.querySelectorAll("source");
+
+  sources.forEach((source, index) => {
+    if (sourcesData[index]) {
+      source.src = sourcesData[index].src;
+      source.type = sourcesData[index].type;
+      if (sourcesData[index].media) {
+        source.media = sourcesData[index].media;
+      }
+    }
+  });
+
+  // Trigger load to apply new sources
+  video.load();
+}
 
 liveReload();
