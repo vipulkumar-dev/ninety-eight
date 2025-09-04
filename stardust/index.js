@@ -232,7 +232,7 @@ if (header) {
     }
   }
 
-  // Add opacity animations to the timeline with onComplete callbacks
+  // Add opacity animations to the timeline with onStart and onReverseComplete callbacks
   tl.add("first")
     .to(".tab_content", {
       duration: 1,
@@ -242,6 +242,7 @@ if (header) {
       filter: "blur(3px)",
       duration: 3,
       ease: "power3.inOut",
+      onReverseComplete: () => setActiveTab("first"),
     })
     .to(
       ".tab_content.second",
@@ -251,6 +252,7 @@ if (header) {
         duration: 3,
         ease: "power3.inOut",
         onStart: () => setActiveTab("second"),
+        onReverseComplete: () => setActiveTab("first"),
       },
       "<"
     )
@@ -263,6 +265,7 @@ if (header) {
       filter: "blur(3px)",
       duration: 3,
       ease: "power3.inOut",
+      onReverseComplete: () => setActiveTab("second"),
     })
     .to(
       ".tab_content.third",
@@ -272,6 +275,7 @@ if (header) {
         duration: 3,
         ease: "power3.inOut",
         onStart: () => setActiveTab("third"),
+        onReverseComplete: () => setActiveTab("second"),
       },
       "<"
     )
@@ -284,6 +288,7 @@ if (header) {
       filter: "blur(3px)",
       duration: 3,
       ease: "power3.inOut",
+      onReverseComplete: () => setActiveTab("third"),
     })
     .to(
       ".tab_content.fourth",
@@ -293,6 +298,7 @@ if (header) {
         duration: 3,
         ease: "power3.inOut",
         onStart: () => setActiveTab("fourth"),
+        onReverseComplete: () => setActiveTab("third"),
       },
       "<"
     )
