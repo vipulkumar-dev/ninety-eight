@@ -298,9 +298,15 @@ if (header) {
       const targetLabel = element.getAttribute("data-scroll-tab");
 
       if (targetLabel) {
+        // Remove active class from all clickable elements
+        clickableElements.forEach((el) => el.classList.remove("active"));
+
+        // Add active class to the clicked element
+        element.classList.add("active");
+
         gsap.to(window, {
           scrollTo: tl.scrollTrigger.labelToScroll(targetLabel),
-          duration: 1,
+          duration: 1.5,
           ease: "power3.inOut",
         });
       }
