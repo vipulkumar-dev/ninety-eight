@@ -346,7 +346,7 @@ initReveal();
         });
       },
       {
-        threshold: 0.5,
+        threshold: 0,
       }
     );
 
