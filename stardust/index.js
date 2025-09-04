@@ -242,7 +242,13 @@ if (header) {
       filter: "blur(3px)",
       duration: 3,
       ease: "power3.inOut",
-      onReverseComplete: () => setActiveTab("first"),
+      onUpdate: function () {
+        if (this.progress() >= 0.5) {
+          setActiveTab("second");
+        } else {
+          setActiveTab("first");
+        }
+      },
     })
     .to(
       ".tab_content.second",
@@ -251,8 +257,6 @@ if (header) {
         filter: "blur(0px)",
         duration: 3,
         ease: "power3.inOut",
-        onStart: () => setActiveTab("second"),
-        onReverseComplete: () => setActiveTab("first"),
       },
       "<"
     )
@@ -265,7 +269,13 @@ if (header) {
       filter: "blur(3px)",
       duration: 3,
       ease: "power3.inOut",
-      onReverseComplete: () => setActiveTab("second"),
+      onUpdate: function () {
+        if (this.progress() >= 0.5) {
+          setActiveTab("third");
+        } else {
+          setActiveTab("second");
+        }
+      },
     })
     .to(
       ".tab_content.third",
@@ -274,8 +284,6 @@ if (header) {
         filter: "blur(0px)",
         duration: 3,
         ease: "power3.inOut",
-        onStart: () => setActiveTab("third"),
-        onReverseComplete: () => setActiveTab("second"),
       },
       "<"
     )
@@ -288,7 +296,13 @@ if (header) {
       filter: "blur(3px)",
       duration: 3,
       ease: "power3.inOut",
-      onReverseComplete: () => setActiveTab("third"),
+      onUpdate: function () {
+        if (this.progress() >= 0.5) {
+          setActiveTab("fourth");
+        } else {
+          setActiveTab("third");
+        }
+      },
     })
     .to(
       ".tab_content.fourth",
@@ -297,8 +311,6 @@ if (header) {
         filter: "blur(0px)",
         duration: 3,
         ease: "power3.inOut",
-        onStart: () => setActiveTab("fourth"),
-        onReverseComplete: () => setActiveTab("third"),
       },
       "<"
     )
