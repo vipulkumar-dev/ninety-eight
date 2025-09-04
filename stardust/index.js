@@ -342,7 +342,6 @@ initReveal();
           } else {
             // Video is out of view - pause and hide it
             video.pause();
-
             console.log("pause");
           }
         });
@@ -352,7 +351,7 @@ initReveal();
       }
     );
 
-    observer.observe(wrapper);
+    observer.observe(video);
   });
 })();
 
