@@ -329,20 +329,19 @@ initReveal();
     // Ensure video is muted for autoplay to work
     video.muted = true;
 
-    // Observe the wrapper, not the video itself
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            // Video is in view - show and play it
+            // Video is in view - play it
             video.play().catch((error) => {
               console.log("Error playing video:", error);
             });
             console.log("play");
           } else {
-            // Video is out of view - pause and hide it
-            video.pause();
-            console.log("pause");
+            // Video is out of view - pause and cleanup memory
+            cleanupVideo(video);
+            console.log("pause and cleanup");
           }
         });
       },
@@ -353,6 +352,32 @@ initReveal();
 
     observer.observe(video);
   });
+
+  function cleanupVideo(video) {
+    // Pause the video
+    if (!video.paused) {
+      video.pause();
+    }
+
+    // Memory cleanup for mobile browsers
+    video.currentTime = 0;
+
+    // Store original source
+    if (!video.dataset.originalSrc && video.src) {
+      video.dataset.originalSrc = video.src;
+    }
+
+    // Clear video source to free memory
+    video.removeAttribute("src");
+    video.load(); // This forces the browser to release video memory
+
+    // Restore source after a short delay (ready for next play)
+    setTimeout(() => {
+      if (video.dataset.originalSrc) {
+        video.src = video.dataset.originalSrc;
+      }
+    }, 100);
+  }
 })();
 
 liveReload();
