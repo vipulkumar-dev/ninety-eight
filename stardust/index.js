@@ -309,22 +309,6 @@ if (header) {
     animation: tl,
     scrub: 1,
   });
-
-  clickableElements.forEach((element) => {
-    element.addEventListener("click", () => {
-      const targetLabel = element.getAttribute("data-scroll-tab");
-
-      if (targetLabel) {
-        setActiveTab(targetLabel);
-
-        gsap.to(window, {
-          scrollTo: tl.scrollTrigger.labelToScroll(targetLabel),
-          duration: 0.8,
-          ease: "power3.inOut",
-        });
-      }
-    });
-  });
 })();
 
 // Split lines for [para-reveal] and words for [word-reveal], then set initial opacity
