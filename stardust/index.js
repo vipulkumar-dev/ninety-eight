@@ -543,6 +543,6 @@ function restoreVideoSources(video) {
   video.load();
 }
 
-roll("[roll]", 60);
+roll("[roll]", 50);
 
 liveReload();
