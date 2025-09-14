@@ -502,7 +502,7 @@ initReveal();
           }
         });
       },
-      { threshold: 0, rootMargin: isMobile ? "400px" : "200px" }
+      { threshold: 0, rootMargin: isMobile ? "200px" : "200px" }
     );
 
     observer.observe(video);
