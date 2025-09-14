@@ -502,7 +502,7 @@ initReveal();
           }
         });
       },
-      { threshold: 0, rootMargin: "200px" }
+      { threshold: 0, rootMargin: isMobile ? "400px" : "200px" }
     );
 
     observer.observe(video);
@@ -543,6 +543,6 @@ function restoreVideoSources(video) {
   video.load();
 }
 
-roll("[roll]", 50);
+roll("[roll]", 45);
 
 liveReload();
