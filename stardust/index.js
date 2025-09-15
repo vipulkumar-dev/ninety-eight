@@ -491,13 +491,13 @@ initReveal();
             // Video is in view - restore sources and play
             console.log("play");
             restoreVideoSources(video);
-            // video.play().catch((error) => {
-            //   console.log("Error playing video:", error);
-            // });
+            video.play().catch((error) => {
+              console.log("Error playing video:", error);
+            });
           } else {
             // Video is out of view - clean up all sources
             console.log("pause");
-            // video.pause();
+            video.pause();
             clearAllVideoSources(video);
           }
         });
