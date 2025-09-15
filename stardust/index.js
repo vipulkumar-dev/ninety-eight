@@ -488,21 +488,18 @@ initReveal();
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            // Video is in view - restore sources and play
+            // Video is in view - restore sources and auto-play after load
             console.log("play");
             restoreVideoSources(video);
-            video.play().catch((error) => {
-              console.log("Error playing video:", error);
-            });
           } else {
-            // Video is out of view - clean up all sources
+            // Video is out of view - pause and clean sources
             console.log("pause");
             video.pause();
             clearAllVideoSources(video);
           }
         });
       },
-      { threshold: 0, rootMargin: isMobile ? "200px" : "200px" }
+      { threshold: 0, rootMargin: "200px" }
     );
 
     observer.observe(video);
@@ -539,8 +536,16 @@ function restoreVideoSources(video) {
     }
   });
 
-  // Trigger load to apply new sources
+  // Reload the video with new sources
   video.load();
+
+  // Wait for the video to be ready before playing
+  const onLoaded = () => {
+    video.play().catch((err) => console.log("Error playing video:", err));
+    video.removeEventListener("loadeddata", onLoaded);
+  };
+
+  video.addEventListener("loadeddata", onLoaded);
 }
 
 roll("[roll]", 45);
