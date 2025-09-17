@@ -1,7 +1,8 @@
-import { roll, getDevices } from "../utils.js";
+import { roll, getDevices, lenisInit } from "../utils.js";
 import { liveReload } from "../liveReload.js";
 
 const { isDesktop, isMobile } = getDevices();
+const lenis = lenisInit(0.15);
 
 document.querySelectorAll(".swiper").forEach((swiper) => {
   const swiperInstance = new Swiper(swiper, {
