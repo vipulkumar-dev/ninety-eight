@@ -223,7 +223,6 @@ function initReveal() {
         // console.log("animateItems", animateItems);
 
         gsap.to(animateItems, {
-          filter: "blur(0px)",
           y: 0,
           opacity: 1,
           stagger: 0.05,
