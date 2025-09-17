@@ -21,6 +21,25 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
   });
 });
 
+(function scrollResotration() {
+  window.scrollTo(0, 0);
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
+
+  // Prevent scroll restoration
+  if ("scrollRestoration" in history) {
+    history.scrollRestoration = "manual";
+  }
+
+  window.addEventListener("load", () => {
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    }, 0);
+  });
+})();
+
 document.querySelectorAll(".btn").forEach((btn) => {
   let split = new SplitText(btn, {
     type: "words",
