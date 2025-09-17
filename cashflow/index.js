@@ -155,4 +155,73 @@ function setwordAnimation(word) {
   }
 })();
 
+["para-reveal", "word-reveal"].forEach((attr) => {
+  document.querySelectorAll(`[${attr}]`).forEach((el) => {
+    new SplitText(el, {
+      type: attr === "para-reveal" ? "lines" : "words",
+      deepslice: true,
+      linesClass: attr === "para-reveal" ? "para_line" : undefined,
+      wordsClass: attr === "word-reveal" ? "para_word" : undefined,
+    });
+    gsap.set(el, { opacity: 1 });
+  });
+});
+
+function initReveal() {
+  ScrollTrigger.batch(
+    "[basic-reveal],[fade-reveal],[para-reveal],[word-reveal]",
+    {
+      start: "top bottom",
+      end: "top bottom",
+      anticipatePin: 1,
+      // pinnedContainer: ".section_wpr",
+      // markers: true,
+      onEnter: (elements, triggers) => {
+        const animateItems = [];
+
+        elements.forEach((element) => {
+          if (element.hasAttribute("basic-reveal")) {
+            animateItems.push(element);
+          }
+          if (element.hasAttribute("para-reveal")) {
+            // console.log("para", element);
+            element.querySelectorAll(".para_line").forEach((line) => {
+              animateItems.push(line);
+            });
+          }
+          if (element.hasAttribute("word-reveal")) {
+            // console.log("word", element);
+            element.querySelectorAll(".para_word").forEach((word) => {
+              // console.log("word", word);
+              animateItems.push(word);
+            });
+          }
+          if (element.hasAttribute("fade-reveal")) {
+            animateItems.push(element);
+          }
+        });
+        // console.log("animateItems", animateItems);
+
+        gsap.to(animateItems, {
+          filter: "blur(0px)",
+          opacity: 1,
+          stagger: 0.05,
+          duration: (index, target) => {
+            if (target.hasAttribute("extra-time")) {
+              return 1.3;
+            }
+            if (target.hasAttribute("extra-more-time")) {
+              return 2;
+            }
+            return 1;
+          },
+          ease: "power3.inOut",
+        });
+      },
+    }
+  );
+}
+
+initReveal();
+
 liveReload();
