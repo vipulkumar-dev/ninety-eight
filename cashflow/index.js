@@ -214,7 +214,7 @@ function initReveal() {
             if (target.hasAttribute("extra-more-time")) {
               return 2;
             }
-            return 1.2;
+            return 1;
           },
           ease: "power4.inOut",
         });
