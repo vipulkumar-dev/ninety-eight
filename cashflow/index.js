@@ -171,7 +171,7 @@ function initReveal() {
   ScrollTrigger.batch(
     "[basic-reveal],[fade-reveal],[para-reveal],[word-reveal]",
     {
-      start: "top bottom",
+      start: "top 85%",
       end: "top bottom",
       anticipatePin: 1,
       // pinnedContainer: ".section_wpr",
