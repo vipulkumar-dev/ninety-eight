@@ -204,8 +204,9 @@ function initReveal() {
 
         gsap.to(animateItems, {
           filter: "blur(0px)",
+          y: 0,
           opacity: 1,
-          stagger: 0.05,
+          stagger: 0.07,
           duration: (index, target) => {
             if (target.hasAttribute("extra-time")) {
               return 1.3;
@@ -213,9 +214,9 @@ function initReveal() {
             if (target.hasAttribute("extra-more-time")) {
               return 2;
             }
-            return 1;
+            return 1.2;
           },
-          ease: "power3.inOut",
+          ease: "power4.inOut",
         });
       },
     }
