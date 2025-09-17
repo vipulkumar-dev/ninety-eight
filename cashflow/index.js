@@ -171,7 +171,7 @@ function initReveal() {
   ScrollTrigger.batch(
     "[basic-reveal],[fade-reveal],[para-reveal],[word-reveal]",
     {
-      start: "top 85%",
+      start: "top 100%",
       end: "top bottom",
       anticipatePin: 1,
       // pinnedContainer: ".section_wpr",
@@ -207,6 +207,7 @@ function initReveal() {
           y: 0,
           opacity: 1,
           stagger: 0.05,
+          delay: 0.3,
           duration: (index, target) => {
             if (target.hasAttribute("extra-time")) {
               return 1.3;
