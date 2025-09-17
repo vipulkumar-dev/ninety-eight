@@ -226,11 +226,12 @@ function initReveal() {
         gsap.to(animateItems, {
           y: 0,
           opacity: 1,
-          stagger: 0.05,
-          duration: (index, target) => {
-            if (target.hasAttribute("extra-time")) return 1.3;
-            if (target.hasAttribute("extra-more-time")) return 2;
-            return 1;
+          stagger: 0.06,
+          duration: 1,
+          delay: (index, target) => {
+            if (target.hasAttribute("extra-time")) return 0.1;
+            if (target.hasAttribute("extra-more-time")) return 0.2;
+            return 0;
           },
           ease: "power4.inOut",
         });
