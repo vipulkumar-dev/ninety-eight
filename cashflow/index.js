@@ -195,7 +195,7 @@ function initReveal() {
   elements.forEach((element) => {
     let startValue = element.hasAttribute("bottom-100")
       ? "top 100%"
-      : "top 80%"; // default
+      : "top 85%"; // default
 
     ScrollTrigger.create({
       trigger: element,
