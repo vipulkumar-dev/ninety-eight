@@ -206,7 +206,7 @@ function initReveal() {
           filter: "blur(0px)",
           y: 0,
           opacity: 1,
-          stagger: 0.07,
+          stagger: 0.05,
           duration: (index, target) => {
             if (target.hasAttribute("extra-time")) {
               return 1.3;
