@@ -75,35 +75,39 @@ function setwordAnimation(word) {
 }
 
 (function faq_init() {
-  const faq_items = document.querySelectorAll(".faq_item");
-  let activeIndex = null;
-  const timelines = [];
+  const faq_wprs = document.querySelectorAll(".faq_wpr");
 
-  faq_items.forEach((faqItem, index) => {
-    faqItem.isActive = false;
-    const faqTl = faqTimeline(faqItem);
-    timelines[index] = faqTl;
+  faq_wprs.forEach((faq_wpr, index) => {
+    const faq_items = faq_wpr.querySelectorAll(".faq_item");
+    let activeIndex = null;
+    const timelines = [];
 
-    faqItem.addEventListener("click", () => {
-      if (!faqItem.isActive) {
-        // Close any open item
-        if (activeIndex !== null && activeIndex !== index) {
-          timelines[activeIndex].reverse();
-          faq_items[activeIndex].isActive = false;
+    faq_items.forEach((faqItem, index) => {
+      faqItem.isActive = false;
+      const faqTl = faqTimeline(faqItem);
+      timelines[index] = faqTl;
+
+      faqItem.addEventListener("click", () => {
+        if (!faqItem.isActive) {
+          // Close any open item
+          if (activeIndex !== null && activeIndex !== index) {
+            timelines[activeIndex].reverse();
+            faq_items[activeIndex].isActive = false;
+          }
+          faqTl.play();
+          faqItem.isActive = true;
+          activeIndex = index;
+        } else {
+          faqTl.reverse();
+          faqItem.isActive = false;
+          activeIndex = null;
         }
-        faqTl.play();
-        faqItem.isActive = true;
-        activeIndex = index;
-      } else {
-        faqTl.reverse();
-        faqItem.isActive = false;
-        activeIndex = null;
+      });
+
+      if (index === 0) {
+        faqItem.click(); // auto-open first item
       }
     });
-
-    if (index === 0) {
-      faqItem.click(); // auto-open first item
-    }
   });
 
   function faqTimeline(faqItem) {
