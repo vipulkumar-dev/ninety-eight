@@ -235,7 +235,7 @@ function handleLottieVisibility() {
   const options = {
     root: null, // use viewport as root
     rootMargin: "0px",
-    threshold: 0.5, // trigger when at least 10% of the element is visible
+    threshold: 0, // trigger when at least 10% of the element is visible
   };
 
   // Create observer
