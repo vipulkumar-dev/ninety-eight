@@ -4,24 +4,6 @@ import { liveReload } from "../liveReload.js";
 const { isDesktop, isMobile } = getDevices();
 const lenis = lenisInit(0.15);
 
-document.querySelectorAll(".swiper").forEach((swiper) => {
-  const swiperInstance = new Swiper(swiper, {
-    direction: "horizontal",
-    slidesPerView: "auto",
-    spaceBetween: 16,
-    centeredSlides: true,
-    centeredSlidesBounds: true,
-    autoplay: {
-      delay: 3000,
-    },
-    loop: true,
-    navigation: {
-      nextEl: document.querySelector(".swiper_next"),
-      prevEl: document.querySelector(".swiper_prev"),
-    },
-  });
-});
-
 (function scrollResotration() {
   window.scrollTo(0, 0);
   document.documentElement.scrollTop = 0;
@@ -241,5 +223,50 @@ function initReveal() {
 }
 
 initReveal();
+
+const webflowLottie = Webflow.require("lottie").lottie;
+webflowLottie.setQuality("low");
+
+const allAnimations = webflowLottie.getRegisteredAnimations();
+
+// Function to handle Lottie animation visibility
+function handleLottieVisibility() {
+  // Create intersection observer options
+  const options = {
+    root: null, // use viewport as root
+    rootMargin: "0px",
+    threshold: 0.5, // trigger when at least 10% of the element is visible
+  };
+
+  // Create observer
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      // Find the Lottie animation for this element
+      const animation = allAnimations.find(
+        (anim) => anim.wrapper === entry.target
+      );
+
+      if (animation) {
+        if (entry.isIntersecting) {
+          // Play animation when in view
+          animation.play();
+        } else {
+          // Pause animation when out of view
+          animation.pause();
+        }
+      }
+    });
+  }, options);
+
+  // Observe each Lottie animation wrapper
+  allAnimations.forEach((animation) => {
+    if (animation.wrapper) {
+      observer.observe(animation.wrapper);
+    }
+  });
+}
+
+// Initialize the Lottie visibility handling
+handleLottieVisibility();
 
 liveReload();
