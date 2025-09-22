@@ -24,6 +24,8 @@ function handleScroll() {
   ticking = false;
 }
 
+//abs
+
 // var scriptLocation = document.currentScript.src;
 // console.log("scriptLocation", scriptLocation);
 
