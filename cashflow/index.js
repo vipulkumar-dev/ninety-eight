@@ -159,13 +159,27 @@ function setwordAnimation(word) {
 
 ["para-reveal", "word-reveal"].forEach((attr) => {
   document.querySelectorAll(`[${attr}]`).forEach((el) => {
-    new SplitText(el, {
+    // 1️⃣ Initial split (might be incorrect if fonts not loaded yet)
+    let split = new SplitText(el, {
       type: attr === "para-reveal" ? "lines" : "words",
       deepslice: true,
       linesClass: attr === "para-reveal" ? "para_line" : undefined,
       wordsClass: attr === "word-reveal" ? "para_word" : undefined,
     });
     gsap.set(el, { opacity: 1 });
+
+    // 2️⃣ Once fonts are ready, revert & re-split properly
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(() => {
+        split.revert();
+        split = new SplitText(el, {
+          type: attr === "para-reveal" ? "lines" : "words",
+          deepslice: true,
+          linesClass: attr === "para-reveal" ? "para_line" : undefined,
+          wordsClass: attr === "word-reveal" ? "para_word" : undefined,
+        });
+      });
+    }
   });
 });
 
@@ -228,6 +242,8 @@ const webflowLottie = Webflow.require("lottie").lottie;
 webflowLottie.setQuality("low");
 
 const allAnimations = webflowLottie.getRegisteredAnimations();
+
+console.log("allAnimations", allAnimations);
 
 // Function to handle Lottie animation visibility
 function handleLottieVisibility() {
