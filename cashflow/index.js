@@ -185,7 +185,55 @@ function initCards() {
 
     if (index === 0) {
       makeCardDraggable(card);
+      vibrateCard(card); // Add vibrate animation to first card
     }
+  });
+}
+
+function vibrateCard(card) {
+  // Create a timeline for vibration effect
+  const tl = gsap.timeline({ repeat: -1, repeatDelay: 2 }); // Repeat every 3 seconds
+
+  const gsapOptions = {
+    duration: 0.1,
+    ease: "power2.inOut",
+  };
+
+  tl.to(card, {
+    x: -3,
+    ...gsapOptions,
+  })
+    .to(card, {
+      x: 3,
+      ...gsapOptions,
+    })
+    .to(card, {
+      x: -3,
+      ...gsapOptions,
+    })
+    .to(card, {
+      x: 3,
+      ...gsapOptions,
+    })
+    .to(card, {
+      x: -2,
+      ...gsapOptions,
+    })
+    .to(card, {
+      x: 2,
+      ...gsapOptions,
+    })
+    .to(card, {
+      x: 0,
+      ...gsapOptions,
+    });
+}
+
+function stopVibrate(card) {
+  gsap.killTweensOf(card);
+  gsap.to(card, {
+    x: 0,
+    duration: 0.1,
   });
 }
 
@@ -193,6 +241,9 @@ function makeCardDraggable(card) {
   Draggable.create(card, {
     type: "x,y",
     bounds: { minX: -400, maxX: 400, minY: -200, maxY: 200 },
+    onDragStart: function () {
+      stopVibrate(card); // Stop vibrate when user starts dragging
+    },
     onDrag: function () {
       const rotation = this.x / 10;
       gsap.to(card, {
@@ -204,7 +255,7 @@ function makeCardDraggable(card) {
       const threshold = 100;
 
       if (Math.abs(this.x) > threshold || Math.abs(this.y) > threshold) {
-        // Card swiped away
+        // Card swiped away - don't restart vibrate
         const direction = this.x > 0 ? 1 : -1;
 
         gsap.to(card, {
@@ -257,20 +308,23 @@ function makeCardDraggable(card) {
               });
             });
 
-            // Make next card draggable
+            // Make next card draggable (no vibrate after first swipe)
             setTimeout(() => {
               makeCardDraggable(cardArray[0]);
             }, 300);
           },
         });
       } else {
-        // Snap back
+        // Snap back and restart vibrate
         gsap.to(card, {
           x: 0,
           y: 0,
           rotation: 0,
           duration: 0.5,
           ease: "elastic.out(1, 0.5)",
+          onComplete: () => {
+            vibrateCard(card); // Restart vibrate only if card snapped back
+          },
         });
       }
     },
