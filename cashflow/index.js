@@ -195,8 +195,8 @@ function vibrateCard(card) {
   const tl = gsap.timeline({ repeat: -1, repeatDelay: 2 }); // Repeat every 3 seconds
 
   const gsapOptions = {
-    duration: 0.1,
-    ease: "power2.inOut",
+    duration: 0.12,
+    ease: "power1.inOut",
   };
 
   tl.to(card, {
