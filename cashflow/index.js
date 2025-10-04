@@ -157,181 +157,300 @@ function setwordAnimation(word) {
   }
 })();
 
-const cards = document.querySelectorAll(".card_item");
-let cardArray = Array.from(cards);
+try {
+  const cards = document.querySelectorAll(".card_item");
+  let cardArray = Array.from(cards);
 
-function initCards() {
-  cardArray.forEach((card, index) => {
-    const scale = 1 - index * 0.05;
-    const y = index * -20;
-    const visible = index < 3; // Only show first 3 cards
+  function initCards() {
+    cardArray.forEach((card, index) => {
+      const scale = 1 - index * 0.05;
+      const y = index * -20;
+      const visible = index < 3; // Only show first 3 cards
 
-    // Set content opacity based on position
-    let contentOpacity = 1;
-    if (index === 1) contentOpacity = 0.8;
-    else if (index === 2) contentOpacity = 0.3;
+      // Set content opacity based on position
+      let contentOpacity = 1;
+      if (index === 1) contentOpacity = 0.8;
+      else if (index === 2) contentOpacity = 0.3;
 
-    gsap.set(card, {
-      scale: scale,
-      y: y,
-      zIndex: cardArray.length - index,
-      opacity: visible ? 1 : 0,
-      rotation: 0,
+      gsap.set(card, {
+        scale: scale,
+        y: y,
+        zIndex: cardArray.length - index,
+        opacity: visible ? 1 : 0,
+        rotation: 0,
+      });
+
+      gsap.set(card.querySelector(".card-content"), {
+        opacity: contentOpacity,
+      });
+
+      if (index === 0) {
+        makeCardDraggable(card);
+        // Only vibrate on desktop
+        if (!isMobile) {
+          vibrateCard(card);
+        }
+      }
     });
 
-    gsap.set(card.querySelector(".card-content"), {
-      opacity: contentOpacity,
-    });
-
-    if (index === 0) {
-      makeCardDraggable(card);
-      vibrateCard(card); // Add vibrate animation to first card
+    // Start auto-swipe on mobile
+    if (isMobile) {
+      startAutoSwipe();
     }
-  });
-}
+  }
 
-function vibrateCard(card) {
-  // Create a timeline for vibration effect
-  const tl = gsap.timeline({ repeat: -1, repeatDelay: 2 }); // Repeat every 3 seconds
+  let autoSwipeInterval;
 
-  const gsapOptions = {
-    duration: 0.12,
-    ease: "power1.inOut",
-  };
+  function startAutoSwipe() {
+    // Clear any existing interval
+    if (autoSwipeInterval) {
+      clearInterval(autoSwipeInterval);
+    }
 
-  tl.to(card, {
-    x: -3,
-    ...gsapOptions,
-  })
-    .to(card, {
-      x: 3,
-      ...gsapOptions,
-    })
-    .to(card, {
+    // Auto-swipe every 3 seconds on mobile
+    autoSwipeInterval = setInterval(() => {
+      if (isMobile && cardArray.length > 0) {
+        autoSwipeCard(cardArray[0]);
+      }
+    }, 3000);
+  }
+
+  function autoSwipeCard(card) {
+    stopVibrate(card);
+
+    // Animate card down
+    gsap.to(card, {
+      y: 100,
+      opacity: 0,
+      duration: 0.4,
+      ease: "power2.in",
+      onComplete: () => {
+        // Move card to end of array
+        cardArray.shift();
+        cardArray.push(card);
+
+        // Reset card position and add to end
+        const newIndex = cardArray.length - 1;
+        gsap.set(card, {
+          x: 0,
+          y: newIndex * -20,
+          rotation: 0,
+          opacity: 0,
+          scale: 1 - newIndex * 0.05,
+          zIndex: cardArray.length - newIndex,
+        });
+
+        // Animate remaining cards (zoom in effect)
+        cardArray.forEach((c, i) => {
+          const scale = 1 - i * 0.05;
+          const y = i * -20;
+          const visible = i < 3; // Only show first 3 cards
+
+          // Set content opacity based on position
+          let contentOpacity = 1;
+          if (i === 1) contentOpacity = 0.8;
+          else if (i === 2) contentOpacity = 0.3;
+
+          gsap.to(c, {
+            scale: scale,
+            y: y,
+            opacity: visible ? 1 : 0,
+            zIndex: cardArray.length - i,
+            duration: 0.3,
+            ease: "power2.out",
+          });
+
+          gsap.to(c.querySelector(".card-content"), {
+            opacity: contentOpacity,
+            duration: 0.3,
+            ease: "power2.out",
+          });
+        });
+
+        // Make next card draggable, no vibrate on mobile
+        setTimeout(() => {
+          makeCardDraggable(cardArray[0]);
+        }, 300);
+      },
+    });
+  }
+
+  function vibrateCard(card) {
+    // Create a timeline for vibration effect
+    const tl = gsap.timeline({ repeat: -1, repeatDelay: 2 }); // Repeat every 3 seconds
+
+    const gsapOptions = {
+      duration: 0.12,
+      ease: "power1.inOut",
+    };
+
+    tl.to(card, {
       x: -3,
       ...gsapOptions,
     })
-    .to(card, {
-      x: 3,
-      ...gsapOptions,
-    })
-    .to(card, {
-      x: -2,
-      ...gsapOptions,
-    })
-    .to(card, {
-      x: 2,
-      ...gsapOptions,
-    })
-    .to(card, {
-      x: 0,
-      ...gsapOptions,
-    });
-}
-
-function stopVibrate(card) {
-  gsap.killTweensOf(card);
-  gsap.to(card, {
-    x: 0,
-    duration: 0.1,
-  });
-}
-
-function makeCardDraggable(card) {
-  Draggable.create(card, {
-    type: "x,y",
-    bounds: { minX: -400, maxX: 400, minY: -200, maxY: 200 },
-    onDragStart: function () {
-      stopVibrate(card); // Stop vibrate when user starts dragging
-    },
-    onDrag: function () {
-      const rotation = this.x / 10;
-      gsap.to(card, {
-        rotation: rotation,
-        duration: 0.1,
+      .to(card, {
+        x: 3,
+        ...gsapOptions,
+      })
+      .to(card, {
+        x: -3,
+        ...gsapOptions,
+      })
+      .to(card, {
+        x: 3,
+        ...gsapOptions,
+      })
+      .to(card, {
+        x: -2,
+        ...gsapOptions,
+      })
+      .to(card, {
+        x: 2,
+        ...gsapOptions,
+      })
+      .to(card, {
+        x: 0,
+        ...gsapOptions,
       });
-    },
-    onDragEnd: function () {
-      const threshold = 100;
+  }
 
-      if (Math.abs(this.x) > threshold || Math.abs(this.y) > threshold) {
-        // Card swiped away - don't restart vibrate
-        const direction = this.x > 0 ? 1 : -1;
+  function stopVibrate(card) {
+    gsap.killTweensOf(card);
+    gsap.to(card, {
+      x: 0,
+      duration: 0.1,
+    });
+  }
 
+  function makeCardDraggable(card) {
+    Draggable.create(card, {
+      type: "x,y",
+      bounds: { minX: -400, maxX: 400, minY: -200, maxY: 200 },
+      onDragStart: function () {
+        stopVibrate(card); // Stop vibrate when user starts dragging
+        // Pause auto-swipe on mobile when user interacts
+        if (isMobile && autoSwipeInterval) {
+          clearInterval(autoSwipeInterval);
+        }
+      },
+      onDrag: function () {
+        const rotation = this.x / 10;
         gsap.to(card, {
-          x: direction * 1000,
-          y: this.y * 2,
-          rotation: direction * 45,
-          opacity: 0,
-          duration: 0.5,
-          ease: "power2.in",
-          onComplete: () => {
-            // Move card to end of array
-            cardArray.shift();
-            cardArray.push(card);
+          rotation: rotation,
+          duration: 0.1,
+        });
+      },
+      onDragEnd: function () {
+        const threshold = 100;
 
-            // Reset card position and add to end
-            const newIndex = cardArray.length - 1;
-            gsap.set(card, {
-              x: 0,
-              y: newIndex * -20,
-              rotation: 0,
-              opacity: 0,
-              scale: 1 - newIndex * 0.05,
-              zIndex: cardArray.length - newIndex,
-            });
+        if (Math.abs(this.x) > threshold || Math.abs(this.y) > threshold) {
+          // Card swiped away
+          const direction = this.x > 0 ? 1 : -1;
 
-            // Animate remaining cards
-            cardArray.forEach((c, i) => {
-              const scale = 1 - i * 0.05;
-              const y = i * -20;
-              const visible = i < 3; // Only show first 3 cards
+          gsap.to(card, {
+            x: direction * 1000,
+            y: this.y * 2,
+            rotation: direction * 45,
+            opacity: 0,
+            duration: 0.5,
+            ease: "power2.in",
+            onComplete: () => {
+              // Move card to end of array
+              cardArray.shift();
+              cardArray.push(card);
 
-              // Set content opacity based on position
-              let contentOpacity = 1;
-              if (i === 1) contentOpacity = 0.8;
-              else if (i === 2) contentOpacity = 0.3;
-
-              gsap.to(c, {
-                scale: scale,
-                y: y,
-                opacity: visible ? 1 : 0,
-                zIndex: cardArray.length - i,
-                duration: 0.3,
-                ease: "power2.out",
+              // Reset card position and add to end
+              const newIndex = cardArray.length - 1;
+              gsap.set(card, {
+                x: 0,
+                y: newIndex * -20,
+                rotation: 0,
+                opacity: 0,
+                scale: 1 - newIndex * 0.05,
+                zIndex: cardArray.length - newIndex,
               });
 
-              gsap.to(c.querySelector(".card-content"), {
-                opacity: contentOpacity,
-                duration: 0.3,
-                ease: "power2.out",
-              });
-            });
+              // Animate remaining cards
+              cardArray.forEach((c, i) => {
+                const scale = 1 - i * 0.05;
+                const y = i * -20;
+                const visible = i < 3; // Only show first 3 cards
 
-            // Make next card draggable (no vibrate after first swipe)
-            setTimeout(() => {
-              makeCardDraggable(cardArray[0]);
-            }, 300);
-          },
-        });
-      } else {
-        // Snap back and restart vibrate
-        gsap.to(card, {
-          x: 0,
-          y: 0,
-          rotation: 0,
-          duration: 0.5,
-          ease: "elastic.out(1, 0.5)",
-          onComplete: () => {
-            vibrateCard(card); // Restart vibrate only if card snapped back
-          },
-        });
-      }
-    },
-  });
+                // Set content opacity based on position
+                let contentOpacity = 1;
+                if (i === 1) contentOpacity = 0.8;
+                else if (i === 2) contentOpacity = 0.3;
+
+                gsap.to(c, {
+                  scale: scale,
+                  y: y,
+                  opacity: visible ? 1 : 0,
+                  zIndex: cardArray.length - i,
+                  duration: 0.3,
+                  ease: "power2.out",
+                });
+
+                gsap.to(c.querySelector(".card-content"), {
+                  opacity: contentOpacity,
+                  duration: 0.3,
+                  ease: "power2.out",
+                });
+              });
+
+              // Make next card draggable
+              setTimeout(() => {
+                makeCardDraggable(cardArray[0]);
+                // Only vibrate on desktop
+                if (!isMobile) {
+                  vibrateCard(cardArray[0]);
+                }
+                // Restart auto-swipe on mobile after manual swipe
+                if (isMobile) {
+                  startAutoSwipe();
+                }
+              }, 300);
+            },
+          });
+        } else {
+          // Snap back
+          gsap.to(card, {
+            x: 0,
+            y: 0,
+            rotation: 0,
+            duration: 0.5,
+            ease: "elastic.out(1, 0.5)",
+            onComplete: () => {
+              // Only vibrate on desktop
+              if (!isMobile) {
+                vibrateCard(card);
+              }
+              // Restart auto-swipe on mobile
+              if (isMobile) {
+                startAutoSwipe();
+              }
+            },
+          });
+        }
+      },
+    });
+  }
+
+  initCards();
+} catch (err) {
+  console.log("err", err);
 }
 
-initCards();
+// Handle window resize to start/stop auto-swipe
+window.addEventListener("resize", () => {
+  if (isMobile) {
+    startAutoSwipe();
+  } else {
+    if (autoSwipeInterval) {
+      clearInterval(autoSwipeInterval);
+      autoSwipeInterval = null;
+    }
+  }
+});
 
 ["para-reveal", "word-reveal"].forEach((attr) => {
   document.querySelectorAll(`[${attr}]`).forEach((el) => {
