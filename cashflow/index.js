@@ -193,10 +193,8 @@ try {
       }
     });
 
-    // Start auto-swipe on mobile
-    if (isMobile) {
-      startAutoSwipe();
-    }
+    // Start auto-swipe on both mobile and desktop
+    startAutoSwipe();
   }
 
   let autoSwipeInterval;
@@ -207,9 +205,9 @@ try {
       clearInterval(autoSwipeInterval);
     }
 
-    // Auto-swipe every 3 seconds on mobile
+    // Auto-swipe every 3 seconds on both mobile and desktop
     autoSwipeInterval = setInterval(() => {
-      if (isMobile && cardArray.length > 0) {
+      if (cardArray.length > 0) {
         autoSwipeCard(cardArray[0]);
       }
     }, 3000);
@@ -328,8 +326,8 @@ try {
       bounds: { minX: -400, maxX: 400, minY: -200, maxY: 200 },
       onDragStart: function () {
         stopVibrate(card); // Stop vibrate when user starts dragging
-        // Pause auto-swipe on mobile when user interacts
-        if (isMobile && autoSwipeInterval) {
+        // Pause auto-swipe when user interacts
+        if (autoSwipeInterval) {
           clearInterval(autoSwipeInterval);
         }
       },
@@ -404,10 +402,8 @@ try {
                 if (!isMobile) {
                   vibrateCard(cardArray[0]);
                 }
-                // Restart auto-swipe on mobile after manual swipe
-                if (isMobile) {
-                  startAutoSwipe();
-                }
+                // Restart auto-swipe after manual swipe
+                startAutoSwipe();
               }, 300);
             },
           });
@@ -424,10 +420,8 @@ try {
               if (!isMobile) {
                 vibrateCard(card);
               }
-              // Restart auto-swipe on mobile
-              if (isMobile) {
-                startAutoSwipe();
-              }
+              // Restart auto-swipe
+              startAutoSwipe();
             },
           });
         }

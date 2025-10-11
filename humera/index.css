@@ -58,3 +58,15 @@
 .plyr_component:hover .plyr_cover-icon {
   transform: scale(1.2);
 }
+
+.header.active .btn .btn_txt {
+  color: white;
+}
+
+.header.active .btn .btn_bg.is-secondary {
+  opacity: 0;
+}
+
+.header.active .btn .btn_bg {
+  opacity: 1;
+}
