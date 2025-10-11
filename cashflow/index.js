@@ -186,10 +186,6 @@ try {
 
       if (index === 0) {
         makeCardDraggable(card);
-        // Only vibrate on desktop
-        if (!isMobile) {
-          vibrateCard(card);
-        }
       }
     });
 
@@ -205,17 +201,15 @@ try {
       clearInterval(autoSwipeInterval);
     }
 
-    // Auto-swipe every 3 seconds on both mobile and desktop
+    // Auto-swipe every 3.5 seconds on both mobile and desktop
     autoSwipeInterval = setInterval(() => {
       if (cardArray.length > 0) {
         autoSwipeCard(cardArray[0]);
       }
-    }, 3000);
+    }, 3500);
   }
 
   function autoSwipeCard(card) {
-    stopVibrate(card);
-
     // Animate card down
     gsap.to(card, {
       y: 100,
@@ -265,58 +259,11 @@ try {
           });
         });
 
-        // Make next card draggable, no vibrate on mobile
+        // Make next card draggable
         setTimeout(() => {
           makeCardDraggable(cardArray[0]);
         }, 300);
       },
-    });
-  }
-
-  function vibrateCard(card) {
-    // Create a timeline for vibration effect
-    const tl = gsap.timeline({ repeat: -1, repeatDelay: 2 }); // Repeat every 3 seconds
-
-    const gsapOptions = {
-      duration: 0.12,
-      ease: "power1.inOut",
-    };
-
-    tl.to(card, {
-      x: -3,
-      ...gsapOptions,
-    })
-      .to(card, {
-        x: 3,
-        ...gsapOptions,
-      })
-      .to(card, {
-        x: -3,
-        ...gsapOptions,
-      })
-      .to(card, {
-        x: 3,
-        ...gsapOptions,
-      })
-      .to(card, {
-        x: -2,
-        ...gsapOptions,
-      })
-      .to(card, {
-        x: 2,
-        ...gsapOptions,
-      })
-      .to(card, {
-        x: 0,
-        ...gsapOptions,
-      });
-  }
-
-  function stopVibrate(card) {
-    gsap.killTweensOf(card);
-    gsap.to(card, {
-      x: 0,
-      duration: 0.1,
     });
   }
 
@@ -325,7 +272,6 @@ try {
       type: "x,y",
       bounds: { minX: -400, maxX: 400, minY: -200, maxY: 200 },
       onDragStart: function () {
-        stopVibrate(card); // Stop vibrate when user starts dragging
         // Pause auto-swipe when user interacts
         if (autoSwipeInterval) {
           clearInterval(autoSwipeInterval);
@@ -398,10 +344,6 @@ try {
               // Make next card draggable
               setTimeout(() => {
                 makeCardDraggable(cardArray[0]);
-                // Only vibrate on desktop
-                if (!isMobile) {
-                  vibrateCard(cardArray[0]);
-                }
                 // Restart auto-swipe after manual swipe
                 startAutoSwipe();
               }, 300);
@@ -416,10 +358,6 @@ try {
             duration: 0.5,
             ease: "elastic.out(1, 0.5)",
             onComplete: () => {
-              // Only vibrate on desktop
-              if (!isMobile) {
-                vibrateCard(card);
-              }
               // Restart auto-swipe
               startAutoSwipe();
             },
