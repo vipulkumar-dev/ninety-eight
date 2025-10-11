@@ -194,6 +194,7 @@ try {
   }
 
   let autoSwipeInterval;
+  let isTabVisible = true;
 
   function startAutoSwipe() {
     // Clear any existing interval
@@ -201,13 +202,36 @@ try {
       clearInterval(autoSwipeInterval);
     }
 
-    // Auto-swipe every 3.5 seconds on both mobile and desktop
-    autoSwipeInterval = setInterval(() => {
-      if (cardArray.length > 0) {
-        autoSwipeCard(cardArray[0]);
-      }
-    }, 3500);
+    // Only start auto-swipe if tab is visible
+    if (isTabVisible) {
+      // Auto-swipe every 3.5 seconds on both mobile and desktop
+      autoSwipeInterval = setInterval(() => {
+        if (cardArray.length > 0 && isTabVisible) {
+          autoSwipeCard(cardArray[0]);
+        }
+      }, 3500);
+    }
   }
+
+  function stopAutoSwipe() {
+    if (autoSwipeInterval) {
+      clearInterval(autoSwipeInterval);
+      autoSwipeInterval = null;
+    }
+  }
+
+  // Handle tab visibility changes
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) {
+      // Tab is not visible, stop auto-swipe
+      isTabVisible = false;
+      stopAutoSwipe();
+    } else {
+      // Tab is visible again, resume auto-swipe
+      isTabVisible = true;
+      startAutoSwipe();
+    }
+  });
 
   function autoSwipeCard(card) {
     // Animate card down
@@ -273,9 +297,7 @@ try {
       bounds: { minX: -400, maxX: 400, minY: -200, maxY: 200 },
       onDragStart: function () {
         // Pause auto-swipe when user interacts
-        if (autoSwipeInterval) {
-          clearInterval(autoSwipeInterval);
-        }
+        stopAutoSwipe();
       },
       onDrag: function () {
         const rotation = this.x / 10;
