@@ -429,8 +429,9 @@ ScrollTrigger.batch(".auto_video", {
     })
     .to(".tab_content.first", {
       opacity: 0,
+      pointerEvents: "none",
       filter: "blur(3px)",
-      duration: 3,
+      duration: 0.1,
       ease: "power3.inOut",
       onUpdate: function () {
         if (this.progress() >= 0.5) {
@@ -444,8 +445,9 @@ ScrollTrigger.batch(".auto_video", {
       ".tab_content.second",
       {
         opacity: 1,
+        pointerEvents: "auto",
         filter: "blur(0px)",
-        duration: 3,
+        duration: 0.1,
         ease: "power3.inOut",
       },
       "<"
@@ -456,8 +458,9 @@ ScrollTrigger.batch(".auto_video", {
     })
     .to(".tab_content.second", {
       opacity: 0,
+      pointerEvents: "none",
       filter: "blur(3px)",
-      duration: 3,
+      duration: 0.1,
       ease: "power3.inOut",
       onUpdate: function () {
         if (this.progress() >= 0.5) {
@@ -471,8 +474,9 @@ ScrollTrigger.batch(".auto_video", {
       ".tab_content.third",
       {
         opacity: 1,
+        pointerEvents: "auto",
         filter: "blur(0px)",
-        duration: 3,
+        duration: 0.1,
         ease: "power3.inOut",
       },
       "<"
@@ -483,6 +487,7 @@ ScrollTrigger.batch(".auto_video", {
     })
     .to(".tab_content.third", {
       opacity: 0,
+      pointerEvents: "none",
       filter: "blur(3px)",
       duration: 3,
       ease: "power3.inOut",
@@ -498,6 +503,7 @@ ScrollTrigger.batch(".auto_video", {
       ".tab_content.fourth",
       {
         opacity: 1,
+        pointerEvents: "auto",
         filter: "blur(0px)",
         duration: 3,
         ease: "power3.inOut",
@@ -510,8 +516,9 @@ ScrollTrigger.batch(".auto_video", {
     })
     .to(".tab_content.fourth", {
       opacity: 0,
+      pointerEvents: "none",
       filter: "blur(3px)",
-      duration: 3,
+      duration: 0.1,
       ease: "power3.inOut",
       onUpdate: function () {
         if (this.progress() >= 0.5) {
@@ -525,8 +532,9 @@ ScrollTrigger.batch(".auto_video", {
       ".tab_content.fifth",
       {
         opacity: 1,
+        pointerEvents: "auto",
         filter: "blur(0px)",
-        duration: 3,
+        duration: 0.1,
         ease: "power3.inOut",
       },
       "<"

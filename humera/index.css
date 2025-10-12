@@ -70,3 +70,8 @@
 .header.active .btn .btn_bg {
   opacity: 1;
 }
+
+.video_button .play_icon,
+.btn .play_icon {
+  transform: translateX(-3px);
+}
