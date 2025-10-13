@@ -751,11 +751,11 @@ try {
     if (type === "recaptcha") {
       multiplier = 0.1;
     } else if (type === "cloudflare") {
-      multiplier = 0.09;
+      multiplier = 0.095;
     } else if (type === "hcaptcha") {
-      multiplier = 0.08;
+      multiplier = 0.09;
     } else if (type === "fun-captcha") {
-      multiplier = 0.07;
+      multiplier = 0.085;
     }
 
     const result = transactions * revenue * multiplier;
