@@ -454,6 +454,9 @@ ScrollTrigger.batch(".auto_video", {
       },
       "<"
     )
+    .to(".tab_content", {
+      duration: 2,
+    })
     .add("fifth");
 
   // Set initial active state
