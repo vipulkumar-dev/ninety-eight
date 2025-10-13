@@ -200,91 +200,6 @@ document.querySelectorAll("[backed-wpr]").forEach((wrapper) => {
   });
 });
 
-document.querySelectorAll("[para-reveal]").forEach((text) => {
-  new SplitText(text, {
-    type: "lines",
-    deepslice: true,
-    // mask: "lines",
-    linesClass: "para_line",
-  });
-});
-
-document.querySelectorAll("[word-reveal]").forEach((text) => {
-  new SplitText(text, {
-    type: "words",
-    deepslice: true,
-    // mask: "lines",
-    wordsClass: "para_word",
-  });
-});
-
-gsap.set("[para-reveal]", {
-  opacity: 1,
-});
-
-gsap.set("[word-reveal]", {
-  opacity: 1,
-});
-
-const isLoader = false;
-
-function initReveal() {
-  ScrollTrigger.batch(
-    "[basic-reveal],[fade-reveal],[para-reveal],[word-reveal]",
-    {
-      start: "top bottom",
-      end: "top bottom",
-      // markers: true,
-      onEnter: (elements, triggers) => {
-        const animateItems = [];
-
-        elements.forEach((element) => {
-          if (element.hasAttribute("basic-reveal")) {
-            animateItems.push(element);
-          }
-          if (element.hasAttribute("para-reveal")) {
-            // console.log("para", element);
-            element.querySelectorAll(".para_line").forEach((line) => {
-              animateItems.push(line);
-            });
-          }
-          if (element.hasAttribute("word-reveal")) {
-            // console.log("word", element);
-            element.querySelectorAll(".para_word").forEach((word) => {
-              // console.log("word", word);
-              animateItems.push(word);
-            });
-          }
-          if (element.hasAttribute("fade-reveal")) {
-            animateItems.push(element);
-          }
-        });
-        // console.log("animateItems", animateItems);
-
-        gsap.to(animateItems, {
-          opacity: 1,
-          stagger: 0.04,
-          duration: (index, target) => {
-            if (target.hasAttribute("extra-time")) {
-              return 1.3;
-            }
-            return 0.5;
-          },
-          ease: "power3.inOut",
-        });
-      },
-    }
-  );
-}
-
-if (isLoader) {
-  setTimeout(() => {
-    initReveal();
-  }, 3000);
-} else {
-  initReveal();
-}
-
 gsap.to("[loading-animation]", {
   opacity: 0,
   filter: "blur(1px)",
@@ -806,60 +721,153 @@ function restoreVideoSources(video) {
   video.addEventListener("loadeddata", onLoaded);
 }
 
-const typeSelect = document.querySelector('[data-calculator-selecter="type"]');
-const transactionsInput = document.querySelector(
-  '[data-calculator-selecter="transactions"]'
-);
-const revenueInput = document.querySelector(
-  '[data-calculator-selecter="revenue"]'
-);
-const numberDisplay = document.querySelector(
-  '[data-calculator-selecter="number"]'
-);
+try {
+  const typeSelect = document.querySelector(
+    '[data-calculator-selecter="type"]'
+  );
+  const transactionsInput = document.querySelector(
+    '[data-calculator-selecter="transactions"]'
+  );
+  const revenueInput = document.querySelector(
+    '[data-calculator-selecter="revenue"]'
+  );
+  const numberDisplay = document.querySelector(
+    '[data-calculator-selecter="number"]'
+  );
 
-function formatNumberWithCommas(num) {
-  return Math.round(num).toLocaleString("en-US");
-}
-
-function calculate() {
-  const type = typeSelect.value;
-  const transactions = parseFloat(transactionsInput.value) || 0;
-  const revenue = parseFloat(revenueInput.value) || 0;
-
-  let multiplier;
-  if (type === "recaptcha") {
-    multiplier = 0.1;
-  } else if (type === "humera") {
-    multiplier = 0.05;
+  function formatNumberWithCommas(num) {
+    return Math.round(num).toLocaleString("en-US");
   }
 
-  const result = transactions * revenue * multiplier;
-  animateNumber(result);
+  function calculate() {
+    const type = typeSelect.value;
+    const transactions = parseFloat(transactionsInput.value) || 0;
+    const revenue = parseFloat(revenueInput.value) || 0;
+
+    let multiplier;
+    if (type === "recaptcha") {
+      multiplier = 0.1;
+    } else if (type === "humera") {
+      multiplier = 0.05;
+    }
+
+    const result = transactions * revenue * multiplier;
+    animateNumber(result);
+  }
+
+  function animateNumber(targetValue) {
+    const currentValue =
+      parseFloat(numberDisplay.textContent.replace(/,/g, "")) || 0;
+
+    const animationObject = { value: currentValue };
+
+    gsap.to(animationObject, {
+      value: targetValue,
+      duration: 0.5,
+      ease: "power2.out",
+      onUpdate: function () {
+        numberDisplay.textContent = formatNumberWithCommas(
+          animationObject.value
+        );
+      },
+      onComplete: function () {
+        numberDisplay.textContent = formatNumberWithCommas(targetValue);
+      },
+    });
+  }
+
+  // Event listeners
+  typeSelect.addEventListener("change", calculate);
+  transactionsInput.addEventListener("input", calculate);
+  revenueInput.addEventListener("input", calculate);
+
+  // Initial calculation
+  calculate();
+} catch (err) {
+  console.log(err);
 }
 
-function animateNumber(targetValue) {
-  const currentValue =
-    parseFloat(numberDisplay.textContent.replace(/,/g, "")) || 0;
-
-  const animationObject = { value: currentValue };
-
-  gsap.to(animationObject, {
-    value: targetValue,
-    duration: 0.5,
-    ease: "power2.out",
-    onUpdate: function () {
-      numberDisplay.textContent = formatNumberWithCommas(animationObject.value);
-    },
-    onComplete: function () {
-      numberDisplay.textContent = formatNumberWithCommas(targetValue);
-    },
+document.querySelectorAll("[para-reveal]").forEach((text) => {
+  new SplitText(text, {
+    type: "lines",
+    deepslice: true,
+    // mask: "lines",
+    linesClass: "para_line",
   });
+});
+
+document.querySelectorAll("[word-reveal]").forEach((text) => {
+  new SplitText(text, {
+    type: "words",
+    deepslice: true,
+    // mask: "lines",
+    wordsClass: "para_word",
+  });
+});
+
+gsap.set("[para-reveal]", {
+  opacity: 1,
+});
+
+gsap.set("[word-reveal]", {
+  opacity: 1,
+});
+
+const isLoader = false;
+
+function initReveal() {
+  ScrollTrigger.batch(
+    "[basic-reveal],[fade-reveal],[para-reveal],[word-reveal]",
+    {
+      start: "top bottom",
+      end: "top bottom",
+      // markers: true,
+      onEnter: (elements, triggers) => {
+        const animateItems = [];
+
+        elements.forEach((element) => {
+          if (element.hasAttribute("basic-reveal")) {
+            animateItems.push(element);
+          }
+          if (element.hasAttribute("para-reveal")) {
+            // console.log("para", element);
+            element.querySelectorAll(".para_line").forEach((line) => {
+              animateItems.push(line);
+            });
+          }
+          if (element.hasAttribute("word-reveal")) {
+            // console.log("word", element);
+            element.querySelectorAll(".para_word").forEach((word) => {
+              // console.log("word", word);
+              animateItems.push(word);
+            });
+          }
+          if (element.hasAttribute("fade-reveal")) {
+            animateItems.push(element);
+          }
+        });
+        // console.log("animateItems", animateItems);
+
+        gsap.to(animateItems, {
+          opacity: 1,
+          stagger: 0.04,
+          duration: (index, target) => {
+            if (target.hasAttribute("extra-time")) {
+              return 1.3;
+            }
+            return 0.5;
+          },
+          ease: "power3.inOut",
+        });
+      },
+    }
+  );
 }
 
-// Event listeners
-typeSelect.addEventListener("change", calculate);
-transactionsInput.addEventListener("input", calculate);
-revenueInput.addEventListener("input", calculate);
-
-// Initial calculation
-calculate();
+if (isLoader) {
+  setTimeout(() => {
+    initReveal();
+  }, 3000);
+} else {
+  initReveal();
+}
