@@ -33,6 +33,25 @@ if (isDesktop) {
   lenis = lenisInit(0.15);
 }
 
+(function scrollResotration() {
+  window.scrollTo(0, 0);
+  document.documentElement.scrollTop = 0;
+  document.body.scrollTop = 0;
+
+  // Prevent scroll restoration
+  if ("scrollRestoration" in history) {
+    history.scrollRestoration = "manual";
+  }
+
+  window.addEventListener("load", () => {
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    }, 0);
+  });
+})();
+
 // Force scroll to top immediately
 
 if (header) {
