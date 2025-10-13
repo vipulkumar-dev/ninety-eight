@@ -702,8 +702,12 @@ try {
     let multiplier;
     if (type === "recaptcha") {
       multiplier = 0.1;
-    } else if (type === "humera") {
-      multiplier = 0.05;
+    } else if (type === "cloudflare") {
+      multiplier = 0.09;
+    } else if (type === "hcaptcha") {
+      multiplier = 0.08;
+    } else if (type === "fun-captcha") {
+      multiplier = 0.07;
     }
 
     const result = transactions * revenue * multiplier;
