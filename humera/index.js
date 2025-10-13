@@ -89,8 +89,8 @@ if (header) {
   });
 
   menu_tl
-    .to(".menu_line.top", { y: "5px" })
-    .to(".menu_line.bottom", { y: "-5px" }, "<")
+    .to(".menu_line.top", { y: "4px" })
+    .to(".menu_line.bottom", { y: "-4px" }, "<")
     .to(".menu_line.top", { rotate: 225, width: "82%", duration: 0.5 })
     .to(".menu_line.bottom", { rotate: -45, width: "82%" }, "<")
     .fromTo(
