@@ -129,15 +129,12 @@ if (header) {
       {
         y: "150%",
         opacity: 0,
-        scaleY: 2,
         transformOrigin: "top",
       },
       {
         y: "0%",
         opacity: 1,
-        scaleY: 1,
         stagger: 0.07,
-        delay: 0.4,
         duration: 1.3,
       }
     );
