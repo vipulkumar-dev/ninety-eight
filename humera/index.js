@@ -805,3 +805,61 @@ function restoreVideoSources(video) {
 
   video.addEventListener("loadeddata", onLoaded);
 }
+
+const typeSelect = document.querySelector('[data-calculator-selecter="type"]');
+const transactionsInput = document.querySelector(
+  '[data-calculator-selecter="transactions"]'
+);
+const revenueInput = document.querySelector(
+  '[data-calculator-selecter="revenue"]'
+);
+const numberDisplay = document.querySelector(
+  '[data-calculator-selecter="number"]'
+);
+
+function formatNumberWithCommas(num) {
+  return Math.round(num).toLocaleString("en-US");
+}
+
+function calculate() {
+  const type = typeSelect.value;
+  const transactions = parseFloat(transactionsInput.value) || 0;
+  const revenue = parseFloat(revenueInput.value) || 0;
+
+  let multiplier;
+  if (type === "recaptcha") {
+    multiplier = 0.1;
+  } else if (type === "humera") {
+    multiplier = 0.05;
+  }
+
+  const result = transactions * revenue * multiplier;
+  animateNumber(result);
+}
+
+function animateNumber(targetValue) {
+  const currentValue =
+    parseFloat(numberDisplay.textContent.replace(/,/g, "")) || 0;
+
+  const animationObject = { value: currentValue };
+
+  gsap.to(animationObject, {
+    value: targetValue,
+    duration: 0.5,
+    ease: "power2.out",
+    onUpdate: function () {
+      numberDisplay.textContent = formatNumberWithCommas(animationObject.value);
+    },
+    onComplete: function () {
+      numberDisplay.textContent = formatNumberWithCommas(targetValue);
+    },
+  });
+}
+
+// Event listeners
+typeSelect.addEventListener("change", calculate);
+transactionsInput.addEventListener("input", calculate);
+revenueInput.addEventListener("input", calculate);
+
+// Initial calculation
+calculate();
