@@ -337,123 +337,75 @@ ScrollTrigger.batch(".auto_video", {
     }
   }
 
-  // Add opacity animations to the timeline with onStart and onReverseComplete callbacks
+  // Add instant tab transitions using gsap.set()
   tl.add("first")
     .to(".tab_content", {
       duration: 1,
     })
-    .to(".tab_content.first", {
-      opacity: 0,
-      pointerEvents: "none",
-      filter: "blur(3px)",
-      duration: 0.1,
-      ease: "power3.inOut",
-      onUpdate: function () {
-        if (this.progress() >= 0.5) {
-          setActiveTab("second");
-        } else {
-          setActiveTab("first");
-        }
-      },
-    })
-    .to(
-      ".tab_content.second",
-      {
+    .call(() => {
+      gsap.set(".tab_content.first", {
+        opacity: 0,
+        pointerEvents: "none",
+        filter: "blur(3px)",
+      });
+      gsap.set(".tab_content.second", {
         opacity: 1,
         pointerEvents: "auto",
         filter: "blur(0px)",
-        duration: 0.1,
-        ease: "power3.inOut",
-      },
-      "<"
-    )
+      });
+      setActiveTab("second");
+    })
     .add("second")
     .to(".tab_content", {
       duration: 2,
     })
-    .to(".tab_content.second", {
-      opacity: 0,
-      pointerEvents: "none",
-      filter: "blur(3px)",
-      duration: 0.1,
-      ease: "power3.inOut",
-      onUpdate: function () {
-        if (this.progress() >= 0.5) {
-          setActiveTab("third");
-        } else {
-          setActiveTab("second");
-        }
-      },
-    })
-    .to(
-      ".tab_content.third",
-      {
+    .call(() => {
+      gsap.set(".tab_content.second", {
+        opacity: 0,
+        pointerEvents: "none",
+        filter: "blur(3px)",
+      });
+      gsap.set(".tab_content.third", {
         opacity: 1,
         pointerEvents: "auto",
         filter: "blur(0px)",
-        duration: 0.1,
-        ease: "power3.inOut",
-      },
-      "<"
-    )
+      });
+      setActiveTab("third");
+    })
     .add("third")
     .to(".tab_content", {
       duration: 2,
     })
-    .to(".tab_content.third", {
-      opacity: 0,
-      pointerEvents: "none",
-      filter: "blur(3px)",
-      duration: 3,
-      ease: "power3.inOut",
-      onUpdate: function () {
-        if (this.progress() >= 0.5) {
-          setActiveTab("fourth");
-        } else {
-          setActiveTab("third");
-        }
-      },
-    })
-    .to(
-      ".tab_content.fourth",
-      {
+    .call(() => {
+      gsap.set(".tab_content.third", {
+        opacity: 0,
+        pointerEvents: "none",
+        filter: "blur(3px)",
+      });
+      gsap.set(".tab_content.fourth", {
         opacity: 1,
         pointerEvents: "auto",
         filter: "blur(0px)",
-        duration: 3,
-        ease: "power3.inOut",
-      },
-      "<"
-    )
+      });
+      setActiveTab("fourth");
+    })
     .add("fourth")
     .to(".tab_content", {
       duration: 2,
     })
-    .to(".tab_content.fourth", {
-      opacity: 0,
-      pointerEvents: "none",
-      filter: "blur(3px)",
-      duration: 0.1,
-      ease: "power3.inOut",
-      onUpdate: function () {
-        if (this.progress() >= 0.5) {
-          setActiveTab("fifth");
-        } else {
-          setActiveTab("fourth");
-        }
-      },
-    })
-    .to(
-      ".tab_content.fifth",
-      {
+    .call(() => {
+      gsap.set(".tab_content.fourth", {
+        opacity: 0,
+        pointerEvents: "none",
+        filter: "blur(3px)",
+      });
+      gsap.set(".tab_content.fifth", {
         opacity: 1,
         pointerEvents: "auto",
         filter: "blur(0px)",
-        duration: 0.1,
-        ease: "power3.inOut",
-      },
-      "<"
-    )
+      });
+      setActiveTab("fifth");
+    })
     .to(".tab_content", {
       duration: 2,
     })
@@ -853,7 +805,7 @@ function initReveal() {
 
         gsap.to(animateItems, {
           opacity: 1,
-          stagger: 0.04,
+          stagger: 0.02,
           duration: (index, target) => {
             if (target.hasAttribute("extra-time")) {
               return 1.3;
