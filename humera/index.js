@@ -364,7 +364,6 @@ ScrollTrigger.batch(".auto_video", {
     .to(".tab_content.first", {
       opacity: 0,
       pointerEvents: "none",
-      filter: "blur(3px)",
       duration: 0.1,
       ease: "power3.inOut",
       onUpdate: function () {
@@ -380,7 +379,6 @@ ScrollTrigger.batch(".auto_video", {
       {
         opacity: 1,
         pointerEvents: "auto",
-        filter: "blur(0px)",
         duration: 0.1,
         ease: "power3.inOut",
       },
@@ -393,7 +391,6 @@ ScrollTrigger.batch(".auto_video", {
     .to(".tab_content.second", {
       opacity: 0,
       pointerEvents: "none",
-      filter: "blur(3px)",
       duration: 0.1,
       ease: "power3.inOut",
       onUpdate: function () {
@@ -409,7 +406,6 @@ ScrollTrigger.batch(".auto_video", {
       {
         opacity: 1,
         pointerEvents: "auto",
-        filter: "blur(0px)",
         duration: 0.1,
         ease: "power3.inOut",
       },
@@ -422,7 +418,6 @@ ScrollTrigger.batch(".auto_video", {
     .to(".tab_content.third", {
       opacity: 0,
       pointerEvents: "none",
-      filter: "blur(3px)",
       duration: 3,
       ease: "power3.inOut",
       onUpdate: function () {
@@ -438,7 +433,6 @@ ScrollTrigger.batch(".auto_video", {
       {
         opacity: 1,
         pointerEvents: "auto",
-        filter: "blur(0px)",
         duration: 3,
         ease: "power3.inOut",
       },
@@ -451,7 +445,6 @@ ScrollTrigger.batch(".auto_video", {
     .to(".tab_content.fourth", {
       opacity: 0,
       pointerEvents: "none",
-      filter: "blur(3px)",
       duration: 0.1,
       ease: "power3.inOut",
       onUpdate: function () {
@@ -467,7 +460,6 @@ ScrollTrigger.batch(".auto_video", {
       {
         opacity: 1,
         pointerEvents: "auto",
-        filter: "blur(0px)",
         duration: 0.1,
         ease: "power3.inOut",
       },
