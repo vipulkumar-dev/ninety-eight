@@ -750,57 +750,47 @@ try {
     '[data-calculator-selecter="number"]'
   );
 
-  const cloudflareOption = typeSelect.querySelector('option[value="cloudflare"]');
-
-    if (cloudflareOption) {
-        // 2. Update its display text (innerHTML) to "Cloudflare Turnstile"
-        cloudflareOption.innerHTML = "Cloudflare Turnstile"; 
-    }
-
   function formatNumberWithCommas(num) {
     return Math.round(num).toLocaleString("en-US");
   }
 
   /**
- * Calculates the estimated Lost Revenue based on the CAPTCHA type
- * and the formula: (Base Revenue) x (Friction Multiplier).
- *
- * NOTE: The function assumes:
- * - 'transactionsInput.value' represents (Visitors * Conversion Rate).
- * - 'revenueInput.value' represents Average Order Value (AOV).
- * - The multiplier is the friction term (c * f).
- */
-function calculate() {
-  // Define multipliers (c * f) based on CAPTCHA friction levels described in the document.
-  const LOST_REVENUE_MULTIPLIERS = {
-    // reCAPTCHA: High failure rate/friction.
-    "recaptcha": 0.15,
-    // cloudflare: Very low challenge rate (~3%) means lower overall friction.
-    "cloudflare": 0.05,
-    // hcaptcha: High solve time/AI bypass suggests medium-high friction.
-    "hcaptcha": 0.10,
-    // fun-captcha: Medium friction.
-    "fun-captcha": 0.085
-  };
+   * Calculates the estimated Lost Revenue based on the CAPTCHA type
+   * and the formula: (Base Revenue) x (Friction Multiplier).
+   *
+   * NOTE: The function assumes:
+   * - 'transactionsInput.value' represents (Visitors * Conversion Rate).
+   * - 'revenueInput.value' represents Average Order Value (AOV).
+   * - The multiplier is the friction term (c * f).
+   */
+  function calculate() {
+    // Define multipliers (c * f) based on CAPTCHA friction levels described in the document.
+    const LOST_REVENUE_MULTIPLIERS = {
+      // reCAPTCHA: High failure rate/friction.
+      recaptcha: 0.15,
+      // cloudflare: Very low challenge rate (~3%) means lower overall friction.
+      cloudflare: 0.05,
+      // hcaptcha: High solve time/AI bypass suggests medium-high friction.
+      hcaptcha: 0.1,
+      // fun-captcha: Medium friction.
+      "fun-captcha": 0.085,
+    };
 
-  const type = typeSelect.value;
+    const type = typeSelect.value;
 
-  // BASE REVENUE = (V * CR) * AOV
-  // We use the existing input names but map them to the formula's terms.
-  const baseConversions = parseFloat(transactionsInput.value) || 0; // Represents V * CR
-  const aov = parseFloat(revenueInput.value) || 0;                 // Represents AOV
+    // BASE REVENUE = (V * CR) * AOV
+    // We use the existing input names but map them to the formula's terms.
+    const baseConversions = parseFloat(transactionsInput.value) || 0; // Represents V * CR
+    const aov = parseFloat(revenueInput.value) || 0; // Represents AOV
 
-  // Look up the friction term (c * f) based on the CAPTCHA type. Defaults to 0 if not found.
-  const frictionMultiplier = LOST_REVENUE_MULTIPLIERS[type] || 0;
+    // Look up the friction term (c * f) based on the CAPTCHA type. Defaults to 0 if not found.
+    const frictionMultiplier = LOST_REVENUE_MULTIPLIERS[type] || 0;
 
-  // The core calculation: LostRevenue = (V * CR * AOV) * (c * f)
-  const result = baseConversions * aov * frictionMultiplier;
+    // The core calculation: LostRevenue = (V * CR * AOV) * (c * f)
+    const result = baseConversions * aov * frictionMultiplier;
 
-  animateNumber(result);
-}
-
-
-
+    animateNumber(result);
+  }
 
   function animateNumber(targetValue) {
     const currentValue =
