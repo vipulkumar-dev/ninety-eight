@@ -750,6 +750,13 @@ try {
     '[data-calculator-selecter="number"]'
   );
 
+  const cloudflareOption = typeSelect.querySelector('option[value="cloudflare"]');
+
+    if (cloudflareOption) {
+        // 2. Update its display text (innerHTML) to "Cloudflare Turnstile"
+        cloudflareOption.innerHTML = "Cloudflare Turnstile"; 
+    }
+
   function formatNumberWithCommas(num) {
     return Math.round(num).toLocaleString("en-US");
   }
