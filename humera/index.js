@@ -754,25 +754,46 @@ try {
     return Math.round(num).toLocaleString("en-US");
   }
 
-  function calculate() {
-    const type = typeSelect.value;
-    const transactions = parseFloat(transactionsInput.value) || 0;
-    const revenue = parseFloat(revenueInput.value) || 0;
+  /**
+ * Calculates the estimated Lost Revenue based on the CAPTCHA type
+ * and the formula: (Base Revenue) x (Friction Multiplier).
+ *
+ * NOTE: The function assumes:
+ * - 'transactionsInput.value' represents (Visitors * Conversion Rate).
+ * - 'revenueInput.value' represents Average Order Value (AOV).
+ * - The multiplier is the friction term (c * f).
+ */
+function calculate() {
+  // Define multipliers (c * f) based on CAPTCHA friction levels described in the document.
+  const LOST_REVENUE_MULTIPLIERS = {
+    // reCAPTCHA: High failure rate/friction.
+    "recaptcha": 0.15,
+    // cloudflare: Very low challenge rate (~3%) means lower overall friction.
+    "cloudflare": 0.05,
+    // hcaptcha: High solve time/AI bypass suggests medium-high friction.
+    "hcaptcha": 0.10,
+    // fun-captcha: Medium friction.
+    "fun-captcha": 0.085
+  };
 
-    let multiplier;
-    if (type === "recaptcha") {
-      multiplier = 0.1;
-    } else if (type === "cloudflare") {
-      multiplier = 0.095;
-    } else if (type === "hcaptcha") {
-      multiplier = 0.09;
-    } else if (type === "fun-captcha") {
-      multiplier = 0.085;
-    }
+  const type = typeSelect.value;
 
-    const result = transactions * revenue * multiplier;
-    animateNumber(result);
-  }
+  // BASE REVENUE = (V * CR) * AOV
+  // We use the existing input names but map them to the formula's terms.
+  const baseConversions = parseFloat(transactionsInput.value) || 0; // Represents V * CR
+  const aov = parseFloat(revenueInput.value) || 0;                 // Represents AOV
+
+  // Look up the friction term (c * f) based on the CAPTCHA type. Defaults to 0 if not found.
+  const frictionMultiplier = LOST_REVENUE_MULTIPLIERS[type] || 0;
+
+  // The core calculation: LostRevenue = (V * CR * AOV) * (c * f)
+  const result = baseConversions * aov * frictionMultiplier;
+
+  animateNumber(result);
+}
+
+
+
 
   function animateNumber(targetValue) {
     const currentValue =
