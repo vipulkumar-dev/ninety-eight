@@ -393,8 +393,9 @@ try {
 } catch (err) {
   console.log("err", err);
 }
-
+// init popup
 popup_init("waitlist");
+
 // Handle window resize to start/stop auto-swipe
 window.addEventListener("resize", () => {
   if (isMobile) {
