@@ -749,7 +749,9 @@ try {
   videos.forEach((video) => {
     video.muted = true;
 
-    let isScrollTriggered = video.hasAttribute("scroll-triggered");
+    const isScrollTriggered = video.hasAttribute("scroll-triggered");
+    const isScrollOffset = video.hasAttribute("scroll-offset");
+    const scrollOffset = video.getAttribute("scroll-offset");
 
     // Store original sources for restoration
     if (!video.dataset.originalSources) {
@@ -762,13 +764,21 @@ try {
       video.dataset.originalSources = JSON.stringify(sourcesData);
     }
 
+    let DefaultOffset = 0;
+
+    if (scrollOffset) {
+      DefaultOffset = parseInt(scrollOffset);
+    }
+
+    console.log("DefaultOffset", DefaultOffset);
+
     if (isScrollTriggered) {
       ScrollTrigger.create({
         trigger: video,
-        start: "top bottom-=200px",
-        end: "bottom top+=200px",
-        pinnedContainer: ".section_wpr",
-        markers: true,
+        start: `top+=${DefaultOffset}px bottom`,
+        end: `bottom+=${DefaultOffset}px top`,
+        pinnedContainer: isScrollOffset ? undefined : ".section_wpr",
+        // markers: true,
         onEnter: () => {
           // Video is in view - restore sources and auto-play after load
           console.log("play");

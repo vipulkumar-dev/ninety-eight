@@ -21,7 +21,7 @@ function loadScript(primaryUrl, fallbackUrl) {
   document.head.appendChild(script);
 }
 
-const FOLDERNAME = "clientFirst";
+const FOLDERNAME = "humera";
 
 document.addEventListener("DOMContentLoaded", () => {
   loadScript(
