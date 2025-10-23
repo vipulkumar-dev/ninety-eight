@@ -749,6 +749,8 @@ try {
   videos.forEach((video) => {
     video.muted = true;
 
+    let isScrollTriggered = video.hasAttribute("scroll-triggered");
+
     // Store original sources for restoration
     if (!video.dataset.originalSources) {
       const sources = video.querySelectorAll("source");
@@ -760,25 +762,57 @@ try {
       video.dataset.originalSources = JSON.stringify(sourcesData);
     }
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            // Video is in view - restore sources and auto-play after load
-            console.log("play");
-            restoreVideoSources(video);
-          } else {
-            // Video is out of view - pause and clean sources
-            console.log("pause");
-            video.pause();
-            clearAllVideoSources(video);
-          }
-        });
-      },
-      { threshold: 0, rootMargin: "200px" }
-    );
+    if (isScrollTriggered) {
+      ScrollTrigger.create({
+        trigger: video,
+        start: "top bottom-=200px",
+        end: "bottom top+=200px",
+        pinnedContainer: ".section_wpr",
+        markers: true,
+        onEnter: () => {
+          // Video is in view - restore sources and auto-play after load
+          console.log("play");
+          restoreVideoSources(video);
+        },
+        onLeave: () => {
+          // Video is out of view - pause and clean sources
+          console.log("pause");
+          video.pause();
+          clearAllVideoSources(video);
+        },
+        onEnterBack: () => {
+          // Video is back in view when scrolling up
+          console.log("play");
+          restoreVideoSources(video);
+        },
+        onLeaveBack: () => {
+          // Video is out of view when scrolling up
+          console.log("pause");
+          video.pause();
+          clearAllVideoSources(video);
+        },
+      });
+    } else {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              // Video is in view - restore sources and auto-play after load
+              console.log("play");
+              restoreVideoSources(video);
+            } else {
+              // Video is out of view - pause and clean sources
+              console.log("pause");
+              video.pause();
+              clearAllVideoSources(video);
+            }
+          });
+        },
+        { threshold: 0, rootMargin: "200px" }
+      );
 
-    observer.observe(video);
+      observer.observe(video);
+    }
   });
 })();
 
