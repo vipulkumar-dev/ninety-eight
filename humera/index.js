@@ -362,110 +362,66 @@ ScrollTrigger.batch(".auto_video", {
     .to(".tab_content", {
       duration: 1,
     })
-    .to(".tab_content.first", {
-      opacity: 0,
-      pointerEvents: "none",
-      duration: 0.1,
-      ease: "power3.inOut",
-      onUpdate: function () {
-        if (this.progress() >= 0.5) {
-          setActiveTab("second");
-        } else {
-          setActiveTab("first");
-        }
+    .set(".tab_content.first", {
+      display: "none",
+    })
+    .set(".tab_content.second", {
+      display: "flex",
+      onReverseComplete: function () {
+        setActiveTab("first");
+      },
+      onComplete: function () {
+        setActiveTab("second");
       },
     })
-    .to(
-      ".tab_content.second",
-      {
-        opacity: 1,
-        pointerEvents: "auto",
-        duration: 0.1,
-        ease: "power3.inOut",
-      },
-      "<"
-    )
     .add("second")
     .to(".tab_content", {
       duration: 2,
     })
-    .to(".tab_content.second", {
-      opacity: 0,
-      pointerEvents: "none",
-      duration: 0.1,
-      ease: "power3.inOut",
-      onUpdate: function () {
-        if (this.progress() >= 0.5) {
-          setActiveTab("third");
-        } else {
-          setActiveTab("second");
-        }
+    .set(".tab_content.second", {
+      display: "none",
+    })
+    .set(".tab_content.third", {
+      display: "flex",
+      onReverseComplete: function () {
+        setActiveTab("second");
+      },
+      onComplete: function () {
+        setActiveTab("third");
       },
     })
-    .to(
-      ".tab_content.third",
-      {
-        opacity: 1,
-        pointerEvents: "auto",
-        duration: 0.1,
-        ease: "power3.inOut",
-      },
-      "<"
-    )
     .add("third")
     .to(".tab_content", {
       duration: 2,
     })
-    .to(".tab_content.third", {
-      opacity: 0,
-      pointerEvents: "none",
-      duration: 3,
-      ease: "power3.inOut",
-      onUpdate: function () {
-        if (this.progress() >= 0.5) {
-          setActiveTab("fourth");
-        } else {
-          setActiveTab("third");
-        }
+    .set(".tab_content.third", {
+      display: "none",
+    })
+    .set(".tab_content.fourth", {
+      display: "flex",
+      onReverseComplete: function () {
+        setActiveTab("third");
+      },
+      onComplete: function () {
+        setActiveTab("fourth");
       },
     })
-    .to(
-      ".tab_content.fourth",
-      {
-        opacity: 1,
-        pointerEvents: "auto",
-        duration: 3,
-        ease: "power3.inOut",
-      },
-      "<"
-    )
     .add("fourth")
     .to(".tab_content", {
       duration: 2,
     })
-    .to(".tab_content.fourth", {
-      opacity: 0,
-      pointerEvents: "none",
-      duration: 0.1,
-      ease: "power3.inOut",
-      onUpdate: function () {
-        if (this.progress() >= 0.5) {
-          setActiveTab("fifth");
-        } else {
-          setActiveTab("fourth");
-        }
+    .set(".tab_content.fourth", {
+      display: "none",
+    })
+    .set(".tab_content.fifth", {
+      display: "flex",
+      onReverseComplete: function () {
+        setActiveTab("fourth");
+      },
+      onComplete: function () {
+        setActiveTab("fifth");
       },
     })
-    .to(
-      ".tab_content.fifth",
-      {
-        opacity: 1,
-        pointerEvents: "auto",
-        duration: 0.1,
-        ease: "power3.inOut",
-      },
-      "<"
-    )
     .to(".tab_content", {
       duration: 2,
     })
