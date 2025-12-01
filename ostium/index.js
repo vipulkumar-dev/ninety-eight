@@ -86,7 +86,7 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
       .to(
         faqItem.querySelectorAll(".faq_icon"),
         {
-          rotate: -135,
+          rotate: 135,
         },
         0
       );
