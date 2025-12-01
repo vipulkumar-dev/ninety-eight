@@ -58,7 +58,7 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
       .timeline({
         paused: true,
         defaults: {
-          duration: 0.4,
+          duration: 0.5,
           ease: "power3.inOut",
         },
         onReverseComplete: () => {
@@ -69,7 +69,7 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
       .to(
         faqItem,
         {
-          borderRadius: "6px",
+          color: "#FDBFAE",
         },
         0
       )
@@ -86,7 +86,7 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
       .to(
         faqItem.querySelectorAll(".faq_icon"),
         {
-          rotate: -180,
+          rotate: -135,
         },
         0
       );
