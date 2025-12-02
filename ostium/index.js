@@ -64,10 +64,26 @@ if (header) {
 const items = document.querySelectorAll("[data-number]");
 
 items.forEach((item) => {
-  const hasIsPoint = item.hasAttribute("is-point");
+  const originalText = item.textContent.trim();
+  const numericValue = parseFloat(originalText.replace(/\s/g, "")) || 0;
 
-  gsap.from(item, {
-    textContent: hasIsPoint ? 0.0 : 0,
+  // Create zero string matching the original format
+  let zeroString;
+  if (originalText.includes(" ")) {
+    const parts = originalText.split(" ");
+    zeroString =
+      "0".repeat(parts[0].length) + " " + "0".repeat(parts[1].length);
+  } else {
+    zeroString = "0".repeat(originalText.length);
+  }
+
+  // Set initial value to zero string
+  item.textContent = zeroString;
+
+  const animationObj = { value: 0 };
+
+  gsap.to(animationObj, {
+    value: numericValue,
     duration: 0.8,
     scrollTrigger: {
       trigger: item,
@@ -76,9 +92,28 @@ items.forEach((item) => {
       // markers: true,
     },
     ease: Power1.easeIn,
-    snap: { textContent: hasIsPoint ? 0.1 : 1 },
-    // stagger: 1, // not used in individual loops
-    // onUpdate: textContent.replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+    snap: { value: 1 },
+    onUpdate: function () {
+      const currentValue = Math.round(animationObj.value);
+      const valueStr = currentValue.toString();
+
+      // Preserve space format if original had space
+      if (originalText.includes(" ")) {
+        const parts = originalText.split(" ");
+        const totalDigits = parts[0].length + parts[1].length;
+        const paddedValue = valueStr.padStart(totalDigits, "0");
+        const spaceIndex = parts[0].length;
+        item.textContent =
+          paddedValue.slice(0, spaceIndex) +
+          " " +
+          paddedValue.slice(spaceIndex);
+      } else {
+        item.textContent = valueStr.padStart(originalText.length, "0");
+      }
+    },
+    onComplete: function () {
+      item.textContent = originalText;
+    },
   });
 });
 
