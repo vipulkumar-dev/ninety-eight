@@ -165,7 +165,7 @@ items.forEach((item) => {
       .to(
         faqItem,
         {
-          color: "#FDBFAE",
+          color: "#FFE8E2",
         },
         0
       )
@@ -190,5 +190,100 @@ items.forEach((item) => {
     return faqTl;
   }
 })();
+
+class ButtonGsapTeleport {
+  constructor(element) {
+    this.button = element;
+    this.buttonText = this.button.querySelector(
+      "[data-button-gsap-teleport-text]"
+    );
+    this.buttonTextHover = this.button.querySelector(
+      "[data-button-gsap-teleport-text-hover]"
+    );
+    this.buttonText.innerHTML = this.buttonText.textContent.replace(
+      / /g,
+      "&nbsp;"
+    );
+    this.buttonTextHover.innerHTML = this.buttonTextHover.textContent.replace(
+      / /g,
+      "&nbsp;"
+    );
+    this.splitText = SplitText.create(this.buttonText, {
+      type: "chars",
+      // autoSplit: true,
+      // tag: "span",
+    });
+    this.splitTextHover = SplitText.create(this.buttonTextHover, {
+      type: "chars",
+      // autoSplit: true,
+      aria: "none",
+      // tag: "span",
+    });
+    this.setupAnimation();
+  }
+
+  init() {
+    this.button.addEventListener("pointerenter", () => this.onHover());
+    this.button.addEventListener("focus", () => this.onHover());
+  }
+
+  setupAnimation() {
+    this.hoverTimeline = gsap.timeline({
+      paused: true,
+      onComplete: () => {
+        this.hoverTimeline.progress(0).pause();
+      },
+    });
+
+    this.hoverTimeline
+      .to(this.splitText.chars, {
+        scale: 0.5,
+        opacity: 0,
+        yPercent: -100,
+        duration: 0.45,
+        stagger: {
+          each: 0.018,
+          from: "random",
+        },
+        ease: CustomEase.create("", ".32, .72, 0, 1"),
+      })
+      .fromTo(
+        this.splitTextHover.chars,
+        {
+          yPercent: 100,
+          scale: 0.5,
+          opacity: 0,
+        },
+        {
+          opacity: 1,
+          yPercent: 0,
+          scale: 1,
+          duration: 0.45,
+          stagger: {
+            each: 0.018,
+            from: "random",
+          },
+          ease: CustomEase.create("", ".32, .72, 0, 1"),
+        },
+        "-=0.525"
+      );
+  }
+
+  onHover() {
+    this.hoverTimeline.play();
+  }
+}
+
+gsap.registerPlugin(SplitText, CustomEase);
+
+const buttonGsapTeleportElements = document.querySelectorAll(
+  "[data-button-gsap-teleport]"
+);
+
+if (buttonGsapTeleportElements.length > 0) {
+  buttonGsapTeleportElements.forEach((element) => {
+    new ButtonGsapTeleport(element).init();
+  });
+}
 
 liveReload();
