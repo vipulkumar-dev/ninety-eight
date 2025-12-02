@@ -61,6 +61,27 @@ if (header) {
   });
 }
 
+const items = document.querySelectorAll("[data-number]");
+
+items.forEach((item) => {
+  const hasIsPoint = item.hasAttribute("is-point");
+
+  gsap.from(item, {
+    textContent: hasIsPoint ? 0.0 : 0,
+    duration: 0.8,
+    scrollTrigger: {
+      trigger: item,
+      start: "top bottom",
+      end: "top bottom",
+      // markers: true,
+    },
+    ease: Power1.easeIn,
+    snap: { textContent: hasIsPoint ? 0.1 : 1 },
+    // stagger: 1, // not used in individual loops
+    // onUpdate: textContent.replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+  });
+});
+
 (function faq_init() {
   const faq_items = document.querySelectorAll(".faq_item");
   let activeIndex = null;
