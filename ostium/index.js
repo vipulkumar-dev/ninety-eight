@@ -67,7 +67,7 @@ items.forEach((item) => {
   gsap.to(animationObj, {
     value: numericValue,
     duration: 0.8,
-    delay: 0.8,
+    delay: 1.3,
     scrollTrigger: {
       trigger: item,
       start: "top bottom",
@@ -269,71 +269,91 @@ if (buttonGsapTeleportElements.length > 0) {
   });
 }
 
-["para-reveal", "word-reveal"].forEach((attr) => {
-  document.querySelectorAll(`[${attr}]`).forEach((el) => {
-    new SplitText(el, {
-      type: attr === "para-reveal" ? "lines" : "words",
-      deepslice: true,
-      linesClass: attr === "para-reveal" ? "para_line" : undefined,
-      wordsClass: attr === "word-reveal" ? "para_word" : undefined,
-    });
-    gsap.set(el, { opacity: 1 });
+document.querySelectorAll("[para-reveal]").forEach((text) => {
+  new SplitText(text, {
+    type: "lines",
+    deepslice: true,
+    // mask: "lines",
+    linesClass: "para_line",
   });
 });
 
+document.querySelectorAll("[word-reveal]").forEach((text) => {
+  new SplitText(text, {
+    type: "words",
+    deepslice: true,
+    // mask: "lines",
+    wordsClass: "para_word",
+  });
+});
+
+gsap.set("[para-reveal]", {
+  opacity: 1,
+});
+
+gsap.set("[word-reveal]", {
+  opacity: 1,
+});
+
+const isLoader = false;
+
 function initReveal() {
-  const elements = document.querySelectorAll(
-    "[basic-reveal],[fade-reveal],[para-reveal],[word-reveal]"
-  );
-
-  elements.forEach((element) => {
-    let startValue = element.hasAttribute("bottom-100")
-      ? "top 100%"
-      : "top 85%"; // default
-
-    ScrollTrigger.create({
-      trigger: element,
-      start: startValue,
-      end: startValue,
-      // anticipatePin: 1,
+  ScrollTrigger.batch(
+    "[basic-reveal],[fade-reveal],[para-reveal],[word-reveal]",
+    {
+      start: "top bottom",
+      end: "top bottom",
       // markers: true,
-      onEnter: () => {
+      onEnter: (elements, triggers) => {
         const animateItems = [];
 
-        if (element.hasAttribute("basic-reveal")) {
-          animateItems.push(element);
-        }
-        if (element.hasAttribute("para-reveal")) {
-          element.querySelectorAll(".para_line").forEach((line) => {
-            animateItems.push(line);
-          });
-        }
-        if (element.hasAttribute("word-reveal")) {
-          element.querySelectorAll(".para_word").forEach((word) => {
-            animateItems.push(word);
-          });
-        }
-        if (element.hasAttribute("fade-reveal")) {
-          animateItems.push(element);
-        }
+        elements.forEach((element) => {
+          if (element.hasAttribute("basic-reveal")) {
+            animateItems.push(element);
+          }
+          if (element.hasAttribute("para-reveal")) {
+            // console.log("para", element);
+            element.querySelectorAll(".para_line").forEach((line) => {
+              animateItems.push(line);
+            });
+          }
+          if (element.hasAttribute("word-reveal")) {
+            // console.log("word", element);
+            element.querySelectorAll(".para_word").forEach((word) => {
+              // console.log("word", word);
+              animateItems.push(word);
+            });
+          }
+          if (element.hasAttribute("fade-reveal")) {
+            animateItems.push(element);
+          }
+        });
+        // console.log("animateItems", animateItems);
 
         gsap.to(animateItems, {
-          y: 0,
           opacity: 1,
+          y: 0,
+          filter: "blur(0px)",
           stagger: 0.06,
-          duration: 1,
-          delay: (index, target) => {
-            if (target.hasAttribute("extra-time")) return 0.1;
-            if (target.hasAttribute("extra-more-time")) return 0.2;
-            return 0;
+          duration: (index, target) => {
+            if (target.hasAttribute("extra-time")) {
+              return 1.3;
+            }
+            return 0.8;
           },
-          ease: "power4.inOut",
+          ease: "power3.inOut",
         });
       },
-    });
-  });
+    }
+  );
 }
 
-initReveal();
+if (isLoader) {
+  setTimeout(() => {
+    initReveal();
+  }, 3000);
+} else {
+  initReveal();
+}
 
 liveReload();
