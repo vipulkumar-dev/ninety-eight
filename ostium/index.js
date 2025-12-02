@@ -3,24 +3,6 @@ import { liveReload } from "../liveReload.js";
 
 const { isDesktop, isMobile } = getDevices();
 
-document.querySelectorAll(".swiper").forEach((swiper) => {
-  const swiperInstance = new Swiper(swiper, {
-    direction: "horizontal",
-    slidesPerView: "auto",
-    spaceBetween: 16,
-    centeredSlides: true,
-    centeredSlidesBounds: true,
-    autoplay: {
-      delay: 3000,
-    },
-    loop: true,
-    navigation: {
-      nextEl: document.querySelector(".swiper_next"),
-      prevEl: document.querySelector(".swiper_prev"),
-    },
-  });
-});
-
 const header = document.getElementById("header");
 if (header) {
   let isMenuOpen = false;
@@ -285,5 +267,72 @@ if (buttonGsapTeleportElements.length > 0) {
     new ButtonGsapTeleport(element).init();
   });
 }
+
+["para-reveal", "word-reveal"].forEach((attr) => {
+  document.querySelectorAll(`[${attr}]`).forEach((el) => {
+    new SplitText(el, {
+      type: attr === "para-reveal" ? "lines" : "words",
+      deepslice: true,
+      linesClass: attr === "para-reveal" ? "para_line" : undefined,
+      wordsClass: attr === "word-reveal" ? "para_word" : undefined,
+    });
+    gsap.set(el, { opacity: 1 });
+  });
+});
+
+function initReveal() {
+  const elements = document.querySelectorAll(
+    "[basic-reveal],[fade-reveal],[para-reveal],[word-reveal]"
+  );
+
+  elements.forEach((element) => {
+    let startValue = element.hasAttribute("bottom-100")
+      ? "top 100%"
+      : "top 85%"; // default
+
+    ScrollTrigger.create({
+      trigger: element,
+      start: startValue,
+      end: startValue,
+      // anticipatePin: 1,
+      // markers: true,
+      onEnter: () => {
+        const animateItems = [];
+
+        if (element.hasAttribute("basic-reveal")) {
+          animateItems.push(element);
+        }
+        if (element.hasAttribute("para-reveal")) {
+          element.querySelectorAll(".para_line").forEach((line) => {
+            animateItems.push(line);
+          });
+        }
+        if (element.hasAttribute("word-reveal")) {
+          element.querySelectorAll(".para_word").forEach((word) => {
+            animateItems.push(word);
+          });
+        }
+        if (element.hasAttribute("fade-reveal")) {
+          animateItems.push(element);
+        }
+
+        gsap.to(animateItems, {
+          y: 0,
+          opacity: 1,
+          stagger: 0.06,
+          duration: 1,
+          delay: (index, target) => {
+            if (target.hasAttribute("extra-time")) return 0.1;
+            if (target.hasAttribute("extra-more-time")) return 0.2;
+            return 0;
+          },
+          ease: "power4.inOut",
+        });
+      },
+    });
+  });
+}
+
+initReveal();
 
 liveReload();
