@@ -67,6 +67,7 @@ items.forEach((item) => {
   gsap.to(animationObj, {
     value: numericValue,
     duration: 0.8,
+    delay: 0.8,
     scrollTrigger: {
       trigger: item,
       start: "top bottom",
