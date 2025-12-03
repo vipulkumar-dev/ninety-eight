@@ -41,6 +41,32 @@ if (header) {
       header.classList.remove("active");
     }
   });
+
+  const menu_tl = gsap.timeline({
+    paused: true,
+    defaults: {
+      duration: 0.3,
+      ease: "power3.inOut",
+    },
+  });
+
+  menu_tl.fromTo(
+    ".navigation_wrapper",
+    { y: "-100%" },
+    { y: "0%", duration: 0.5 },
+    "-=1.3"
+  );
+
+  const menu_trigger = document.querySelector("[menu_trigger]");
+
+  menu_trigger?.addEventListener("click", () => {
+    if (!isMenuOpen) {
+      menu_tl.play();
+    } else {
+      menu_tl.reverse();
+    }
+    isMenuOpen = !isMenuOpen;
+  });
 }
 
 const items = document.querySelectorAll("[data-number]");
