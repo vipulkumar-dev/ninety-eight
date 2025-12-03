@@ -53,8 +53,7 @@ if (header) {
   menu_tl.fromTo(
     ".navigation_wrapper",
     { y: "-100%" },
-    { y: "0%", duration: 0.5 },
-    "-=1.3"
+    { y: "0%", duration: 0.5 }
   );
 
   const menu_trigger = document.querySelector("[menu_trigger]");
