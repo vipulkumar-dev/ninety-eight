@@ -3,7 +3,7 @@ function loadScript(primaryUrl, fallbackUrl) {
   script.src = primaryUrl;
   script.type = "module";
   script.onload = () => console.log(`Loaded script from: ${primaryUrl}`);
-  document.setAttribute("data-script-mode", "local");
+  //document.setAttribute("data-script-mode", "local");
   script.onerror = () => {
     console.warn(
       `Failed to load script from: ${primaryUrl}, attempting fallback.`
@@ -16,12 +16,12 @@ function loadScript(primaryUrl, fallbackUrl) {
     fallbackScript.onerror = () =>
       console.error(`Failed to load script from: ${fallbackUrl}`);
     document.head.appendChild(fallbackScript);
-    document.setAttribute("data-script-mode", "server");
+    //document.setAttribute("data-script-mode", "server");
   };
   document.head.appendChild(script);
 }
 
-const FOLDERNAME = "clientFirst";
+const FOLDERNAME = "humera";
 
 document.addEventListener("DOMContentLoaded", () => {
   loadScript(
