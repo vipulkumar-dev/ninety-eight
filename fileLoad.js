@@ -3,7 +3,11 @@ function loadScript(primaryUrl, fallbackUrl) {
   script.src = primaryUrl;
   script.type = "module";
   script.onload = () => console.log(`Loaded script from: ${primaryUrl}`);
+<<<<<<< HEAD
   //document.setAttribute("data-script-mode", "local");
+=======
+
+>>>>>>> 91b20b19602a84844397f7e437c108947a3daa4d
   script.onerror = () => {
     console.warn(
       `Failed to load script from: ${primaryUrl}, attempting fallback.`
@@ -16,7 +20,10 @@ function loadScript(primaryUrl, fallbackUrl) {
     fallbackScript.onerror = () =>
       console.error(`Failed to load script from: ${fallbackUrl}`);
     document.head.appendChild(fallbackScript);
+<<<<<<< HEAD
     //document.setAttribute("data-script-mode", "server");
+=======
+>>>>>>> 91b20b19602a84844397f7e437c108947a3daa4d
   };
   document.head.appendChild(script);
 }

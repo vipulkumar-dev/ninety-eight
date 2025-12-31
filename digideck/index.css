@@ -2,6 +2,20 @@
   outline: 1px solid red;
 } */
 
-.swiper-slide:hover .project_image {
-  transform: scale(1.05);
+.swiper-slide.swiper-slide-active {
+  opacity: 100% !important;
+  scale: 1 !important;
+}
+
+.swiper-slide.swiper-slide-prev,
+.swiper-slide.swiper-slide-next {
+  opacity: 30% !important;
+  scale: 0.9 !important;
+}
+
+.swiper-slide {
+  opacity: 0 !important;
+  scale: 0.5 !important;
+  transition-property: all !important;
+  transition-duration: 0.5s !important;
 }

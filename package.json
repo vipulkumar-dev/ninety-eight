@@ -1,0 +1,16 @@
+{
+  "name": "ninety-eight",
+  "version": "1.0.0",
+  "description": "JavaScript bundler for ninety-eight project",
+  "main": "bundler.js",
+  "scripts": {
+    "test": "node build.js"
+  },
+  "keywords": [
+    "bundler",
+    "javascript",
+    "build"
+  ],
+  "author": "",
+  "license": "MIT"
+}

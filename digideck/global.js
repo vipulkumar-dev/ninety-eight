@@ -3,24 +3,6 @@ import { liveReload } from "../liveReload.js";
 
 const { isDesktop, isMobile } = getDevices();
 
-document.querySelectorAll(".swiper").forEach((swiper) => {
-  const swiperInstance = new Swiper(swiper, {
-    direction: "horizontal",
-    slidesPerView: "auto",
-    spaceBetween: 16,
-    centeredSlides: true,
-    centeredSlidesBounds: true,
-    autoplay: {
-      delay: 3000,
-    },
-    loop: true,
-    navigation: {
-      nextEl: document.querySelector(".swiper_next"),
-      prevEl: document.querySelector(".swiper_prev"),
-    },
-  });
-});
-
 (function faq_init() {
   const faq_items = document.querySelectorAll(".faq_item");
   let activeIndex = null;
@@ -147,6 +129,63 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
   });
 })();
 
+document.querySelectorAll(".swiper").forEach((swiper) => {
+  const swiperInstance = new Swiper(swiper, {
+    direction: "horizontal",
+    slidesPerView: 3,
+    spaceBetween: 16,
+    centeredSlides: true,
+    centeredSlidesBounds: true,
+    speed: 500,
+    grabCursor: true,
+    autoplay: {
+      delay: 4000,
+    },
+    loop: true,
+    navigation: {
+      nextEl: document.querySelector(".swiper_next"),
+      prevEl: document.querySelector(".swiper_prev"),
+    },
+  });
+});
+
+let isSports = false;
+document
+  .querySelector("[toggle-mode-container]")
+  .addEventListener("click", () => {
+    isSports = !isSports;
+    handleMode(isSports);
+  });
+
+const gsapDefault = {
+  duration: 0.6,
+  ease: "power4.inOut",
+};
+
+function handleMode(isSports) {
+  if (isSports) {
+    gsap.to("[toggle-mode-trigger]", {
+      x: "100%",
+      ...gsapDefault,
+    });
+    gsap.to("[toggle-mode-trigger-content]", {
+      x: "-50%",
+      ...gsapDefault,
+    });
+  } else {
+    gsap.to("[toggle-mode-trigger]", {
+      x: "0%",
+      ...gsapDefault,
+    });
+    gsap.to("[toggle-mode-trigger-content]", {
+      x: "0%",
+      ...gsapDefault,
+    });
+  }
+}
+
 console.log("Digideck");
+
+roll("[roll]", 45);
 
 liveReload();

@@ -14,7 +14,7 @@
   overflow: visible !important;
 }
 
-.swiper-slide-active .mask_blur {
+.swiper-slide-active {
   opacity: 0 !important;
 }
 .swiper-slide-active .testimonial_image,
