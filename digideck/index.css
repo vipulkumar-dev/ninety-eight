@@ -55,3 +55,13 @@
     transform: translate(100%, -25%) rotate(10deg);
   }
 }
+
+/* When any card is hovered, dim all cards */
+.partners:has(.partner-card:hover) .partner-card {
+  opacity: 0.4;
+}
+
+/* Keep the hovered one fully visible */
+.partner-card:hover {
+  opacity: 1 !important;
+}

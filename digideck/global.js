@@ -118,47 +118,49 @@ if (header) {
 })();
 
 (function logo_animation_init() {
-  const logo = document.querySelector(".digideck-logo");
-  const paths = logo.querySelectorAll("path");
+  const logos = document.querySelectorAll(".digideck-logo");
+  logos.forEach((logo) => {
+    const paths = logo.querySelectorAll("path");
 
-  gsap.set(paths, {
-    opacity: 0,
-  });
-
-  paths.forEach((path) => {
-    let leaveTimeout = null;
-
-    path.addEventListener("mouseenter", () => {
-      // Clear any pending leave animation
-      if (leaveTimeout) {
-        clearTimeout(leaveTimeout);
-        leaveTimeout = null;
-      }
-
-      gsap.to(path, {
-        opacity: 1,
-        duration: 0.4,
-        ease: "power2.out",
-        overwrite: true,
-      });
+    gsap.set(paths, {
+      opacity: 0,
     });
-    path.addEventListener("mouseleave", () => {
-      // Clear any existing timeout
-      if (leaveTimeout) {
-        clearTimeout(leaveTimeout);
-      }
 
-      // Wait 0.4 seconds before starting the fade out
-      leaveTimeout = setTimeout(() => {
+    paths.forEach((path) => {
+      let leaveTimeout = null;
+
+      path.addEventListener("mouseenter", () => {
+        // Clear any pending leave animation
+        if (leaveTimeout) {
+          clearTimeout(leaveTimeout);
+          leaveTimeout = null;
+        }
+
         gsap.to(path, {
-          opacity: 0,
-          duration: 0.9,
-          delay: 0.5,
-          ease: "power2.inOut",
+          opacity: 1,
+          duration: 0.4,
+          ease: "power2.out",
           overwrite: true,
         });
-        leaveTimeout = null;
-      }, 400);
+      });
+      path.addEventListener("mouseleave", () => {
+        // Clear any existing timeout
+        if (leaveTimeout) {
+          clearTimeout(leaveTimeout);
+        }
+
+        // Wait 0.4 seconds before starting the fade out
+        leaveTimeout = setTimeout(() => {
+          gsap.to(path, {
+            opacity: 0,
+            duration: 0.9,
+            delay: 0.5,
+            ease: "power2.inOut",
+            overwrite: true,
+          });
+          leaveTimeout = null;
+        }, 400);
+      });
     });
   });
 })();
