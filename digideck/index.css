@@ -19,3 +19,39 @@
   transition-property: all !important;
   transition-duration: 0.5s !important;
 }
+
+[data-wf--button--variant="base"] .btn:before {
+  content: "";
+  width: 100%;
+  height: 200%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0.3;
+  filter: blur;
+  background: linear-gradient(
+    to left,
+    transparent 0%,
+    #fff 40%,
+    #fff 60%,
+    transparent 100%
+  );
+  transform: translate(-100%, -25%) rotate(10deg);
+  pointer-events: none;
+}
+
+[data-wf--button--variant="base"] .btn:hover:before {
+  animation: blick 5s infinite;
+}
+
+@keyframes blick {
+  0% {
+    transform: translate(-100%, -25%) rotate(10deg);
+  }
+  20% {
+    transform: translate(100%, -25%) rotate(10deg);
+  }
+  100% {
+    transform: translate(100%, -25%) rotate(10deg);
+  }
+}
