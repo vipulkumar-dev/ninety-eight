@@ -326,7 +326,7 @@ if (header) {
     });
 
   const gsapDefault = {
-    duration: 0,
+    duration: 0.3,
     ease: "power4.inOut",
   };
 
