@@ -187,6 +187,7 @@ if (header) {
     // Parse data-y attribute (default: -50, 30)
     const dataY = mouse_follow_item.getAttribute("strength-y");
     const yRange = dataY ? parseFloat(dataY.trim()) : 10;
+    console.log(xRange, yRange);
 
     // Store data for this container
     const data = {

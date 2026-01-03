@@ -58,7 +58,7 @@
 
 /* When any card is hovered, dim all cards */
 .partners:has(.partner-card:hover) .partner-card {
-  opacity: 0.4;
+  opacity: 0.2;
 }
 
 /* Keep the hovered one fully visible */
