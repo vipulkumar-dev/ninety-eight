@@ -53,7 +53,7 @@ if (header) {
   menu_tl.fromTo(
     ".navigation_wrapper",
     { y: "-100%" },
-    { y: "0%", duration: 0 }
+    { y: "0%", duration: 0.01 }
   );
 
   const menu_trigger = document.querySelector("[menu_trigger]");
@@ -315,41 +315,56 @@ if (header) {
   });
 })();
 
-let isSports = false;
-document
-  .querySelector("[toggle-mode-container]")
-  .addEventListener("click", () => {
-    isSports = !isSports;
-    handleMode(isSports);
-  });
+(function handleSports() {
+  let isSports = false;
+  document
+    .querySelector("[toggle-mode-container]")
+    .addEventListener("click", () => {
+      isSports = !isSports;
+      handleMode(isSports);
+      handleChange(isSports);
+    });
 
-const gsapDefault = {
-  duration: 0.6,
-  ease: "power4.inOut",
-};
+  const gsapDefault = {
+    duration: 0.6,
+    ease: "power4.inOut",
+  };
 
-function handleMode(isSports) {
-  if (isSports) {
-    gsap.to("[toggle-mode-trigger]", {
-      x: "100%",
-      ...gsapDefault,
-    });
-    gsap.to("[toggle-mode-trigger-content]", {
-      x: "-50%",
-      ...gsapDefault,
-    });
-  } else {
-    gsap.to("[toggle-mode-trigger]", {
-      x: "0%",
-      ...gsapDefault,
-    });
-    gsap.to("[toggle-mode-trigger-content]", {
-      x: "0%",
-      ...gsapDefault,
-    });
+  function handleMode(isSports) {
+    if (isSports) {
+      gsap.to("[toggle-mode-trigger]", {
+        x: "100%",
+        ...gsapDefault,
+      });
+      gsap.to("[toggle-mode-trigger-content]", {
+        x: "-50%",
+        ...gsapDefault,
+      });
+    } else {
+      gsap.to("[toggle-mode-trigger]", {
+        x: "0%",
+        ...gsapDefault,
+      });
+      gsap.to("[toggle-mode-trigger-content]", {
+        x: "0%",
+        ...gsapDefault,
+      });
+    }
   }
-}
-
+  function handleChange(isSports) {
+    if (isSports) {
+      document.querySelectorAll("[toggle-txt-sport]").forEach((el) => {
+        const content = el.getAttribute("toggle-txt-business");
+        el.textContent = content;
+      });
+    } else {
+      document.querySelectorAll("[toggle-txt-business]").forEach((el) => {
+        const content = el.getAttribute("toggle-txt-sport");
+        el.textContent = content;
+      });
+    }
+  }
+})();
 console.log("Digideck");
 
 roll("[roll]", 45);
