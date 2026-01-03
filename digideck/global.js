@@ -171,6 +171,8 @@ if (header) {
     "[mouse-follow-container]"
   );
 
+  const containerData = [];
+
   mouse_follow_containers.forEach((mouse_follow_container) => {
     const mouse_follow_item = mouse_follow_container.querySelector(
       "[mouse-follow-item]"
@@ -186,25 +188,43 @@ if (header) {
     const dataY = mouse_follow_item.getAttribute("strength-y");
     const yRange = dataY ? parseFloat(dataY.trim()) : 10;
 
-    const mouse_follow_item_width = mouse_follow_item.offsetWidth;
-    const mouse_follow_item_height = mouse_follow_item.offsetHeight;
+    // Store data for this container
+    const data = {
+      container: mouse_follow_container,
+      item: mouse_follow_item,
+      xRange,
+      yRange,
+      getWidth: () => mouse_follow_item.offsetWidth,
+      getHeight: () => mouse_follow_item.offsetHeight,
+    };
+
+    containerData.push(data);
+
+    // Function to update dimensions
+    const updateDimensions = () => {
+      data.width = data.getWidth();
+      data.height = data.getHeight();
+    };
+
+    // Initialize dimensions
+    updateDimensions();
 
     mouse_follow_container.addEventListener("mousemove", (e) => {
       const x = e.clientX;
       const y = e.clientY;
       const mapped_x = gsap.utils.mapRange(
         0,
-        mouse_follow_item_width,
-        -xRange,
-        xRange,
+        data.width,
+        -data.xRange,
+        data.xRange,
         x
       );
 
       const mapped_y = gsap.utils.mapRange(
         0,
-        mouse_follow_item_height,
-        -yRange,
-        yRange,
+        data.height,
+        -data.yRange,
+        data.yRange,
         y
       );
 
@@ -215,27 +235,59 @@ if (header) {
       });
     });
   });
+
+  // Handle window resize
+  let resizeTimeout;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      containerData.forEach((data) => {
+        data.width = data.getWidth();
+        data.height = data.getHeight();
+      });
+    }, 100);
+  });
 })();
 
-document.querySelectorAll(".swiper").forEach((swiper) => {
-  const swiperInstance = new Swiper(swiper, {
-    direction: "horizontal",
-    slidesPerView: 3,
-    spaceBetween: 16,
-    centeredSlides: true,
-    centeredSlidesBounds: true,
-    speed: 500,
-    grabCursor: true,
-    autoplay: {
-      delay: 4000,
-    },
-    loop: true,
-    navigation: {
-      nextEl: document.querySelector(".swiper_next"),
-      prevEl: document.querySelector(".swiper_prev"),
-    },
+(function swiper_init() {
+  document.querySelectorAll(".swiper").forEach((swiper) => {
+    const swiperInstance = new Swiper(swiper, {
+      direction: "horizontal",
+      slidesPerView: 1,
+      spaceBetween: 16,
+      centeredSlides: true,
+      centeredSlidesBounds: true,
+      speed: 500,
+      grabCursor: true,
+      autoplay: {
+        delay: 4000,
+      },
+      loop: true,
+      navigation: {
+        nextEl: document.querySelector(".swiper_next"),
+        prevEl: document.querySelector(".swiper_prev"),
+      },
+      breakpoints: {
+        0: {
+          slidesPerView: 1,
+          spaceBetween: 8,
+        },
+        640: {
+          slidesPerView: 1.2,
+          spaceBetween: 12,
+        },
+        1024: {
+          slidesPerView: 2,
+          spaceBetween: 16,
+        },
+        1400: {
+          slidesPerView: 3,
+          spaceBetween: 24,
+        },
+      },
+    });
   });
-});
+})();
 
 let isSports = false;
 document
