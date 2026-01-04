@@ -365,7 +365,9 @@ if (header) {
         });
       }
     }
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 })();
 console.log("Digideck");
 
