@@ -1,7 +1,10 @@
 import { roll, getDevices } from "../utils.js";
 import { liveReload } from "../liveReload.js";
+import { lenisInit } from "../utils.js";
 
 const { isDesktop, isMobile } = getDevices();
+
+const lenis = lenisInit(0.15);
 
 document.querySelectorAll(".swiper").forEach((swiper) => {
   const swiperInstance = new Swiper(swiper, {
@@ -105,7 +108,7 @@ document.querySelectorAll(".btn").forEach((btn) => {
   });
 
   // Set the button's minWidth to its current offsetWidth so it can't shrink smaller
-  btn.style.minWidth = btn.offsetWidth + "px";
+  btn.style.minWidth = btn.offsetWidth + 1 + "px";
 
   btnTl.to(
     btn.querySelector(".right-icon"),

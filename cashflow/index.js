@@ -1,4 +1,4 @@
-import { roll, getDevices, lenisInit } from "../utils.js";
+import { roll, getDevices, lenisInit, popup_init } from "../utils.js";
 import { liveReload } from "../liveReload.js";
 
 const { isDesktop, isMobile } = getDevices();
@@ -393,6 +393,8 @@ try {
 } catch (err) {
   console.log("err", err);
 }
+// init popup
+popup_init("waitlist");
 
 // Handle window resize to start/stop auto-swipe
 window.addEventListener("resize", () => {

@@ -20,6 +20,60 @@ export function scrollResotration() {
   }
 }
 
+export function popup_init(id) {
+  try {
+    const popupTriggers = document.querySelectorAll(`[popup-trigger="${id}"]`);
+    const closeTriggers = document.querySelectorAll(`[popup-close="${id}"]`);
+    const popup = document.querySelector(`[popup="${id}"]`);
+
+    const popup_animation = gsap.timeline({
+      paused: true,
+      defaults: {
+        duration: 0.8,
+        ease: "power4.inOut",
+      },
+    });
+
+    popup_animation
+      .to(
+        popup.querySelectorAll(".popup_wpr"),
+        {
+          autoAlpha: 1,
+          pointerEvents: "auto",
+        },
+        0
+      )
+      .to(
+        popup.querySelectorAll(".close_area"),
+        {
+          backdropFilter: "blur(10px)",
+          backgroundColor: "rgba(0, 0, 0, 0.1)",
+        },
+        0
+      )
+      .from(
+        popup.querySelectorAll("[popup-content]"),
+        {
+          scale: 0.9,
+        },
+        0
+      );
+
+    popupTriggers.forEach((popupTrigger) => {
+      popupTrigger.addEventListener("click", () => {
+        popup_animation.play();
+      });
+    });
+    closeTriggers.forEach((closeTrigger) => {
+      closeTrigger.addEventListener("click", () => {
+        popup_animation.reverse();
+      });
+    });
+  } catch (err) {
+    console.log("err", err);
+  }
+}
+
 export function lenisInit(lerp = 0.1) {
   // Initialize a new Lenis instance for smooth scrolling
   const lenis = new Lenis({

@@ -33,25 +33,6 @@ if (isDesktop) {
   lenis = lenisInit(0.15);
 }
 
-(function scrollResotration() {
-  window.scrollTo(0, 0);
-  document.documentElement.scrollTop = 0;
-  document.body.scrollTop = 0;
-
-  // Prevent scroll restoration
-  if ("scrollRestoration" in history) {
-    history.scrollRestoration = "manual";
-  }
-
-  window.addEventListener("load", () => {
-    setTimeout(() => {
-      window.scrollTo(0, 0);
-      document.documentElement.scrollTop = 0;
-      document.body.scrollTop = 0;
-    }, 0);
-  });
-})();
-
 // Force scroll to top immediately
 const header = document.getElementById("header");
 
@@ -362,110 +343,66 @@ ScrollTrigger.batch(".auto_video", {
     .to(".tab_content", {
       duration: 1,
     })
-    .to(".tab_content.first", {
-      opacity: 0,
-      pointerEvents: "none",
-      duration: 0.1,
-      ease: "power3.inOut",
-      onUpdate: function () {
-        if (this.progress() >= 0.5) {
-          setActiveTab("second");
-        } else {
-          setActiveTab("first");
-        }
+    .set(".tab_content.first", {
+      display: "none",
+    })
+    .set(".tab_content.second", {
+      display: "flex",
+      onReverseComplete: function () {
+        setActiveTab("first");
+      },
+      onComplete: function () {
+        setActiveTab("second");
       },
     })
-    .to(
-      ".tab_content.second",
-      {
-        opacity: 1,
-        pointerEvents: "auto",
-        duration: 0.1,
-        ease: "power3.inOut",
-      },
-      "<"
-    )
     .add("second")
     .to(".tab_content", {
       duration: 2,
     })
-    .to(".tab_content.second", {
-      opacity: 0,
-      pointerEvents: "none",
-      duration: 0.1,
-      ease: "power3.inOut",
-      onUpdate: function () {
-        if (this.progress() >= 0.5) {
-          setActiveTab("third");
-        } else {
-          setActiveTab("second");
-        }
+    .set(".tab_content.second", {
+      display: "none",
+    })
+    .set(".tab_content.third", {
+      display: "flex",
+      onReverseComplete: function () {
+        setActiveTab("second");
+      },
+      onComplete: function () {
+        setActiveTab("third");
       },
     })
-    .to(
-      ".tab_content.third",
-      {
-        opacity: 1,
-        pointerEvents: "auto",
-        duration: 0.1,
-        ease: "power3.inOut",
-      },
-      "<"
-    )
     .add("third")
     .to(".tab_content", {
       duration: 2,
     })
-    .to(".tab_content.third", {
-      opacity: 0,
-      pointerEvents: "none",
-      duration: 3,
-      ease: "power3.inOut",
-      onUpdate: function () {
-        if (this.progress() >= 0.5) {
-          setActiveTab("fourth");
-        } else {
-          setActiveTab("third");
-        }
+    .set(".tab_content.third", {
+      display: "none",
+    })
+    .set(".tab_content.fourth", {
+      display: "flex",
+      onReverseComplete: function () {
+        setActiveTab("third");
+      },
+      onComplete: function () {
+        setActiveTab("fourth");
       },
     })
-    .to(
-      ".tab_content.fourth",
-      {
-        opacity: 1,
-        pointerEvents: "auto",
-        duration: 3,
-        ease: "power3.inOut",
-      },
-      "<"
-    )
     .add("fourth")
     .to(".tab_content", {
       duration: 2,
     })
-    .to(".tab_content.fourth", {
-      opacity: 0,
-      pointerEvents: "none",
-      duration: 0.1,
-      ease: "power3.inOut",
-      onUpdate: function () {
-        if (this.progress() >= 0.5) {
-          setActiveTab("fifth");
-        } else {
-          setActiveTab("fourth");
-        }
+    .set(".tab_content.fourth", {
+      display: "none",
+    })
+    .set(".tab_content.fifth", {
+      display: "flex",
+      onReverseComplete: function () {
+        setActiveTab("fourth");
+      },
+      onComplete: function () {
+        setActiveTab("fifth");
       },
     })
-    .to(
-      ".tab_content.fifth",
-      {
-        opacity: 1,
-        pointerEvents: "auto",
-        duration: 0.1,
-        ease: "power3.inOut",
-      },
-      "<"
-    )
     .to(".tab_content", {
       duration: 2,
     })
@@ -655,87 +592,6 @@ $(".plyr_component").each(function (index) {
   });
 });
 
-(function playPauseVideo() {
-  const videos = document.querySelectorAll(".auto_video");
-
-  videos.forEach((video) => {
-    video.muted = true;
-
-    // Store original sources for restoration
-    if (!video.dataset.originalSources) {
-      const sources = video.querySelectorAll("source");
-      const sourcesData = Array.from(sources).map((source) => ({
-        src: source.src,
-        type: source.type,
-        media: source.media || "",
-      }));
-      video.dataset.originalSources = JSON.stringify(sourcesData);
-    }
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            // Video is in view - restore sources and auto-play after load
-            console.log("play");
-            restoreVideoSources(video);
-          } else {
-            // Video is out of view - pause and clean sources
-            console.log("pause");
-            video.pause();
-            clearAllVideoSources(video);
-          }
-        });
-      },
-      { threshold: 0, rootMargin: "200px" }
-    );
-
-    observer.observe(video);
-  });
-})();
-
-function clearAllVideoSources(video) {
-  // Remove src attribute from video element
-  video.removeAttribute("src");
-
-  // Clear all source elements
-  const sources = video.querySelectorAll("source");
-  sources.forEach((source) => {
-    source.removeAttribute("src");
-  });
-
-  // Trigger load to release resources
-  video.load();
-}
-
-function restoreVideoSources(video) {
-  if (!video.dataset.originalSources) return;
-
-  const sourcesData = JSON.parse(video.dataset.originalSources);
-  const sources = video.querySelectorAll("source");
-
-  sources.forEach((source, index) => {
-    if (sourcesData[index]) {
-      source.src = sourcesData[index].src;
-      source.type = sourcesData[index].type;
-      if (sourcesData[index].media) {
-        source.media = sourcesData[index].media;
-      }
-    }
-  });
-
-  // Reload the video with new sources
-  video.load();
-
-  // Wait for the video to be ready before playing
-  const onLoaded = () => {
-    video.play().catch((err) => console.log("Error playing video:", err));
-    video.removeEventListener("loadeddata", onLoaded);
-  };
-
-  video.addEventListener("loadeddata", onLoaded);
-}
-
 try {
   const typeSelect = document.querySelector(
     '[data-calculator-selecter="type"]'
@@ -822,6 +678,131 @@ try {
   calculate();
 } catch (err) {
   console.log(err);
+}
+
+(function playPauseVideo() {
+  const videos = document.querySelectorAll(".auto_video");
+
+  videos.forEach((video) => {
+    video.muted = true;
+
+    const isScrollTriggered = video.hasAttribute("scroll-triggered");
+    const isScrollOffset = video.hasAttribute("scroll-offset");
+    const scrollOffset = video.getAttribute("scroll-offset");
+
+    // Store original sources for restoration
+    if (!video.dataset.originalSources) {
+      const sources = video.querySelectorAll("source");
+      const sourcesData = Array.from(sources).map((source) => ({
+        src: source.src,
+        type: source.type,
+        media: source.media || "",
+      }));
+      video.dataset.originalSources = JSON.stringify(sourcesData);
+    }
+
+    let DefaultOffset = 0;
+
+    if (scrollOffset) {
+      DefaultOffset = parseInt(scrollOffset);
+    }
+
+    console.log("DefaultOffset", DefaultOffset);
+
+    if (isScrollTriggered) {
+      ScrollTrigger.create({
+        trigger: video,
+        start: `top+=${DefaultOffset}px bottom`,
+        end: `bottom+=${DefaultOffset}px top`,
+        pinnedContainer: isScrollOffset ? undefined : ".section_wpr",
+        // markers: true,
+        onEnter: () => {
+          // Video is in view - restore sources and auto-play after load
+          console.log("play");
+          restoreVideoSources(video);
+        },
+        onLeave: () => {
+          // Video is out of view - pause and clean sources
+          console.log("pause");
+          video.pause();
+          clearAllVideoSources(video);
+        },
+        onEnterBack: () => {
+          // Video is back in view when scrolling up
+          console.log("play");
+          restoreVideoSources(video);
+        },
+        onLeaveBack: () => {
+          // Video is out of view when scrolling up
+          console.log("pause");
+          video.pause();
+          clearAllVideoSources(video);
+        },
+      });
+    } else {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              // Video is in view - restore sources and auto-play after load
+              console.log("play");
+              restoreVideoSources(video);
+            } else {
+              // Video is out of view - pause and clean sources
+              console.log("pause");
+              video.pause();
+              clearAllVideoSources(video);
+            }
+          });
+        },
+        { threshold: 0, rootMargin: "200px" }
+      );
+
+      observer.observe(video);
+    }
+  });
+})();
+
+function clearAllVideoSources(video) {
+  // Remove src attribute from video element
+  video.removeAttribute("src");
+
+  // Clear all source elements
+  const sources = video.querySelectorAll("source");
+  sources.forEach((source) => {
+    source.removeAttribute("src");
+  });
+
+  // Trigger load to release resources
+  video.load();
+}
+
+function restoreVideoSources(video) {
+  if (!video.dataset.originalSources) return;
+
+  const sourcesData = JSON.parse(video.dataset.originalSources);
+  const sources = video.querySelectorAll("source");
+
+  sources.forEach((source, index) => {
+    if (sourcesData[index]) {
+      source.src = sourcesData[index].src;
+      source.type = sourcesData[index].type;
+      if (sourcesData[index].media) {
+        source.media = sourcesData[index].media;
+      }
+    }
+  });
+
+  // Reload the video with new sources
+  video.load();
+
+  // Wait for the video to be ready before playing
+  const onLoaded = () => {
+    video.play().catch((err) => console.log("Error playing video:", err));
+    video.removeEventListener("loadeddata", onLoaded);
+  };
+
+  video.addEventListener("loadeddata", onLoaded);
 }
 
 // document.querySelectorAll("[para-reveal]").forEach((text) => {
