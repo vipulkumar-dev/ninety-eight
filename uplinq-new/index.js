@@ -98,6 +98,158 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
   }
 })();
 
+(function menu_animation_desktop() {
+  const container = document.querySelector("[data-navigation-container]");
+  const navLinks = document.querySelectorAll("[data-nav-link]");
+  const header = document.querySelector("[data-element='header']");
+
+  console.log("container", container);
+
+  let currentWpr = null;
+  let isAnimating = false;
+  let dir = null;
+
+  function getWpr(name) {
+    return document.querySelector(`[data-navigation-wpr="${name}"]`);
+  }
+
+  function openPanel(name, incoming_dir) {
+    const targetWpr = getWpr(name);
+    if (!targetWpr) return;
+
+    const targetHeight = targetWpr.offsetHeight;
+    console.log("targetHeight", targetHeight);
+
+    if (currentWpr && currentWpr !== targetWpr) {
+      // Switching between panels — cross-fade with slide
+      const outgoingWpr = currentWpr;
+
+      gsap.to(outgoingWpr, {
+        opacity: 0,
+        x: incoming_dir === "l" ? 20 : -20,
+        filter: "blur(2px)",
+        duration: 0.25,
+        ease: "power2.in",
+        onComplete: () => {
+          gsap.set(outgoingWpr, {
+            x: 0,
+            filter: "blur(0px)",
+          });
+        },
+      });
+
+      gsap.set(targetWpr, {
+        opacity: 0,
+        x: incoming_dir === "l" ? -20 : 20,
+        filter: "blur(2px)",
+      });
+
+      gsap.to(targetWpr, {
+        opacity: 1,
+        x: 0,
+        filter: "blur(0px)",
+        duration: 0.4,
+        ease: "power3.out",
+      });
+
+      // Animate container height
+      gsap.to(container, {
+        height: targetHeight,
+        duration: 0.5,
+        ease: "power3.inOut",
+      });
+    } else if (!currentWpr) {
+      // Opening from closed
+      gsap.set(container, { height: 0, opacity: 0 });
+      gsap.set(targetWpr, {
+        display: "block",
+        opacity: 0,
+        x: 0,
+        filter: "blur(2px)",
+      });
+
+      gsap.to(container, {
+        height: targetHeight,
+        opacity: 1,
+        duration: 0.5,
+        ease: "power3.out",
+      });
+
+      gsap.to(targetWpr, {
+        opacity: 1,
+        filter: "blur(0px)",
+        duration: 0.4,
+        ease: "power3.out",
+        delay: 0.1,
+      });
+    }
+
+    currentWpr = targetWpr;
+  }
+
+  function closePanel() {
+    if (!currentWpr) return;
+    const outgoingWpr = currentWpr;
+
+    gsap.to(container, {
+      height: 0,
+      opacity: 0,
+      duration: 0.5,
+      ease: "power3.inOut",
+    });
+
+    gsap.to(outgoingWpr, {
+      opacity: 0,
+      filter: "blur(2px)",
+      duration: 0.3,
+      ease: "power2.in",
+      onComplete: () => {
+        gsap.set(outgoingWpr, { filter: "blur(0px)" });
+      },
+    });
+
+    currentWpr = null;
+    dir = null;
+  }
+
+  // Init — hide all wprs and collapse container
+  document.querySelectorAll("[data-navigation-wpr]").forEach((wpr) => {
+    gsap.set(wpr, { opacity: 0 });
+  });
+  gsap.set(container, { height: 0, opacity: 0, overflow: "hidden" });
+
+  // Nav link hover
+  navLinks.forEach((link) => {
+    link.addEventListener("mouseenter", function () {
+      const name = this.getAttribute("data-nav-link");
+      const targetWpr = getWpr(name);
+      if (!targetWpr) return;
+
+      // Determine direction
+      let incoming_dir = null;
+      if (currentWpr && currentWpr !== targetWpr) {
+        const links = Array.from(navLinks);
+        const currentName = currentWpr.getAttribute("data-navigation-wpr");
+        const currentIndex = links.findIndex(
+          (l) => l.getAttribute("data-nav-link") === currentName,
+        );
+        const targetIndex = links.findIndex(
+          (l) => l.getAttribute("data-nav-link") === name,
+        );
+        incoming_dir = currentIndex > targetIndex ? "r" : "l";
+      }
+
+      dir = incoming_dir;
+      openPanel(name, incoming_dir);
+    });
+  });
+
+  // Close on header mouseleave
+  header.addEventListener("mouseleave", function () {
+    closePanel();
+  });
+})();
+
 document.querySelectorAll(".btn").forEach((btn) => {
   const btnTl = gsap.timeline({
     paused: true,
