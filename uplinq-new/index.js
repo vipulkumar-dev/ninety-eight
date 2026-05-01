@@ -101,6 +101,7 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
 (function menu_animation_desktop() {
   const container = document.querySelector("[data-navigation-container]");
   const navLinks = document.querySelectorAll("[data-nav-link]");
+  const navHideElements = document.querySelectorAll("[data-nav-hide]");
   const header = document.querySelector("[data-element='header']");
 
   console.log("container", container);
@@ -128,8 +129,8 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
         opacity: 0,
         x: incoming_dir === "l" ? 20 : -20,
         filter: "blur(2px)",
-        duration: 0.25,
-        ease: "power2.in",
+        duration: 0.3,
+        ease: "power3.inout",
         onComplete: () => {
           gsap.set(outgoingWpr, {
             x: 0,
@@ -140,7 +141,7 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
 
       gsap.set(targetWpr, {
         opacity: 0,
-        x: incoming_dir === "l" ? -20 : 20,
+        x: incoming_dir === "l" ? -10 : 10,
         filter: "blur(2px)",
       });
 
@@ -148,8 +149,8 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
         opacity: 1,
         x: 0,
         filter: "blur(0px)",
-        duration: 0.4,
-        ease: "power3.out",
+        duration: 0.3,
+        ease: "power3.inOut",
       });
 
       // Animate container height
@@ -178,7 +179,7 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
       gsap.to(targetWpr, {
         opacity: 1,
         filter: "blur(0px)",
-        duration: 0.4,
+        duration: 0.3,
         ease: "power3.out",
         delay: 0.1,
       });
@@ -202,7 +203,7 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
       opacity: 0,
       filter: "blur(2px)",
       duration: 0.3,
-      ease: "power2.in",
+      ease: "power3.inOut",
       onComplete: () => {
         gsap.set(outgoingWpr, { filter: "blur(0px)" });
       },
@@ -247,6 +248,13 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
   // Close on header mouseleave
   header.addEventListener("mouseleave", function () {
     closePanel();
+  });
+
+  // Hide panel when hovering specific nav hide triggers
+  navHideElements.forEach((element) => {
+    element.addEventListener("mouseenter", function () {
+      closePanel();
+    });
   });
 })();
 
