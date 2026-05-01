@@ -124,6 +124,7 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
     if (currentWpr && currentWpr !== targetWpr) {
       // Switching between panels — cross-fade with slide
       const outgoingWpr = currentWpr;
+      gsap.set(outgoingWpr, { pointerEvents: "none" });
 
       gsap.to(outgoingWpr, {
         opacity: 0,
@@ -143,6 +144,7 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
         opacity: 0,
         x: incoming_dir === "l" ? -10 : 10,
         filter: "blur(2px)",
+        pointerEvents: "auto",
       });
 
       gsap.to(targetWpr, {
@@ -167,6 +169,7 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
         opacity: 0,
         x: 0,
         filter: "blur(2px)",
+        pointerEvents: "auto",
       });
 
       gsap.to(container, {
@@ -191,6 +194,7 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
   function closePanel() {
     if (!currentWpr) return;
     const outgoingWpr = currentWpr;
+    gsap.set(outgoingWpr, { pointerEvents: "none" });
 
     gsap.to(container, {
       height: 0,
@@ -215,7 +219,7 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
 
   // Init — hide all wprs and collapse container
   document.querySelectorAll("[data-navigation-wpr]").forEach((wpr) => {
-    gsap.set(wpr, { opacity: 0 });
+    gsap.set(wpr, { opacity: 0, pointerEvents: "none" });
   });
   gsap.set(container, { height: 0, opacity: 0, overflow: "hidden" });
 
