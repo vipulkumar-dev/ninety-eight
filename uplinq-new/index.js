@@ -6,6 +6,71 @@ const { isDesktop, isMobile } = getDevices();
 
 const lenis = lenisInit(0.15);
 
+const header = document.getElementById("header");
+if (header) {
+  let isMenuOpen = false;
+  let lastScrollPosition = 0;
+  let delta = isDesktop ? 70 : 100; // Minimum scroll distance before toggling header
+  let ticking = false;
+
+  function handleScroll() {
+    const currentScrollPosition = window.scrollY;
+
+    if (Math.abs(currentScrollPosition - lastScrollPosition) > delta) {
+      if (currentScrollPosition > lastScrollPosition) {
+        // Scrolling down
+        header.classList.add("hidden");
+      } else {
+        // Scrolling up
+        header.classList.remove("hidden");
+      }
+      lastScrollPosition = currentScrollPosition;
+    }
+
+    ticking = false;
+  }
+
+  window.addEventListener("scroll", () => {
+    if (!isMenuOpen) {
+      if (!ticking) {
+        window.requestAnimationFrame(handleScroll);
+        ticking = true;
+      }
+    }
+
+    if (window.scrollY > 0) {
+      header.classList.add("active");
+    } else {
+      header.classList.remove("active");
+    }
+  });
+
+  const menu_tl = gsap.timeline({
+    paused: true,
+    defaults: {
+      duration: 0.3,
+      ease: "power3.inOut",
+    },
+  });
+
+  menu_tl.fromTo(
+    ".navigation_wrapper",
+    { y: "-100%" },
+    { y: "0%", duration: 0.5 },
+  );
+
+  const menu_trigger = document.querySelector("[menu_trigger]");
+
+  menu_trigger?.addEventListener("click", () => {
+    if (!isMenuOpen) {
+      menu_tl.play();
+    } else {
+      menu_tl.reverse();
+    }
+    isMenuOpen = !isMenuOpen;
+  });
+}
+
 document.querySelectorAll(".swiper").forEach((swiper) => {
   const swiperInstance = new Swiper(swiper, {
     direction: "horizontal",
@@ -261,6 +326,131 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
     });
   });
 })();
+
+(function playPauseVideo() {
+  const videos = document.querySelectorAll(".auto_video");
+
+  videos.forEach((video) => {
+    video.muted = true;
+
+    const isScrollTriggered = video.hasAttribute("scroll-triggered");
+    const isScrollOffset = video.hasAttribute("scroll-offset");
+    const scrollOffset = video.getAttribute("scroll-offset");
+
+    // Store original sources for restoration
+    if (!video.dataset.originalSources) {
+      const sources = video.querySelectorAll("source");
+      const sourcesData = Array.from(sources).map((source) => ({
+        src: source.src,
+        type: source.type,
+        media: source.media || "",
+      }));
+      video.dataset.originalSources = JSON.stringify(sourcesData);
+    }
+
+    let DefaultOffset = 0;
+
+    if (scrollOffset) {
+      DefaultOffset = parseInt(scrollOffset);
+    }
+
+    console.log("DefaultOffset", DefaultOffset);
+
+    if (isScrollTriggered) {
+      ScrollTrigger.create({
+        trigger: video,
+        start: `top+=${DefaultOffset}px bottom`,
+        end: `bottom+=${DefaultOffset}px top`,
+        pinnedContainer: isScrollOffset ? undefined : ".section_wpr",
+        // markers: true,
+        onEnter: () => {
+          // Video is in view - restore sources and auto-play after load
+          console.log("play");
+          restoreVideoSources(video);
+        },
+        onLeave: () => {
+          // Video is out of view - pause and clean sources
+          console.log("pause");
+          video.pause();
+          clearAllVideoSources(video);
+        },
+        onEnterBack: () => {
+          // Video is back in view when scrolling up
+          console.log("play");
+          restoreVideoSources(video);
+        },
+        onLeaveBack: () => {
+          // Video is out of view when scrolling up
+          console.log("pause");
+          video.pause();
+          clearAllVideoSources(video);
+        },
+      });
+    } else {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              // Video is in view - restore sources and auto-play after load
+              console.log("play");
+              restoreVideoSources(video);
+            } else {
+              // Video is out of view - pause and clean sources
+              console.log("pause");
+              video.pause();
+              clearAllVideoSources(video);
+            }
+          });
+        },
+        { threshold: 0, rootMargin: "200px" },
+      );
+
+      observer.observe(video);
+    }
+  });
+})();
+
+function clearAllVideoSources(video) {
+  // Remove src attribute from video element
+  video.removeAttribute("src");
+
+  // Clear all source elements
+  const sources = video.querySelectorAll("source");
+  sources.forEach((source) => {
+    source.removeAttribute("src");
+  });
+
+  // Trigger load to release resources
+  video.load();
+}
+
+function restoreVideoSources(video) {
+  if (!video.dataset.originalSources) return;
+
+  const sourcesData = JSON.parse(video.dataset.originalSources);
+  const sources = video.querySelectorAll("source");
+
+  sources.forEach((source, index) => {
+    if (sourcesData[index]) {
+      source.src = sourcesData[index].src;
+      source.type = sourcesData[index].type;
+      if (sourcesData[index].media) {
+        source.media = sourcesData[index].media;
+      }
+    }
+  });
+
+  // Reload the video with new sources
+  video.load();
+
+  // Wait for the video to be ready before playing
+  const onLoaded = () => {
+    video.play().catch((err) => console.log("Error playing video:", err));
+    video.removeEventListener("loadeddata", onLoaded);
+  };
+
+  video.addEventListener("loadeddata", onLoaded);
+}
 
 document.querySelectorAll(".btn").forEach((btn) => {
   const btnTl = gsap.timeline({
