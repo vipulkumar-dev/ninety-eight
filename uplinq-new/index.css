@@ -13,3 +13,24 @@
 .ai-bookeeping-tab.w--current .ai-bookeping-number {
   color: #2deef5;
 }
+
+@property --gradient-angle {
+  syntax: "<angle>";
+  initial-value: -0.08deg;
+  inherits: false;
+}
+
+.ask-ai-button {
+  background: conic-gradient(
+    from var(--gradient-angle) at 50% 50%,
+    #181818 0deg,
+    #2deef5 360deg
+  );
+  animation: ask-ai-gradient-spin 4s linear infinite;
+}
+
+@keyframes ask-ai-gradient-spin {
+  to {
+    --gradient-angle: 359.92deg;
+  }
+}
