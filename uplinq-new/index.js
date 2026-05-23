@@ -138,6 +138,7 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
         faqItem,
         {
           borderRadius: "6px",
+          opacity: 1,
         },
         0,
       )
@@ -458,13 +459,30 @@ function restoreVideoSources(video) {
     if (items.length < 2) return;
 
     let index = 0;
-    items[index].classList.add("active");
+    let interval = null;
 
-    setInterval(() => {
+    const setActive = (i) => {
       items.forEach((item) => item.classList.remove("active"));
-      index = (index + 1) % items.length;
-      items[index].classList.add("active");
-    }, 3000);
+      items[i].classList.add("active");
+      index = i;
+    };
+
+    const startCycle = () => {
+      clearInterval(interval);
+      interval = setInterval(() => {
+        setActive((index + 1) % items.length);
+      }, 4000);
+    };
+
+    setActive(0);
+    startCycle();
+
+    items.forEach((item, i) => {
+      item.addEventListener("click", () => {
+        setActive(i);
+        startCycle();
+      });
+    });
   });
 })();
 

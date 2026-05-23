@@ -9,3 +9,7 @@
 .bordered-cycle.active .circle_icon {
   color: #2deef5;
 }
+
+.ai-bookeeping-tab.w--current .ai-bookeping-number {
+  color: #2deef5;
+}
