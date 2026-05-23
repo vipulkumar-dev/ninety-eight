@@ -647,6 +647,8 @@ console.log("uplinq-new");
 (function askAiButtonInit() {
   const askAiButton = document.querySelector(".ask-ai-button");
   const aiButtonsWpr = document.querySelector(".ai-buttons-wpr");
+  const aiButtonsInit = document.querySelector(".ai-button-init");
+
   const aiBUttonsWprWidth = aiButtonsWpr.offsetWidth;
 
   const askAiButtonTl = gsap.timeline({
@@ -657,20 +659,28 @@ console.log("uplinq-new");
     },
   });
 
-  askAiButtonTl.to(
-    askAiButton,
-    {
-      width: aiBUttonsWprWidth,
-    },
-    0,
-  );
-  askAiButtonTl.to(
-    aiButtonsWpr,
-    {
-      opacity: 1,
-    },
-    0,
-  );
+  askAiButtonTl
+    .to(
+      askAiButton,
+      {
+        width: aiBUttonsWprWidth,
+      },
+      0,
+    )
+    .to(
+      aiButtonsWpr,
+      {
+        opacity: 1,
+      },
+      0,
+    )
+    .to(
+      aiButtonsInit,
+      {
+        opacity: 0,
+      },
+      0,
+    );
 
   askAiButton.addEventListener("mouseenter", () => {
     askAiButtonTl.play();
