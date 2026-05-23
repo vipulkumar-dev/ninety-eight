@@ -5,3 +5,7 @@
 .swiper-slide:hover .project_image {
   transform: scale(1.05);
 }
+
+.bordered-cycle.active .circle_icon {
+  color: #2deef5;
+}

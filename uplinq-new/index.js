@@ -452,6 +452,22 @@ function restoreVideoSources(video) {
   video.addEventListener("loadeddata", onLoaded);
 }
 
+(function cycle_active_class_init() {
+  document.querySelectorAll("[cycle-active-wpr]").forEach((wrapper) => {
+    const items = wrapper.querySelectorAll("[cycle-active]");
+    if (items.length < 2) return;
+
+    let index = 0;
+    items[index].classList.add("active");
+
+    setInterval(() => {
+      items.forEach((item) => item.classList.remove("active"));
+      index = (index + 1) % items.length;
+      items[index].classList.add("active");
+    }, 4000);
+  });
+})();
+
 document.querySelectorAll(".btn").forEach((btn) => {
   const btnTl = gsap.timeline({
     paused: true,
