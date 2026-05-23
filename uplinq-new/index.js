@@ -183,27 +183,41 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
   const navLinks = document.querySelectorAll("[data-nav-link]");
   const navHideElements = document.querySelectorAll("[data-nav-hide]");
   const header = document.querySelector("[data-element='header']");
+  const allWprs = document.querySelectorAll("[data-navigation-wpr]");
 
-  console.log("container", container);
+  if (!container || !header || !allWprs.length) return;
 
   let currentWpr = null;
-  let isAnimating = false;
-  let dir = null;
 
   function getWpr(name) {
     return document.querySelector(`[data-navigation-wpr="${name}"]`);
   }
 
+  function hideWprInstant(wpr) {
+    gsap.killTweensOf(wpr);
+    gsap.set(wpr, {
+      opacity: 0,
+      x: 0,
+      filter: "blur(0px)",
+      pointerEvents: "none",
+    });
+  }
+
   function openPanel(name, incoming_dir) {
     const targetWpr = getWpr(name);
-    if (!targetWpr) return;
+    if (!targetWpr || targetWpr === currentWpr) return;
 
     const targetHeight = targetWpr.offsetHeight;
-    console.log("targetHeight", targetHeight);
+
+    // Force-clear any wpr that isn't the current outgoing or the new target.
+    // Prevents stragglers from rapid hovers (A -> B -> C) leaving B visible.
+    allWprs.forEach((wpr) => {
+      if (wpr !== targetWpr && wpr !== currentWpr) hideWprInstant(wpr);
+    });
 
     if (currentWpr && currentWpr !== targetWpr) {
-      // Switching between panels — cross-fade with slide
       const outgoingWpr = currentWpr;
+      gsap.killTweensOf(outgoingWpr);
       gsap.set(outgoingWpr, { pointerEvents: "none" });
 
       gsap.to(outgoingWpr, {
@@ -211,15 +225,14 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
         x: incoming_dir === "l" ? 20 : -20,
         filter: "blur(2px)",
         duration: 0.3,
-        ease: "power3.inout",
+        ease: "power3.inOut",
+        overwrite: true,
         onComplete: () => {
-          gsap.set(outgoingWpr, {
-            x: 0,
-            filter: "blur(0px)",
-          });
+          gsap.set(outgoingWpr, { x: 0, filter: "blur(0px)" });
         },
       });
 
+      gsap.killTweensOf(targetWpr);
       gsap.set(targetWpr, {
         opacity: 0,
         x: incoming_dir === "l" ? -10 : 10,
@@ -233,16 +246,18 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
         filter: "blur(0px)",
         duration: 0.3,
         ease: "power3.inOut",
+        overwrite: true,
       });
 
-      // Animate container height
       gsap.to(container, {
         height: targetHeight,
         duration: 0.5,
         ease: "power3.inOut",
+        overwrite: true,
       });
-    } else if (!currentWpr) {
-      // Opening from closed
+    } else {
+      gsap.killTweensOf(container);
+      gsap.killTweensOf(targetWpr);
       gsap.set(container, { height: 0, opacity: 0 });
       gsap.set(targetWpr, {
         display: "block",
@@ -257,6 +272,7 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
         opacity: 1,
         duration: 0.5,
         ease: "power3.out",
+        overwrite: true,
       });
 
       gsap.to(targetWpr, {
@@ -265,6 +281,7 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
         duration: 0.3,
         ease: "power3.out",
         delay: 0.1,
+        overwrite: true,
       });
     }
 
@@ -274,6 +291,10 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
   function closePanel() {
     if (!currentWpr) return;
     const outgoingWpr = currentWpr;
+    currentWpr = null;
+
+    gsap.killTweensOf(container);
+    gsap.killTweensOf(outgoingWpr);
     gsap.set(outgoingWpr, { pointerEvents: "none" });
 
     gsap.to(container, {
@@ -281,6 +302,7 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
       opacity: 0,
       duration: 0.5,
       ease: "power3.inOut",
+      overwrite: true,
     });
 
     gsap.to(outgoingWpr, {
@@ -288,29 +310,28 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
       filter: "blur(2px)",
       duration: 0.3,
       ease: "power3.inOut",
+      overwrite: true,
       onComplete: () => {
-        gsap.set(outgoingWpr, { filter: "blur(0px)" });
+        gsap.set(outgoingWpr, { x: 0, filter: "blur(0px)" });
+        // Safety sweep: ensure no panel is left interactive after a close.
+        allWprs.forEach((wpr) => {
+          if (wpr !== currentWpr) gsap.set(wpr, { pointerEvents: "none" });
+        });
       },
     });
-
-    currentWpr = null;
-    dir = null;
   }
 
-  // Init — hide all wprs and collapse container
-  document.querySelectorAll("[data-navigation-wpr]").forEach((wpr) => {
+  allWprs.forEach((wpr) => {
     gsap.set(wpr, { opacity: 0, pointerEvents: "none" });
   });
   gsap.set(container, { height: 0, opacity: 0, overflow: "hidden" });
 
-  // Nav link hover
   navLinks.forEach((link) => {
     link.addEventListener("mouseenter", function () {
       const name = this.getAttribute("data-nav-link");
       const targetWpr = getWpr(name);
       if (!targetWpr) return;
 
-      // Determine direction
       let incoming_dir = null;
       if (currentWpr && currentWpr !== targetWpr) {
         const links = Array.from(navLinks);
@@ -324,21 +345,14 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
         incoming_dir = currentIndex > targetIndex ? "r" : "l";
       }
 
-      dir = incoming_dir;
       openPanel(name, incoming_dir);
     });
   });
 
-  // Close on header mouseleave
-  header.addEventListener("mouseleave", function () {
-    closePanel();
-  });
+  header.addEventListener("mouseleave", closePanel);
 
-  // Hide panel when hovering specific nav hide triggers
   navHideElements.forEach((element) => {
-    element.addEventListener("mouseenter", function () {
-      closePanel();
-    });
+    element.addEventListener("mouseenter", closePanel);
   });
 })();
 
