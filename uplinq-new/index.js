@@ -158,6 +158,20 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
           rotate: -180,
         },
         0,
+      )
+      .to(
+        faqItem.querySelector(".plus-icon"),
+        {
+          opacity: 0,
+        },
+        0,
+      )
+      .to(
+        faqItem.querySelector(".minus-icon"),
+        {
+          opacity: 1,
+        },
+        0,
       );
 
     return faqTl;
