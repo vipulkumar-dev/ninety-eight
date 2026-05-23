@@ -644,4 +644,40 @@ if (isLoader) {
 
 console.log("uplinq-new");
 
+(function askAiButtonInit() {
+  const askAiButton = document.querySelector(".ask-ai-button");
+  const aiButtonsWpr = document.querySelector(".ai-buttons-wpr");
+  const aiBUttonsWprWidth = aiButtonsWpr.offsetWidth;
+
+  const askAiButtonTl = gsap.timeline({
+    paused: true,
+    defaults: {
+      duration: 0.5,
+      ease: "power3.inOut",
+    },
+  });
+
+  askAiButtonTl.to(
+    askAiButton,
+    {
+      width: aiBUttonsWprWidth,
+    },
+    0,
+  );
+  askAiButtonTl.to(
+    aiButtonsWpr,
+    {
+      opacity: 1,
+    },
+    0,
+  );
+
+  askAiButton.addEventListener("mouseenter", () => {
+    askAiButtonTl.play();
+  });
+  askAiButton.addEventListener("mouseleave", () => {
+    askAiButtonTl.reverse();
+  });
+})();
+
 liveReload();

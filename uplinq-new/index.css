@@ -25,7 +25,7 @@
     from var(--gradient-angle) at 50% 50%,
     #181818 0deg,
     #2deef5 360deg
-  );
+  ) !important;
   animation: ask-ai-gradient-spin 4s linear infinite;
 }
 
