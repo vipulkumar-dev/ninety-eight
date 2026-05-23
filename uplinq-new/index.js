@@ -464,7 +464,7 @@ function restoreVideoSources(video) {
       items.forEach((item) => item.classList.remove("active"));
       index = (index + 1) % items.length;
       items[index].classList.add("active");
-    }, 4000);
+    }, 3000);
   });
 })();
 
