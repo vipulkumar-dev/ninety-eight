@@ -704,4 +704,32 @@ console.log("uplinq-new");
   });
 })();
 
+(function blog_item_hover_init() {
+  document.querySelectorAll(".blog-item").forEach((item) => {
+    const readTime = item.querySelector(".read-time-wpr");
+    const hoverArrow = item.querySelector(".hover-arrow-wpr");
+    if (!readTime || !hoverArrow) return;
+
+    gsap.set(hoverArrow, { position: "absolute", inset: 0, opacity: 0 });
+    gsap.set(readTime, { opacity: 1 });
+
+    const tl = gsap
+      .timeline({
+        paused: true,
+        defaults: { duration: 0.4, ease: "power3.inOut" },
+      })
+      .to(readTime, { opacity: 0, filter: "blur(4px)", y: "-40%" }, 0)
+      .fromTo(
+        hoverArrow,
+        { opacity: 0, filter: "blur(4px)", y: "40%" },
+        { opacity: 1, filter: "blur(0px)", y: "0%" },
+        0,
+      )
+      .fromTo(hoverArrow, { filter: "blur(4px)" }, { filter: "blur(0px)" }, 0);
+
+    item.addEventListener("mouseenter", () => tl.play());
+    item.addEventListener("mouseleave", () => tl.reverse());
+  });
+})();
+
 liveReload();
