@@ -50,11 +50,32 @@ if (header) {
     },
   });
 
-  menu_tl.fromTo(
-    ".navigation_wrapper",
-    { y: "-100%" },
-    { y: "0%", duration: 0.5 }
-  );
+  menu_tl
+    .to(".menu-line-wpr", {
+      gap: "0px",
+    })
+    .set(".menu-line.bottom", {
+      width: "100%",
+    })
+    .set(".menu-line.middle", {
+      opacity: 0,
+    })
+    .to(".menu-line.top", {
+      rotate: "45deg",
+    })
+    .to(
+      ".menu-line.bottom",
+      {
+        rotate: "-45deg",
+      },
+      "<",
+    )
+    .fromTo(
+      ".navigation_wrapper",
+      { y: "-100%" },
+      { y: "0%", duration: 0.5 },
+      "<",
+    );
 
   const menu_trigger = document.querySelector("[menu_trigger]");
 
@@ -175,7 +196,7 @@ items.forEach((item) => {
         {
           color: "#FFE8E2",
         },
-        0
+        0,
       )
       .to(
         faqItem.querySelector(".faq_body"),
@@ -185,14 +206,14 @@ items.forEach((item) => {
           opacity: 1,
           filter: "blur(0px)",
         },
-        0
+        0,
       )
       .to(
         faqItem.querySelectorAll(".faq_icon"),
         {
           rotate: 135,
         },
-        0
+        0,
       );
 
     return faqTl;
@@ -203,18 +224,18 @@ class ButtonGsapTeleport {
   constructor(element) {
     this.button = element;
     this.buttonText = this.button.querySelector(
-      "[data-button-gsap-teleport-text]"
+      "[data-button-gsap-teleport-text]",
     );
     this.buttonTextHover = this.button.querySelector(
-      "[data-button-gsap-teleport-text-hover]"
+      "[data-button-gsap-teleport-text-hover]",
     );
     this.buttonText.innerHTML = this.buttonText.textContent.replace(
       / /g,
-      "&nbsp;"
+      "&nbsp;",
     );
     this.buttonTextHover.innerHTML = this.buttonTextHover.textContent.replace(
       / /g,
-      "&nbsp;"
+      "&nbsp;",
     );
     this.splitText = SplitText.create(this.buttonText, {
       type: "chars",
@@ -273,7 +294,7 @@ class ButtonGsapTeleport {
           },
           ease: CustomEase.create("", ".32, .72, 0, 1"),
         },
-        "-=0.525"
+        "-=0.525",
       );
   }
 
@@ -285,7 +306,7 @@ class ButtonGsapTeleport {
 gsap.registerPlugin(SplitText, CustomEase);
 
 const buttonGsapTeleportElements = document.querySelectorAll(
-  "[data-button-gsap-teleport]"
+  "[data-button-gsap-teleport]",
 );
 
 if (buttonGsapTeleportElements.length > 0) {
@@ -369,7 +390,7 @@ function initReveal() {
           ease: "power3.inOut",
         });
       },
-    }
+    },
   );
 }
 

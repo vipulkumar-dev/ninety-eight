@@ -53,11 +53,32 @@ if (header) {
     },
   });
 
-  menu_tl.fromTo(
-    ".navigation_wrapper",
-    { y: "-100%" },
-    { y: "0%", duration: 0.5 },
-  );
+  menu_tl
+    .to(".menu-line-wpr", {
+      gap: "0px",
+    })
+    .set(".menu-line.bottom", {
+      width: "100%",
+    })
+    .set(".menu-line.middle", {
+      opacity: 0,
+    })
+    .to(".menu-line.top", {
+      rotate: "45deg",
+    })
+    .to(
+      ".menu-line.bottom",
+      {
+        rotate: "-45deg",
+      },
+      "<",
+    )
+    .fromTo(
+      ".navigation_wrapper",
+      { y: "-100%" },
+      { y: "0%", duration: 0.5 },
+      "<",
+    );
 
   const menu_trigger = document.querySelector("[menu_trigger]");
 
@@ -175,6 +196,97 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
       );
 
     return faqTl;
+  }
+})();
+
+(function menu_dropdown_init() {
+  const menu_dropdown_items = document.querySelectorAll(".menu_dropdown_item");
+  let activeIndex = null;
+  const timelines = [];
+
+  menu_dropdown_items.forEach((menu_dropdown_item, index) => {
+    menu_dropdown_item.isActive = false;
+    const menu_dropdown_tl = menu_dropdown_timeline(menu_dropdown_item);
+    timelines[index] = menu_dropdown_tl;
+
+    menu_dropdown_item
+      .querySelector(".menu_dropdown_trigger")
+      .addEventListener("click", () => {
+        if (!menu_dropdown_item.isActive) {
+          // Close any open item
+          if (activeIndex !== null && activeIndex !== index) {
+            timelines[activeIndex].reverse();
+            menu_dropdown_items[activeIndex].isActive = false;
+          }
+          menu_dropdown_tl.play();
+          menu_dropdown_item.isActive = true;
+          activeIndex = index;
+        } else {
+          menu_dropdown_tl.reverse();
+          menu_dropdown_item.isActive = false;
+          activeIndex = null;
+        }
+      });
+
+    if (index === 0) {
+      menu_dropdown_item.click(); // auto-open first item
+    }
+  });
+
+  function menu_dropdown_timeline(menu_dropdown_item) {
+    const menu_dropdown_tl = gsap
+      .timeline({
+        paused: true,
+        defaults: {
+          duration: 0.4,
+          ease: "power3.inOut",
+        },
+        onReverseComplete: () => {
+          lenis.resize();
+          ScrollTrigger.refresh();
+        },
+      })
+      .to(
+        menu_dropdown_item,
+        {
+          borderRadius: "6px",
+          opacity: 1,
+        },
+        0,
+      )
+      .to(
+        menu_dropdown_item.querySelector(".menu_dropdown_body"),
+        {
+          height: "auto",
+          y: 0,
+          opacity: 1,
+          filter: "blur(0px)",
+        },
+        0,
+      )
+      .to(
+        menu_dropdown_item.querySelectorAll(".menu_dropdown_icon"),
+        {
+          rotate: -180,
+        },
+        0,
+      )
+      .to(
+        menu_dropdown_item.querySelector(".plus-icon"),
+        {
+          opacity: 0,
+        },
+        0,
+      )
+      .to(
+        menu_dropdown_item.querySelector(".minus-icon"),
+        {
+          opacity: 1,
+        },
+        0,
+      );
+
+    return menu_dropdown_tl;
   }
 })();
 
