@@ -76,7 +76,7 @@ if (header) {
     .fromTo(
       ".navigation_wrapper",
       { y: "-100%" },
-      { y: "0%", duration: 0.5 },
+      { y: "0%", duration: 0.7 },
       "<",
     );
 
@@ -267,7 +267,7 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
       .to(
         menu_dropdown_item.querySelectorAll(".menu_dropdown_icon"),
         {
-          rotate: -180,
+          rotate: 180,
         },
         0,
       )
