@@ -468,6 +468,55 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
   });
 })();
 
+(function ai_bookeeping_mobile_tabs_init() {
+  const tabs = document.querySelectorAll("[ai-bookeeping-tab]");
+  const nextBtn = document.querySelector("[ai-bookeeping-tab-next]");
+  const prevBtn = document.querySelector("[ai-bookeeping-tab-prev]");
+
+  if (!tabs.length || !nextBtn || !prevBtn) return;
+
+  function getActiveIndex() {
+    const index = Array.from(tabs).findIndex((tab) =>
+      tab.classList.contains("w--current"),
+    );
+    return index === -1 ? 0 : index;
+  }
+
+  function updateNavButtons(activeIndex) {
+    const index = activeIndex ?? getActiveIndex();
+    prevBtn.classList.toggle("disabled", index === 0);
+    nextBtn.classList.toggle("disabled", index === tabs.length - 1);
+  }
+
+  nextBtn.addEventListener("click", () => {
+    console.log("nextBtn clicked");
+    if (nextBtn.classList.contains("disabled")) return;
+    const index = getActiveIndex();
+    if (index >= tabs.length - 1) return;
+    const nextIndex = index + 1;
+    console.log("nextIndex", nextIndex, tabs[nextIndex]);
+    tabs[nextIndex].click();
+
+    updateNavButtons(nextIndex);
+  });
+
+  prevBtn.addEventListener("click", () => {
+    console.log("prevBtn clicked");
+    if (prevBtn.classList.contains("disabled")) return;
+    const index = getActiveIndex();
+    if (index <= 0) return;
+    const prevIndex = index - 1;
+    tabs[prevIndex].click();
+    updateNavButtons(prevIndex);
+  });
+
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", () => updateNavButtons());
+  });
+
+  updateNavButtons();
+})();
+
 (function playPauseVideo() {
   const videos = document.querySelectorAll(".auto_video");
 
