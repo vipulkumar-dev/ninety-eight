@@ -363,6 +363,7 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
 
       gsap.to(container, {
         height: targetHeight,
+        opacity: 1,
         duration: 0.5,
         ease: "power3.inOut",
         overwrite: true,
