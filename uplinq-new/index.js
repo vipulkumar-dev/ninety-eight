@@ -334,9 +334,9 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
 
       gsap.to(outgoingWpr, {
         opacity: 0,
-        x: incoming_dir === "l" ? 20 : -20,
-        filter: "blur(2px)",
-        duration: 0.3,
+        x: incoming_dir === "l" ? 10 : -10,
+        filter: "blur(4px)",
+        duration: 0.5,
         ease: "power3.inOut",
         overwrite: true,
         onComplete: () => {
@@ -348,7 +348,7 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
       gsap.set(targetWpr, {
         opacity: 0,
         x: incoming_dir === "l" ? -10 : 10,
-        filter: "blur(2px)",
+        filter: "blur(4px)",
         pointerEvents: "auto",
       });
 
@@ -356,7 +356,7 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
         opacity: 1,
         x: 0,
         filter: "blur(0px)",
-        duration: 0.3,
+        duration: 0.5,
         ease: "power3.inOut",
         overwrite: true,
       });
