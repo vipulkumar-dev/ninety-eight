@@ -810,13 +810,13 @@ function initReveal() {
   );
 }
 
-if (isLoader) {
-  setTimeout(() => {
-    initReveal();
-  }, 3000);
-} else {
-  initReveal();
-}
+// if (isLoader) {
+//   setTimeout(() => {
+//     initReveal();
+//   }, 3000);
+// } else {
+//   initReveal();
+// }
 
 console.log("uplinq-new");
 
@@ -865,6 +865,35 @@ console.log("uplinq-new");
     askAiButtonTl.reverse();
   });
 })();
+
+// (function uplinqDottedLogoReveal() {
+//   const logos = document.querySelectorAll(".uplinq-dotted-logo");
+//   if (!logos.length) return;
+
+//   logos.forEach((logo) => {
+//     const dots = logo.querySelectorAll("circle");
+//     if (!dots.length) return;
+//     gsap.set(dots, { opacity: 0 });
+//   });
+
+//   ScrollTrigger.batch(".uplinq-dotted-logo", {
+//     start: "center center",
+//     once: true,
+//     onEnter: (elements) => {
+//       elements.forEach((logo) => {
+//         const dots = logo.querySelectorAll("circle");
+//         if (!dots.length) return;
+
+//         gsap.to(dots, {
+//           opacity: 1,
+//           duration: 0.1,
+//           stagger: 0.06,
+//           ease: "power3.out",
+//         });
+//       });
+//     },
+//   });
+// })();
 
 (function blog_item_hover_init() {
   document.querySelectorAll(".blog-item").forEach((item) => {
