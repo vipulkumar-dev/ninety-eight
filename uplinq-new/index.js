@@ -518,6 +518,46 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
   updateNavButtons();
 })();
 
+(function ai_engine_tabs_init() {
+  const tabs = document.querySelectorAll(".ai-engine-tab");
+  if (!tabs.length) return;
+
+  function getScrollContainer(tab) {
+    let parent = tab.parentElement;
+    while (parent) {
+      const { overflowX, overflow } = getComputedStyle(parent);
+      if (/(auto|scroll)/.test(overflowX) || /(auto|scroll)/.test(overflow)) {
+        return parent;
+      }
+      parent = parent.parentElement;
+    }
+    return null;
+  }
+
+  function scrollTabToCenter(tab) {
+    const container = getScrollContainer(tab);
+    if (!container) return;
+
+    const containerRect = container.getBoundingClientRect();
+    const tabRect = tab.getBoundingClientRect();
+    const scrollLeft =
+      container.scrollLeft +
+      (tabRect.left - containerRect.left) -
+      containerRect.width / 2 +
+      tabRect.width / 2;
+
+    gsap.to(container, {
+      scrollLeft,
+      duration: 0.6,
+      ease: "power3.out",
+    });
+  }
+
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", () => scrollTabToCenter(tab));
+  });
+})();
+
 (function playPauseVideo() {
   const videos = document.querySelectorAll(".auto_video");
 

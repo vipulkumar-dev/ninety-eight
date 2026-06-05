@@ -34,3 +34,7 @@
     --gradient-angle: 359.92deg;
   }
 }
+
+.ai-engine-tab.w--current .ai-engine-number {
+  color: #2deef5 !important;
+}
