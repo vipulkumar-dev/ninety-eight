@@ -4,6 +4,7 @@ import { liveReload } from "../liveReload.js";
 const { isDesktop, isMobile } = getDevices();
 
 const header = document.getElementById("header");
+
 if (header) {
   let isMenuOpen = false;
   let lastScrollPosition = 0;
@@ -111,7 +112,7 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
         {
           borderRadius: "6px",
         },
-        0
+        0,
       )
       .to(
         faqItem.querySelector(".faq_body"),
@@ -121,14 +122,14 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
           opacity: 1,
           filter: "blur(0px)",
         },
-        0
+        0,
       )
       .to(
         faqItem.querySelectorAll(".faq_icon"),
         {
           rotate: -180,
         },
-        0
+        0,
       );
 
     return faqTl;
