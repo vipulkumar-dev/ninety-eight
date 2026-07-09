@@ -4,7 +4,7 @@ import { liveReload } from "../liveReload.js";
 const { isDesktop, isMobile } = getDevices();
 
 // Smooth scroll + wire Lenis to ScrollTrigger so scrub animations update.
-const lenis = lenisInit();
+// const lenis = lenisInit();
 
 const header = document.getElementById("header");
 if (header) {

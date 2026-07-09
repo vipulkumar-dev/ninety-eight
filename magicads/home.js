@@ -10,8 +10,7 @@
     cards[0].closest("section") ||
     cards[0].parentElement;
 
-  // Hardcoded START offset per card. y/rotation/blur run on the outer card,
-  // x runs on the inner element — different eases on the two make a curved path.
+  // Hardcoded START offset per card. x/y on inner (curved path), rotation/blur on outer.
   const POSITIONS = [
     { x: -220, y: -520, rot: -8, blur: 0 }, // far top-left
     { x: -300, y: -300, rot: -7, blur: 0 }, // left
@@ -47,35 +46,27 @@
       const p = POSITIONS[i] || fallback(i);
       const at = i * 0.05; // small stagger so cards cascade in
 
-      // Horizontal on the inner (fast settle) + vertical on the outer (ease in)
-      // = curved, swooping entrance.
-      tl.fromTo(
-        inner,
-        { x: p.x, ease: "power4.out", duration: 1 },
-        { x: 0, ease: "power4.out", duration: 1 },
-        at,
-      ).fromTo(
-        card,
-        {
-          y: p.y,
-          rotation: p.rot,
-          scale: 0.85,
-          filter: `blur(${p.blur}px)`,
-          transformOrigin: "50% 50%",
-          ease: "power2.in",
-          duration: 1,
-        },
-        {
-          y: 0,
-          rotation: 0,
-          scale: 1,
-          filter: "blur(0px)",
-          transformOrigin: "50% 50%",
-          ease: "power2.in",
-          duration: 1,
-        },
-        at,
-      );
+      // x + y on inner at the same time — gentle opposing eases keep a soft
+      // curve without the "slide left, then drop" feel.
+      tl.fromTo(inner, { x: p.x }, { x: 0, ease: "power1.out", duration: 1 }, at)
+        .fromTo(inner, { y: p.y }, { y: 0, ease: "power1.in", duration: 1 }, at)
+        .fromTo(
+          card,
+          {
+            rotation: p.rot,
+            scale: 0.85,
+            filter: `blur(${p.blur}px)`,
+            transformOrigin: "50% 50%",
+          },
+          {
+            rotation: 0,
+            scale: 1,
+            filter: "blur(0px)",
+            ease: "power2.out",
+            duration: 1,
+          },
+          at
+        );
     });
 
     return tl;
