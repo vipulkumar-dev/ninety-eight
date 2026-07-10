@@ -19,9 +19,9 @@
     { x: "-80.00%", y: "-100.59%", rot: -14, blur: 0, scale: 0.85 }, // left
     { x: "64.67%", y: "-130.34%", rot: 10, blur: 0, scale: 0.85 }, // lower-left
     { x: "20.67%", y: "-350.09%", rot: 14, blur: 5, scale: 0.55 }, // top center-left (blurred)
-    { x: "-156.00%", y: "-100.00%", rot: 10, blur: 0, scale: 0.85 }, // top center-right (blurred)
+    { x: "-156.00%", y: "-100.00%", rot: -8, blur: 0, scale: 0.85 }, // top center-right (blurred)
     { x: "-40.00%", y: "-50.38%", rot: -8, blur: 0, scale: 0.85 }, // top-right (blurred)
-    { x: "50%", y: "-100%", rot: -9, blur: 0, scale: 0.85 }, // right
+    { x: "-10%", y: "-100%", rot: -9, blur: 0, scale: 0.85 }, // right
     { x: "105.33%", y: "-203.44%", rot: 12, blur: 0, scale: 0.7 }, // lower-right
   ];
 
