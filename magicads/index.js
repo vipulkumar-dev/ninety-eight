@@ -46,21 +46,69 @@ if (header) {
   });
 }
 
-document.querySelectorAll(".swiper").forEach((swiper) => {
-  const swiperInstance = new Swiper(swiper, {
-    direction: "horizontal",
-    slidesPerView: "auto",
-    spaceBetween: 16,
-    centeredSlides: true,
-    centeredSlidesBounds: true,
-    slideToClickedSlide: true,
-    autoplay: {
-      delay: 3000,
-    },
-    loop: true,
-    grabCursor: true,
+(function heroVideoSwiper() {
+  const heroVideo = document.querySelector(".hero-video");
+
+  function getSlideVideoLink(slide) {
+    return slide?.getAttribute("videolink") || slide?.dataset?.videolink || "";
+  }
+
+  function setHeroVideo(src) {
+    const source = heroVideo.querySelector("source");
+    const currentSrc = source?.getAttribute("src") || heroVideo.getAttribute("src");
+
+    if (currentSrc === src) {
+      heroVideo.loop = false;
+      if (heroVideo.paused) heroVideo.play().catch(() => {});
+      return;
+    }
+
+    if (source) {
+      source.src = src;
+    } else {
+      heroVideo.src = src;
+    }
+
+    heroVideo.loop = false;
+    heroVideo.muted = true;
+    heroVideo.playsInline = true;
+    heroVideo.load();
+    heroVideo.play().catch(() => {});
+  }
+
+  document.querySelectorAll(".swiper").forEach((swiperEl) => {
+    const hasVideoSlides = swiperEl.querySelector("[videolink], [data-videolink]");
+    const linkVideo = heroVideo && hasVideoSlides;
+
+    function syncVideo(swiper) {
+      const slide = swiper.slides[swiper.activeIndex];
+      const link = getSlideVideoLink(slide);
+      if (!link) return;
+      setHeroVideo(link);
+    }
+
+    const swiperInstance = new Swiper(swiperEl, {
+      direction: "horizontal",
+      slidesPerView: "auto",
+      spaceBetween: 16,
+      centeredSlides: true,
+      centeredSlidesBounds: true,
+      slideToClickedSlide: true,
+      loop: true,
+      grabCursor: true,
+      on: linkVideo
+        ? {
+            init: syncVideo,
+            slideChange: syncVideo,
+          }
+        : undefined,
+    });
+
+    if (linkVideo) {
+      heroVideo.addEventListener("ended", () => swiperInstance.slideNext());
+    }
   });
-});
+})();
 
 (function faq_init() {
   const faq_items = document.querySelectorAll(".faq-item");
