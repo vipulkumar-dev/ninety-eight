@@ -16,7 +16,7 @@
     { x: -300, y: -300, rot: -7, blur: 0 }, // left
     { x: -260, y: -140, rot: -6, blur: 0 }, // lower-left
     { x: -80, y: -620, rot: 4, blur: 6 }, // top center-left (blurred)
-    { x: 120, y: -640, rot: 6, blur: 6 }, // top center-right (blurred)
+    { x: -120, y: -640, rot: -10, blur: 0 }, // top center-right (blurred)
     { x: 300, y: -560, rot: 8, blur: 6 }, // top-right (blurred)
     { x: 300, y: -320, rot: 9, blur: 0 }, // right
     { x: 340, y: -120, rot: 12, blur: 0 }, // lower-right
@@ -35,9 +35,10 @@
       scrollTrigger: {
         trigger: wrapper,
         start: "top 90%",
-        end: "bottom 55%",
+        end: "bottom 90%",
         scrub: 1,
         invalidateOnRefresh: true,
+        markers: true,
       },
     });
 
@@ -48,8 +49,18 @@
 
       // x + y on inner at the same time — gentle opposing eases keep a soft
       // curve without the "slide left, then drop" feel.
-      tl.fromTo(inner, { x: p.x }, { x: 0, ease: "power1.out", duration: 1 }, at)
-        .fromTo(inner, { y: p.y }, { y: 0, ease: "power1.in", duration: 1 }, at)
+      tl.fromTo(
+        inner,
+        { x: p.x },
+        { x: 0, ease: "power3.inOut", duration: 1 },
+        at,
+      )
+        .fromTo(
+          inner,
+          { y: p.y },
+          { y: 0, ease: "power2.inOut", duration: 1 },
+          at,
+        )
         .fromTo(
           card,
           {
@@ -65,7 +76,7 @@
             ease: "power2.out",
             duration: 1,
           },
-          at
+          at,
         );
     });
 
