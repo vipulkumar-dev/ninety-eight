@@ -53,8 +53,9 @@ document.querySelectorAll(".swiper").forEach((swiper) => {
     spaceBetween: 16,
     centeredSlides: true,
     centeredSlidesBounds: true,
+    slideToClickedSlide: true,
     autoplay: {
-      delay: 2000,
+      delay: 3000,
     },
     loop: true,
     grabCursor: true,
