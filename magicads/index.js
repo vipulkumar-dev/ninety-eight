@@ -53,9 +53,17 @@ if (header) {
     return slide?.getAttribute("videolink") || slide?.dataset?.videolink || "";
   }
 
-  function setHeroVideo(src) {
+  function getSlidePoster(slide) {
+    const img = slide?.querySelector(".hero-slide-image, img");
+    return img?.currentSrc || img?.src || "";
+  }
+
+  function setHeroVideo(src, poster) {
     const source = heroVideo.querySelector("source");
-    const currentSrc = source?.getAttribute("src") || heroVideo.getAttribute("src");
+    const currentSrc =
+      source?.getAttribute("src") || heroVideo.getAttribute("src");
+
+    if (poster) heroVideo.poster = poster;
 
     if (currentSrc === src) {
       heroVideo.loop = false;
@@ -77,14 +85,16 @@ if (header) {
   }
 
   document.querySelectorAll(".swiper").forEach((swiperEl) => {
-    const hasVideoSlides = swiperEl.querySelector("[videolink], [data-videolink]");
+    const hasVideoSlides = swiperEl.querySelector(
+      "[videolink], [data-videolink]",
+    );
     const linkVideo = heroVideo && hasVideoSlides;
 
     function syncVideo(swiper) {
       const slide = swiper.slides[swiper.activeIndex];
       const link = getSlideVideoLink(slide);
       if (!link) return;
-      setHeroVideo(link);
+      setHeroVideo(link, getSlidePoster(slide));
     }
 
     const swiperInstance = new Swiper(swiperEl, {
@@ -185,3 +195,5 @@ if (header) {
 })();
 
 liveReload();
+
+/* iPhone 14 Pro */
