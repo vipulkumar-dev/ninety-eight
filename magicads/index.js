@@ -194,6 +194,191 @@ if (header) {
   }
 })();
 
+(function playPauseVideo() {
+  const videos = document.querySelectorAll(".auto_video");
+
+  videos.forEach((video) => {
+    video.muted = true;
+
+    const isScrollTriggered = video.hasAttribute("scroll-triggered");
+    const isScrollOffset = video.hasAttribute("scroll-offset");
+    const scrollOffset = video.getAttribute("scroll-offset");
+
+    // Store original sources for restoration
+    if (!video.dataset.originalSources) {
+      const sources = video.querySelectorAll("source");
+      const sourcesData = Array.from(sources).map((source) => ({
+        src: source.src,
+        type: source.type,
+        media: source.media || "",
+      }));
+      video.dataset.originalSources = JSON.stringify(sourcesData);
+    }
+
+    let DefaultOffset = 0;
+
+    if (scrollOffset) {
+      DefaultOffset = parseInt(scrollOffset);
+    }
+
+    console.log("DefaultOffset", DefaultOffset);
+
+    if (isScrollTriggered) {
+      ScrollTrigger.create({
+        trigger: video,
+        start: `top+=${DefaultOffset}px bottom`,
+        end: `bottom+=${DefaultOffset}px top`,
+        pinnedContainer: isScrollOffset ? undefined : ".section_wpr",
+        // markers: true,
+        onEnter: () => {
+          // Video is in view - restore sources and auto-play after load
+          console.log("play");
+          restoreVideoSources(video);
+        },
+        onLeave: () => {
+          // Video is out of view - pause and clean sources
+          console.log("pause");
+          video.pause();
+          clearAllVideoSources(video);
+        },
+        onEnterBack: () => {
+          // Video is back in view when scrolling up
+          console.log("play");
+          restoreVideoSources(video);
+        },
+        onLeaveBack: () => {
+          // Video is out of view when scrolling up
+          console.log("pause");
+          video.pause();
+          clearAllVideoSources(video);
+        },
+      });
+    } else {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              // Video is in view - restore sources and auto-play after load
+              console.log("play");
+              restoreVideoSources(video);
+            } else {
+              // Video is out of view - pause and clean sources
+              console.log("pause");
+              video.pause();
+              clearAllVideoSources(video);
+            }
+          });
+        },
+        { threshold: 0, rootMargin: "200px" },
+      );
+
+      observer.observe(video);
+    }
+  });
+})();
+
+function clearAllVideoSources(video) {
+  // Remove src attribute from video element
+  video.removeAttribute("src");
+
+  // Clear all source elements
+  const sources = video.querySelectorAll("source");
+  sources.forEach((source) => {
+    source.removeAttribute("src");
+  });
+
+  // Trigger load to release resources
+  video.load();
+}
+
+function restoreVideoSources(video) {
+  if (!video.dataset.originalSources) return;
+
+  const sourcesData = JSON.parse(video.dataset.originalSources);
+  const sources = video.querySelectorAll("source");
+
+  sources.forEach((source, index) => {
+    if (sourcesData[index]) {
+      source.src = sourcesData[index].src;
+      source.type = sourcesData[index].type;
+      if (sourcesData[index].media) {
+        source.media = sourcesData[index].media;
+      }
+    }
+  });
+
+  // Reload the video with new sources
+  video.load();
+
+  // Wait for the video to be ready before playing
+  const onLoaded = () => {
+    video.play().catch((err) => console.log("Error playing video:", err));
+    video.removeEventListener("loadeddata", onLoaded);
+  };
+
+  video.addEventListener("loadeddata", onLoaded);
+}
+
+(function pricing_toggle_init() {
+  const pricing_card = document.querySelectorAll("[pricing-card]");
+
+  pricing_card.forEach((card) => {
+    const pricing_toggle = card.querySelector("[pricing-toggle]");
+    const pricing_toggle_dot = card.querySelector("[pricing-toggle-dot]");
+    const pricing_number = card.querySelector(".pricing-number");
+    const monthly_pricing = card.getAttribute("monthly-pricing");
+    const yearly_pricing = card.getAttribute("yearly-pricing");
+    const billed_text = card.querySelector("[billed-text]");
+
+    if (!pricing_toggle || !pricing_number) return;
+
+    let isMonthly = false;
+
+    // Keep prefix/suffix (e.g. "$", "/mo") and only count the numeric part.
+    function parseParts(value) {
+      const match = String(value).match(/-?[\d.,]+/);
+      if (!match) return { prefix: "", number: 0, suffix: "", decimals: 0 };
+      const numStr = match[0].replace(/,/g, "");
+      const decimals = numStr.includes(".") ? numStr.split(".")[1].length : 0;
+      return {
+        prefix: String(value).slice(0, match.index),
+        number: parseFloat(numStr),
+        suffix: String(value).slice(match.index + match[0].length),
+        decimals,
+      };
+    }
+
+    const counter = { value: parseParts(yearly_pricing).number };
+
+    function countTo(value) {
+      const { prefix, number, suffix, decimals } = parseParts(value);
+      gsap.to(counter, {
+        value: number,
+        duration: 0.3,
+        ease: "power2.out",
+        onUpdate: () => {
+          pricing_number.textContent =
+            prefix + counter.value.toFixed(decimals) + suffix;
+        },
+      });
+    }
+
+    pricing_toggle.addEventListener("click", () => {
+      isMonthly = !isMonthly;
+
+      billed_text.textContent = isMonthly ? "Billed Month" : "Billed Yearly";
+
+      gsap.to(pricing_toggle_dot, {
+        x: isMonthly ? -12 : 0,
+        duration: 0.2,
+        ease: "power2.inOut",
+      });
+
+      countTo(isMonthly ? monthly_pricing : yearly_pricing);
+    });
+  });
+})();
+
 liveReload();
 
 /* iPhone 14 Pro */
