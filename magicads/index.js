@@ -379,6 +379,34 @@ function restoreVideoSources(video) {
   });
 })();
 
+(function btn_rotate_init() {
+  const btn_rotate = document.querySelectorAll("[btn-rotate]");
+
+  btn_rotate.forEach((btn) => {
+    const btn_rotate_icon = btn.querySelector("[btn-rotate-icon]");
+    const btn_rotate_tl = gsap
+      .timeline({
+        paused: true,
+        defaults: {
+          duration: 0.5,
+          ease: "power2.inOut",
+        },
+      })
+      .to(btn_rotate_icon, {
+        rotate: 180,
+        duration: 1,
+        ease: "power3.inOut",
+      });
+
+    btn.addEventListener("mouseenter", () => {
+      if (btn_rotate_tl.isActive()) {
+        return;
+      }
+      btn_rotate_tl.restart();
+    });
+  });
+})();
+
 liveReload();
 
 /* iPhone 14 Pro */

@@ -16,13 +16,13 @@
   //       y: -520 becomes (-520 / 512) * 100 = -101.56%
   const POSITIONS = [
     { x: "-89.33%", y: "-271.56%", rot: -8, blur: 2, scale: 0.7 }, // far top-left
-    { x: "-80.00%", y: "-100.59%", rot: -14, blur: 0, scale: 0.85 }, // left
-    { x: "64.67%", y: "-130.34%", rot: 10, blur: 0, scale: 0.85 }, // lower-left
+    { x: "-80.00%", y: "-100.59%", rot: -14, scale: 0.85 }, // left
+    { x: "64.67%", y: "-130.34%", rot: 10, scale: 0.85 }, // lower-left
     // { x: "20.67%", y: "-350.09%", rot: 14, blur: 5, scale: 0.55 }, // top center-left (blurred)
-    { x: "-156.00%", y: "-100.00%", rot: -8, blur: 0, scale: 0.85 }, // top center-right (blurred)
-    { x: "-40.00%", y: "-50.38%", rot: -8, blur: 0, scale: 0.85 }, // top-right (blurred)
-    { x: "20%", y: "-100%", rot: 9, blur: 0, scale: 0.75 }, // right
-    // { x: "105.33%", y: "-203.44%", rot: 12, blur: 0, scale: 0.7 }, // lower-right
+    { x: "-156.00%", y: "-100.00%", rot: -8, scale: 0.85 }, // top center-right (blurred)
+    { x: "-40.00%", y: "-50.38%", rot: -8, scale: 0.85 }, // top-right (blurred)
+    { x: "20%", y: "-100%", rot: 9, scale: 0.75 }, // right
+    // { x: "105.33%", y: "-203.44%", rot: 12, scale: 0.7 }, // lower-right
   ];
 
   const fallback = (i) => ({
