@@ -412,7 +412,7 @@ function restoreVideoSources(video) {
   if (!shimmer_details.length) return;
 
   const STEP = 3; // seconds between each shimmer trigger
-  const SWEEP = 0.9; // shimmer stripe sweep duration
+  const SWEEP = 1.6; // shimmer stripe sweep duration
   const FADE = 0.4; // crossfade duration
 
   const items = Array.from(shimmer_details).map((shimmer) => {
