@@ -408,6 +408,7 @@ function restoreVideoSources(video) {
 })();
 
 (function shimmer_details_init() {
+  const shimmer_wpr = document.querySelector("[shimmer-wpr]");
   const shimmer_details = document.querySelectorAll("[shimmer-details]");
   if (!shimmer_details.length) return;
 
@@ -447,7 +448,7 @@ function restoreVideoSources(video) {
   const contents = items.map((i) => i.content);
   const actives = items.map((i) => i.active);
 
-  const tl = gsap.timeline({ repeat: -1, repeatDelay: STEP });
+  const tl = gsap.timeline({ repeat: -1, repeatDelay: STEP, paused: true });
 
   items.forEach(({ content, active, stripe }, i) => {
     const at = i * STEP;
@@ -473,6 +474,20 @@ function restoreVideoSources(video) {
     { autoAlpha: 1, duration: FADE },
     resetAt,
   );
+
+  // Only run the loop while the wrapper is in view.
+  const trigger = shimmer_wpr || shimmer_details[0];
+  const observer = new IntersectionObserver(
+    ([entry]) => {
+      if (entry.isIntersecting) {
+        tl.play();
+      } else {
+        tl.pause();
+      }
+    },
+    { threshold: 0 },
+  );
+  observer.observe(trigger);
 })();
 
 liveReload();
