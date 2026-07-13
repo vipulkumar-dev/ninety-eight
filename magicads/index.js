@@ -407,6 +407,74 @@ function restoreVideoSources(video) {
   });
 })();
 
+(function shimmer_details_init() {
+  const shimmer_details = document.querySelectorAll("[shimmer-details]");
+  if (!shimmer_details.length) return;
+
+  const STEP = 3; // seconds between each shimmer trigger
+  const SWEEP = 0.9; // shimmer stripe sweep duration
+  const FADE = 0.4; // crossfade duration
+
+  const items = Array.from(shimmer_details).map((shimmer) => {
+    const content = shimmer.querySelector("[shimmer-content]");
+    const active = shimmer.querySelector("[shimmer-content-active]");
+
+    // Inject the glowing stripe that sweeps across the detail.
+    shimmer.style.position ||= "relative";
+    shimmer.style.overflow = "hidden";
+
+    const stripe = document.createElement("div");
+    Object.assign(stripe.style, {
+      position: "absolute",
+      top: "0",
+      left: "0",
+      width: "40%",
+      height: "100%",
+      pointerEvents: "none",
+      background:
+        "linear-gradient(100deg, transparent 0%, rgba(255,255,255,0.65) 50%, transparent 100%)",
+      zIndex: "2",
+    });
+    shimmer.appendChild(stripe);
+
+    gsap.set(stripe, { xPercent: -120, autoAlpha: 0 });
+    gsap.set(content, { autoAlpha: 1 });
+    gsap.set(active, { autoAlpha: 0 });
+
+    return { content, active, stripe };
+  });
+
+  const contents = items.map((i) => i.content);
+  const actives = items.map((i) => i.active);
+
+  const tl = gsap.timeline({ repeat: -1, repeatDelay: STEP });
+
+  items.forEach(({ content, active, stripe }, i) => {
+    const at = i * STEP;
+
+    tl.to(stripe, { autoAlpha: 1, duration: 0.15 }, at)
+      .fromTo(
+        stripe,
+        { xPercent: -120 },
+        { xPercent: 260, duration: SWEEP, ease: "power2.inOut" },
+        at,
+      )
+      .to(stripe, { autoAlpha: 0, duration: 0.15 }, at + SWEEP - 0.15)
+      // crossfade to the active state once the stripe has passed
+      .to(content, { autoAlpha: 0, duration: FADE }, at + SWEEP * 0.7)
+      .to(active, { autoAlpha: 1, duration: FADE }, at + SWEEP * 0.7);
+  });
+
+  // After the last one, crossfade everything back to the inactive state,
+  // then the loop restarts from the first.
+  const resetAt = items.length * STEP;
+  tl.to(actives, { autoAlpha: 0, duration: FADE }, resetAt).to(
+    contents,
+    { autoAlpha: 1, duration: FADE },
+    resetAt,
+  );
+})();
+
 liveReload();
 
 /* iPhone 14 Pro */
