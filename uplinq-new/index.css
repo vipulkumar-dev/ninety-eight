@@ -38,3 +38,7 @@
 .ai-engine-tab.w--current .ai-engine-number {
   color: #2deef5 !important;
 }
+
+* {
+  opacity: 0 !important;
+}
