@@ -54,6 +54,9 @@ if (header) {
 
   gsap.registerPlugin(ScrollTrigger);
 
+  // Don't let mobile URL-bar height changes trigger a refresh mid-scroll.
+  ScrollTrigger.config({ ignoreMobileResize: true });
+
   // Trigger off the wrapper if it exists, otherwise the first card's section.
   const wrapper =
     document.querySelector(".dashboard-card-wpr") ||
@@ -153,10 +156,16 @@ if (header) {
 
   let tl = build();
 
+  // Mobile browsers fire resize when the URL bar shows/hides during scroll.
+  // Only rebuild when the width actually changes, otherwise the rebuild +
+  // ScrollTrigger.refresh() kills the scroll momentum mid-scroll.
+  let lastWidth = window.innerWidth;
   let resizeTimer;
   window.addEventListener("resize", () => {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(() => {
+      if (window.innerWidth === lastWidth) return;
+      lastWidth = window.innerWidth;
       tl && tl.scrollTrigger && tl.scrollTrigger.kill();
       tl && tl.kill();
       gsap.set(cards, { clearProps: "all" });
