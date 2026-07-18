@@ -44,6 +44,52 @@ if (header) {
       header.classList.remove("active");
     }
   });
+
+  const menu_tl = gsap.timeline({
+    paused: true,
+    defaults: {
+      duration: 0.3,
+      ease: "power3.inOut",
+    },
+  });
+
+  menu_tl
+    .to(".menu-line-wpr", {
+      gap: "0px",
+    })
+    .set(".menu-line.bottom", {
+      width: "100%",
+    })
+    .set(".menu-line.middle", {
+      opacity: 0,
+    })
+    .to(".menu-line.top", {
+      rotate: "45deg",
+    })
+    .to(
+      ".menu-line.bottom",
+      {
+        rotate: "-45deg",
+      },
+      "<",
+    )
+    .fromTo(
+      ".navigation_wrapper",
+      { y: "-100%" },
+      { y: "0%", duration: 0.5 },
+      "<",
+    );
+
+  const menu_trigger = document.querySelector("[menu_trigger]");
+
+  menu_trigger?.addEventListener("click", () => {
+    if (!isMenuOpen) {
+      menu_tl.play();
+    } else {
+      menu_tl.reverse();
+    }
+    isMenuOpen = !isMenuOpen;
+  });
 }
 
 //https://hook.us2.make.com/1dajp1mas73o6alqxt7j1okw98neoynj
