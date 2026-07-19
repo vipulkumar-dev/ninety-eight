@@ -588,12 +588,18 @@ function restoreVideoSources(video) {
 
 (function shimmer_details_init() {
   const shimmer_wpr = document.querySelector("[shimmer-wpr]");
+  const shimmer_inner_wpr = document.querySelector("[shimmer-inner-wpr]");
   const shimmer_details = document.querySelectorAll("[shimmer-details]");
+  const shimmer_after_checks = document.querySelector("[shimmer-after-checks]");
   if (!shimmer_details.length) return;
 
   const STEP = 3; // seconds between each shimmer trigger
   const SWEEP = 1.6; // shimmer stripe sweep duration
   const FADE = 0.4; // crossfade duration
+  const AFTER_DELAY = 3; // wait after all checks before collapsing
+  const AFTER_HOLD = 5; // hold the after-checks state
+  const HEIGHT_DUR = 0.8; // height + crossfade duration
+  const AFTER_HEIGHT = 450;
 
   const items = Array.from(shimmer_details).map((shimmer) => {
     const content = shimmer.querySelector("[shimmer-content]");
@@ -627,6 +633,12 @@ function restoreVideoSources(video) {
   const contents = items.map((i) => i.content);
   const actives = items.map((i) => i.active);
 
+  if (shimmer_inner_wpr) gsap.set(shimmer_inner_wpr, { autoAlpha: 1 });
+  if (shimmer_after_checks) gsap.set(shimmer_after_checks, { autoAlpha: 0 });
+  if (shimmer_wpr) {
+    gsap.set(shimmer_wpr, { height: "auto" });
+  }
+
   const tl = gsap.timeline({ repeat: -1, repeatDelay: STEP, paused: true });
 
   items.forEach(({ content, active, stripe }, i) => {
@@ -645,14 +657,54 @@ function restoreVideoSources(video) {
       .to(active, { autoAlpha: 1, duration: FADE }, at + SWEEP * 0.7);
   });
 
-  // After the last one, crossfade everything back to the inactive state,
-  // then the loop restarts from the first.
-  const resetAt = items.length * STEP;
-  tl.to(actives, { autoAlpha: 0, duration: FADE }, resetAt).to(
-    contents,
-    { autoAlpha: 1, duration: FADE },
-    resetAt,
-  );
+  // After all checks finish, wait AFTER_DELAY, then collapse + show after-checks.
+  const checksDoneAt = (items.length - 1) * STEP + SWEEP * 0.7 + FADE;
+  const showAfterAt = checksDoneAt + AFTER_DELAY;
+  const hideAfterAt = showAfterAt + HEIGHT_DUR + AFTER_HOLD;
+
+  if (shimmer_wpr && shimmer_inner_wpr && shimmer_after_checks) {
+    tl.to(
+      shimmer_wpr,
+      { height: AFTER_HEIGHT, duration: HEIGHT_DUR, ease: "power2.inOut" },
+      showAfterAt,
+    )
+      .to(
+        shimmer_inner_wpr,
+        { autoAlpha: 0, duration: HEIGHT_DUR, ease: "power2.inOut" },
+        showAfterAt,
+      )
+      .to(
+        shimmer_after_checks,
+        { autoAlpha: 1, duration: HEIGHT_DUR, ease: "power2.inOut" },
+        showAfterAt,
+      )
+      // Hold AFTER_HOLD, then expand back and restore the checks view.
+      .to(
+        shimmer_wpr,
+        { height: "auto", duration: HEIGHT_DUR, ease: "power2.inOut" },
+        hideAfterAt,
+      )
+      .to(
+        shimmer_after_checks,
+        { autoAlpha: 0, duration: HEIGHT_DUR, ease: "power2.inOut" },
+        hideAfterAt,
+      )
+      .to(
+        shimmer_inner_wpr,
+        { autoAlpha: 1, duration: HEIGHT_DUR, ease: "power2.inOut" },
+        hideAfterAt,
+      )
+      .to(actives, { autoAlpha: 0, duration: FADE }, hideAfterAt)
+      .to(contents, { autoAlpha: 1, duration: FADE }, hideAfterAt);
+  } else {
+    // Fallback: no after-checks markup — just reset checks like before.
+    const resetAt = items.length * STEP;
+    tl.to(actives, { autoAlpha: 0, duration: FADE }, resetAt).to(
+      contents,
+      { autoAlpha: 1, duration: FADE },
+      resetAt,
+    );
+  }
 
   // Only run the loop while the wrapper is in view.
   const trigger = shimmer_wpr || shimmer_details[0];
