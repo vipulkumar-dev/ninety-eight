@@ -593,10 +593,10 @@ function restoreVideoSources(video) {
   const shimmer_after_checks = document.querySelector("[shimmer-after-checks]");
   if (!shimmer_details.length) return;
 
-  const STEP = 3; // seconds between each shimmer trigger
+  const STEP = 2; // seconds between each shimmer trigger
   const SWEEP = 1.6; // shimmer stripe sweep duration
   const FADE = 0.4; // crossfade duration
-  const AFTER_DELAY = 3; // wait after all checks before collapsing
+  const AFTER_DELAY = 0.5; // wait after all checks before collapsing
   const AFTER_HOLD = 5; // hold the after-checks state
   const HEIGHT_DUR = 0.8; // height + crossfade duration
   const AFTER_HEIGHT = 450;
