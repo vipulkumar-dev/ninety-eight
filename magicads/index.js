@@ -548,7 +548,7 @@ function restoreVideoSources(video) {
       billed_text.textContent = isMonthly ? "Billed Month" : "Billed Yearly";
 
       gsap.to(pricing_toggle_dot, {
-        x: isMonthly ? -12 : 0,
+        x: isMonthly ? "-0.75rem" : "0",
         duration: 0.2,
         ease: "power2.inOut",
       });
