@@ -202,26 +202,45 @@ if (header) {
 
   let tl = build();
 
-  // Mobile browsers fire resize when the URL bar shows/hides during scroll.
-  // Only rebuild when the width actually changes, otherwise the rebuild +
-  // ScrollTrigger.refresh() kills the scroll momentum mid-scroll.
+  // Rebuild only on real layout changes (orientation / desktop resize).
+  // Pinch-zoom fires resize and changes innerWidth on many mobile browsers —
+  // killing/rebuilding scrubbed timelines + ScrollTrigger.refresh() mid-zoom
+  // freezes the page until reload.
   let lastWidth = window.innerWidth;
   let resizeTimer;
+
+  function rebuildCards() {
+    const width = window.innerWidth;
+    if (width === lastWidth) return;
+    // Ignore tiny width jitter from zoom / dynamic toolbars.
+    if (Math.abs(width - lastWidth) < 50) return;
+    // Never rebuild while the page is pinch-zoomed.
+    if (window.visualViewport && window.visualViewport.scale !== 1) return;
+
+    lastWidth = width;
+    tl && tl.scrollTrigger && tl.scrollTrigger.kill();
+    tl && tl.kill();
+    gsap.set(cards, { clearProps: "all" });
+    cards.forEach((c) => {
+      const inner = c.querySelector(".dashboard-card-inner");
+      if (inner) gsap.set(inner, { clearProps: "all" });
+    });
+    tl = build();
+    ScrollTrigger.refresh();
+  }
+
   window.addEventListener("resize", () => {
     clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(rebuildCards, 250);
+  });
+
+  // Prefer orientationchange on mobile — avoids zoom-driven rebuilds.
+  window.addEventListener("orientationchange", () => {
+    clearTimeout(resizeTimer);
     resizeTimer = setTimeout(() => {
-      if (window.innerWidth === lastWidth) return;
-      lastWidth = window.innerWidth;
-      tl && tl.scrollTrigger && tl.scrollTrigger.kill();
-      tl && tl.kill();
-      gsap.set(cards, { clearProps: "all" });
-      cards.forEach((c) => {
-        const inner = c.querySelector(".dashboard-card-inner");
-        if (inner) gsap.set(inner, { clearProps: "all" });
-      });
-      tl = build();
-      ScrollTrigger.refresh();
-    }, 250);
+      lastWidth = 0; // force rebuild after rotate
+      rebuildCards();
+    }, 300);
   });
 })();
 
@@ -285,6 +304,8 @@ if (header) {
       slideToClickedSlide: true,
       loop: true,
       grabCursor: true,
+      // Allow pinch-zoom when touch starts on the swiper (default preventDefault blocks it).
+      touchStartPreventDefault: false,
       on: linkVideo
         ? {
             init: syncVideo,
@@ -340,7 +361,6 @@ if (header) {
           ease: "power3.inOut",
         },
         onReverseComplete: () => {
-          lenis.resize();
           ScrollTrigger.refresh();
         },
       })
