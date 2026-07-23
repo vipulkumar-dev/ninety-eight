@@ -100,8 +100,15 @@ if (header) {
 
   gsap.registerPlugin(ScrollTrigger);
 
-  // Don't let mobile URL-bar height changes trigger a refresh mid-scroll.
-  ScrollTrigger.config({ ignoreMobileResize: true });
+  // Only WIDTH changes should ever refresh ScrollTrigger. Height-only changes
+  // (mobile address bar, the shimmer height animation, FAQ open/close) must NOT
+  // trigger a refresh — on mobile that freezes the page. We drop "resize" from
+  // autoRefreshEvents (default includes it) and refresh manually on real width
+  // changes in the width-gated handler below.
+  ScrollTrigger.config({
+    ignoreMobileResize: true,
+    autoRefreshEvents: "visibilitychange,DOMContentLoaded,load",
+  });
 
   // Trigger off the wrapper if it exists, otherwise the first card's section.
   const wrapper =
