@@ -107,7 +107,7 @@ if (header) {
   // changes in the width-gated handler below.
   ScrollTrigger.config({
     ignoreMobileResize: true,
-    autoRefreshEvents: "visibilitychange,DOMContentLoaded,load",
+    // autoRefreshEvents: "visibilitychange,DOMContentLoaded,load",
   });
 
   // Trigger off the wrapper if it exists, otherwise the first card's section.
