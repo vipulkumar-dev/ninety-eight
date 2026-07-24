@@ -626,7 +626,9 @@ function restoreVideoSources(video) {
   const AFTER_DELAY = 0.5; // wait after all checks before collapsing
   const AFTER_HOLD = 5; // hold the after-checks state
   const HEIGHT_DUR = 0.8; // height + crossfade duration
-  const AFTER_HEIGHT = isDesktop ? 450 : "auto";
+
+  const measureHeight = (el) =>
+    el ? Math.ceil(el.getBoundingClientRect().height) : 0;
 
   const items = Array.from(shimmer_details).map((shimmer) => {
     const content = shimmer.querySelector("[shimmer-content]");
@@ -662,8 +664,20 @@ function restoreVideoSources(video) {
 
   if (shimmer_inner_wpr) gsap.set(shimmer_inner_wpr, { autoAlpha: 1 });
   if (shimmer_after_checks) gsap.set(shimmer_after_checks, { autoAlpha: 0 });
-  if (shimmer_wpr) {
+
+  // Desktop collapses the wrapper to a fixed height and crossfades the overlay
+  // inside it. On mobile that per-frame height animation reflowed the whole page
+  // and crashed the tab ("page not available"), so there we DON'T animate height
+  // at all — we only crossfade, and reserve space once with a static min-height
+  // so the after-checks overlay can't overflow into the next section.
+  if (shimmer_wpr && isDesktop) {
+    shimmer_wpr.style.overflow = "hidden";
     gsap.set(shimmer_wpr, { height: "auto" });
+  } else if (shimmer_wpr && shimmer_after_checks) {
+    requestAnimationFrame(() => {
+      const h = measureHeight(shimmer_after_checks);
+      if (h) shimmer_wpr.style.minHeight = `${h}px`;
+    });
   }
 
   const tl = gsap.timeline({ repeat: -1, repeatDelay: STEP, paused: true });
@@ -690,32 +704,32 @@ function restoreVideoSources(video) {
   const hideAfterAt = showAfterAt + HEIGHT_DUR + AFTER_HOLD;
 
   if (shimmer_wpr && shimmer_inner_wpr && shimmer_after_checks) {
+    // Crossfade inner -> after (all breakpoints).
     tl.to(
-      shimmer_wpr,
-      { height: AFTER_HEIGHT, duration: HEIGHT_DUR, ease: "power2.inOut" },
+      shimmer_inner_wpr,
+      { autoAlpha: 0, duration: HEIGHT_DUR, ease: "power2.inOut" },
       showAfterAt,
-    )
-      .to(
-        shimmer_inner_wpr,
-        { autoAlpha: 0, duration: HEIGHT_DUR, ease: "power2.inOut" },
-        showAfterAt,
-      )
-      .to(
-        shimmer_after_checks,
-        { autoAlpha: 1, duration: HEIGHT_DUR, ease: "power2.inOut" },
-        showAfterAt,
-      )
-      // Hold AFTER_HOLD, then expand back and restore the checks view.
-      .to(
+    ).to(
+      shimmer_after_checks,
+      { autoAlpha: 1, duration: HEIGHT_DUR, ease: "power2.inOut" },
+      showAfterAt,
+    );
+
+    // Height collapse ONLY on desktop — animating it on mobile crashed the tab.
+    if (isDesktop) {
+      tl.to(
         shimmer_wpr,
-        { height: "auto", duration: HEIGHT_DUR, ease: "power2.inOut" },
-        hideAfterAt,
-      )
-      .to(
-        shimmer_after_checks,
-        { autoAlpha: 0, duration: HEIGHT_DUR, ease: "power2.inOut" },
-        hideAfterAt,
-      )
+        { height: 450, duration: HEIGHT_DUR, ease: "power2.inOut" },
+        showAfterAt,
+      );
+    }
+
+    // Hold AFTER_HOLD, then crossfade back and restore the checks view.
+    tl.to(
+      shimmer_after_checks,
+      { autoAlpha: 0, duration: HEIGHT_DUR, ease: "power2.inOut" },
+      hideAfterAt,
+    )
       .to(
         shimmer_inner_wpr,
         { autoAlpha: 1, duration: HEIGHT_DUR, ease: "power2.inOut" },
@@ -723,6 +737,14 @@ function restoreVideoSources(video) {
       )
       .to(actives, { autoAlpha: 0, duration: FADE }, hideAfterAt)
       .to(contents, { autoAlpha: 1, duration: FADE }, hideAfterAt);
+
+    if (isDesktop) {
+      tl.to(
+        shimmer_wpr,
+        { height: "auto", duration: HEIGHT_DUR, ease: "power2.inOut" },
+        hideAfterAt,
+      );
+    }
   } else {
     // Fallback: no after-checks markup — just reset checks like before.
     const resetAt = items.length * STEP;
