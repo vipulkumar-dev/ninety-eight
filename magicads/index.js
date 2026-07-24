@@ -626,7 +626,7 @@ function restoreVideoSources(video) {
   const AFTER_DELAY = 0.5; // wait after all checks before collapsing
   const AFTER_HOLD = 5; // hold the after-checks state
   const HEIGHT_DUR = 0.8; // height + crossfade duration
-  const AFTER_HEIGHT = 450;
+  const AFTER_HEIGHT = isDesktop ? 450 : "auto";
 
   const items = Array.from(shimmer_details).map((shimmer) => {
     const content = shimmer.querySelector("[shimmer-content]");
